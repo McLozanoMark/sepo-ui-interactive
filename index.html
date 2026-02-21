@@ -239,6 +239,35 @@
           0 2px 8px rgba(0, 0, 0, 0.04);
       }
 
+      /* Botones acción tarjeta */
+      .btn-action {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        flex-shrink: 0;
+      }
+      .btn-edit {
+        background: #eff6ff;
+        color: var(--primary);
+      }
+      .btn-edit:hover {
+        background: #dbeafe;
+        transform: scale(1.1);
+      }
+      .btn-del {
+        background: #fff1f2;
+        color: #e11d48;
+      }
+      .btn-del:hover {
+        background: #ffe4e6;
+        transform: scale(1.1);
+      }
+
       /* BADGES/PILDORAS */
       .tag,
       .b-activo,
@@ -458,9 +487,7 @@
         }
       }
 
-      /* ─── PRUEBAS PSICOLÓGICAS ESPECÍFICO ─── */
-
-      /* Tarjeta Prueba: layout distinto al simple */
+      /* ─── PRUEBAS PSICOLÓGICAS ─── */
       .card-prueba {
         background: var(--surface);
         border-radius: 20px;
@@ -478,7 +505,6 @@
         box-shadow: var(--shadow-hover);
         border-color: rgba(21, 101, 192, 0.2);
       }
-
       .prueba-cover {
         width: 72px;
         flex-shrink: 0;
@@ -486,7 +512,6 @@
         align-items: center;
         justify-content: center;
         font-size: 1.6rem;
-        border-radius: 0;
       }
       .prueba-body {
         flex-grow: 1;
@@ -506,8 +531,6 @@
         gap: 8px;
         flex-wrap: wrap;
       }
-
-      /* Barra de avance */
       .progress-wrap {
         display: flex;
         align-items: center;
@@ -532,8 +555,6 @@
         text-align: right;
         color: var(--primary);
       }
-
-      /* Pasos del avance */
       .steps-mini {
         display: flex;
         gap: 6px;
@@ -557,8 +578,6 @@
         color: #94a3b8;
         border: 1px solid #e2e8f0;
       }
-
-      /* Acciones prueba */
       .prueba-actions {
         display: flex;
         flex-direction: column;
@@ -569,7 +588,7 @@
         flex-shrink: 0;
       }
 
-      /* Modal prueba: stepper lateral */
+      /* Modal prueba: stepper */
       .stepper {
         display: flex;
         flex-direction: column;
@@ -626,7 +645,6 @@
         font-size: 0.78rem;
         color: var(--text-muted);
       }
-
       .tab-pane-custom {
         display: none;
       }
@@ -649,7 +667,6 @@
     <!-- Sidebar -->
     <nav class="sidebar">
       <div class="sidebar-brand"><i class="fas fa-brain"></i> SEPO</div>
-
       <div class="sidebar-section mt-2">Principal</div>
       <ul class="nav flex-column">
         <li>
@@ -668,7 +685,6 @@
           >
         </li>
       </ul>
-
       <div class="sidebar-section mt-4">Mantenimientos</div>
       <ul class="nav flex-column">
         <li>
@@ -754,9 +770,8 @@
           </div>
         </div>
 
-        <!-- Lista de pruebas demo -->
         <div id="listaPruebas">
-          <!-- Prueba 1: Activa, 100% -->
+          <!-- Prueba 1 -->
           <div
             class="card-prueba"
             data-nombre="Escala de Ansiedad de Beck"
@@ -778,8 +793,7 @@
                     color: var(--text-muted);
                   "
                   >PSI-ANS-001</span
-                >
-                <span class="muted-dot">•</span>
+                ><span class="muted-dot">•</span>
                 <span class="tag-tipo tag"
                   ><i class="fas fa-tag me-1"></i>Ingreso</span
                 >
@@ -818,18 +832,24 @@
             </div>
             <div class="prueba-actions">
               <button
-                class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
-                style="width: 40px; height: 40px"
+                class="btn-action btn-edit"
                 data-bs-toggle="modal"
                 data-bs-target="#modalPrueba"
                 onclick="editarPrueba('PSI-ANS-001')"
+                title="Editar"
               >
-                <i class="fas fa-pen text-primary"></i>
+                <i class="fas fa-pen"></i>
+              </button>
+              <button
+                class="btn-action btn-del"
+                onclick="eliminarRegistro(this, 'card-prueba')"
+                title="Eliminar"
+              >
+                <i class="fas fa-trash"></i>
               </button>
             </div>
           </div>
-
-          <!-- Prueba 2: Borrador, 40% -->
+          <!-- Prueba 2 -->
           <div
             class="card-prueba"
             data-nombre="Competencias Laborales Volcán"
@@ -851,8 +871,7 @@
                     color: var(--text-muted);
                   "
                   >PSI-CMP-002</span
-                >
-                <span class="muted-dot">•</span>
+                ><span class="muted-dot">•</span>
                 <span class="tag-tipo tag"
                   ><i class="fas fa-tag me-1"></i>Periódico</span
                 >
@@ -891,18 +910,24 @@
             </div>
             <div class="prueba-actions">
               <button
-                class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
-                style="width: 40px; height: 40px"
+                class="btn-action btn-edit"
                 data-bs-toggle="modal"
                 data-bs-target="#modalPrueba"
                 onclick="editarPrueba('PSI-CMP-002')"
+                title="Editar"
               >
-                <i class="fas fa-pen text-primary"></i>
+                <i class="fas fa-pen"></i>
+              </button>
+              <button
+                class="btn-action btn-del"
+                onclick="eliminarRegistro(this, 'card-prueba')"
+                title="Eliminar"
+              >
+                <i class="fas fa-trash"></i>
               </button>
             </div>
           </div>
-
-          <!-- Prueba 3: Borrador, 20% -->
+          <!-- Prueba 3 -->
           <div
             class="card-prueba"
             data-nombre="Evaluación Psicológica – Altura"
@@ -924,8 +949,7 @@
                     color: var(--text-muted);
                   "
                   >PSI-ALT-003</span
-                >
-                <span class="muted-dot">•</span>
+                ><span class="muted-dot">•</span>
                 <span class="tag-tipo tag"
                   ><i class="fas fa-tag me-1"></i>Altura</span
                 >
@@ -964,18 +988,24 @@
             </div>
             <div class="prueba-actions">
               <button
-                class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
-                style="width: 40px; height: 40px"
+                class="btn-action btn-edit"
                 data-bs-toggle="modal"
                 data-bs-target="#modalPrueba"
                 onclick="editarPrueba('PSI-ALT-003')"
+                title="Editar"
               >
-                <i class="fas fa-pen text-primary"></i>
+                <i class="fas fa-pen"></i>
+              </button>
+              <button
+                class="btn-action btn-del"
+                onclick="eliminarRegistro(this, 'card-prueba')"
+                title="Eliminar"
+              >
+                <i class="fas fa-trash"></i>
               </button>
             </div>
           </div>
-
-          <!-- Prueba 4: Cesado -->
+          <!-- Prueba 4 -->
           <div
             class="card-prueba"
             data-nombre="Entrevista Psicológica Chinalco"
@@ -997,8 +1027,7 @@
                     color: var(--text-muted);
                   "
                   >PSI-CHI-004</span
-                >
-                <span class="muted-dot">•</span>
+                ><span class="muted-dot">•</span>
                 <span class="tag-tipo tag"
                   ><i class="fas fa-tag me-1"></i>Retiro</span
                 >
@@ -1036,18 +1065,24 @@
             </div>
             <div class="prueba-actions">
               <button
-                class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
-                style="width: 40px; height: 40px"
+                class="btn-action btn-edit"
                 data-bs-toggle="modal"
                 data-bs-target="#modalPrueba"
                 onclick="editarPrueba('PSI-CHI-004')"
+                title="Editar"
               >
-                <i class="fas fa-pen text-primary"></i>
+                <i class="fas fa-pen"></i>
+              </button>
+              <button
+                class="btn-action btn-del"
+                onclick="eliminarRegistro(this, 'card-prueba')"
+                title="Eliminar"
+              >
+                <i class="fas fa-trash"></i>
               </button>
             </div>
           </div>
         </div>
-        <!-- /listaPruebas -->
 
         <nav aria-label="Paginación">
           <ul class="pagination justify-content-end">
@@ -1096,6 +1131,7 @@
             </button>
           </div>
         </div>
+
         <div class="card-item">
           <div
             class="icon-box"
@@ -1119,16 +1155,26 @@
               San Borja · (Lima / Lima)</small
             >
           </div>
-          <button
-            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
-            style="width: 40px; height: 40px"
-            data-bs-toggle="modal"
-            data-bs-target="#modalCentro"
-            onclick="editarCentro('CM-001', true, true)"
-          >
-            <i class="fas fa-pen text-primary"></i>
-          </button>
+          <div class="d-flex gap-2">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-001', true, true)"
+              title="Editar"
+            >
+              <i class="fas fa-pen"></i>
+            </button>
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
+
         <div class="card-item">
           <div class="icon-box" style="background: #f1f5f9; color: #64748b">
             <i class="fas fa-building"></i>
@@ -1145,16 +1191,26 @@
               Lince · (Lima / Lima)</small
             >
           </div>
-          <button
-            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
-            style="width: 40px; height: 40px"
-            data-bs-toggle="modal"
-            data-bs-target="#modalCentro"
-            onclick="editarCentro('CM-002', false, false)"
-          >
-            <i class="fas fa-pen text-primary"></i>
-          </button>
+          <div class="d-flex gap-2">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-002', false, false)"
+              title="Editar"
+            >
+              <i class="fas fa-pen"></i>
+            </button>
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
+
         <nav aria-label="Paginación">
           <ul class="pagination justify-content-end">
             <li class="page-item disabled">
@@ -1207,15 +1263,24 @@
             ><span class="fw-semibold">Universitario Completo</span
             ><span class="b-activo ms-auto">Activo</span>
           </div>
-          <button
-            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center ms-3"
-            style="width: 40px; height: 40px"
-            data-bs-toggle="modal"
-            data-bs-target="#modalSimple"
-            onclick="editarSimple('GI-001', 'Universitario Completo')"
-          >
-            <i class="fas fa-pen text-primary"></i>
-          </button>
+          <div class="d-flex gap-2">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              onclick="editarSimple('GI-001', 'Universitario Completo')"
+              title="Editar"
+            >
+              <i class="fas fa-pen"></i>
+            </button>
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
         <div class="card-item">
           <div class="flex-grow-1 d-flex align-items-center gap-3">
@@ -1224,15 +1289,24 @@
             ><span class="fw-semibold">Universitario Incompleto</span
             ><span class="b-activo ms-auto">Activo</span>
           </div>
-          <button
-            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center ms-3"
-            style="width: 40px; height: 40px"
-            data-bs-toggle="modal"
-            data-bs-target="#modalSimple"
-            onclick="editarSimple('GI-002', 'Universitario Incompleto')"
-          >
-            <i class="fas fa-pen text-primary"></i>
-          </button>
+          <div class="d-flex gap-2">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              onclick="editarSimple('GI-002', 'Universitario Incompleto')"
+              title="Editar"
+            >
+              <i class="fas fa-pen"></i>
+            </button>
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
         <div class="card-item">
           <div class="flex-grow-1 d-flex align-items-center gap-3">
@@ -1241,15 +1315,24 @@
             ><span class="fw-semibold text-muted">Técnico Superior</span
             ><span class="b-cesado ms-auto">Cesado</span>
           </div>
-          <button
-            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center ms-3"
-            style="width: 40px; height: 40px"
-            data-bs-toggle="modal"
-            data-bs-target="#modalSimple"
-            onclick="editarSimple('GI-003', 'Técnico Superior')"
-          >
-            <i class="fas fa-pen text-primary"></i>
-          </button>
+          <div class="d-flex gap-2">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              onclick="editarSimple('GI-003', 'Técnico Superior')"
+              title="Editar"
+            >
+              <i class="fas fa-pen"></i>
+            </button>
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
         <nav aria-label="Paginación">
           <ul class="pagination justify-content-end">
@@ -1298,14 +1381,23 @@
             ><span class="fw-semibold">Coordinador Administrativo</span
             ><span class="b-activo ms-auto">Activo</span>
           </div>
-          <button
-            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center ms-3"
-            style="width: 40px; height: 40px"
-            data-bs-toggle="modal"
-            data-bs-target="#modalSimple"
-          >
-            <i class="fas fa-pen text-primary"></i>
-          </button>
+          <div class="d-flex gap-2">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              title="Editar"
+            >
+              <i class="fas fa-pen"></i>
+            </button>
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
         <div class="card-item">
           <div class="flex-grow-1 d-flex align-items-center gap-3">
@@ -1314,14 +1406,23 @@
             ><span class="fw-semibold">Auxiliar de Enfermería</span
             ><span class="b-activo ms-auto">Activo</span>
           </div>
-          <button
-            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center ms-3"
-            style="width: 40px; height: 40px"
-            data-bs-toggle="modal"
-            data-bs-target="#modalSimple"
-          >
-            <i class="fas fa-pen text-primary"></i>
-          </button>
+          <div class="d-flex gap-2">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              title="Editar"
+            >
+              <i class="fas fa-pen"></i>
+            </button>
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
         <nav aria-label="Paginación">
           <ul class="pagination justify-content-end">
@@ -1370,14 +1471,23 @@
             ><span class="fw-semibold">Administrativos</span
             ><span class="b-activo ms-auto">Activo</span>
           </div>
-          <button
-            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center ms-3"
-            style="width: 40px; height: 40px"
-            data-bs-toggle="modal"
-            data-bs-target="#modalSimple"
-          >
-            <i class="fas fa-pen text-primary"></i>
-          </button>
+          <div class="d-flex gap-2">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              title="Editar"
+            >
+              <i class="fas fa-pen"></i>
+            </button>
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
         <div class="card-item">
           <div class="flex-grow-1 d-flex align-items-center gap-3">
@@ -1386,14 +1496,23 @@
             ><span class="fw-semibold">Operarios</span
             ><span class="b-activo ms-auto">Activo</span>
           </div>
-          <button
-            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center ms-3"
-            style="width: 40px; height: 40px"
-            data-bs-toggle="modal"
-            data-bs-target="#modalSimple"
-          >
-            <i class="fas fa-pen text-primary"></i>
-          </button>
+          <div class="d-flex gap-2">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              title="Editar"
+            >
+              <i class="fas fa-pen"></i>
+            </button>
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
         <div class="card-item">
           <div class="flex-grow-1 d-flex align-items-center gap-3">
@@ -1402,14 +1521,23 @@
             ><span class="fw-semibold">Operativos</span
             ><span class="b-activo ms-auto">Activo</span>
           </div>
-          <button
-            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center ms-3"
-            style="width: 40px; height: 40px"
-            data-bs-toggle="modal"
-            data-bs-target="#modalSimple"
-          >
-            <i class="fas fa-pen text-primary"></i>
-          </button>
+          <div class="d-flex gap-2">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              title="Editar"
+            >
+              <i class="fas fa-pen"></i>
+            </button>
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
         <nav aria-label="Paginación">
           <ul class="pagination justify-content-end">
@@ -1479,19 +1607,28 @@
             </div>
             <small class="text-muted d-flex align-items-center gap-2 mt-2"
               ><i class="fas fa-level-down-alt text-secondary"></i> Fichas:
-              <span class="tag tag-fich">CPS-001</span>
-              <span class="tag tag-fich">CPS-010</span></small
+              <span class="tag tag-fich">CPS-001</span
+              ><span class="tag tag-fich">CPS-010</span></small
             >
           </div>
-          <button
-            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
-            style="width: 40px; height: 40px"
-            data-bs-toggle="modal"
-            data-bs-target="#modalPrestacion"
-            onclick="editarPrestacion('PR-PSI-001')"
-          >
-            <i class="fas fa-pen text-primary"></i>
-          </button>
+          <div class="d-flex gap-2">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalPrestacion"
+              onclick="editarPrestacion('PR-PSI-001')"
+              title="Editar"
+            >
+              <i class="fas fa-pen"></i>
+            </button>
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
         <div class="card-item">
           <div class="icon-box" style="background: #ffedd5; color: #c2410c">
@@ -1513,15 +1650,24 @@
               <span class="tag tag-fich">CPSG-001</span></small
             >
           </div>
-          <button
-            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
-            style="width: 40px; height: 40px"
-            data-bs-toggle="modal"
-            data-bs-target="#modalPrestacion"
-            onclick="editarPrestacion('PR-ALT-002')"
-          >
-            <i class="fas fa-pen text-primary"></i>
-          </button>
+          <div class="d-flex gap-2">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalPrestacion"
+              onclick="editarPrestacion('PR-ALT-002')"
+              title="Editar"
+            >
+              <i class="fas fa-pen"></i>
+            </button>
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
         <nav aria-label="Paginación">
           <ul class="pagination justify-content-end">
@@ -1592,15 +1738,24 @@
               ><span class="tag tag-int">Interpretación</span></small
             >
           </div>
-          <button
-            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
-            style="width: 40px; height: 40px"
-            data-bs-toggle="modal"
-            data-bs-target="#modalFicha"
-            onclick="editarFicha('CPS-001', false)"
-          >
-            <i class="fas fa-pen text-primary"></i>
-          </button>
+          <div class="d-flex gap-2">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalFicha"
+              onclick="editarFicha('CPS-001', false)"
+              title="Editar"
+            >
+              <i class="fas fa-pen"></i>
+            </button>
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
         <div class="card-item">
           <div class="icon-box" style="background: #eef2ff; color: #4338ca">
@@ -1621,15 +1776,24 @@
               sub-fichas hijas</small
             >
           </div>
-          <button
-            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
-            style="width: 40px; height: 40px"
-            data-bs-toggle="modal"
-            data-bs-target="#modalFicha"
-            onclick="editarFicha('CPSG-001', true)"
-          >
-            <i class="fas fa-pen text-primary"></i>
-          </button>
+          <div class="d-flex gap-2">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalFicha"
+              onclick="editarFicha('CPSG-001', true)"
+              title="Editar"
+            >
+              <i class="fas fa-pen"></i>
+            </button>
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
         <nav aria-label="Paginación">
           <ul class="pagination justify-content-end">
@@ -1646,7 +1810,7 @@
         </nav>
       </div>
 
-      <!-- Dashboard placeholder -->
+      <!-- Dashboard -->
       <div class="screen" id="screen-dashboard">
         <div class="page-header"><h1 class="page-title">Dashboard</h1></div>
         <div class="text-center py-5 text-muted">
@@ -1661,7 +1825,7 @@
     <!-- /main-content -->
 
     <!-- ============================================
-       MODAL: PRUEBA PSICOLÓGICA (con Stepper)
+       MODAL: PRUEBA PSICOLÓGICA
   ============================================ -->
     <div class="modal fade" id="modalPrueba" tabindex="-1">
       <div
@@ -1681,11 +1845,9 @@
           </div>
           <div class="modal-body">
             <div class="row g-0">
-              <!-- Columna Stepper (lateral izquierda) -->
+              <!-- Stepper lateral -->
               <div class="col-md-3 pe-4 border-end">
                 <p class="form-label mb-3">Progreso de configuración</p>
-
-                <!-- Barra global dentro del modal -->
                 <div class="progress-wrap mb-4">
                   <div class="progress-bar-custom">
                     <div
@@ -1699,7 +1861,6 @@
                   </div>
                   <span class="progress-pct" id="modalProgressPct">20%</span>
                 </div>
-
                 <div class="stepper" id="stepperNav">
                   <div class="stepper-item active" onclick="goStep(0)">
                     <div class="stepper-num active" id="snum-0">1</div>
@@ -1738,34 +1899,33 @@
                   </div>
                 </div>
               </div>
-
-              <!-- Columna Contenido de paso -->
+              <!-- Contenido de paso -->
               <div class="col-md-9 ps-4">
-                <!-- PASO 1: Info General -->
+                <!-- PASO 1 -->
                 <div class="tab-pane-custom active" id="step-0">
                   <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
                     <i class="fas fa-info-circle me-2"></i>Información General
                   </h6>
                   <div class="row g-4">
                     <div class="col-md-4">
-                      <label class="form-label">Código</label>
-                      <input
+                      <label class="form-label">Código</label
+                      ><input
                         class="form-control"
                         id="prCod"
                         placeholder="PSI-XXX-000"
                       />
                     </div>
                     <div class="col-md-8">
-                      <label class="form-label">Nombre / Descripción</label>
-                      <input
+                      <label class="form-label">Nombre / Descripción</label
+                      ><input
                         class="form-control"
                         id="prNom"
                         placeholder="Nombre de la prueba psicológica"
                       />
                     </div>
                     <div class="col-md-4">
-                      <label class="form-label">Tipo de Examen</label>
-                      <select class="form-select" id="prTipo">
+                      <label class="form-label">Tipo de Examen</label
+                      ><select class="form-select" id="prTipo">
                         <option value="">Seleccionar...</option>
                         <option value="ingreso">Ingreso</option>
                         <option value="periodico">Periódico</option>
@@ -1774,15 +1934,15 @@
                       </select>
                     </div>
                     <div class="col-md-4">
-                      <label class="form-label">Estado</label>
-                      <select class="form-select" id="prEstado">
+                      <label class="form-label">Estado</label
+                      ><select class="form-select" id="prEstado">
                         <option value="borrador">Borrador</option>
                         <option value="activo">Activo</option>
                       </select>
                     </div>
                     <div class="col-md-4">
-                      <label class="form-label">Ícono / Emoji</label>
-                      <input
+                      <label class="form-label">Ícono / Emoji</label
+                      ><input
                         class="form-control"
                         id="prIcon"
                         placeholder="🧠"
@@ -1792,8 +1952,7 @@
                     </div>
                   </div>
                 </div>
-
-                <!-- PASO 2: Preguntas -->
+                <!-- PASO 2 -->
                 <div class="tab-pane-custom" id="step-1">
                   <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
                     <i class="fas fa-question-circle me-2"></i>Preguntas
@@ -1833,12 +1992,11 @@
                       id="emptyPreg"
                     >
                       <i class="fas fa-question fa-3x mb-3 opacity-25"></i
-                      ><br />Sin preguntas agregadas.
+                      ><br />Sin preguntas.
                     </div>
                   </div>
                 </div>
-
-                <!-- PASO 3: Alternativas -->
+                <!-- PASO 3 -->
                 <div class="tab-pane-custom" id="step-2">
                   <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
                     <i class="fas fa-list-ol me-2"></i>Alternativas de Respuesta
@@ -1892,8 +2050,7 @@
                     </div>
                   </div>
                 </div>
-
-                <!-- PASO 4: Factores -->
+                <!-- PASO 4 -->
                 <div class="tab-pane-custom" id="step-3">
                   <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
                     <i class="fas fa-layer-group me-2"></i>Factores
@@ -1938,8 +2095,7 @@
                     </div>
                   </div>
                 </div>
-
-                <!-- PASO 5: Respuestas -->
+                <!-- PASO 5 -->
                 <div class="tab-pane-custom" id="step-4">
                   <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
                     <i class="fas fa-check-double me-2"></i>Claves de Respuesta
@@ -1989,12 +2145,11 @@
                       id="emptyResp"
                     >
                       <i class="fas fa-check-double fa-3x mb-3 opacity-25"></i
-                      ><br />Sin claves de respuesta.
+                      ><br />Sin claves.
                     </div>
                   </div>
                 </div>
-
-                <!-- Navegación entre pasos -->
+                <!-- Nav pasos -->
                 <div
                   class="d-flex justify-content-between align-items-center mt-5 pt-3 border-top"
                 >
@@ -2012,12 +2167,8 @@
                   </button>
                 </div>
               </div>
-              <!-- /col contenido -->
             </div>
-            <!-- /row -->
           </div>
-          <!-- /modal-body -->
-
           <div class="modal-footer">
             <button
               class="btn btn-light rounded-pill px-4 fw-bold"
@@ -2491,7 +2642,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      /* ── NAVEGACIÓN SCREENS ── */
+      /* ── NAVEGACIÓN ── */
       const SCREENS = [
         "centros",
         "grado",
@@ -2512,7 +2663,18 @@
         return false;
       }
 
-      /* ── DB AUTOCOMPLETE ── */
+      /* ── ELIMINAR (SOLO SIMULACIÓN) ── */
+      function eliminarRegistro(btn, cardClass) {
+        if (!confirm("¿Estás seguro de que deseas eliminar este registro?"))
+          return;
+        const card = btn.closest("." + cardClass);
+        card.style.transition = "all 0.3s ease";
+        card.style.opacity = "0";
+        card.style.transform = "translateX(30px)";
+        setTimeout(() => card.remove(), 300);
+      }
+
+      /* ── AUTOCOMPLETE ── */
       const FICHAS_DB = {
         "CPS-001": "Escala de Ansiedad",
         "CPS-002": "Escala de Depresión",
@@ -2530,7 +2692,7 @@
         if (e.target?.id === "sfCod") autocompleteFicha("sfCod", "sfDes");
       });
 
-      /* ── HELPERS DOM ── */
+      /* ── HELPERS ── */
       function pushItem(boxId, emptyId, html) {
         const box = document.getElementById(boxId);
         document.getElementById(emptyId)?.remove();
@@ -2769,14 +2931,11 @@
       /* ══════════════════════════════
        PRUEBAS PSICOLÓGICAS
     ══════════════════════════════ */
-
-      /* Stepper */
       let currentStep = 0;
       const TOTAL_STEPS = 5;
       const STEP_PCT = [20, 40, 60, 80, 100];
 
       function goStep(n) {
-        // Ocultar todos los paneles
         for (let i = 0; i < TOTAL_STEPS; i++) {
           document.getElementById("step-" + i)?.classList.remove("active");
           const snum = document.getElementById("snum-" + i);
@@ -2799,14 +2958,10 @@
         }
         document.getElementById("step-" + n)?.classList.add("active");
         currentStep = n;
-
-        // Barra de progreso en modal
         document.getElementById("modalProgressFill").style.width =
           STEP_PCT[n] + "%";
         document.getElementById("modalProgressPct").textContent =
           STEP_PCT[n] + "%";
-
-        // Botones nav
         document.getElementById("btnPrev").style.display =
           n === 0 ? "none" : "inline-flex";
         document.getElementById("btnNext").style.display =
@@ -2819,7 +2974,6 @@
         if (currentStep > 0) goStep(currentStep - 1);
       }
 
-      /* Nueva prueba */
       function nuevaPrueba() {
         document.getElementById("tPrueba").innerHTML =
           '<i class="fas fa-file-medical-alt me-2 text-primary"></i>Nueva Prueba Psicológica';
@@ -2835,11 +2989,9 @@
         goStep(0);
       }
 
-      /* Editar prueba (carga datos demo) */
       function editarPrueba(cod) {
         document.getElementById("tPrueba").innerHTML =
           '<i class="fas fa-pen me-2 text-primary"></i>Editar Prueba: ' + cod;
-
         const demos = {
           "PSI-ANS-001": {
             nom: "Escala de Ansiedad de Beck",
@@ -2876,8 +3028,6 @@
           document.getElementById("prNom").value = d.nom;
           document.getElementById("prTipo").value = d.tipo;
           document.getElementById("prIcon").value = d.icon;
-
-          // Si cesado, agregar opción
           const sel = document.getElementById("prEstado");
           if (!sel.querySelector('option[value="cesado"]')) {
             const o = document.createElement("option");
@@ -2886,7 +3036,6 @@
             sel.appendChild(o);
           }
           sel.value = d.est;
-
           resetBox("boxPreg", "emptyPreg", "fas fa-question", "Sin preguntas.");
           resetBox("boxAlt", "emptyAlt", "fas fa-list", "Sin alternativas.");
           resetBox("boxFac", "emptyFac", "fas fa-layer-group", "Sin factores.");
@@ -2896,8 +3045,6 @@
             "fas fa-check-double",
             "Sin claves.",
           );
-
-          // Cargar datos demo si está más avanzado
           if (d.step >= 1) {
             pushItem(
               "boxPreg",
@@ -2942,7 +3089,6 @@
             pushItem("boxResp", "emptyResp", rowRespuesta(2, "C", "FAC-002"));
             pushItem("boxResp", "emptyResp", rowRespuesta(3, "A", "FAC-001"));
           }
-
           goStep(d.step === 4 ? 4 : d.step);
         }
       }
@@ -2953,7 +3099,6 @@
         );
       }
 
-      /* Filtro búsqueda */
       function filtrarPruebas() {
         const q = document
           .getElementById("buscarPrueba")
@@ -2973,7 +3118,6 @@
           });
       }
 
-      /* Rows de prueba */
       function addPregunta() {
         const num = document.getElementById("pregNum").value.trim(),
           txt = document.getElementById("pregTxt").value.trim();
