@@ -1,7 +1,7 @@
 🚀 SEPO V2 - Interfaz Interactiva
 Este repositorio contiene el prototipo de alta fidelidad para el sistema SEPO. A diferencia de un diseño estático, esta versión permite probar:
 
-Lógica de módulos con JavaScript.
+Lógica de módulos con JavaScript realizados con base en Figma.
 
 Interacciones reales de usuario.
 
