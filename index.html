@@ -1,0 +1,3051 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SEPO - Mantenimientos (Premium UI)</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #1565c0;
+        --primary-hover: #0e4c96;
+        --primary-light: #e3f2fd;
+        --bg-app: #f1f5f9;
+        --surface: #ffffff;
+        --text-main: #0f172a;
+        --text-muted: #64748b;
+        --border-light: #e2e8f0;
+        --shadow-sm:
+          0 2px 4px -2px rgba(0, 0, 0, 0.02), 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        --shadow-md:
+          0 4px 12px -2px rgba(21, 101, 192, 0.08),
+          0 4px 8px -2px rgba(21, 101, 192, 0.04);
+        --shadow-hover:
+          0 16px 32px -4px rgba(21, 101, 192, 0.12),
+          0 8px 16px -4px rgba(21, 101, 192, 0.06);
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg-app);
+        color: var(--text-main);
+      }
+
+      /* SIDEBAR */
+      .sidebar {
+        width: 260px;
+        height: 100vh;
+        background: linear-gradient(180deg, #1565c0 0%, #0a3366 100%);
+        position: fixed;
+        left: 0;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        z-index: 100;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.04);
+      }
+      .sidebar-brand {
+        padding: 28px 24px;
+        color: #fff;
+        font-size: 1.4rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .sidebar-brand i {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 8px;
+        border-radius: 12px;
+      }
+      .sidebar-section {
+        padding: 24px 24px 8px;
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-weight: 600;
+      }
+      .sidebar .nav-link {
+        color: rgba(255, 255, 255, 0.75);
+        padding: 12px 16px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin: 4px 16px;
+        border-radius: 12px;
+        transition: all 0.25s ease;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .sidebar .nav-link:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateX(4px);
+      }
+      .sidebar .nav-link.active {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        font-weight: 600;
+      }
+
+      /* MAIN */
+      .main-content {
+        margin-left: 260px;
+        padding: 24px 40px;
+        min-height: 100vh;
+      }
+
+      .page-header {
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-radius: 20px;
+        padding: 24px 32px;
+        margin-bottom: 32px;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 4px 24px -6px rgba(0, 0, 0, 0.04);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+        position: sticky;
+        top: 20px;
+        z-index: 50;
+      }
+      .page-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-main);
+        margin: 0;
+        letter-spacing: -0.5px;
+      }
+      .page-subtitle {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin: 6px 0 0;
+        font-weight: 400;
+      }
+
+      /* BUSCADOR */
+      .search-wrap {
+        position: relative;
+      }
+      .search-wrap i {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94a3b8;
+        font-size: 0.9rem;
+      }
+      .search-wrap input {
+        padding: 10px 16px 10px 42px;
+        border-radius: 100px;
+        border: 1px solid var(--border-light);
+        font-size: 0.9rem;
+        background: var(--surface);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: var(--shadow-sm);
+        width: 280px;
+      }
+      .search-wrap input:focus {
+        border-color: var(--primary);
+        width: 320px;
+        box-shadow: 0 0 0 4px rgba(21, 101, 192, 0.12);
+        outline: none;
+        background: #fff;
+      }
+
+      /* BOTONES */
+      .btn-prim {
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        border-radius: 100px;
+        padding: 10px 24px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(21, 101, 192, 0.3);
+        transition: all 0.2s;
+      }
+      .btn-prim:hover {
+        background: var(--primary-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(21, 101, 192, 0.4);
+        color: #fff;
+      }
+      .btn-prim:active {
+        transform: translateY(0) scale(0.96);
+      }
+      .btn-grp {
+        background: #334155;
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+      .btn-grp:hover {
+        background: #1e293b;
+        color: #fff;
+      }
+
+      /* TARJETAS BENTO */
+      .card-item {
+        background: var(--surface);
+        border-radius: 20px;
+        border: 1px solid var(--border-light);
+        padding: 20px 24px;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        box-shadow: var(--shadow-sm);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .card-item:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-hover);
+        border-color: rgba(21, 101, 192, 0.2);
+      }
+      .icon-box {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        box-shadow:
+          inset 0 2px 4px rgba(255, 255, 255, 0.5),
+          0 2px 8px rgba(0, 0, 0, 0.04);
+      }
+
+      /* BADGES/PILDORAS */
+      .tag,
+      .b-activo,
+      .b-cesado,
+      .b-borrador,
+      .b-grupo {
+        padding: 4px 12px;
+        border-radius: 100px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .b-activo {
+        background: #def7ec;
+        color: #03543f;
+      }
+      .b-cesado {
+        background: #f1f5f9;
+        color: #475569;
+        border: 1px solid #e2e8f0;
+      }
+      .b-borrador {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .b-grupo {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+      .tag-punt {
+        background: #f3e8ff;
+        color: #6b21a8;
+      }
+      .tag-niv {
+        background: #e0f2fe;
+        color: #1d4ed8;
+      }
+      .tag-int {
+        background: #ffedd5;
+        color: #c2410c;
+      }
+      .tag-fich {
+        background: #f1f5f9;
+        color: #0f172a;
+        border: 1px solid var(--border-light);
+      }
+      .tag-tipo {
+        background: #eff6ff;
+        color: #1d4ed8;
+        border: 1px solid #bfdbfe;
+      }
+
+      /* MODALES */
+      .modal-content {
+        border: none;
+        border-radius: 28px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+      }
+      .modal-header {
+        background: var(--surface);
+        color: var(--text-main);
+        border-bottom: 1px solid var(--border-light);
+        padding: 24px 32px;
+      }
+      .modal-title {
+        font-weight: 700;
+        font-size: 1.25rem;
+        letter-spacing: -0.5px;
+      }
+      .modal-header .btn-close {
+        background-color: #f1f5f9;
+        border-radius: 50%;
+        padding: 12px;
+        opacity: 0.8;
+        transition: all 0.2s;
+      }
+      .modal-header .btn-close:hover {
+        background-color: #e2e8f0;
+        opacity: 1;
+      }
+      .modal-body {
+        padding: 32px;
+      }
+      .modal-footer {
+        padding: 24px 32px;
+        border-top: 1px solid var(--border-light);
+        background: #fafafa;
+      }
+
+      .form-label {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+      }
+      .form-control,
+      .form-select {
+        border-radius: 12px;
+        border: 1px solid var(--border-light);
+        background-color: #f8fafc;
+        padding: 12px 16px;
+        font-size: 0.95rem;
+        color: var(--text-main);
+        transition: all 0.2s;
+      }
+      .form-control:focus,
+      .form-select:focus {
+        background-color: #fff;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(21, 101, 192, 0.12);
+      }
+      .form-check-input {
+        width: 1.2em;
+        height: 1.2em;
+        margin-top: 0.15em;
+      }
+      .form-check-input:checked {
+        background-color: var(--primary);
+        border-color: var(--primary);
+      }
+
+      .soft-panel {
+        background: #f8fafc;
+        border: 1px solid var(--border-light);
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+      }
+      .items-box {
+        background: var(--surface);
+        border: 1px dashed #cbd5e1;
+        border-radius: 16px;
+        padding: 16px;
+        min-height: 120px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .item-row {
+        background: var(--surface);
+        border: 1px solid var(--border-light);
+        border-radius: 12px;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.9rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+        transition: transform 0.2s;
+      }
+      .item-row:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-sm);
+        border-color: #cbd5e1;
+      }
+      .item-row .inf {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      /* PAGINACIÓN */
+      .pagination {
+        margin-top: 32px;
+        gap: 6px;
+      }
+      .pagination .page-link {
+        border-radius: 10px;
+        border: none;
+        color: var(--text-muted);
+        font-weight: 600;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        background: transparent;
+      }
+      .pagination .page-item.active .page-link {
+        background-color: var(--primary);
+        color: white;
+        box-shadow: 0 4px 10px rgba(21, 101, 192, 0.3);
+      }
+      .pagination .page-item:not(.active):not(.disabled) .page-link:hover {
+        background-color: #e2e8f0;
+        color: var(--text-main);
+      }
+      .pagination .page-link-wide {
+        width: auto;
+        padding: 0 16px;
+      }
+
+      /* SCREENS */
+      .screen {
+        display: none;
+        animation: fadeIn 0.4s ease;
+      }
+      .screen.active {
+        display: block;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ─── PRUEBAS PSICOLÓGICAS ESPECÍFICO ─── */
+
+      /* Tarjeta Prueba: layout distinto al simple */
+      .card-prueba {
+        background: var(--surface);
+        border-radius: 20px;
+        border: 1px solid var(--border-light);
+        padding: 0;
+        margin-bottom: 16px;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        align-items: stretch;
+      }
+      .card-prueba:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-hover);
+        border-color: rgba(21, 101, 192, 0.2);
+      }
+
+      .prueba-cover {
+        width: 72px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        border-radius: 0;
+      }
+      .prueba-body {
+        flex-grow: 1;
+        padding: 18px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .prueba-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text-main);
+      }
+      .prueba-meta {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      /* Barra de avance */
+      .progress-wrap {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .progress-bar-custom {
+        flex-grow: 1;
+        height: 8px;
+        background: #e2e8f0;
+        border-radius: 100px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        border-radius: 100px;
+        transition: width 0.6s ease;
+      }
+      .progress-pct {
+        font-size: 0.8rem;
+        font-weight: 700;
+        min-width: 36px;
+        text-align: right;
+        color: var(--primary);
+      }
+
+      /* Pasos del avance */
+      .steps-mini {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .step-dot {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 100px;
+      }
+      .step-done {
+        background: #def7ec;
+        color: #03543f;
+      }
+      .step-pend {
+        background: #f1f5f9;
+        color: #94a3b8;
+        border: 1px solid #e2e8f0;
+      }
+
+      /* Acciones prueba */
+      .prueba-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        padding: 18px 20px;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+
+      /* Modal prueba: stepper lateral */
+      .stepper {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 24px;
+      }
+      .stepper-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 14px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: background 0.2s;
+        border: 1px solid transparent;
+      }
+      .stepper-item:hover {
+        background: #f1f5f9;
+      }
+      .stepper-item.active {
+        background: var(--primary-light);
+        border-color: #bfdbfe;
+      }
+      .stepper-num {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        font-size: 0.8rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .stepper-num.done {
+        background: #def7ec;
+        color: #03543f;
+      }
+      .stepper-num.active {
+        background: var(--primary);
+        color: #fff;
+      }
+      .stepper-num.pend {
+        background: #f1f5f9;
+        color: #94a3b8;
+        border: 1px solid #e2e8f0;
+      }
+      .stepper-label {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--text-main);
+      }
+      .stepper-sub {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+      }
+
+      .tab-pane-custom {
+        display: none;
+      }
+      .tab-pane-custom.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .text-muted {
+        color: var(--text-muted) !important;
+      }
+      .muted-dot {
+        color: #cbd5e1;
+        margin: 0 4px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="sidebar-brand"><i class="fas fa-brain"></i> SEPO</div>
+
+      <div class="sidebar-section mt-2">Principal</div>
+      <ul class="nav flex-column">
+        <li>
+          <a
+            class="nav-link"
+            id="nav-dashboard"
+            href="#"
+            onclick="go('dashboard')"
+            ><i class="fas fa-th-large fa-fw"></i> Dashboard</a
+          >
+        </li>
+        <li>
+          <a class="nav-link" id="nav-pruebas" href="#" onclick="go('pruebas')"
+            ><i class="fas fa-file-medical-alt fa-fw"></i> Pruebas
+            Psicológicas</a
+          >
+        </li>
+      </ul>
+
+      <div class="sidebar-section mt-4">Mantenimientos</div>
+      <ul class="nav flex-column">
+        <li>
+          <a
+            class="nav-link active"
+            id="nav-centros"
+            href="#"
+            onclick="go('centros')"
+            ><i class="fas fa-hospital fa-fw"></i> Centros Médicos</a
+          >
+        </li>
+        <li>
+          <a class="nav-link" id="nav-grado" href="#" onclick="go('grado')"
+            ><i class="fas fa-graduation-cap fa-fw"></i> Grado de Instrucción</a
+          >
+        </li>
+        <li>
+          <a
+            class="nav-link"
+            id="nav-ocupaciones"
+            href="#"
+            onclick="go('ocupaciones')"
+            ><i class="fas fa-briefcase fa-fw"></i> Ocupaciones</a
+          >
+        </li>
+        <li>
+          <a class="nav-link" id="nav-grupos" href="#" onclick="go('grupos')"
+            ><i class="fas fa-users fa-fw"></i> Grupos Ocupacionales</a
+          >
+        </li>
+        <li>
+          <a
+            class="nav-link"
+            id="nav-prestaciones"
+            href="#"
+            onclick="go('prestaciones')"
+            ><i class="fas fa-stethoscope fa-fw"></i> Prestaciones</a
+          >
+        </li>
+        <li>
+          <a class="nav-link" id="nav-fichas" href="#" onclick="go('fichas')"
+            ><i class="fas fa-clipboard-list fa-fw"></i> Fichas</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Main -->
+    <div class="main-content">
+      <!-- ======== PRUEBAS PSICOLÓGICAS ======== -->
+      <div class="screen" id="screen-pruebas">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">
+              <i
+                class="fas fa-file-medical-alt me-2"
+                style="color: var(--primary)"
+              ></i
+              >Pruebas Psicológicas
+            </h1>
+            <p class="page-subtitle">
+              Búsqueda por nombre, tipo o código · 4 pruebas registradas
+            </p>
+          </div>
+          <div class="d-flex gap-3 align-items-center">
+            <div class="search-wrap">
+              <i class="fas fa-search"></i>
+              <input
+                type="text"
+                id="buscarPrueba"
+                placeholder="Buscar por nombre, tipo o código..."
+                oninput="filtrarPruebas()"
+              />
+            </div>
+            <button
+              class="btn-prim"
+              data-bs-toggle="modal"
+              data-bs-target="#modalPrueba"
+              onclick="nuevaPrueba()"
+            >
+              <i class="fas fa-plus me-2"></i>Nueva Prueba
+            </button>
+          </div>
+        </div>
+
+        <!-- Lista de pruebas demo -->
+        <div id="listaPruebas">
+          <!-- Prueba 1: Activa, 100% -->
+          <div
+            class="card-prueba"
+            data-nombre="Escala de Ansiedad de Beck"
+            data-tipo="ingreso"
+            data-codigo="PSI-ANS-001"
+          >
+            <div
+              class="prueba-cover"
+              style="background: #e0f2fe; color: #1565c0"
+            >
+              🧠
+            </div>
+            <div class="prueba-body">
+              <div class="prueba-meta">
+                <span
+                  style="
+                    font-size: 0.78rem;
+                    font-weight: 700;
+                    color: var(--text-muted);
+                  "
+                  >PSI-ANS-001</span
+                >
+                <span class="muted-dot">•</span>
+                <span class="tag-tipo tag"
+                  ><i class="fas fa-tag me-1"></i>Ingreso</span
+                >
+                <span class="b-activo">Activo</span>
+              </div>
+              <div class="prueba-title">Escala de Ansiedad de Beck</div>
+              <div class="progress-wrap">
+                <div class="progress-bar-custom">
+                  <div
+                    class="progress-fill"
+                    style="
+                      width: 100%;
+                      background: linear-gradient(90deg, #1565c0, #42a5f5);
+                    "
+                  ></div>
+                </div>
+                <span class="progress-pct">100%</span>
+              </div>
+              <div class="steps-mini">
+                <span class="step-dot step-done"
+                  ><i class="fas fa-check"></i> Info general</span
+                >
+                <span class="step-dot step-done"
+                  ><i class="fas fa-check"></i> Preguntas</span
+                >
+                <span class="step-dot step-done"
+                  ><i class="fas fa-check"></i> Alternativas</span
+                >
+                <span class="step-dot step-done"
+                  ><i class="fas fa-check"></i> Factores</span
+                >
+                <span class="step-dot step-done"
+                  ><i class="fas fa-check"></i> Respuestas</span
+                >
+              </div>
+            </div>
+            <div class="prueba-actions">
+              <button
+                class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
+                style="width: 40px; height: 40px"
+                data-bs-toggle="modal"
+                data-bs-target="#modalPrueba"
+                onclick="editarPrueba('PSI-ANS-001')"
+              >
+                <i class="fas fa-pen text-primary"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Prueba 2: Borrador, 40% -->
+          <div
+            class="card-prueba"
+            data-nombre="Competencias Laborales Volcán"
+            data-tipo="periodico"
+            data-codigo="PSI-CMP-002"
+          >
+            <div
+              class="prueba-cover"
+              style="background: #fff7ed; color: #c2410c"
+            >
+              🧩
+            </div>
+            <div class="prueba-body">
+              <div class="prueba-meta">
+                <span
+                  style="
+                    font-size: 0.78rem;
+                    font-weight: 700;
+                    color: var(--text-muted);
+                  "
+                  >PSI-CMP-002</span
+                >
+                <span class="muted-dot">•</span>
+                <span class="tag-tipo tag"
+                  ><i class="fas fa-tag me-1"></i>Periódico</span
+                >
+                <span class="b-borrador">Borrador</span>
+              </div>
+              <div class="prueba-title">Competencias Laborales Volcán</div>
+              <div class="progress-wrap">
+                <div class="progress-bar-custom">
+                  <div
+                    class="progress-fill"
+                    style="
+                      width: 40%;
+                      background: linear-gradient(90deg, #f59e0b, #fcd34d);
+                    "
+                  ></div>
+                </div>
+                <span class="progress-pct" style="color: #d97706">40%</span>
+              </div>
+              <div class="steps-mini">
+                <span class="step-dot step-done"
+                  ><i class="fas fa-check"></i> Info general</span
+                >
+                <span class="step-dot step-done"
+                  ><i class="fas fa-check"></i> Preguntas</span
+                >
+                <span class="step-dot step-pend"
+                  ><i class="fas fa-clock"></i> Alternativas</span
+                >
+                <span class="step-dot step-pend"
+                  ><i class="fas fa-clock"></i> Factores</span
+                >
+                <span class="step-dot step-pend"
+                  ><i class="fas fa-clock"></i> Respuestas</span
+                >
+              </div>
+            </div>
+            <div class="prueba-actions">
+              <button
+                class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
+                style="width: 40px; height: 40px"
+                data-bs-toggle="modal"
+                data-bs-target="#modalPrueba"
+                onclick="editarPrueba('PSI-CMP-002')"
+              >
+                <i class="fas fa-pen text-primary"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Prueba 3: Borrador, 20% -->
+          <div
+            class="card-prueba"
+            data-nombre="Evaluación Psicológica – Altura"
+            data-tipo="altura"
+            data-codigo="PSI-ALT-003"
+          >
+            <div
+              class="prueba-cover"
+              style="background: #f0fdf4; color: #15803d"
+            >
+              ⛰️
+            </div>
+            <div class="prueba-body">
+              <div class="prueba-meta">
+                <span
+                  style="
+                    font-size: 0.78rem;
+                    font-weight: 700;
+                    color: var(--text-muted);
+                  "
+                  >PSI-ALT-003</span
+                >
+                <span class="muted-dot">•</span>
+                <span class="tag-tipo tag"
+                  ><i class="fas fa-tag me-1"></i>Altura</span
+                >
+                <span class="b-borrador">Borrador</span>
+              </div>
+              <div class="prueba-title">Evaluación Psicológica – Altura</div>
+              <div class="progress-wrap">
+                <div class="progress-bar-custom">
+                  <div
+                    class="progress-fill"
+                    style="
+                      width: 20%;
+                      background: linear-gradient(90deg, #f59e0b, #fcd34d);
+                    "
+                  ></div>
+                </div>
+                <span class="progress-pct" style="color: #d97706">20%</span>
+              </div>
+              <div class="steps-mini">
+                <span class="step-dot step-done"
+                  ><i class="fas fa-check"></i> Info general</span
+                >
+                <span class="step-dot step-pend"
+                  ><i class="fas fa-clock"></i> Preguntas</span
+                >
+                <span class="step-dot step-pend"
+                  ><i class="fas fa-clock"></i> Alternativas</span
+                >
+                <span class="step-dot step-pend"
+                  ><i class="fas fa-clock"></i> Factores</span
+                >
+                <span class="step-dot step-pend"
+                  ><i class="fas fa-clock"></i> Respuestas</span
+                >
+              </div>
+            </div>
+            <div class="prueba-actions">
+              <button
+                class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
+                style="width: 40px; height: 40px"
+                data-bs-toggle="modal"
+                data-bs-target="#modalPrueba"
+                onclick="editarPrueba('PSI-ALT-003')"
+              >
+                <i class="fas fa-pen text-primary"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Prueba 4: Cesado -->
+          <div
+            class="card-prueba"
+            data-nombre="Entrevista Psicológica Chinalco"
+            data-tipo="retiro"
+            data-codigo="PSI-CHI-004"
+          >
+            <div
+              class="prueba-cover"
+              style="background: #f1f5f9; color: #94a3b8"
+            >
+              📋
+            </div>
+            <div class="prueba-body">
+              <div class="prueba-meta">
+                <span
+                  style="
+                    font-size: 0.78rem;
+                    font-weight: 700;
+                    color: var(--text-muted);
+                  "
+                  >PSI-CHI-004</span
+                >
+                <span class="muted-dot">•</span>
+                <span class="tag-tipo tag"
+                  ><i class="fas fa-tag me-1"></i>Retiro</span
+                >
+                <span class="b-cesado">Cesado</span>
+              </div>
+              <div class="prueba-title" style="color: var(--text-muted)">
+                Entrevista Psicológica Chinalco
+              </div>
+              <div class="progress-wrap">
+                <div class="progress-bar-custom">
+                  <div
+                    class="progress-fill"
+                    style="width: 100%; background: #cbd5e1"
+                  ></div>
+                </div>
+                <span class="progress-pct" style="color: #94a3b8">100%</span>
+              </div>
+              <div class="steps-mini">
+                <span class="step-dot step-done"
+                  ><i class="fas fa-check"></i> Info general</span
+                >
+                <span class="step-dot step-done"
+                  ><i class="fas fa-check"></i> Preguntas</span
+                >
+                <span class="step-dot step-done"
+                  ><i class="fas fa-check"></i> Alternativas</span
+                >
+                <span class="step-dot step-done"
+                  ><i class="fas fa-check"></i> Factores</span
+                >
+                <span class="step-dot step-done"
+                  ><i class="fas fa-check"></i> Respuestas</span
+                >
+              </div>
+            </div>
+            <div class="prueba-actions">
+              <button
+                class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
+                style="width: 40px; height: 40px"
+                data-bs-toggle="modal"
+                data-bs-target="#modalPrueba"
+                onclick="editarPrueba('PSI-CHI-004')"
+              >
+                <i class="fas fa-pen text-primary"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- /listaPruebas -->
+
+        <nav aria-label="Paginación">
+          <ul class="pagination justify-content-end">
+            <li class="page-item disabled">
+              <a class="page-link page-link-wide" href="#">Anterior</a>
+            </li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link page-link-wide" href="#">Siguiente</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- ======== CENTROS ======== -->
+      <div class="screen active" id="screen-centros">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">
+              <i class="fas fa-hospital me-2" style="color: var(--primary)"></i
+              >Centros Médicos
+            </h1>
+            <p class="page-subtitle">
+              Gestión de sedes y clínicas autorizadas (2 registros)
+            </p>
+          </div>
+          <div class="d-flex gap-3 align-items-center">
+            <div class="search-wrap">
+              <i class="fas fa-search"></i
+              ><input
+                type="text"
+                placeholder="Buscar código, nombre, distrito..."
+              />
+            </div>
+            <button
+              class="btn-prim"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="nuevoCentro()"
+            >
+              <i class="fas fa-plus me-2"></i>Nuevo Centro
+            </button>
+          </div>
+        </div>
+        <div class="card-item">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
+            <i class="fas fa-clinic-medical"></i>
+          </div>
+          <div class="flex-grow-1">
+            <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+              <strong style="color: var(--primary)">CM-001</strong
+              ><span class="muted-dot">•</span>
+              <span class="fw-semibold">Clínica San Borja – Sede Central</span>
+              <span class="b-activo">Activo</span>
+              <span class="tag" style="background: #f1f5f9; color: #0f172a"
+                ><i class="fas fa-laptop-medical me-1 text-primary"></i>Virtual
+                Habilitado</span
+              >
+            </div>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Av. Guardia Civil 385,
+              San Borja · (Lima / Lima)</small
+            >
+          </div>
+          <button
+            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
+            style="width: 40px; height: 40px"
+            data-bs-toggle="modal"
+            data-bs-target="#modalCentro"
+            onclick="editarCentro('CM-001', true, true)"
+          >
+            <i class="fas fa-pen text-primary"></i>
+          </button>
+        </div>
+        <div class="card-item">
+          <div class="icon-box" style="background: #f1f5f9; color: #64748b">
+            <i class="fas fa-building"></i>
+          </div>
+          <div class="flex-grow-1">
+            <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+              <strong style="color: var(--text-muted)">CM-002</strong
+              ><span class="muted-dot">•</span>
+              <span class="fw-semibold">Occupational Health – Lince</span>
+              <span class="b-cesado">Cesado</span>
+            </div>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Jr. Los Pinos 120,
+              Lince · (Lima / Lima)</small
+            >
+          </div>
+          <button
+            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
+            style="width: 40px; height: 40px"
+            data-bs-toggle="modal"
+            data-bs-target="#modalCentro"
+            onclick="editarCentro('CM-002', false, false)"
+          >
+            <i class="fas fa-pen text-primary"></i>
+          </button>
+        </div>
+        <nav aria-label="Paginación">
+          <ul class="pagination justify-content-end">
+            <li class="page-item disabled">
+              <a class="page-link page-link-wide" href="#">Anterior</a>
+            </li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link page-link-wide" href="#">Siguiente</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- ======== GRADO ======== -->
+      <div class="screen" id="screen-grado">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">
+              <i
+                class="fas fa-graduation-cap me-2"
+                style="color: var(--primary)"
+              ></i
+              >Grado de Instrucción
+            </h1>
+            <p class="page-subtitle">Mantenimiento simple</p>
+          </div>
+          <div class="d-flex gap-3">
+            <div class="search-wrap">
+              <i class="fas fa-search"></i
+              ><input type="text" placeholder="Buscar grado..." />
+            </div>
+            <button
+              class="btn-prim"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              onclick="nuevoSimple('Grado de Instrucción')"
+            >
+              <i class="fas fa-plus me-2"></i>Nuevo
+            </button>
+          </div>
+        </div>
+        <div class="card-item">
+          <div class="flex-grow-1 d-flex align-items-center gap-3">
+            <strong style="color: var(--primary)">GI-001</strong
+            ><span class="muted-dot">•</span
+            ><span class="fw-semibold">Universitario Completo</span
+            ><span class="b-activo ms-auto">Activo</span>
+          </div>
+          <button
+            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center ms-3"
+            style="width: 40px; height: 40px"
+            data-bs-toggle="modal"
+            data-bs-target="#modalSimple"
+            onclick="editarSimple('GI-001', 'Universitario Completo')"
+          >
+            <i class="fas fa-pen text-primary"></i>
+          </button>
+        </div>
+        <div class="card-item">
+          <div class="flex-grow-1 d-flex align-items-center gap-3">
+            <strong style="color: var(--primary)">GI-002</strong
+            ><span class="muted-dot">•</span
+            ><span class="fw-semibold">Universitario Incompleto</span
+            ><span class="b-activo ms-auto">Activo</span>
+          </div>
+          <button
+            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center ms-3"
+            style="width: 40px; height: 40px"
+            data-bs-toggle="modal"
+            data-bs-target="#modalSimple"
+            onclick="editarSimple('GI-002', 'Universitario Incompleto')"
+          >
+            <i class="fas fa-pen text-primary"></i>
+          </button>
+        </div>
+        <div class="card-item">
+          <div class="flex-grow-1 d-flex align-items-center gap-3">
+            <strong style="color: var(--text-muted)">GI-003</strong
+            ><span class="muted-dot">•</span
+            ><span class="fw-semibold text-muted">Técnico Superior</span
+            ><span class="b-cesado ms-auto">Cesado</span>
+          </div>
+          <button
+            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center ms-3"
+            style="width: 40px; height: 40px"
+            data-bs-toggle="modal"
+            data-bs-target="#modalSimple"
+            onclick="editarSimple('GI-003', 'Técnico Superior')"
+          >
+            <i class="fas fa-pen text-primary"></i>
+          </button>
+        </div>
+        <nav aria-label="Paginación">
+          <ul class="pagination justify-content-end">
+            <li class="page-item disabled">
+              <a class="page-link page-link-wide" href="#">Anterior</a>
+            </li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link page-link-wide" href="#">Siguiente</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- ======== OCUPACIONES ======== -->
+      <div class="screen" id="screen-ocupaciones">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">
+              <i class="fas fa-briefcase me-2" style="color: var(--primary)"></i
+              >Ocupaciones
+            </h1>
+            <p class="page-subtitle">Mantenimiento simple</p>
+          </div>
+          <div class="d-flex gap-3">
+            <div class="search-wrap">
+              <i class="fas fa-search"></i
+              ><input type="text" placeholder="Buscar ocupación..." />
+            </div>
+            <button
+              class="btn-prim"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              onclick="nuevoSimple('Ocupación')"
+            >
+              <i class="fas fa-plus me-2"></i>Nuevo
+            </button>
+          </div>
+        </div>
+        <div class="card-item">
+          <div class="flex-grow-1 d-flex align-items-center gap-3">
+            <strong style="color: var(--primary)">OC-001</strong
+            ><span class="muted-dot">•</span
+            ><span class="fw-semibold">Coordinador Administrativo</span
+            ><span class="b-activo ms-auto">Activo</span>
+          </div>
+          <button
+            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center ms-3"
+            style="width: 40px; height: 40px"
+            data-bs-toggle="modal"
+            data-bs-target="#modalSimple"
+          >
+            <i class="fas fa-pen text-primary"></i>
+          </button>
+        </div>
+        <div class="card-item">
+          <div class="flex-grow-1 d-flex align-items-center gap-3">
+            <strong style="color: var(--primary)">OC-002</strong
+            ><span class="muted-dot">•</span
+            ><span class="fw-semibold">Auxiliar de Enfermería</span
+            ><span class="b-activo ms-auto">Activo</span>
+          </div>
+          <button
+            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center ms-3"
+            style="width: 40px; height: 40px"
+            data-bs-toggle="modal"
+            data-bs-target="#modalSimple"
+          >
+            <i class="fas fa-pen text-primary"></i>
+          </button>
+        </div>
+        <nav aria-label="Paginación">
+          <ul class="pagination justify-content-end">
+            <li class="page-item disabled">
+              <a class="page-link page-link-wide" href="#">Anterior</a>
+            </li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link page-link-wide" href="#">Siguiente</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- ======== GRUPOS ======== -->
+      <div class="screen" id="screen-grupos">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">
+              <i class="fas fa-users me-2" style="color: var(--primary)"></i
+              >Grupos Ocupacionales
+            </h1>
+            <p class="page-subtitle">Categorización simplificada</p>
+          </div>
+          <div class="d-flex gap-3">
+            <div class="search-wrap">
+              <i class="fas fa-search"></i
+              ><input type="text" placeholder="Buscar grupo..." />
+            </div>
+            <button
+              class="btn-prim"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              onclick="nuevoSimple('Grupo Ocupacional')"
+            >
+              <i class="fas fa-plus me-2"></i>Nuevo
+            </button>
+          </div>
+        </div>
+        <div class="card-item">
+          <div class="flex-grow-1 d-flex align-items-center gap-3">
+            <strong style="color: var(--primary)">GO-001</strong
+            ><span class="muted-dot">•</span
+            ><span class="fw-semibold">Administrativos</span
+            ><span class="b-activo ms-auto">Activo</span>
+          </div>
+          <button
+            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center ms-3"
+            style="width: 40px; height: 40px"
+            data-bs-toggle="modal"
+            data-bs-target="#modalSimple"
+          >
+            <i class="fas fa-pen text-primary"></i>
+          </button>
+        </div>
+        <div class="card-item">
+          <div class="flex-grow-1 d-flex align-items-center gap-3">
+            <strong style="color: var(--primary)">GO-002</strong
+            ><span class="muted-dot">•</span
+            ><span class="fw-semibold">Operarios</span
+            ><span class="b-activo ms-auto">Activo</span>
+          </div>
+          <button
+            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center ms-3"
+            style="width: 40px; height: 40px"
+            data-bs-toggle="modal"
+            data-bs-target="#modalSimple"
+          >
+            <i class="fas fa-pen text-primary"></i>
+          </button>
+        </div>
+        <div class="card-item">
+          <div class="flex-grow-1 d-flex align-items-center gap-3">
+            <strong style="color: var(--primary)">GO-003</strong
+            ><span class="muted-dot">•</span
+            ><span class="fw-semibold">Operativos</span
+            ><span class="b-activo ms-auto">Activo</span>
+          </div>
+          <button
+            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center ms-3"
+            style="width: 40px; height: 40px"
+            data-bs-toggle="modal"
+            data-bs-target="#modalSimple"
+          >
+            <i class="fas fa-pen text-primary"></i>
+          </button>
+        </div>
+        <nav aria-label="Paginación">
+          <ul class="pagination justify-content-end">
+            <li class="page-item disabled">
+              <a class="page-link page-link-wide" href="#">Anterior</a>
+            </li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link page-link-wide" href="#">Siguiente</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- ======== PRESTACIONES ======== -->
+      <div class="screen" id="screen-prestaciones">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">
+              <i
+                class="fas fa-stethoscope me-2"
+                style="color: var(--primary)"
+              ></i
+              >Prestaciones
+            </h1>
+            <p class="page-subtitle">
+              Tipos de examen y vinculación modular de fichas
+            </p>
+          </div>
+          <div class="d-flex gap-3 align-items-center">
+            <div class="search-wrap">
+              <i class="fas fa-search"></i
+              ><input
+                type="text"
+                placeholder="Buscar código, descripción, tipo..."
+              />
+            </div>
+            <button
+              class="btn-prim"
+              data-bs-toggle="modal"
+              data-bs-target="#modalPrestacion"
+              onclick="nuevaPrestacion()"
+            >
+              <i class="fas fa-plus me-2"></i>Nueva Prestación
+            </button>
+          </div>
+        </div>
+        <div class="card-item">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
+            <i class="fas fa-heart-pulse"></i>
+          </div>
+          <div class="flex-grow-1">
+            <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+              <strong style="color: var(--primary)">PR-PSI-001</strong
+              ><span class="muted-dot">•</span
+              ><span class="fw-semibold"
+                >Evaluación Psicológica – Entrevista</span
+              ><span class="b-activo">Activo</span
+              ><span class="tag tag-tipo"
+                ><i class="fas fa-tag me-1"></i>Ingreso</span
+              >
+            </div>
+            <small class="text-muted d-flex align-items-center gap-2 mt-2"
+              ><i class="fas fa-level-down-alt text-secondary"></i> Fichas:
+              <span class="tag tag-fich">CPS-001</span>
+              <span class="tag tag-fich">CPS-010</span></small
+            >
+          </div>
+          <button
+            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
+            style="width: 40px; height: 40px"
+            data-bs-toggle="modal"
+            data-bs-target="#modalPrestacion"
+            onclick="editarPrestacion('PR-PSI-001')"
+          >
+            <i class="fas fa-pen text-primary"></i>
+          </button>
+        </div>
+        <div class="card-item">
+          <div class="icon-box" style="background: #ffedd5; color: #c2410c">
+            <i class="fas fa-helmet-safety"></i>
+          </div>
+          <div class="flex-grow-1">
+            <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+              <strong style="color: var(--text-muted)">PR-ALT-002</strong
+              ><span class="muted-dot">•</span
+              ><span class="fw-semibold text-muted"
+                >Psicología Ocupacional – Altura</span
+              ><span class="b-cesado">Cesado</span
+              ><span class="tag tag-tipo"
+                ><i class="fas fa-tag me-1"></i>Altura</span
+              >
+            </div>
+            <small class="text-muted d-flex align-items-center gap-2 mt-2"
+              ><i class="fas fa-level-down-alt text-secondary"></i> Fichas:
+              <span class="tag tag-fich">CPSG-001</span></small
+            >
+          </div>
+          <button
+            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
+            style="width: 40px; height: 40px"
+            data-bs-toggle="modal"
+            data-bs-target="#modalPrestacion"
+            onclick="editarPrestacion('PR-ALT-002')"
+          >
+            <i class="fas fa-pen text-primary"></i>
+          </button>
+        </div>
+        <nav aria-label="Paginación">
+          <ul class="pagination justify-content-end">
+            <li class="page-item disabled">
+              <a class="page-link page-link-wide" href="#">Anterior</a>
+            </li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link page-link-wide" href="#">Siguiente</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- ======== FICHAS ======== -->
+      <div class="screen" id="screen-fichas">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">
+              <i
+                class="fas fa-clipboard-list me-2"
+                style="color: var(--primary)"
+              ></i
+              >Fichas
+            </h1>
+            <p class="page-subtitle">
+              Construcción modular mediante Códigos Dato o Sub-fichas
+            </p>
+          </div>
+          <div class="d-flex gap-3 align-items-center">
+            <div class="search-wrap">
+              <i class="fas fa-search"></i
+              ><input
+                type="text"
+                placeholder="Buscar por código o descripción..."
+              />
+            </div>
+            <button
+              class="btn-prim"
+              data-bs-toggle="modal"
+              data-bs-target="#modalFicha"
+              onclick="nuevaFicha()"
+            >
+              <i class="fas fa-plus me-2"></i>Nueva Ficha
+            </button>
+          </div>
+        </div>
+        <div class="card-item">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <div class="flex-grow-1">
+            <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+              <strong style="color: var(--primary)">CPS-001</strong
+              ><span class="muted-dot">•</span
+              ><span class="fw-semibold">Escala de Ansiedad</span
+              ><span class="b-activo">Activo</span>
+            </div>
+            <small class="text-muted d-flex align-items-center gap-2 mt-2"
+              ><i class="fas fa-list-ul text-secondary"></i>3 Códigos Dato:
+              <span class="tag tag-punt">Puntaje</span
+              ><span class="tag tag-niv">Nivel</span
+              ><span class="tag tag-int">Interpretación</span></small
+            >
+          </div>
+          <button
+            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
+            style="width: 40px; height: 40px"
+            data-bs-toggle="modal"
+            data-bs-target="#modalFicha"
+            onclick="editarFicha('CPS-001', false)"
+          >
+            <i class="fas fa-pen text-primary"></i>
+          </button>
+        </div>
+        <div class="card-item">
+          <div class="icon-box" style="background: #eef2ff; color: #4338ca">
+            <i class="fas fa-layer-group"></i>
+          </div>
+          <div class="flex-grow-1">
+            <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+              <strong style="color: var(--primary)">CPSG-001</strong
+              ><span class="muted-dot">•</span
+              ><span class="fw-semibold">Competencias Laborales</span
+              ><span class="b-activo">Activo</span
+              ><span class="b-grupo"
+                ><i class="fas fa-layer-group me-1"></i>Ficha Grupo</span
+              >
+            </div>
+            <small class="text-muted d-flex align-items-center gap-2 mt-2"
+              ><i class="fas fa-sitemap text-secondary"></i>Contiene 4
+              sub-fichas hijas</small
+            >
+          </div>
+          <button
+            class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
+            style="width: 40px; height: 40px"
+            data-bs-toggle="modal"
+            data-bs-target="#modalFicha"
+            onclick="editarFicha('CPSG-001', true)"
+          >
+            <i class="fas fa-pen text-primary"></i>
+          </button>
+        </div>
+        <nav aria-label="Paginación">
+          <ul class="pagination justify-content-end">
+            <li class="page-item disabled">
+              <a class="page-link page-link-wide" href="#">Anterior</a>
+            </li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link page-link-wide" href="#">Siguiente</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Dashboard placeholder -->
+      <div class="screen" id="screen-dashboard">
+        <div class="page-header"><h1 class="page-title">Dashboard</h1></div>
+        <div class="text-center py-5 text-muted">
+          <i
+            class="fas fa-chart-pie fa-4x mb-3 d-block"
+            style="color: #e2e8f0"
+          ></i
+          >Interfaz en desarrollo
+        </div>
+      </div>
+    </div>
+    <!-- /main-content -->
+
+    <!-- ============================================
+       MODAL: PRUEBA PSICOLÓGICA (con Stepper)
+  ============================================ -->
+    <div class="modal fade" id="modalPrueba" tabindex="-1">
+      <div
+        class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
+      >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="tPrueba">
+              <i class="fas fa-file-medical-alt me-2 text-primary"></i>Nueva
+              Prueba Psicológica
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-0">
+              <!-- Columna Stepper (lateral izquierda) -->
+              <div class="col-md-3 pe-4 border-end">
+                <p class="form-label mb-3">Progreso de configuración</p>
+
+                <!-- Barra global dentro del modal -->
+                <div class="progress-wrap mb-4">
+                  <div class="progress-bar-custom">
+                    <div
+                      class="progress-fill"
+                      id="modalProgressFill"
+                      style="
+                        width: 20%;
+                        background: linear-gradient(90deg, #1565c0, #42a5f5);
+                      "
+                    ></div>
+                  </div>
+                  <span class="progress-pct" id="modalProgressPct">20%</span>
+                </div>
+
+                <div class="stepper" id="stepperNav">
+                  <div class="stepper-item active" onclick="goStep(0)">
+                    <div class="stepper-num active" id="snum-0">1</div>
+                    <div>
+                      <div class="stepper-label">Info General</div>
+                      <div class="stepper-sub">Código, nombre, tipo</div>
+                    </div>
+                  </div>
+                  <div class="stepper-item" onclick="goStep(1)">
+                    <div class="stepper-num pend" id="snum-1">2</div>
+                    <div>
+                      <div class="stepper-label">Preguntas</div>
+                      <div class="stepper-sub">Listado de ítems</div>
+                    </div>
+                  </div>
+                  <div class="stepper-item" onclick="goStep(2)">
+                    <div class="stepper-num pend" id="snum-2">3</div>
+                    <div>
+                      <div class="stepper-label">Alternativas</div>
+                      <div class="stepper-sub">Opciones de respuesta</div>
+                    </div>
+                  </div>
+                  <div class="stepper-item" onclick="goStep(3)">
+                    <div class="stepper-num pend" id="snum-3">4</div>
+                    <div>
+                      <div class="stepper-label">Factores</div>
+                      <div class="stepper-sub">Dimensiones a medir</div>
+                    </div>
+                  </div>
+                  <div class="stepper-item" onclick="goStep(4)">
+                    <div class="stepper-num pend" id="snum-4">5</div>
+                    <div>
+                      <div class="stepper-label">Respuestas</div>
+                      <div class="stepper-sub">Claves de corrección</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Columna Contenido de paso -->
+              <div class="col-md-9 ps-4">
+                <!-- PASO 1: Info General -->
+                <div class="tab-pane-custom active" id="step-0">
+                  <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
+                    <i class="fas fa-info-circle me-2"></i>Información General
+                  </h6>
+                  <div class="row g-4">
+                    <div class="col-md-4">
+                      <label class="form-label">Código</label>
+                      <input
+                        class="form-control"
+                        id="prCod"
+                        placeholder="PSI-XXX-000"
+                      />
+                    </div>
+                    <div class="col-md-8">
+                      <label class="form-label">Nombre / Descripción</label>
+                      <input
+                        class="form-control"
+                        id="prNom"
+                        placeholder="Nombre de la prueba psicológica"
+                      />
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label">Tipo de Examen</label>
+                      <select class="form-select" id="prTipo">
+                        <option value="">Seleccionar...</option>
+                        <option value="ingreso">Ingreso</option>
+                        <option value="periodico">Periódico</option>
+                        <option value="retiro">Retiro</option>
+                        <option value="altura">Altura</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label">Estado</label>
+                      <select class="form-select" id="prEstado">
+                        <option value="borrador">Borrador</option>
+                        <option value="activo">Activo</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label">Ícono / Emoji</label>
+                      <input
+                        class="form-control"
+                        id="prIcon"
+                        placeholder="🧠"
+                        maxlength="4"
+                        style="font-size: 1.5rem; text-align: center"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- PASO 2: Preguntas -->
+                <div class="tab-pane-custom" id="step-1">
+                  <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
+                    <i class="fas fa-question-circle me-2"></i>Preguntas
+                  </h6>
+                  <div class="soft-panel mb-3">
+                    <div class="row g-3 align-items-end">
+                      <div class="col-md-2">
+                        <label class="form-label">N°</label
+                        ><input
+                          class="form-control"
+                          id="pregNum"
+                          placeholder="01"
+                        />
+                      </div>
+                      <div class="col-md-8">
+                        <label class="form-label">Texto de la pregunta</label
+                        ><input
+                          class="form-control"
+                          id="pregTxt"
+                          placeholder="Escribe la pregunta..."
+                        />
+                      </div>
+                      <div class="col-md-2">
+                        <button
+                          class="btn btn-grp w-100"
+                          onclick="addPregunta()"
+                          style="padding: 12px"
+                        >
+                          <i class="fas fa-plus"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="items-box" id="boxPreg">
+                    <div
+                      class="text-center text-muted py-4 small"
+                      id="emptyPreg"
+                    >
+                      <i class="fas fa-question fa-3x mb-3 opacity-25"></i
+                      ><br />Sin preguntas agregadas.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- PASO 3: Alternativas -->
+                <div class="tab-pane-custom" id="step-2">
+                  <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
+                    <i class="fas fa-list-ol me-2"></i>Alternativas de Respuesta
+                  </h6>
+                  <div class="soft-panel mb-3">
+                    <div class="row g-3 align-items-end">
+                      <div class="col-md-2">
+                        <label class="form-label">Clave</label
+                        ><input
+                          class="form-control"
+                          id="altClave"
+                          placeholder="A"
+                        />
+                      </div>
+                      <div class="col-md-7">
+                        <label class="form-label">Descripción</label
+                        ><input
+                          class="form-control"
+                          id="altDesc"
+                          placeholder="Nunca / Siempre / A veces..."
+                        />
+                      </div>
+                      <div class="col-md-1">
+                        <label class="form-label">Pts</label
+                        ><input
+                          class="form-control"
+                          id="altPts"
+                          placeholder="0"
+                          type="number"
+                          min="0"
+                        />
+                      </div>
+                      <div class="col-md-2">
+                        <button
+                          class="btn btn-grp w-100"
+                          onclick="addAlternativa()"
+                          style="padding: 12px"
+                        >
+                          <i class="fas fa-plus"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="items-box" id="boxAlt">
+                    <div
+                      class="text-center text-muted py-4 small"
+                      id="emptyAlt"
+                    >
+                      <i class="fas fa-list fa-3x mb-3 opacity-25"></i><br />Sin
+                      alternativas.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- PASO 4: Factores -->
+                <div class="tab-pane-custom" id="step-3">
+                  <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
+                    <i class="fas fa-layer-group me-2"></i>Factores
+                    (Dimensiones)
+                  </h6>
+                  <div class="soft-panel mb-3">
+                    <div class="row g-3 align-items-end">
+                      <div class="col-md-3">
+                        <label class="form-label">Código Factor</label
+                        ><input
+                          class="form-control"
+                          id="facCod"
+                          placeholder="FAC-001"
+                        />
+                      </div>
+                      <div class="col-md-7">
+                        <label class="form-label">Descripción del Factor</label
+                        ><input
+                          class="form-control"
+                          id="facDesc"
+                          placeholder="Ej: Ansiedad Somática"
+                        />
+                      </div>
+                      <div class="col-md-2">
+                        <button
+                          class="btn btn-grp w-100"
+                          onclick="addFactor()"
+                          style="padding: 12px"
+                        >
+                          <i class="fas fa-plus"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="items-box" id="boxFac">
+                    <div
+                      class="text-center text-muted py-4 small"
+                      id="emptyFac"
+                    >
+                      <i class="fas fa-layer-group fa-3x mb-3 opacity-25"></i
+                      ><br />Sin factores.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- PASO 5: Respuestas -->
+                <div class="tab-pane-custom" id="step-4">
+                  <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
+                    <i class="fas fa-check-double me-2"></i>Claves de Respuesta
+                  </h6>
+                  <div class="soft-panel mb-3">
+                    <div class="row g-3 align-items-end">
+                      <div class="col-md-2">
+                        <label class="form-label">Pregunta N°</label
+                        ><input
+                          class="form-control"
+                          id="respPrg"
+                          placeholder="01"
+                          type="number"
+                          min="1"
+                        />
+                      </div>
+                      <div class="col-md-3">
+                        <label class="form-label">Respuesta Correcta</label
+                        ><input
+                          class="form-control"
+                          id="respClave"
+                          placeholder="A / B / C..."
+                        />
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Factor asociado</label
+                        ><input
+                          class="form-control"
+                          id="respFac"
+                          placeholder="FAC-001"
+                        />
+                      </div>
+                      <div class="col-md-3">
+                        <button
+                          class="btn btn-grp w-100"
+                          onclick="addRespuesta()"
+                          style="padding: 12px"
+                        >
+                          <i class="fas fa-plus"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="items-box" id="boxResp">
+                    <div
+                      class="text-center text-muted py-4 small"
+                      id="emptyResp"
+                    >
+                      <i class="fas fa-check-double fa-3x mb-3 opacity-25"></i
+                      ><br />Sin claves de respuesta.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Navegación entre pasos -->
+                <div
+                  class="d-flex justify-content-between align-items-center mt-5 pt-3 border-top"
+                >
+                  <button
+                    class="btn btn-light rounded-pill px-4 fw-bold"
+                    id="btnPrev"
+                    onclick="prevStep()"
+                    style="display: none"
+                  >
+                    <i class="fas fa-arrow-left me-2"></i>Anterior
+                  </button>
+                  <div></div>
+                  <button class="btn-prim" id="btnNext" onclick="nextStep()">
+                    Siguiente <i class="fas fa-arrow-right ms-2"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /col contenido -->
+            </div>
+            <!-- /row -->
+          </div>
+          <!-- /modal-body -->
+
+          <div class="modal-footer">
+            <button
+              class="btn btn-light rounded-pill px-4 fw-bold"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button class="btn-prim" onclick="guardarPrueba()">
+              <i class="fas fa-save me-2"></i>Guardar como Borrador
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Centros -->
+    <div class="modal fade" id="modalCentro" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="tCentro">
+              <i class="fas fa-hospital me-2 text-primary"></i>Centro Médico
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-4">
+              <div class="col-md-4">
+                <label class="form-label">Código</label
+                ><input class="form-control" id="cCod" placeholder="CM-00X" />
+              </div>
+              <div class="col-md-8">
+                <label class="form-label">Nombre / Descripción</label
+                ><input
+                  class="form-control"
+                  id="cDesc"
+                  placeholder="Nombre de sede"
+                />
+              </div>
+              <div class="col-12">
+                <label class="form-label">Dirección</label
+                ><input
+                  class="form-control"
+                  id="cDir"
+                  placeholder="Av. / Jr. ..."
+                />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Departamento</label
+                ><select class="form-select" id="cDpto">
+                  <option>Lima</option>
+                  <option>Arequipa</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Provincia</label
+                ><select class="form-select" id="cProv">
+                  <option>Lima</option>
+                  <option>Cañete</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Distrito</label
+                ><select class="form-select" id="cDist">
+                  <option>San Borja</option>
+                  <option>Miraflores</option>
+                  <option>Lince</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <div
+                  class="soft-panel d-flex justify-content-between align-items-center flex-wrap gap-3"
+                >
+                  <div class="form-check form-switch mb-0">
+                    <input
+                      class="form-check-input fs-5"
+                      type="checkbox"
+                      id="cVirtual"
+                    /><label
+                      class="form-check-label fw-bold ms-2 mt-1"
+                      for="cVirtual"
+                      ><i class="fas fa-laptop-medical text-primary me-1"></i
+                      >Permite Virtual</label
+                    >
+                  </div>
+                  <div class="form-check form-switch mb-0">
+                    <input
+                      class="form-check-input fs-5"
+                      type="checkbox"
+                      id="cActivo"
+                      checked
+                    /><label
+                      class="form-check-label fw-bold ms-2 mt-1"
+                      for="cActivo"
+                      >Estado Activo</label
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-light rounded-pill px-4 fw-bold"
+              data-bs-dismiss="modal"
+            >
+              Cancelar</button
+            ><button class="btn-prim">
+              <i class="fas fa-save me-2"></i>Guardar Cambios
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Simple -->
+    <div class="modal fade" id="modalSimple" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 460px">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="tSimple">
+              <i class="fas fa-plus me-2 text-primary"></i>Nuevo Registro
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-4">
+              <div class="col-md-5">
+                <label class="form-label">Código</label
+                ><input
+                  class="form-control"
+                  id="sCod"
+                  placeholder="Ej: XX-001"
+                />
+              </div>
+              <div class="col-12">
+                <label class="form-label">Descripción</label
+                ><input
+                  class="form-control"
+                  id="sDesc"
+                  placeholder="Descripción..."
+                />
+              </div>
+              <div class="col-12">
+                <div class="form-check form-switch">
+                  <input
+                    class="form-check-input fs-5"
+                    type="checkbox"
+                    id="sActivo"
+                    checked
+                  /><label
+                    class="form-check-label fw-bold ms-2 mt-1"
+                    for="sActivo"
+                    >Estado Activo</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-light rounded-pill px-4 fw-bold"
+              data-bs-dismiss="modal"
+            >
+              Cancelar</button
+            ><button class="btn-prim">
+              <i class="fas fa-save me-2"></i>Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Prestación -->
+    <div class="modal fade" id="modalPrestacion" tabindex="-1">
+      <div
+        class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
+      >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="tPrest">
+              <i class="fas fa-stethoscope me-2 text-primary"></i>Nueva
+              Prestación
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-4">
+              <div class="col-md-3">
+                <label class="form-label">Código</label
+                ><input
+                  class="form-control"
+                  id="pCod"
+                  placeholder="PR-XXX-000"
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Descripción</label
+                ><input
+                  class="form-control"
+                  id="pDesc"
+                  placeholder="Nombre de prestación"
+                />
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Estado</label
+                ><select class="form-select" id="pEstado">
+                  <option value="activo">Activo</option>
+                  <option value="cesado">Cesado</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Tipo Examen</label
+                ><select class="form-select" id="pTipoEx">
+                  <option value="">Seleccionar...</option>
+                  <option value="ingreso">Ingreso</option>
+                  <option value="periodico">Periódico</option>
+                  <option value="retiro">Retiro</option>
+                  <option value="altura">Altura</option>
+                </select>
+              </div>
+              <div class="col-12 mt-4">
+                <h6 class="fw-bold mb-3" style="color: var(--primary)">
+                  <i class="fas fa-link me-2"></i>Fichas Vinculadas
+                </h6>
+                <div class="soft-panel mb-4">
+                  <div class="row g-3 align-items-end">
+                    <div class="col-md-4">
+                      <label class="form-label">Código Ficha</label
+                      ><input
+                        class="form-control"
+                        id="pfCod"
+                        placeholder="Ej: CPS-001"
+                      />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Autocompletado</label
+                      ><input
+                        class="form-control bg-white"
+                        id="pfDesc"
+                        disabled
+                        placeholder="—"
+                      />
+                    </div>
+                    <div class="col-md-2">
+                      <button
+                        class="btn btn-grp w-100"
+                        onclick="addFichaPrestacion()"
+                        style="padding: 12px"
+                      >
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="items-box" id="boxPF">
+                  <div class="text-center text-muted py-4 small" id="emptyPF">
+                    <i class="fas fa-inbox fa-3x mb-3 opacity-25"></i><br />Sin
+                    fichas vinculadas.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-light rounded-pill px-4 fw-bold"
+              data-bs-dismiss="modal"
+            >
+              Cancelar</button
+            ><button class="btn-prim">
+              <i class="fas fa-save me-2"></i>Guardar Prestación
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Fichas -->
+    <div class="modal fade" id="modalFicha" tabindex="-1">
+      <div
+        class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
+      >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="tFicha">
+              <i class="fas fa-clipboard-list me-2 text-primary"></i>Nueva Ficha
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-4">
+              <div class="col-md-3">
+                <label class="form-label">Código Ficha</label
+                ><input class="form-control" id="fCod" placeholder="CPS-00X" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Descripción</label
+                ><input
+                  class="form-control"
+                  id="fDesc"
+                  placeholder="Nombre de ficha"
+                />
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Estado</label
+                ><select class="form-select" id="fEstado">
+                  <option value="borrador">Borrador</option>
+                  <option value="activo">Activo</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <div class="soft-panel d-flex gap-5 flex-wrap">
+                  <div class="form-check form-switch mb-0">
+                    <input
+                      class="form-check-input fs-5"
+                      type="checkbox"
+                      id="chkGrupo"
+                      onchange="toggleGrupo()"
+                    /><label
+                      class="form-check-label fw-bold ms-2 mt-1 text-primary"
+                      for="chkGrupo"
+                      ><i class="fas fa-layer-group me-1"></i>¿Es Ficha
+                      Grupo?</label
+                    >
+                  </div>
+                  <div class="form-check form-switch mb-0">
+                    <input
+                      class="form-check-input fs-5"
+                      type="checkbox"
+                      id="chkFinalizar"
+                    /><label
+                      class="form-check-label fw-bold ms-2 mt-1"
+                      for="chkFinalizar"
+                      ><i class="fas fa-flag-checkered me-1 text-success"></i
+                      >Finalizar al completar</label
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 mt-4" id="secCD">
+                <h6 class="fw-bold mb-3" style="color: var(--primary)">
+                  <i class="fas fa-list-ul me-2"></i>Códigos Dato
+                </h6>
+                <div class="soft-panel mb-4">
+                  <div class="row g-3 align-items-end">
+                    <div class="col-md-2">
+                      <label class="form-label">Cód. Dato</label
+                      ><input
+                        class="form-control"
+                        id="cdCod"
+                        placeholder="PUN-001"
+                      />
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label">Descripción</label
+                      ><input
+                        class="form-control"
+                        id="cdDes"
+                        placeholder="Nombre..."
+                      />
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label">Tipo</label
+                      ><select class="form-select" id="cdTip">
+                        <option value="">Seleccionar...</option>
+                        <option value="puntaje">📊 Puntaje</option>
+                        <option value="nivel">🔤 Nivel</option>
+                        <option value="interpretacion">
+                          📝 Interpretación
+                        </option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <label class="form-label">Estado</label
+                      ><select class="form-select" id="cdEst">
+                        <option value="activo">Activo</option>
+                        <option value="cesado">Cesado</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <button
+                        class="btn btn-grp w-100"
+                        onclick="addCD()"
+                        style="padding: 12px"
+                      >
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="items-box" id="boxCD">
+                  <div class="text-center text-muted py-4 small" id="emptyCD">
+                    <i class="fas fa-inbox fa-3x mb-3 opacity-25"></i><br />Sin
+                    Códigos Dato.
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 mt-4" id="secSF" style="display: none">
+                <h6 class="fw-bold mb-3" style="color: var(--primary)">
+                  <i class="fas fa-sitemap me-2"></i>Sub-fichas (Fichas Hijas)
+                </h6>
+                <div class="soft-panel mb-4">
+                  <div class="row g-3 align-items-end">
+                    <div class="col-md-3">
+                      <label class="form-label">Código Hija</label
+                      ><input
+                        class="form-control"
+                        id="sfCod"
+                        placeholder="Buscar..."
+                      />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Autocompletado</label
+                      ><input
+                        class="form-control bg-white"
+                        id="sfDes"
+                        disabled
+                        placeholder="—"
+                      />
+                    </div>
+                    <div class="col-md-3">
+                      <button
+                        class="btn btn-grp w-100"
+                        onclick="addSF()"
+                        style="padding: 12px"
+                      >
+                        <i class="fas fa-link me-2"></i>Vincular
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="items-box" id="boxSF">
+                  <div class="text-center text-muted py-4 small" id="emptySF">
+                    <i class="fas fa-sitemap fa-3x mb-3 opacity-25"></i
+                    ><br />Sin fichas hijas.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-light rounded-pill px-4 fw-bold"
+              data-bs-dismiss="modal"
+            >
+              Cancelar</button
+            ><button class="btn-prim">
+              <i class="fas fa-save me-2"></i>Guardar Ficha
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      /* ── NAVEGACIÓN SCREENS ── */
+      const SCREENS = [
+        "centros",
+        "grado",
+        "ocupaciones",
+        "grupos",
+        "prestaciones",
+        "fichas",
+        "dashboard",
+        "pruebas",
+      ];
+      function go(id) {
+        SCREENS.forEach((s) => {
+          document.getElementById("screen-" + s)?.classList.remove("active");
+          document.getElementById("nav-" + s)?.classList.remove("active");
+        });
+        document.getElementById("screen-" + id)?.classList.add("active");
+        document.getElementById("nav-" + id)?.classList.add("active");
+        return false;
+      }
+
+      /* ── DB AUTOCOMPLETE ── */
+      const FICHAS_DB = {
+        "CPS-001": "Escala de Ansiedad",
+        "CPS-002": "Escala de Depresión",
+        "CPS-003": "Competencias Laborales - Módulo 1",
+        "CPS-010": "Entrevista Psicológica - Básica",
+        "CPSG-001": "Competencias Laborales",
+      };
+      function autocompleteFicha(a, b) {
+        document.getElementById(b).value =
+          FICHAS_DB[document.getElementById(a).value.trim().toUpperCase()] ||
+          "";
+      }
+      document.addEventListener("input", (e) => {
+        if (e.target?.id === "pfCod") autocompleteFicha("pfCod", "pfDesc");
+        if (e.target?.id === "sfCod") autocompleteFicha("sfCod", "sfDes");
+      });
+
+      /* ── HELPERS DOM ── */
+      function pushItem(boxId, emptyId, html) {
+        const box = document.getElementById(boxId);
+        document.getElementById(emptyId)?.remove();
+        const d = document.createElement("div");
+        d.innerHTML = html;
+        box.appendChild(d.firstElementChild);
+      }
+      function resetBox(boxId, emptyId, icon, msg) {
+        document.getElementById(boxId).innerHTML =
+          `<div class="text-center text-muted py-4 small" id="${emptyId}"><i class="${icon} fa-3x mb-3 opacity-25"></i><br>${msg}</div>`;
+      }
+
+      /* ── CENTROS ── */
+      function nuevoCentro() {
+        document.getElementById("tCentro").innerHTML =
+          '<i class="fas fa-hospital me-2 text-primary"></i>Nuevo Centro Médico';
+        ["cCod", "cDesc", "cDir"].forEach(
+          (id) => (document.getElementById(id).value = ""),
+        );
+        document.getElementById("cActivo").checked = true;
+        document.getElementById("cVirtual").checked = false;
+      }
+      function editarCentro(cod, activo, virtual) {
+        document.getElementById("tCentro").innerHTML =
+          '<i class="fas fa-pen me-2 text-primary"></i>Editar: ' + cod;
+        document.getElementById("cCod").value = cod;
+        document.getElementById("cActivo").checked = !!activo;
+        document.getElementById("cVirtual").checked = !!virtual;
+      }
+
+      /* ── SIMPLE ── */
+      function nuevoSimple(tipo) {
+        document.getElementById("tSimple").innerHTML =
+          '<i class="fas fa-plus me-2 text-primary"></i>Nuevo ' + tipo;
+        document.getElementById("sCod").value = "";
+        document.getElementById("sDesc").value = "";
+        document.getElementById("sActivo").checked = true;
+      }
+      function editarSimple(cod, desc) {
+        document.getElementById("tSimple").innerHTML =
+          '<i class="fas fa-pen me-2 text-primary"></i>Editar Registro';
+        document.getElementById("sCod").value = cod;
+        document.getElementById("sDesc").value = desc;
+      }
+
+      /* ── PRESTACIONES ── */
+      function nuevaPrestacion() {
+        document.getElementById("tPrest").innerHTML =
+          '<i class="fas fa-stethoscope me-2 text-primary"></i>Nueva Prestación';
+        ["pCod", "pDesc"].forEach(
+          (id) => (document.getElementById(id).value = ""),
+        );
+        document.getElementById("pEstado").value = "activo";
+        document.getElementById("pTipoEx").value = "";
+        resetBox("boxPF", "emptyPF", "fas fa-inbox", "Sin fichas vinculadas.");
+      }
+      function editarPrestacion(cod) {
+        document.getElementById("tPrest").innerHTML =
+          '<i class="fas fa-pen me-2 text-primary"></i>Editar: ' + cod;
+        document.getElementById("pCod").value = cod;
+        if (cod === "PR-PSI-001") {
+          document.getElementById("pDesc").value =
+            "Evaluación Psicológica – Entrevista";
+          document.getElementById("pEstado").value = "activo";
+          document.getElementById("pTipoEx").value = "ingreso";
+          resetBox(
+            "boxPF",
+            "emptyPF",
+            "fas fa-inbox",
+            "Sin fichas vinculadas.",
+          );
+          pushItem("boxPF", "emptyPF", rowPF("CPS-001", "Escala de Ansiedad"));
+          pushItem(
+            "boxPF",
+            "emptyPF",
+            rowPF("CPS-010", "Entrevista Psicológica - Básica"),
+          );
+        } else {
+          document.getElementById("pDesc").value =
+            "Psicología Ocupacional – Altura";
+          document.getElementById("pEstado").value = "cesado";
+          document.getElementById("pTipoEx").value = "altura";
+          resetBox(
+            "boxPF",
+            "emptyPF",
+            "fas fa-inbox",
+            "Sin fichas vinculadas.",
+          );
+          pushItem(
+            "boxPF",
+            "emptyPF",
+            rowPF("CPSG-001", "Competencias Laborales"),
+          );
+        }
+      }
+      function addFichaPrestacion() {
+        const cod = document.getElementById("pfCod").value.trim().toUpperCase();
+        const des =
+          document.getElementById("pfDesc").value.trim() ||
+          FICHAS_DB[cod] ||
+          "—";
+        if (!cod) {
+          alert("Ingresa el código.");
+          return;
+        }
+        pushItem("boxPF", "emptyPF", rowPF(cod, des));
+        document.getElementById("pfCod").value = "";
+        document.getElementById("pfDesc").value = "";
+      }
+      function rowPF(cod, des) {
+        return `<div class="item-row"><div class="inf"><span class="tag tag-fich fw-bold"><i class="fas fa-file-alt me-1 text-primary"></i>${cod}</span><span class="fw-medium">${des}</span></div><button class="btn btn-light rounded-circle text-danger p-0" style="width:32px;height:32px;" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button></div>`;
+      }
+
+      /* ── FICHAS ── */
+      const TIPO_LABEL = {
+          puntaje: "Puntaje",
+          nivel: "Nivel",
+          interpretacion: "Interpretación",
+        },
+        TIPO_CLASS = {
+          puntaje: "tag-punt",
+          nivel: "tag-niv",
+          interpretacion: "tag-int",
+        },
+        TIPO_ICON = { puntaje: "📊", nivel: "🔤", interpretacion: "📝" };
+      function setEstadoFichaMode(mode) {
+        const sel = document.getElementById("fEstado");
+        if (mode === "create") {
+          sel.querySelector('option[value="cesado"]')?.remove();
+          sel.value = "borrador";
+        } else {
+          if (!sel.querySelector('option[value="cesado"]')) {
+            const o = document.createElement("option");
+            o.value = "cesado";
+            o.textContent = "Cesado";
+            sel.appendChild(o);
+          }
+        }
+      }
+      function nuevaFicha() {
+        document.getElementById("tFicha").innerHTML =
+          '<i class="fas fa-clipboard-list me-2 text-primary"></i>Nueva Ficha';
+        document.getElementById("fCod").value = "";
+        document.getElementById("fDesc").value = "";
+        document.getElementById("chkGrupo").checked = false;
+        document.getElementById("chkFinalizar").checked = false;
+        setEstadoFichaMode("create");
+        document.getElementById("secCD").style.display = "block";
+        document.getElementById("secSF").style.display = "none";
+        resetBox("boxCD", "emptyCD", "fas fa-inbox", "Sin Códigos Dato.");
+        resetBox("boxSF", "emptySF", "fas fa-sitemap", "Sin sub-fichas.");
+      }
+      function editarFicha(cod, esGrupo) {
+        document.getElementById("tFicha").innerHTML =
+          '<i class="fas fa-pen me-2 text-primary"></i>Editar Ficha: ' + cod;
+        document.getElementById("fCod").value = cod;
+        setEstadoFichaMode("edit");
+        document.getElementById("fEstado").value = "activo";
+        document.getElementById("chkGrupo").checked = !!esGrupo;
+        toggleGrupo();
+        resetBox("boxCD", "emptyCD", "fas fa-inbox", "Sin Códigos Dato.");
+        resetBox("boxSF", "emptySF", "fas fa-sitemap", "Sin sub-fichas.");
+        if (!esGrupo) {
+          pushItem(
+            "boxCD",
+            "emptyCD",
+            rowCD("PUN-001", "Puntaje Total", "puntaje", "activo"),
+          );
+          pushItem(
+            "boxCD",
+            "emptyCD",
+            rowCD("NIV-001", "Nivel Resultante", "nivel", "activo"),
+          );
+          pushItem(
+            "boxCD",
+            "emptyCD",
+            rowCD(
+              "INT-001",
+              "Interpretación Clínica",
+              "interpretacion",
+              "activo",
+            ),
+          );
+        } else {
+          pushItem("boxSF", "emptySF", rowSF("CPS-001", "Escala de Ansiedad"));
+          pushItem("boxSF", "emptySF", rowSF("CPS-002", "Escala de Depresión"));
+          pushItem(
+            "boxSF",
+            "emptySF",
+            rowSF("CPS-003", "Competencias Laborales - Módulo 1"),
+          );
+        }
+      }
+      function toggleGrupo() {
+        const g = document.getElementById("chkGrupo").checked;
+        document.getElementById("secCD").style.display = g ? "none" : "block";
+        document.getElementById("secSF").style.display = g ? "block" : "none";
+      }
+      function addCD() {
+        const cod = document.getElementById("cdCod").value.trim().toUpperCase(),
+          des = document.getElementById("cdDes").value.trim(),
+          tip = document.getElementById("cdTip").value,
+          est = document.getElementById("cdEst").value;
+        if (!cod || !des || !tip || !est) {
+          alert("Faltan datos.");
+          return;
+        }
+        pushItem("boxCD", "emptyCD", rowCD(cod, des, tip, est));
+        ["cdCod", "cdDes"].forEach(
+          (id) => (document.getElementById(id).value = ""),
+        );
+        document.getElementById("cdTip").value = "";
+        document.getElementById("cdEst").value = "activo";
+      }
+      function addSF() {
+        const cod = document.getElementById("sfCod").value.trim().toUpperCase(),
+          des =
+            document.getElementById("sfDes").value.trim() ||
+            FICHAS_DB[cod] ||
+            "—";
+        if (!cod) {
+          alert("Ingresa código.");
+          return;
+        }
+        pushItem("boxSF", "emptySF", rowSF(cod, des));
+        document.getElementById("sfCod").value = "";
+        document.getElementById("sfDes").value = "";
+      }
+      function rowCD(cod, des, tip, est) {
+        return `<div class="item-row"><div class="inf"><strong style="color:var(--primary)">${cod}</strong><span class="fw-medium">${des}</span><span class="tag ${TIPO_CLASS[tip]}">${TIPO_ICON[tip]} ${TIPO_LABEL[tip]}</span>${est === "activo" ? '<span class="b-activo">Activo</span>' : '<span class="b-cesado">Cesado</span>'}</div><button class="btn btn-light rounded-circle text-danger p-0" style="width:32px;height:32px;" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button></div>`;
+      }
+      function rowSF(cod, des) {
+        return `<div class="item-row"><div class="inf"><span class="tag tag-fich fw-bold"><i class="fas fa-file-alt me-1 text-primary"></i>${cod}</span><span class="fw-medium">${des}</span></div><button class="btn btn-light rounded-circle text-danger p-0" style="width:32px;height:32px;" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button></div>`;
+      }
+
+      /* ══════════════════════════════
+       PRUEBAS PSICOLÓGICAS
+    ══════════════════════════════ */
+
+      /* Stepper */
+      let currentStep = 0;
+      const TOTAL_STEPS = 5;
+      const STEP_PCT = [20, 40, 60, 80, 100];
+
+      function goStep(n) {
+        // Ocultar todos los paneles
+        for (let i = 0; i < TOTAL_STEPS; i++) {
+          document.getElementById("step-" + i)?.classList.remove("active");
+          const snum = document.getElementById("snum-" + i);
+          const item = document.querySelectorAll(".stepper-item")[i];
+          if (snum && item) {
+            item.classList.remove("active");
+            if (i < n) {
+              snum.className = "stepper-num done";
+              snum.innerHTML =
+                '<i class="fas fa-check" style="font-size:.7rem"></i>';
+            } else if (i === n) {
+              snum.className = "stepper-num active";
+              snum.innerHTML = i + 1;
+              item.classList.add("active");
+            } else {
+              snum.className = "stepper-num pend";
+              snum.innerHTML = i + 1;
+            }
+          }
+        }
+        document.getElementById("step-" + n)?.classList.add("active");
+        currentStep = n;
+
+        // Barra de progreso en modal
+        document.getElementById("modalProgressFill").style.width =
+          STEP_PCT[n] + "%";
+        document.getElementById("modalProgressPct").textContent =
+          STEP_PCT[n] + "%";
+
+        // Botones nav
+        document.getElementById("btnPrev").style.display =
+          n === 0 ? "none" : "inline-flex";
+        document.getElementById("btnNext").style.display =
+          n === TOTAL_STEPS - 1 ? "none" : "inline-flex";
+      }
+      function nextStep() {
+        if (currentStep < TOTAL_STEPS - 1) goStep(currentStep + 1);
+      }
+      function prevStep() {
+        if (currentStep > 0) goStep(currentStep - 1);
+      }
+
+      /* Nueva prueba */
+      function nuevaPrueba() {
+        document.getElementById("tPrueba").innerHTML =
+          '<i class="fas fa-file-medical-alt me-2 text-primary"></i>Nueva Prueba Psicológica';
+        ["prCod", "prNom", "prIcon"].forEach(
+          (id) => (document.getElementById(id).value = ""),
+        );
+        document.getElementById("prTipo").value = "";
+        document.getElementById("prEstado").value = "borrador";
+        resetBox("boxPreg", "emptyPreg", "fas fa-question", "Sin preguntas.");
+        resetBox("boxAlt", "emptyAlt", "fas fa-list", "Sin alternativas.");
+        resetBox("boxFac", "emptyFac", "fas fa-layer-group", "Sin factores.");
+        resetBox("boxResp", "emptyResp", "fas fa-check-double", "Sin claves.");
+        goStep(0);
+      }
+
+      /* Editar prueba (carga datos demo) */
+      function editarPrueba(cod) {
+        document.getElementById("tPrueba").innerHTML =
+          '<i class="fas fa-pen me-2 text-primary"></i>Editar Prueba: ' + cod;
+
+        const demos = {
+          "PSI-ANS-001": {
+            nom: "Escala de Ansiedad de Beck",
+            tipo: "ingreso",
+            est: "activo",
+            icon: "🧠",
+            step: 4,
+          },
+          "PSI-CMP-002": {
+            nom: "Competencias Laborales Volcán",
+            tipo: "periodico",
+            est: "borrador",
+            icon: "🧩",
+            step: 1,
+          },
+          "PSI-ALT-003": {
+            nom: "Evaluación Psicológica – Altura",
+            tipo: "altura",
+            est: "borrador",
+            icon: "⛰️",
+            step: 0,
+          },
+          "PSI-CHI-004": {
+            nom: "Entrevista Psicológica Chinalco",
+            tipo: "retiro",
+            est: "cesado",
+            icon: "📋",
+            step: 4,
+          },
+        };
+        const d = demos[cod];
+        if (d) {
+          document.getElementById("prCod").value = cod;
+          document.getElementById("prNom").value = d.nom;
+          document.getElementById("prTipo").value = d.tipo;
+          document.getElementById("prIcon").value = d.icon;
+
+          // Si cesado, agregar opción
+          const sel = document.getElementById("prEstado");
+          if (!sel.querySelector('option[value="cesado"]')) {
+            const o = document.createElement("option");
+            o.value = "cesado";
+            o.textContent = "Cesado";
+            sel.appendChild(o);
+          }
+          sel.value = d.est;
+
+          resetBox("boxPreg", "emptyPreg", "fas fa-question", "Sin preguntas.");
+          resetBox("boxAlt", "emptyAlt", "fas fa-list", "Sin alternativas.");
+          resetBox("boxFac", "emptyFac", "fas fa-layer-group", "Sin factores.");
+          resetBox(
+            "boxResp",
+            "emptyResp",
+            "fas fa-check-double",
+            "Sin claves.",
+          );
+
+          // Cargar datos demo si está más avanzado
+          if (d.step >= 1) {
+            pushItem(
+              "boxPreg",
+              "emptyPreg",
+              rowPregunta(1, "¿Con qué frecuencia siente tensión muscular?"),
+            );
+            pushItem(
+              "boxPreg",
+              "emptyPreg",
+              rowPregunta(2, "¿Experimenta dificultad para concentrarse?"),
+            );
+            pushItem(
+              "boxPreg",
+              "emptyPreg",
+              rowPregunta(3, "¿Siente palpitaciones frecuentes?"),
+            );
+          }
+          if (d.step >= 2) {
+            pushItem("boxAlt", "emptyAlt", rowAlternativa("A", "Nunca", 0));
+            pushItem("boxAlt", "emptyAlt", rowAlternativa("B", "A veces", 1));
+            pushItem(
+              "boxAlt",
+              "emptyAlt",
+              rowAlternativa("C", "Frecuentemente", 2),
+            );
+            pushItem("boxAlt", "emptyAlt", rowAlternativa("D", "Siempre", 3));
+          }
+          if (d.step >= 3) {
+            pushItem(
+              "boxFac",
+              "emptyFac",
+              rowFactor("FAC-001", "Ansiedad Somática"),
+            );
+            pushItem(
+              "boxFac",
+              "emptyFac",
+              rowFactor("FAC-002", "Ansiedad Cognitiva"),
+            );
+          }
+          if (d.step >= 4) {
+            pushItem("boxResp", "emptyResp", rowRespuesta(1, "B", "FAC-001"));
+            pushItem("boxResp", "emptyResp", rowRespuesta(2, "C", "FAC-002"));
+            pushItem("boxResp", "emptyResp", rowRespuesta(3, "A", "FAC-001"));
+          }
+
+          goStep(d.step === 4 ? 4 : d.step);
+        }
+      }
+
+      function guardarPrueba() {
+        alert(
+          "✅ Prueba guardada como Borrador correctamente.\n\nEn la implementación real se enviará al servidor.",
+        );
+      }
+
+      /* Filtro búsqueda */
+      function filtrarPruebas() {
+        const q = document
+          .getElementById("buscarPrueba")
+          .value.trim()
+          .toLowerCase();
+        document
+          .querySelectorAll("#listaPruebas .card-prueba")
+          .forEach((card) => {
+            const txt = (
+              card.dataset.nombre +
+              " " +
+              card.dataset.tipo +
+              " " +
+              card.dataset.codigo
+            ).toLowerCase();
+            card.style.display = txt.includes(q) ? "" : "none";
+          });
+      }
+
+      /* Rows de prueba */
+      function addPregunta() {
+        const num = document.getElementById("pregNum").value.trim(),
+          txt = document.getElementById("pregTxt").value.trim();
+        if (!num || !txt) {
+          alert("Completa número y texto.");
+          return;
+        }
+        pushItem("boxPreg", "emptyPreg", rowPregunta(num, txt));
+        document.getElementById("pregNum").value = "";
+        document.getElementById("pregTxt").value = "";
+      }
+      function rowPregunta(n, txt) {
+        return `<div class="item-row"><div class="inf"><span class="tag" style="background:#EFF6FF;color:#1D4ED8;font-weight:700">P${n}</span><span class="fw-medium">${txt}</span></div><button class="btn btn-light rounded-circle text-danger p-0" style="width:32px;height:32px;" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button></div>`;
+      }
+
+      function addAlternativa() {
+        const clave = document
+            .getElementById("altClave")
+            .value.trim()
+            .toUpperCase(),
+          desc = document.getElementById("altDesc").value.trim(),
+          pts = document.getElementById("altPts").value.trim();
+        if (!clave || !desc) {
+          alert("Completa clave y descripción.");
+          return;
+        }
+        pushItem("boxAlt", "emptyAlt", rowAlternativa(clave, desc, pts));
+        ["altClave", "altDesc", "altPts"].forEach(
+          (id) => (document.getElementById(id).value = ""),
+        );
+      }
+      function rowAlternativa(clave, desc, pts) {
+        return `<div class="item-row"><div class="inf"><span class="tag" style="background:#F3E8FF;color:#6B21A8;font-weight:700">${clave}</span><span class="fw-medium">${desc}</span>${pts !== "" ? `<span class="tag" style="background:#E0F2FE;color:#0369A1">${pts} pts</span>` : ""}</div><button class="btn btn-light rounded-circle text-danger p-0" style="width:32px;height:32px;" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button></div>`;
+      }
+
+      function addFactor() {
+        const cod = document
+            .getElementById("facCod")
+            .value.trim()
+            .toUpperCase(),
+          desc = document.getElementById("facDesc").value.trim();
+        if (!cod || !desc) {
+          alert("Completa código y descripción.");
+          return;
+        }
+        pushItem("boxFac", "emptyFac", rowFactor(cod, desc));
+        document.getElementById("facCod").value = "";
+        document.getElementById("facDesc").value = "";
+      }
+      function rowFactor(cod, desc) {
+        return `<div class="item-row"><div class="inf"><span class="tag tag-punt fw-bold">${cod}</span><span class="fw-medium">${desc}</span></div><button class="btn btn-light rounded-circle text-danger p-0" style="width:32px;height:32px;" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button></div>`;
+      }
+
+      function addRespuesta() {
+        const prg = document.getElementById("respPrg").value.trim(),
+          clave = document
+            .getElementById("respClave")
+            .value.trim()
+            .toUpperCase(),
+          fac = document.getElementById("respFac").value.trim().toUpperCase();
+        if (!prg || !clave) {
+          alert("Completa pregunta y clave.");
+          return;
+        }
+        pushItem("boxResp", "emptyResp", rowRespuesta(prg, clave, fac));
+        ["respPrg", "respClave", "respFac"].forEach(
+          (id) => (document.getElementById(id).value = ""),
+        );
+      }
+      function rowRespuesta(prg, clave, fac) {
+        return `<div class="item-row"><div class="inf"><span class="tag" style="background:#EFF6FF;color:#1D4ED8;font-weight:700">P${prg}</span><span class="tag" style="background:#F3E8FF;color:#6B21A8;font-weight:700">→ ${clave}</span>${fac ? `<span class="tag tag-niv fw-bold">${fac}</span>` : ""}</div><button class="btn btn-light rounded-circle text-danger p-0" style="width:32px;height:32px;" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button></div>`;
+      }
+    </script>
+  </body>
+</html>
