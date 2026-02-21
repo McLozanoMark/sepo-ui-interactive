@@ -7,4 +7,5 @@ Interacciones reales de usuario.
 
 Responsividad del sistema.
 
-🔗 CLIC AQUÍ PARA VER EL PROTOTIPO (EN PROCESO)
+🔗 CLIC AQUÍ PARA VER EL PROTOTIPO
+https://mclozanomark.github.io/sepo-ui-interactive/
