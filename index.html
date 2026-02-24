@@ -660,7 +660,26 @@
         color: #cbd5e1;
         margin: 0 4px;
       }
-    </style>
+    
+    /* ── DRAG & DROP orden de prestaciones ── */
+    #lista-sepo .card-item,
+    #lista-complementario .card-item {
+      cursor: grab;
+    }
+    #lista-sepo .card-item:active,
+    #lista-complementario .card-item:active {
+      cursor: grabbing;
+    }
+    .drag-over {
+      outline: 2px dashed var(--primary);
+      outline-offset: 2px;
+      background: #eff6ff !important;
+    }
+    .dragging {
+      opacity: 0.4;
+    }
+
+  </style>
   </head>
 
   <body>
@@ -727,6 +746,14 @@
         <li>
           <a class="nav-link" id="nav-fichas" href="#" onclick="go('fichas')"
             ><i class="fas fa-clipboard-list fa-fw"></i> Fichas</a
+          >
+        </li>
+      </ul>
+      <div class="sidebar-section mt-4">Configuración</div>
+      <ul class="nav flex-column">
+        <li>
+          <a class="nav-link" id="nav-orden" href="#" onclick="go('orden')"
+            ><i class="fas fa-sort fa-fw"></i> Orden de Prestaciones</a
           >
         </li>
       </ul>
@@ -1364,14 +1391,6 @@
               <i class="fas fa-search"></i
               ><input type="text" placeholder="Buscar ocupación..." />
             </div>
-            <button
-              class="btn-prim"
-              data-bs-toggle="modal"
-              data-bs-target="#modalSimple"
-              onclick="nuevoSimple('Ocupación')"
-            >
-              <i class="fas fa-plus me-2"></i>Nuevo
-            </button>
           </div>
         </div>
         <div class="card-item">
@@ -1442,7 +1461,7 @@
               class="btn-action btn-edit"
               data-bs-toggle="modal"
               data-bs-target="#modalSimple"
-              onclick="editarSimple('GO-001', 'Administrativos')"
+              onclick="editarSimple('GO-001','Administrativos')"
               title="Editar"
             >
               <i class="fas fa-pen"></i>
@@ -1468,7 +1487,7 @@
               class="btn-action btn-edit"
               data-bs-toggle="modal"
               data-bs-target="#modalSimple"
-              onclick="editarSimple('GO-002', 'Operarios')"
+              onclick="editarSimple('GO-002','Operarios')"
               title="Editar"
             >
               <i class="fas fa-pen"></i>
@@ -1494,7 +1513,7 @@
               class="btn-action btn-edit"
               data-bs-toggle="modal"
               data-bs-target="#modalSimple"
-              onclick="editarSimple('GO-003', 'Operativos')"
+              onclick="editarSimple('GO-003','Operativos')"
               title="Editar"
             >
               <i class="fas fa-pen"></i>
@@ -1571,7 +1590,7 @@
                 >Evaluación Psicológica – Entrevista</span
               ><span class="b-activo">Activo</span
               ><span class="tag tag-tipo"
-                ><i class="fas fa-tag me-1"></i>Ingreso</span
+                ><i class="fas fa-tag me-1"></i>SEPO</span
               >
             </div>
             <small class="text-muted d-flex align-items-center gap-2 mt-2"
@@ -1611,7 +1630,7 @@
                 >Psicología Ocupacional – Altura</span
               ><span class="b-cesado">Cesado</span
               ><span class="tag tag-tipo"
-                ><i class="fas fa-tag me-1"></i>Altura</span
+                ><i class="fas fa-tag me-1"></i>Complementario</span
               >
             </div>
             <small class="text-muted d-flex align-items-center gap-2 mt-2"
@@ -1780,6 +1799,131 @@
       </div>
 
       <!-- Dashboard -->
+      <div class="screen" id="screen-orden">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">
+              <i class="fas fa-sort me-2" style="color: var(--primary)"></i>Orden de Prestaciones
+            </h1>
+            <p class="page-subtitle">Configura el orden de visualización de prestaciones y pruebas psicológicas</p>
+          </div>
+          <div class="d-flex gap-3 align-items-center">
+            <div class="search-wrap">
+              <i class="fas fa-search"></i
+              ><input type="text" placeholder="Buscar prestación..." />
+            </div>
+          </div>
+        </div>
+
+        <!-- BLOQUE SEPO -->
+        <div class="mb-4">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="d-flex align-items-center gap-3">
+              <span class="tag tag-tipo"><i class="fas fa-briefcase-medical me-1"></i>Exámenes Médicos Ocupacionales (SEPO)</span>
+              <small class="text-muted">Ingreso · Periódico · Retiro</small>
+            </div>
+            <button class="btn-prim" data-bs-toggle="modal" data-bs-target="#modalAddPrestOrden" onclick="abrirAddPrestOrden('sepo')">
+              <i class="fas fa-plus me-2"></i>Añadir Prestación
+            </button>
+          </div>
+          <div id="lista-sepo">
+            <div class="card-item" draggable="true">
+              <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-heart-pulse"></i></div>
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                  <strong style="color:var(--primary)">PR-PSI-001</strong><span class="muted-dot">•</span>
+                  <span class="fw-semibold">Evaluación Psicológica – Entrevista</span>
+                  <span class="b-activo">Activo</span>
+                </div>
+                <small class="text-muted d-flex align-items-center gap-3 mt-1">
+                  <span><i class="fas fa-clipboard-list me-1"></i>2 fichas</span>
+                  <span><i class="fas fa-file-medical-alt me-1"></i>3 pruebas</span>
+                </small>
+              </div>
+              <div class="d-flex gap-2 align-items-center">
+                <div class="d-flex flex-column gap-1">
+                  <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
+                  <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <button class="btn-prim" style="font-size:0.8rem;padding:8px 16px;" data-bs-toggle="modal" data-bs-target="#modalOrdenPruebas" onclick="abrirOrdenPruebas('PR-PSI-001',false)">
+                  <i class="fas fa-sort me-1"></i>Orden de Pruebas
+                </button>
+              </div>
+            </div>
+            <div class="card-item" draggable="true">
+              <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-comments"></i></div>
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                  <strong style="color:var(--primary)">PR-PSI-003</strong><span class="muted-dot">•</span>
+                  <span class="fw-semibold">Evaluación Psicológica – Periódica</span>
+                  <span class="b-activo">Activo</span>
+                  <span class="b-borrador" style="font-size:0.72rem;padding:2px 8px;"><i class="fas fa-users me-1"></i>Dep. Grupo Ocup.</span>
+                </div>
+                <small class="text-muted d-flex align-items-center gap-3 mt-1">
+                  <span><i class="fas fa-clipboard-list me-1"></i>1 ficha</span>
+                  <span><i class="fas fa-file-medical-alt me-1"></i>2 pruebas</span>
+                </small>
+              </div>
+              <div class="d-flex gap-2 align-items-center">
+                <div class="d-flex flex-column gap-1">
+                  <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
+                  <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <button class="btn-prim" style="font-size:0.8rem;padding:8px 16px;" data-bs-toggle="modal" data-bs-target="#modalOrdenPruebas" onclick="abrirOrdenPruebas('PR-PSI-003',true)">
+                  <i class="fas fa-sort me-1"></i>Orden de Pruebas
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BLOQUE COMPLEMENTARIOS -->
+        <div class="mb-4">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="d-flex align-items-center gap-3">
+              <span class="tag tag-tipo"><i class="fas fa-plus-circle me-1"></i>Exámenes Complementarios</span>
+              <small class="text-muted">Altura · Brigadista · Conductores · Espacios Confinados</small>
+            </div>
+            <button class="btn-prim" data-bs-toggle="modal" data-bs-target="#modalAddPrestOrden" onclick="abrirAddPrestOrden('complementario')">
+              <i class="fas fa-plus me-2"></i>Añadir Prestación
+            </button>
+          </div>
+          <div id="lista-complementario">
+            <div class="card-item" draggable="true">
+              <div class="icon-box" style="background:#ffedd5;color:#c2410c"><i class="fas fa-helmet-safety"></i></div>
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                  <strong style="color:var(--primary)">PR-ALT-002</strong><span class="muted-dot">•</span>
+                  <span class="fw-semibold">Psicología Ocupacional – Altura</span>
+                  <span class="b-activo">Activo</span>
+                </div>
+                <small class="text-muted d-flex align-items-center gap-3 mt-1">
+                  <span><i class="fas fa-clipboard-list me-1"></i>1 ficha</span>
+                  <span><i class="fas fa-file-medical-alt me-1"></i>2 pruebas</span>
+                </small>
+              </div>
+              <div class="d-flex gap-2 align-items-center">
+                <div class="d-flex flex-column gap-1">
+                  <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
+                  <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <button class="btn-prim" style="font-size:0.8rem;padding:8px 16px;" data-bs-toggle="modal" data-bs-target="#modalOrdenPruebas" onclick="abrirOrdenPruebas('PR-ALT-002',false)">
+                  <i class="fas fa-sort me-1"></i>Orden de Pruebas
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <nav aria-label="Paginación">
+          <ul class="pagination justify-content-end">
+            <li class="page-item disabled"><a class="page-link page-link-wide" href="#">Anterior</a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link page-link-wide" href="#">Siguiente</a></li>
+          </ul>
+        </nav>
+      </div>
+
       <div class="screen" id="screen-dashboard">
         <div class="page-header"><h1 class="page-title">Dashboard</h1></div>
         <div class="text-center py-5 text-muted">
@@ -2357,19 +2501,30 @@
               <div class="col-md-3">
                 <label class="form-label">Estado</label
                 ><select class="form-select" id="pEstado">
+                  <option value="borrador">Borrador</option>
                   <option value="activo">Activo</option>
                   <option value="cesado">Cesado</option>
                 </select>
               </div>
               <div class="col-md-4">
-                <label class="form-label">Tipo Examen</label
+                <label class="form-label">Clasificación</label
                 ><select class="form-select" id="pTipoEx">
                   <option value="">Seleccionar...</option>
-                  <option value="ingreso">Ingreso</option>
-                  <option value="periodico">Periódico</option>
-                  <option value="retiro">Retiro</option>
-                  <option value="altura">Altura</option>
+                  <option value="sepo">Examen Médico Ocupacional (SEPO)</option>
+                  <option value="complementario">Examen Complementario</option>
                 </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Ícono</label>
+                <input class="form-control" id="pIcono" placeholder="Default si se deja vacío" />
+              </div>
+              <div class="col-12">
+                <div class="soft-panel d-flex align-items-center gap-3">
+                  <div class="form-check form-switch mb-0">
+                    <input class="form-check-input fs-5" type="checkbox" id="pDepGrupo" />
+                    <label class="form-check-label fw-bold ms-2 mt-1" for="pDepGrupo">¿Depende de Grupo Ocupacional?</label>
+                  </div>
+                </div>
               </div>
               <div class="col-12 mt-4">
                 <h6 class="fw-bold mb-3" style="color: var(--primary)">
@@ -2377,21 +2532,12 @@
                 </h6>
                 <div class="soft-panel mb-4">
                   <div class="row g-3 align-items-end">
-                    <div class="col-md-4">
-                      <label class="form-label">Código Ficha</label
+                    <div class="col-md-10">
+                      <label class="form-label">Buscar Ficha (código o nombre)</label
                       ><input
                         class="form-control"
                         id="pfCod"
-                        placeholder="Ej: CPS-001"
-                      />
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">Autocompletado</label
-                      ><input
-                        class="form-control bg-white"
-                        id="pfDesc"
-                        disabled
-                        placeholder="—"
+                        placeholder="Ej: CPS-001 o nombre de la ficha..."
                       />
                     </div>
                     <div class="col-md-2">
@@ -2609,7 +2755,118 @@
       </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+    // ── Orden de Prestaciones ─────────────────────────────────
+    function moverOrden(btn, dir) {
+      const card = btn.closest('.card-item');
+      const lista = card.parentElement;
+      if (dir === 'up' && card.previousElementSibling) {
+        lista.insertBefore(card, card.previousElementSibling);
+      } else if (dir === 'down' && card.nextElementSibling) {
+        lista.insertBefore(card.nextElementSibling, card);
+      }
+    }
+    let _grupoOrdenActivo = 'sepo';
+    function abrirAddPrestOrden(grupo) {
+      _grupoOrdenActivo = grupo;
+      document.getElementById('lblGrupoOrden').textContent = grupo === 'sepo'
+        ? 'Añadiendo a: Exámenes Médicos Ocupacionales (SEPO)'
+        : 'Añadiendo a: Exámenes Complementarios';
+      document.getElementById('inputAddPrestOrden').value = '';
+    }
+    function confirmarAddPrestOrden() {
+      const val = document.getElementById('inputAddPrestOrden').value.trim();
+      if (!val) return;
+      const lista = document.getElementById(
+        _grupoOrdenActivo === 'sepo' ? 'lista-sepo' : 'lista-complementario'
+      );
+      const icoBg    = _grupoOrdenActivo === 'sepo' ? '#e0f2fe' : '#ffedd5';
+      const icoCol   = _grupoOrdenActivo === 'sepo' ? 'var(--primary)' : '#c2410c';
+      const icoClass = _grupoOrdenActivo === 'sepo' ? 'fa-heart-pulse' : 'fa-helmet-safety';
+      const n = lista.querySelectorAll('.card-item').length + 1;
+      const cod = (_grupoOrdenActivo === 'sepo' ? 'PR-PSI-' : 'PR-CPL-') + String(n).padStart(3,'0');
+      const tarjeta = document.createElement('div');
+      tarjeta.className = 'card-item';
+      initDrag(tarjeta);
+      tarjeta.innerHTML = `
+        <div class="icon-box" style="background:${icoBg};color:${icoCol}"><i class="fas ${icoClass}"></i></div>
+        <div class="flex-grow-1">
+          <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+            <strong style="color:var(--primary)">${cod}</strong>
+            <span class="muted-dot">•</span>
+            <span class="fw-semibold">${val}</span>
+            <span class="b-activo">Activo</span>
+          </div>
+          <small class="text-muted d-flex align-items-center gap-3 mt-1">
+            <span><i class="fas fa-clipboard-list me-1"></i>0 fichas</span>
+            <span><i class="fas fa-file-medical-alt me-1"></i>0 pruebas</span>
+          </small>
+        </div>
+        <div class="d-flex gap-2 align-items-center">
+          <div class="d-flex flex-column gap-1">
+            <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
+            <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <button class="btn-prim" style="font-size:0.8rem;padding:8px 16px"
+            data-bs-toggle="modal" data-bs-target="#modalOrdenPruebas"
+            onclick="abrirOrdenPruebas('${cod}',false)">
+            <i class="fas fa-sort me-1"></i>Orden de Pruebas
+          </button>
+        </div>`;
+      lista.appendChild(tarjeta);
+    }
+    function abrirOrdenPruebas(codPrest, depGrupo) {
+      document.getElementById('tOrdenPruebas').innerHTML =
+        '<i class="fas fa-sort me-2 text-primary"></i>Orden de Pruebas — ' + codPrest;
+      const sg = document.getElementById('selectorGrupoOrden');
+      const lp = document.getElementById('listaPruebasOrden');
+      if (depGrupo) {
+        sg.style.display = 'block';
+        lp.style.display = 'none';
+        document.getElementById('selectGrupoOrden').value = '';
+      } else {
+        sg.style.display = 'none';
+        lp.style.display = 'block';
+      }
+    }
+    function cargarPruebasOrden() {
+      const grupo = document.getElementById('selectGrupoOrden').value;
+      const lp = document.getElementById('listaPruebasOrden');
+      if (!grupo) return;
+      lp.style.display = 'block';
+      const pruebasPorGrupo = {
+        'GO-001': [
+          { cod: 'PSI-ANS-001', nom: 'Escala de Ansiedad de Beck' },
+          { cod: 'PSI-CMP-002', nom: 'Competencias Laborales Volcán' }
+        ],
+        'GO-002': [
+          { cod: 'PSI-ALT-003', nom: 'Evaluación Psicológica – Altura' },
+          { cod: 'PSI-ANS-001', nom: 'Escala de Ansiedad de Beck' }
+        ],
+        'GO-003': [
+          { cod: 'PSI-CHI-004', nom: 'Entrevista Psicológica Chinalco' },
+          { cod: 'PSI-CMP-002', nom: 'Competencias Laborales Volcán' }
+        ]
+      };
+      const pruebas = pruebasPorGrupo[grupo] || [];
+      lp.innerHTML = pruebas.map(p => `
+        <div class="card-item">
+          <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-file-medical-alt"></i></div>
+          <div class="flex-grow-1">
+            <div class="d-flex align-items-center gap-2">
+              <strong style="color:var(--primary)">${p.cod}</strong>
+              <span class="muted-dot">•</span>
+              <span class="fw-semibold">${p.nom}</span>
+            </div>
+          </div>
+          <div class="d-flex flex-column gap-1">
+            <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
+            <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
+          </div>
+        </div>`).join('');
+    }
+
+    </script>
     <script>
       /* ── NAVEGACIÓN ── */
       const SCREENS = [
@@ -2621,6 +2878,7 @@
         "fichas",
         "dashboard",
         "pruebas",
+        "orden",
       ];
       function go(id) {
         SCREENS.forEach((s) => {
@@ -2726,7 +2984,7 @@
           document.getElementById("pDesc").value =
             "Evaluación Psicológica – Entrevista";
           document.getElementById("pEstado").value = "activo";
-          document.getElementById("pTipoEx").value = "ingreso";
+          document.getElementById("pTipoEx").value = "sepo";
           resetBox(
             "boxPF",
             "emptyPF",
@@ -3160,5 +3418,139 @@
         return `<div class="item-row"><div class="inf"><span class="tag" style="background:#EFF6FF;color:#1D4ED8;font-weight:700">P${prg}</span><span class="tag" style="background:#F3E8FF;color:#6B21A8;font-weight:700">→ ${clave}</span>${fac ? `<span class="tag tag-niv fw-bold">${fac}</span>` : ""}</div><button class="btn btn-light rounded-circle text-danger p-0" style="width:32px;height:32px;" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button></div>`;
       }
     </script>
-  </body>
+  
+    <!-- Modal: Añadir Prestación al Orden -->
+    <div class="modal fade" id="modalAddPrestOrden" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><i class="fas fa-plus me-2 text-primary"></i>Añadir Prestación</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-muted mb-3" id="lblGrupoOrden" style="font-size:0.9rem;"></p>
+            <label class="form-label">Buscar Prestación (código o descripción)</label>
+            <input class="form-control" id="inputAddPrestOrden" placeholder="Ej: PR-PSI-001 o Evaluación..." />
+            <small class="text-muted mt-2 d-block"><i class="fas fa-info-circle me-1"></i>Solo se muestran prestaciones en estado Activo.</small>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn-prim" onclick="confirmarAddPrestOrden()" data-bs-dismiss="modal"><i class="fas fa-plus me-2"></i>Añadir</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Orden de Pruebas -->
+    <div class="modal fade" id="modalOrdenPruebas" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="tOrdenPruebas"><i class="fas fa-sort me-2 text-primary"></i>Orden de Pruebas</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div id="selectorGrupoOrden" class="soft-panel mb-4" style="display:none;">
+              <p class="fw-bold mb-2"><i class="fas fa-users me-2 text-primary"></i>Esta prestación depende de Grupo Ocupacional</p>
+              <label class="form-label">Selecciona el Grupo Ocupacional para ver sus pruebas</label>
+              <select class="form-select" id="selectGrupoOrden" onchange="cargarPruebasOrden()">
+                <option value="">Seleccionar grupo...</option>
+                <option value="GO-001">Administrativos</option>
+                <option value="GO-002">Operarios</option>
+                <option value="GO-003">Operativos</option>
+              </select>
+            </div>
+            <div id="listaPruebasOrden">
+              <div class="card-item">
+                <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-file-medical-alt"></i></div>
+                <div class="flex-grow-1">
+                  <div class="d-flex align-items-center gap-2">
+                    <strong style="color:var(--primary)">PSI-ANS-001</strong><span class="muted-dot">•</span>
+                    <span class="fw-semibold">Escala de Ansiedad de Beck</span>
+                  </div>
+                </div>
+                <div class="d-flex flex-column gap-1">
+                  <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
+                  <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
+                </div>
+              </div>
+              <div class="card-item">
+                <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-file-medical-alt"></i></div>
+                <div class="flex-grow-1">
+                  <div class="d-flex align-items-center gap-2">
+                    <strong style="color:var(--primary)">PSI-CMP-002</strong><span class="muted-dot">•</span>
+                    <span class="fw-semibold">Competencias Laborales Volcán</span>
+                  </div>
+                </div>
+                <div class="d-flex flex-column gap-1">
+                  <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
+                  <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cerrar</button>
+            <button class="btn-prim" data-bs-dismiss="modal"><i class="fas fa-save me-2"></i>Guardar Orden</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  <script>
+    /* ── DRAG & DROP para listas de orden de prestaciones ── */
+    let _dragSrc = null;
+
+    function initDrag(el) {
+      el.setAttribute('draggable', 'true');
+      el.addEventListener('dragstart', function(e) {
+        _dragSrc = this;
+        this.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+      });
+      el.addEventListener('dragend', function() {
+        this.classList.remove('dragging');
+        document.querySelectorAll('.drag-over').forEach(n => n.classList.remove('drag-over'));
+      });
+      el.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        if (this !== _dragSrc) this.classList.add('drag-over');
+      });
+      el.addEventListener('dragleave', function() {
+        this.classList.remove('drag-over');
+      });
+      el.addEventListener('drop', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        this.classList.remove('drag-over');
+        if (_dragSrc && _dragSrc !== this && this.parentElement === _dragSrc.parentElement) {
+          const lista = this.parentElement;
+          const items = Array.from(lista.querySelectorAll('.card-item'));
+          const srcIdx = items.indexOf(_dragSrc);
+          const tgtIdx = items.indexOf(this);
+          if (srcIdx < tgtIdx) {
+            lista.insertBefore(_dragSrc, this.nextSibling);
+          } else {
+            lista.insertBefore(_dragSrc, this);
+          }
+        }
+        _dragSrc = null;
+      });
+    }
+
+    function initDragList(listId) {
+      const lista = document.getElementById(listId);
+      if (!lista) return;
+      lista.querySelectorAll('.card-item').forEach(initDrag);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      initDragList('lista-sepo');
+      initDragList('lista-complementario');
+    });
+  </script>
+
+</body>
 </html>
