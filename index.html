@@ -487,6 +487,24 @@
         }
       }
 
+      @keyframes slideInRight {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      .pr-toast {
+        animation: slideInRight 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+          forwards;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        padding: 4px;
+      }
+
       /* ─── PRUEBAS PSICOLÓGICAS ─── */
       .card-prueba {
         background: var(--surface);
@@ -660,26 +678,27 @@
         color: #cbd5e1;
         margin: 0 4px;
       }
-    
-    /* ── DRAG & DROP orden de prestaciones ── */
-    #lista-sepo .card-item,
-    #lista-complementario .card-item {
-      cursor: grab;
-    }
-    #lista-sepo .card-item:active,
-    #lista-complementario .card-item:active {
-      cursor: grabbing;
-    }
-    .drag-over {
-      outline: 2px dashed var(--primary);
-      outline-offset: 2px;
-      background: #eff6ff !important;
-    }
-    .dragging {
-      opacity: 0.4;
-    }
 
-  </style>
+      /* ── DRAG & DROP orden de prestaciones ── */
+      #lista-sepo .card-item,
+      #lista-complementario .card-item {
+        cursor: grab;
+      }
+      #lista-sepo .card-item:active,
+      #lista-complementario .card-item:active {
+        cursor: grabbing;
+      }
+      .dragging {
+        opacity: 0.45;
+        transform: rotate(2deg) scale(1.03);
+        box-shadow: 0 16px 40px rgba(21, 101, 192, 0.25);
+      }
+      .drag-over {
+        outline: 3px dashed #1565c0 !important;
+        background: rgba(21, 101, 192, 0.05) !important;
+        border-radius: 20px;
+      }
+    </style>
   </head>
 
   <body>
@@ -1140,7 +1159,30 @@
               Gestión de sedes y clínicas autorizadas (2 registros)
             </p>
           </div>
-          <div class="d-flex gap-3 align-items-center">
+          <div
+            class="d-flex gap-3 align-items-center flex-wrap justify-content-end"
+          >
+            <select
+              class="form-select w-auto"
+              style="min-width: 140px; border-radius: 100px"
+            >
+              <option value="">Departamento</option>
+              <option>Lima</option>
+            </select>
+            <select
+              class="form-select w-auto"
+              style="min-width: 140px; border-radius: 100px"
+            >
+              <option value="">Provincia</option>
+              <option>Lima</option>
+            </select>
+            <select
+              class="form-select w-auto"
+              style="min-width: 140px; border-radius: 100px"
+            >
+              <option value="">Distrito</option>
+              <option>San Borja</option>
+            </select>
             <div class="search-wrap">
               <i class="fas fa-search"></i
               ><input
@@ -1461,7 +1503,7 @@
               class="btn-action btn-edit"
               data-bs-toggle="modal"
               data-bs-target="#modalSimple"
-              onclick="editarSimple('GO-001','Administrativos')"
+              onclick="editarSimple('GO-001', 'Administrativos')"
               title="Editar"
             >
               <i class="fas fa-pen"></i>
@@ -1487,7 +1529,7 @@
               class="btn-action btn-edit"
               data-bs-toggle="modal"
               data-bs-target="#modalSimple"
-              onclick="editarSimple('GO-002','Operarios')"
+              onclick="editarSimple('GO-002', 'Operarios')"
               title="Editar"
             >
               <i class="fas fa-pen"></i>
@@ -1513,7 +1555,7 @@
               class="btn-action btn-edit"
               data-bs-toggle="modal"
               data-bs-target="#modalSimple"
-              onclick="editarSimple('GO-003','Operativos')"
+              onclick="editarSimple('GO-003', 'Operativos')"
               title="Editar"
             >
               <i class="fas fa-pen"></i>
@@ -1557,7 +1599,22 @@
               Tipos de examen y vinculación modular de fichas
             </p>
           </div>
-          <div class="d-flex gap-3 align-items-center">
+          <div
+            class="d-flex gap-3 align-items-center flex-wrap justify-content-end"
+          >
+            <input
+              class="form-control"
+              placeholder="Cód. Ficha"
+              style="width: 140px; border-radius: 100px"
+            />
+            <select
+              class="form-select"
+              style="width: 160px; border-radius: 100px"
+            >
+              <option>Dep. Grupo Ocupacional</option>
+              <option>Sí</option>
+              <option>No</option>
+            </select>
             <div class="search-wrap">
               <i class="fas fa-search"></i
               ><input
@@ -1575,7 +1632,7 @@
             </button>
           </div>
         </div>
-        <div class="card-item">
+        <div class="card-item" data-icono="heart-pulse">
           <div
             class="icon-box"
             style="background: #e0f2fe; color: var(--primary)"
@@ -1618,7 +1675,7 @@
             </button>
           </div>
         </div>
-        <div class="card-item">
+        <div class="card-item" data-icono="helmet-safety">
           <div class="icon-box" style="background: #ffedd5; color: #c2410c">
             <i class="fas fa-helmet-safety"></i>
           </div>
@@ -1687,7 +1744,14 @@
               Construcción modular mediante Códigos Dato o Sub-fichas
             </p>
           </div>
-          <div class="d-flex gap-3 align-items-center">
+          <div
+            class="d-flex gap-3 align-items-center flex-wrap justify-content-end"
+          >
+            <input
+              class="form-control"
+              placeholder="Cód. Prestación"
+              style="width: 180px; border-radius: 100px"
+            />
             <div class="search-wrap">
               <i class="fas fa-search"></i
               ><input
@@ -1803,9 +1867,13 @@
         <div class="page-header">
           <div>
             <h1 class="page-title">
-              <i class="fas fa-sort me-2" style="color: var(--primary)"></i>Orden de Prestaciones
+              <i class="fas fa-sort me-2" style="color: var(--primary)"></i
+              >Orden de Prestaciones
             </h1>
-            <p class="page-subtitle">Configura el orden de visualización de prestaciones y pruebas psicológicas</p>
+            <p class="page-subtitle">
+              Configura el orden de visualización de prestaciones y pruebas
+              psicológicas
+            </p>
           </div>
           <div class="d-flex gap-3 align-items-center">
             <div class="search-wrap">
@@ -1819,57 +1887,270 @@
         <div class="mb-4">
           <div class="d-flex align-items-center justify-content-between mb-3">
             <div class="d-flex align-items-center gap-3">
-              <span class="tag tag-tipo"><i class="fas fa-briefcase-medical me-1"></i>Exámenes Médicos Ocupacionales (SEPO)</span>
+              <span class="tag tag-tipo"
+                ><i class="fas fa-briefcase-medical me-1"></i>Exámenes Médicos
+                Ocupacionales (SEPO)</span
+              >
               <small class="text-muted">Ingreso · Periódico · Retiro</small>
             </div>
-            <button class="btn-prim" data-bs-toggle="modal" data-bs-target="#modalAddPrestOrden" onclick="abrirAddPrestOrden('sepo')">
+            <button
+              class="btn-prim"
+              data-bs-toggle="modal"
+              data-bs-target="#modalAddPrestOrden"
+              onclick="abrirAddPrestOrden('principal')"
+            >
               <i class="fas fa-plus me-2"></i>Añadir Prestación
             </button>
           </div>
           <div id="lista-sepo">
+            <!-- Card 1 -->
             <div class="card-item" draggable="true">
-              <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-heart-pulse"></i></div>
+              <div
+                class="icon-box"
+                style="background: #e0f2fe; color: var(--primary)"
+              >
+                <i class="fas fa-heart-pulse"></i>
+              </div>
               <div class="flex-grow-1">
                 <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-                  <strong style="color:var(--primary)">PR-PSI-001</strong><span class="muted-dot">•</span>
-                  <span class="fw-semibold">Evaluación Psicológica – Entrevista</span>
+                  <strong style="color: var(--primary)">PR-PSI-001</strong
+                  ><span class="muted-dot">•</span>
+                  <span class="fw-semibold"
+                    >Evaluación Psicológica – Entrevista</span
+                  >
                   <span class="b-activo">Activo</span>
                 </div>
                 <small class="text-muted d-flex align-items-center gap-3 mt-1">
-                  <span><i class="fas fa-clipboard-list me-1"></i>2 fichas</span>
-                  <span><i class="fas fa-file-medical-alt me-1"></i>3 pruebas</span>
+                  <span
+                    ><i class="fas fa-clipboard-list me-1"></i>2 fichas</span
+                  >
+                  <span
+                    ><i class="fas fa-file-medical-alt me-1"></i>3 pruebas</span
+                  >
                 </small>
               </div>
               <div class="d-flex gap-2 align-items-center">
                 <div class="d-flex flex-column gap-1">
-                  <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
-                  <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
+                  <button
+                    class="btn-action btn-edit"
+                    title="Subir"
+                    onclick="moverOrden(this, 'up')"
+                  >
+                    <i class="fas fa-chevron-up"></i>
+                  </button>
+                  <button
+                    class="btn-action btn-edit"
+                    title="Bajar"
+                    onclick="moverOrden(this, 'down')"
+                  >
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
                 </div>
-                <button class="btn-prim" style="font-size:0.8rem;padding:8px 16px;" data-bs-toggle="modal" data-bs-target="#modalOrdenPruebas" onclick="abrirOrdenPruebas('PR-PSI-001',false)">
+                <button
+                  class="btn-prim"
+                  style="font-size: 0.8rem; padding: 8px 16px"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalOrdenPruebas"
+                  onclick="abrirOrdenPruebas('PR-PSI-001', false)"
+                >
                   <i class="fas fa-sort me-1"></i>Orden de Pruebas
                 </button>
               </div>
             </div>
+            <!-- Card 2 -->
             <div class="card-item" draggable="true">
-              <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-comments"></i></div>
+              <div class="icon-box" style="background: #fff7ed; color: #c2410c">
+                <i class="fas fa-comments"></i>
+              </div>
               <div class="flex-grow-1">
                 <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-                  <strong style="color:var(--primary)">PR-PSI-003</strong><span class="muted-dot">•</span>
-                  <span class="fw-semibold">Evaluación Psicológica – Periódica</span>
+                  <strong style="color: var(--primary)">PR-PSI-003</strong
+                  ><span class="muted-dot">•</span>
+                  <span class="fw-semibold"
+                    >Evaluación Psicológica Periódica</span
+                  >
                   <span class="b-activo">Activo</span>
-                  <span class="b-borrador" style="font-size:0.72rem;padding:2px 8px;"><i class="fas fa-users me-1"></i>Dep. Grupo Ocup.</span>
                 </div>
                 <small class="text-muted d-flex align-items-center gap-3 mt-1">
                   <span><i class="fas fa-clipboard-list me-1"></i>1 ficha</span>
-                  <span><i class="fas fa-file-medical-alt me-1"></i>2 pruebas</span>
+                  <span
+                    ><i class="fas fa-file-medical-alt me-1"></i>2 pruebas</span
+                  >
                 </small>
               </div>
               <div class="d-flex gap-2 align-items-center">
                 <div class="d-flex flex-column gap-1">
-                  <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
-                  <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
+                  <button
+                    class="btn-action btn-edit"
+                    title="Subir"
+                    onclick="moverOrden(this, 'up')"
+                  >
+                    <i class="fas fa-chevron-up"></i>
+                  </button>
+                  <button
+                    class="btn-action btn-edit"
+                    title="Bajar"
+                    onclick="moverOrden(this, 'down')"
+                  >
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
                 </div>
-                <button class="btn-prim" style="font-size:0.8rem;padding:8px 16px;" data-bs-toggle="modal" data-bs-target="#modalOrdenPruebas" onclick="abrirOrdenPruebas('PR-PSI-003',true)">
+                <button
+                  class="btn-prim"
+                  style="font-size: 0.8rem; padding: 8px 16px"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalOrdenPruebas"
+                  onclick="abrirOrdenPruebas('PR-PSI-003', true)"
+                >
+                  <i class="fas fa-sort me-1"></i>Orden de Pruebas
+                </button>
+              </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="card-item" draggable="true">
+              <div class="icon-box" style="background: #eef2ff; color: #4338ca">
+                <i class="fas fa-brain"></i>
+              </div>
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                  <strong style="color: var(--primary)">PR-PSI-004</strong
+                  ><span class="muted-dot">•</span>
+                  <span class="fw-semibold">Batería de Riesgo Psicosocial</span>
+                  <span class="b-activo">Activo</span>
+                </div>
+                <small class="text-muted d-flex align-items-center gap-3 mt-1">
+                  <span
+                    ><i class="fas fa-clipboard-list me-1"></i>4 fichas</span
+                  >
+                  <span
+                    ><i class="fas fa-file-medical-alt me-1"></i>1 prueba</span
+                  >
+                </small>
+              </div>
+              <div class="d-flex gap-2 align-items-center">
+                <div class="d-flex flex-column gap-1">
+                  <button
+                    class="btn-action btn-edit"
+                    title="Subir"
+                    onclick="moverOrden(this, 'up')"
+                  >
+                    <i class="fas fa-chevron-up"></i>
+                  </button>
+                  <button
+                    class="btn-action btn-edit"
+                    title="Bajar"
+                    onclick="moverOrden(this, 'down')"
+                  >
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
+                </div>
+                <button
+                  class="btn-prim"
+                  style="font-size: 0.8rem; padding: 8px 16px"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalOrdenPruebas"
+                  onclick="abrirOrdenPruebas('PR-PSI-004', false)"
+                >
+                  <i class="fas fa-sort me-1"></i>Orden de Pruebas
+                </button>
+              </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="card-item" draggable="true">
+              <div class="icon-box" style="background: #f0f9ff; color: #0369a1">
+                <i class="fas fa-clipboard-list"></i>
+              </div>
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                  <strong style="color: var(--primary)">PR-PSI-005</strong
+                  ><span class="muted-dot">•</span>
+                  <span class="fw-semibold"
+                    >Test de Atención y Concentración</span
+                  >
+                  <span class="b-activo">Activo</span>
+                </div>
+                <small class="text-muted d-flex align-items-center gap-3 mt-1">
+                  <span><i class="fas fa-clipboard-list me-1"></i>1 ficha</span>
+                  <span
+                    ><i class="fas fa-file-medical-alt me-1"></i>2 pruebas</span
+                  >
+                </small>
+              </div>
+              <div class="d-flex gap-2 align-items-center">
+                <div class="d-flex flex-column gap-1">
+                  <button
+                    class="btn-action btn-edit"
+                    title="Subir"
+                    onclick="moverOrden(this, 'up')"
+                  >
+                    <i class="fas fa-chevron-up"></i>
+                  </button>
+                  <button
+                    class="btn-action btn-edit"
+                    title="Bajar"
+                    onclick="moverOrden(this, 'down')"
+                  >
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
+                </div>
+                <button
+                  class="btn-prim"
+                  style="font-size: 0.8rem; padding: 8px 16px"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalOrdenPruebas"
+                  onclick="abrirOrdenPruebas('PR-PSI-005', false)"
+                >
+                  <i class="fas fa-sort me-1"></i>Orden de Pruebas
+                </button>
+              </div>
+            </div>
+            <!-- Card 5 -->
+            <div class="card-item" draggable="true">
+              <div class="icon-box" style="background: #f8fafc; color: #1e293b">
+                <i class="fas fa-user-doctor"></i>
+              </div>
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                  <strong style="color: var(--primary)">PR-PSI-006</strong
+                  ><span class="muted-dot">•</span>
+                  <span class="fw-semibold"
+                    >Inventario Clínico de Personalidad</span
+                  >
+                  <span class="b-activo">Activo</span>
+                </div>
+                <small class="text-muted d-flex align-items-center gap-3 mt-1">
+                  <span
+                    ><i class="fas fa-clipboard-list me-1"></i>3 fichas</span
+                  >
+                  <span
+                    ><i class="fas fa-file-medical-alt me-1"></i>4 pruebas</span
+                  >
+                </small>
+              </div>
+              <div class="d-flex gap-2 align-items-center">
+                <div class="d-flex flex-column gap-1">
+                  <button
+                    class="btn-action btn-edit"
+                    title="Subir"
+                    onclick="moverOrden(this, 'up')"
+                  >
+                    <i class="fas fa-chevron-up"></i>
+                  </button>
+                  <button
+                    class="btn-action btn-edit"
+                    title="Bajar"
+                    onclick="moverOrden(this, 'down')"
+                  >
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
+                </div>
+                <button
+                  class="btn-prim"
+                  style="font-size: 0.8rem; padding: 8px 16px"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalOrdenPruebas"
+                  onclick="abrirOrdenPruebas('PR-PSI-006', false)"
+                >
                   <i class="fas fa-sort me-1"></i>Orden de Pruebas
                 </button>
               </div>
@@ -1881,33 +2162,220 @@
         <div class="mb-4">
           <div class="d-flex align-items-center justify-content-between mb-3">
             <div class="d-flex align-items-center gap-3">
-              <span class="tag tag-tipo"><i class="fas fa-plus-circle me-1"></i>Exámenes Complementarios</span>
-              <small class="text-muted">Altura · Brigadista · Conductores · Espacios Confinados</small>
+              <span class="tag tag-tipo"
+                ><i class="fas fa-plus-circle me-1"></i>Exámenes
+                Complementarios</span
+              >
+              <small class="text-muted"
+                >Altura · Brigadista · Conductores · Espacios Confinados</small
+              >
             </div>
-            <button class="btn-prim" data-bs-toggle="modal" data-bs-target="#modalAddPrestOrden" onclick="abrirAddPrestOrden('complementario')">
+            <button
+              class="btn-prim"
+              data-bs-toggle="modal"
+              data-bs-target="#modalAddPrestOrden"
+              onclick="abrirAddPrestOrden('complementario')"
+            >
               <i class="fas fa-plus me-2"></i>Añadir Prestación
             </button>
           </div>
           <div id="lista-complementario">
+            <!-- Card 1 -->
             <div class="card-item" draggable="true">
-              <div class="icon-box" style="background:#ffedd5;color:#c2410c"><i class="fas fa-helmet-safety"></i></div>
+              <div class="icon-box" style="background: #ffedd5; color: #c2410c">
+                <i class="fas fa-helmet-safety"></i>
+              </div>
               <div class="flex-grow-1">
                 <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-                  <strong style="color:var(--primary)">PR-ALT-002</strong><span class="muted-dot">•</span>
-                  <span class="fw-semibold">Psicología Ocupacional – Altura</span>
+                  <strong style="color: var(--primary)">PR-ALT-002</strong
+                  ><span class="muted-dot">•</span>
+                  <span class="fw-semibold"
+                    >Psicología Ocupacional – Altura</span
+                  >
                   <span class="b-activo">Activo</span>
                 </div>
                 <small class="text-muted d-flex align-items-center gap-3 mt-1">
                   <span><i class="fas fa-clipboard-list me-1"></i>1 ficha</span>
-                  <span><i class="fas fa-file-medical-alt me-1"></i>2 pruebas</span>
+                  <span
+                    ><i class="fas fa-file-medical-alt me-1"></i>2 pruebas</span
+                  >
                 </small>
               </div>
               <div class="d-flex gap-2 align-items-center">
                 <div class="d-flex flex-column gap-1">
-                  <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
-                  <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
+                  <button
+                    class="btn-action btn-edit"
+                    title="Subir"
+                    onclick="moverOrden(this, 'up')"
+                  >
+                    <i class="fas fa-chevron-up"></i>
+                  </button>
+                  <button
+                    class="btn-action btn-edit"
+                    title="Bajar"
+                    onclick="moverOrden(this, 'down')"
+                  >
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
                 </div>
-                <button class="btn-prim" style="font-size:0.8rem;padding:8px 16px;" data-bs-toggle="modal" data-bs-target="#modalOrdenPruebas" onclick="abrirOrdenPruebas('PR-ALT-002',false)">
+                <button
+                  class="btn-prim"
+                  style="font-size: 0.8rem; padding: 8px 16px"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalOrdenPruebas"
+                  onclick="abrirOrdenPruebas('PR-ALT-002', false)"
+                >
+                  <i class="fas fa-sort me-1"></i>Orden de Pruebas
+                </button>
+              </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="card-item" draggable="true">
+              <div class="icon-box" style="background: #f0fdf4; color: #15803d">
+                <i class="fas fa-shield-halved"></i>
+              </div>
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                  <strong style="color: var(--primary)">PR-ALT-003</strong
+                  ><span class="muted-dot">•</span>
+                  <span class="fw-semibold"
+                    >Evaluación Brigadas de Emergencia</span
+                  >
+                  <span class="b-activo">Activo</span>
+                </div>
+                <small class="text-muted d-flex align-items-center gap-3 mt-1">
+                  <span
+                    ><i class="fas fa-clipboard-list me-1"></i>2 fichas</span
+                  >
+                  <span
+                    ><i class="fas fa-file-medical-alt me-1"></i>1 prueba</span
+                  >
+                </small>
+              </div>
+              <div class="d-flex gap-2 align-items-center">
+                <div class="d-flex flex-column gap-1">
+                  <button
+                    class="btn-action btn-edit"
+                    title="Subir"
+                    onclick="moverOrden(this, 'up')"
+                  >
+                    <i class="fas fa-chevron-up"></i>
+                  </button>
+                  <button
+                    class="btn-action btn-edit"
+                    title="Bajar"
+                    onclick="moverOrden(this, 'down')"
+                  >
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
+                </div>
+                <button
+                  class="btn-prim"
+                  style="font-size: 0.8rem; padding: 8px 16px"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalOrdenPruebas"
+                  onclick="abrirOrdenPruebas('PR-ALT-003', false)"
+                >
+                  <i class="fas fa-sort me-1"></i>Orden de Pruebas
+                </button>
+              </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="card-item" draggable="true">
+              <div class="icon-box" style="background: #fff7ed; color: #ea580c">
+                <i class="fas fa-truck-fast"></i>
+              </div>
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                  <strong style="color: var(--primary)">PR-ALT-004</strong
+                  ><span class="muted-dot">•</span>
+                  <span class="fw-semibold"
+                    >Test Conductores Profesionales</span
+                  >
+                  <span class="b-activo">Activo</span>
+                </div>
+                <small class="text-muted d-flex align-items-center gap-3 mt-1">
+                  <span><i class="fas fa-clipboard-list me-1"></i>1 ficha</span>
+                  <span
+                    ><i class="fas fa-file-medical-alt me-1"></i>3 pruebas</span
+                  >
+                </small>
+              </div>
+              <div class="d-flex gap-2 align-items-center">
+                <div class="d-flex flex-column gap-1">
+                  <button
+                    class="btn-action btn-edit"
+                    title="Subir"
+                    onclick="moverOrden(this, 'up')"
+                  >
+                    <i class="fas fa-chevron-up"></i>
+                  </button>
+                  <button
+                    class="btn-action btn-edit"
+                    title="Bajar"
+                    onclick="moverOrden(this, 'down')"
+                  >
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
+                </div>
+                <button
+                  class="btn-prim"
+                  style="font-size: 0.8rem; padding: 8px 16px"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalOrdenPruebas"
+                  onclick="abrirOrdenPruebas('PR-ALT-004', false)"
+                >
+                  <i class="fas fa-sort me-1"></i>Orden de Pruebas
+                </button>
+              </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="card-item" draggable="true">
+              <div class="icon-box" style="background: #f1f5f9; color: #64748b">
+                <i class="fas fa-mask-ventilator"></i>
+              </div>
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                  <strong style="color: var(--primary)">PR-ALT-005</strong
+                  ><span class="muted-dot">•</span>
+                  <span class="fw-semibold"
+                    >Evaluación Espacios Confinados</span
+                  >
+                  <span class="b-activo">Activo</span>
+                </div>
+                <small class="text-muted d-flex align-items-center gap-3 mt-1">
+                  <span
+                    ><i class="fas fa-clipboard-list me-1"></i>2 fichas</span
+                  >
+                  <span
+                    ><i class="fas fa-file-medical-alt me-1"></i>2 pruebas</span
+                  >
+                </small>
+              </div>
+              <div class="d-flex gap-2 align-items-center">
+                <div class="d-flex flex-column gap-1">
+                  <button
+                    class="btn-action btn-edit"
+                    title="Subir"
+                    onclick="moverOrden(this, 'up')"
+                  >
+                    <i class="fas fa-chevron-up"></i>
+                  </button>
+                  <button
+                    class="btn-action btn-edit"
+                    title="Bajar"
+                    onclick="moverOrden(this, 'down')"
+                  >
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
+                </div>
+                <button
+                  class="btn-prim"
+                  style="font-size: 0.8rem; padding: 8px 16px"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalOrdenPruebas"
+                  onclick="abrirOrdenPruebas('PR-ALT-005', false)"
+                >
                   <i class="fas fa-sort me-1"></i>Orden de Pruebas
                 </button>
               </div>
@@ -1917,9 +2385,15 @@
 
         <nav aria-label="Paginación">
           <ul class="pagination justify-content-end">
-            <li class="page-item disabled"><a class="page-link page-link-wide" href="#">Anterior</a></li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link page-link-wide" href="#">Siguiente</a></li>
+            <li class="page-item disabled">
+              <a class="page-link page-link-wide" href="#">Anterior</a>
+            </li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link page-link-wide" href="#">Siguiente</a>
+            </li>
           </ul>
         </nav>
       </div>
@@ -1985,26 +2459,33 @@
                   <div class="stepper-item" onclick="goStep(1)">
                     <div class="stepper-num pend" id="snum-1">2</div>
                     <div>
-                      <div class="stepper-label">Preguntas</div>
-                      <div class="stepper-sub">Listado de ítems</div>
+                      <div class="stepper-label">Portada</div>
+                      <div class="stepper-sub">Mensaje inicial</div>
                     </div>
                   </div>
                   <div class="stepper-item" onclick="goStep(2)">
                     <div class="stepper-num pend" id="snum-2">3</div>
                     <div>
-                      <div class="stepper-label">Alternativas</div>
-                      <div class="stepper-sub">Opciones de respuesta</div>
+                      <div class="stepper-label">Preguntas</div>
+                      <div class="stepper-sub">Listado de ítems</div>
                     </div>
                   </div>
                   <div class="stepper-item" onclick="goStep(3)">
                     <div class="stepper-num pend" id="snum-3">4</div>
                     <div>
-                      <div class="stepper-label">Factores</div>
-                      <div class="stepper-sub">Dimensiones a medir</div>
+                      <div class="stepper-label">Alternativas</div>
+                      <div class="stepper-sub">Opciones de respuesta</div>
                     </div>
                   </div>
                   <div class="stepper-item" onclick="goStep(4)">
                     <div class="stepper-num pend" id="snum-4">5</div>
+                    <div>
+                      <div class="stepper-label">Factores</div>
+                      <div class="stepper-sub">Dimensiones a medir</div>
+                    </div>
+                  </div>
+                  <div class="stepper-item" onclick="goStep(5)">
+                    <div class="stepper-num pend" id="snum-5">6</div>
                     <div>
                       <div class="stepper-label">Respuestas</div>
                       <div class="stepper-sub">Claves de corrección</div>
@@ -2016,29 +2497,74 @@
               <div class="col-md-9 ps-4">
                 <!-- PASO 1 -->
                 <div class="tab-pane-custom active" id="step-0">
-                  <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
-                    <i class="fas fa-info-circle me-2"></i>Información General
-                  </h6>
+                  <div
+                    class="d-flex align-items-center justify-content-between mb-4"
+                  >
+                    <h6
+                      class="fw-bold mb-0"
+                      style="color: var(--primary-hover)"
+                    >
+                      <i class="fas fa-info-circle me-2"></i>Información General
+                    </h6>
+                    <div
+                      id="prCoverMini"
+                      class="rounded shadow-sm"
+                      style="
+                        width: 100px;
+                        height: 50px;
+                        background: var(--primary);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: white;
+                        font-size: 1.2rem;
+                      "
+                    >
+                      <span id="prEmojiPreview"
+                        ><i class="fas fa-brain"></i
+                      ></span>
+                    </div>
+                  </div>
                   <div class="row g-4">
                     <div class="col-md-4">
-                      <label class="form-label">Código</label
-                      ><input
+                      <label class="form-label">Código</label>
+                      <input
                         class="form-control"
                         id="prCod"
-                        placeholder="PSI-XXX-000"
+                        placeholder="Ej: PSI-MOD-001"
                       />
+                      <small class="text-muted" style="font-size: 0.75rem"
+                        >Código único del sistema.</small
+                      >
                     </div>
                     <div class="col-md-8">
-                      <label class="form-label">Nombre / Descripción</label
-                      ><input
+                      <label class="form-label">Nombre / Descripción</label>
+                      <input
                         class="form-control"
                         id="prNom"
-                        placeholder="Nombre de la prueba psicológica"
+                        placeholder="Ej: Escala de Ansiedad de Beck"
                       />
+                      <small class="text-muted" style="font-size: 0.75rem"
+                        >Nombre comercial o técnico de la prueba.</small
+                      >
                     </div>
                     <div class="col-md-4">
-                      <label class="form-label">Tipo de Examen</label
-                      ><select class="form-select" id="prTipo">
+                      <label class="form-label">Tipo de Examen</label>
+                      <select
+                        class="form-select"
+                        id="prTipo"
+                        onchange="
+                          const colors = {
+                            ingreso: '#1565C0',
+                            periodico: '#2E7D32',
+                            retiro: '#C62828',
+                            altura: '#EF6C00',
+                          };
+                          document.getElementById(
+                            'prCoverMini',
+                          ).style.background = colors[this.value] || '#1565C0';
+                        "
+                      >
                         <option value="">Seleccionar...</option>
                         <option value="ingreso">Ingreso</option>
                         <option value="periodico">Periódico</option>
@@ -2047,26 +2573,237 @@
                       </select>
                     </div>
                     <div class="col-md-4">
-                      <label class="form-label">Estado</label
-                      ><select class="form-select" id="prEstado">
+                      <label class="form-label">Estado</label>
+                      <select class="form-select" id="prEstado">
                         <option value="borrador">Borrador</option>
                         <option value="activo">Activo</option>
                       </select>
                     </div>
                     <div class="col-md-4">
-                      <label class="form-label">Ícono / Emoji</label
-                      ><input
-                        class="form-control"
-                        id="prIcon"
-                        placeholder="🧠"
-                        maxlength="4"
-                        style="font-size: 1.5rem; text-align: center"
-                      />
+                      <label class="form-label">Ícono</label>
+                      <select
+                        class="form-select"
+                        id="prIconoSelect"
+                        onchange="
+                          const icon = this.value;
+                          document.getElementById('prIcon').value = icon;
+                          document.getElementById('prEmojiPreview').innerHTML =
+                            '<i class=\'fas ' + icon + '\'></i>';
+                        "
+                      >
+                        <option value="fa-brain">Psicología</option>
+                        <option value="fa-heart-pulse">Pulso Cardíaco</option>
+                        <option value="fa-head-side-virus">Salud Mental</option>
+                        <option value="fa-clipboard-check">Cuestionario</option>
+                        <option value="fa-stethoscope">Evaluación</option>
+                        <option value="fa-user-md">Especialista</option>
+                        <option value="fa-puzzle-piece">Competencias</option>
+                        <option value="fa-users">Grupal</option>
+                        <option value="fa-eye">Visión</option>
+                        <option value="fa-helmet-safety">
+                          Seguridad / Altura
+                        </option>
+                      </select>
+                      <input type="hidden" id="prIcon" value="fa-brain" />
+                    </div>
+
+                    <div class="col-12 mt-4 pt-4 border-top">
+                      <h6
+                        class="fw-bold mb-3"
+                        style="color: var(--primary-hover); font-size: 0.95rem"
+                      >
+                        <i class="fas fa-cogs me-2"></i>Configuración de
+                        Experiencia
+                      </h6>
+
+                      <div class="row g-3">
+                        <div class="col-md-4 d-flex align-items-center">
+                          <div class="form-check form-switch w-100">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              id="prTlimitado"
+                              onchange="
+                                document.getElementById(
+                                  'div-tiempo',
+                                ).style.display = this.checked
+                                  ? 'block'
+                                  : 'none'
+                              "
+                            />
+                            <label
+                              class="form-check-label fw-medium ms-2"
+                              for="prTlimitado"
+                              >Tiempo limitado</label
+                            >
+                          </div>
+                        </div>
+                        <div
+                          class="col-md-8"
+                          style="display: none"
+                          id="div-tiempo"
+                        >
+                          <div class="d-flex align-items-center gap-2">
+                            <div class="w-50">
+                              <label
+                                style="
+                                  font-size: 0.7rem;
+                                  color: var(--text-muted);
+                                "
+                                >Rango mín. (min)</label
+                              >
+                              <input
+                                type="number"
+                                class="form-control form-control-sm"
+                                placeholder="Ej: 5"
+                              />
+                            </div>
+                            <div class="w-50">
+                              <label
+                                style="
+                                  font-size: 0.7rem;
+                                  color: var(--text-muted);
+                                "
+                                >Rango máx. (min)</label
+                              >
+                              <input
+                                type="number"
+                                class="form-control form-control-sm"
+                                placeholder="Ej: 30"
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4 d-flex align-items-center">
+                          <div class="form-check form-switch w-100">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              id="prVisTiempo"
+                              checked
+                            />
+                            <label
+                              class="form-check-label fw-medium ms-2"
+                              for="prVisTiempo"
+                              >Visualiza tiempo</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-center">
+                          <div class="form-check form-switch w-100">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              id="prPregObl"
+                              checked
+                            />
+                            <label
+                              class="form-check-label fw-medium ms-2"
+                              for="prPregObl"
+                              >Preguntas obligatorias</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-center">
+                          <div class="form-check form-switch w-100">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              id="prPausarTest"
+                            />
+                            <label
+                              class="form-check-label fw-medium ms-2"
+                              for="prPausarTest"
+                              >Permite pausar prueba</label
+                            >
+                          </div>
+                        </div>
+
+                        <div class="col-md-12 mt-3 mb-2">
+                          <label class="form-label" style="font-size: 0.8rem"
+                            >Cargar audio (mp3, mp4)</label
+                          >
+                          <input
+                            type="file"
+                            class="form-control form-control-sm"
+                            accept=".mp3, .mp4"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- PASO 1 (NUEVO: PORTADA) -->
+                <div class="tab-pane-custom" id="step-1">
+                  <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
+                    <i class="fas fa-file-alt me-2"></i>Portada (Mensaje y
+                    Recursos)
+                  </h6>
+                  <div class="soft-panel mb-3 p-3 pt-2">
+                    <label class="form-label mb-2"
+                      >Simulador de Editor HTML</label
+                    >
+                    <div
+                      style="
+                        border: 1px solid var(--border-light);
+                        border-radius: 8px;
+                        overflow: hidden;
+                        background: #fff;
+                      "
+                    >
+                      <div
+                        class="d-flex align-items-center p-2 border-bottom gap-2 bg-light"
+                      >
+                        <button
+                          class="btn btn-sm btn-light p-1 border"
+                          title="Negrita"
+                        >
+                          <i class="fas fa-bold fa-fw"></i>
+                        </button>
+                        <button
+                          class="btn btn-sm btn-light p-1 border"
+                          title="Cursiva"
+                        >
+                          <i class="fas fa-italic fa-fw"></i>
+                        </button>
+                        <button
+                          class="btn btn-sm btn-light p-1 border"
+                          title="Subrayado"
+                        >
+                          <i class="fas fa-underline fa-fw"></i>
+                        </button>
+                        <span style="color: var(--border-light)">|</span>
+                        <button
+                          class="btn btn-sm btn-light p-1 border"
+                          title="Insertar Imagen"
+                        >
+                          <i class="far fa-image fa-fw"></i>
+                        </button>
+                        <button
+                          class="btn btn-sm btn-light p-1 border"
+                          title="Añadir Link"
+                        >
+                          <i class="fas fa-link fa-fw"></i>
+                        </button>
+                      </div>
+                      <div
+                        contenteditable="true"
+                        style="
+                          min-height: 200px;
+                          padding: 16px;
+                          outline: none;
+                          font-size: 0.95rem;
+                        "
+                      >
+                        Escribe aquí el texto introductorio o las instrucciones
+                        para la prueba...
+                      </div>
                     </div>
                   </div>
                 </div>
                 <!-- PASO 2 -->
-                <div class="tab-pane-custom" id="step-1">
+                <div class="tab-pane-custom" id="step-2">
                   <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
                     <i class="fas fa-question-circle me-2"></i>Preguntas
                   </h6>
@@ -2110,7 +2847,7 @@
                   </div>
                 </div>
                 <!-- PASO 3 -->
-                <div class="tab-pane-custom" id="step-2">
+                <div class="tab-pane-custom" id="step-3">
                   <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
                     <i class="fas fa-list-ol me-2"></i>Alternativas de Respuesta
                   </h6>
@@ -2164,7 +2901,7 @@
                   </div>
                 </div>
                 <!-- PASO 4 -->
-                <div class="tab-pane-custom" id="step-3">
+                <div class="tab-pane-custom" id="step-4">
                   <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
                     <i class="fas fa-layer-group me-2"></i>Factores
                     (Dimensiones)
@@ -2209,7 +2946,7 @@
                   </div>
                 </div>
                 <!-- PASO 5 -->
-                <div class="tab-pane-custom" id="step-4">
+                <div class="tab-pane-custom" id="step-5">
                   <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
                     <i class="fas fa-check-double me-2"></i>Claves de Respuesta
                   </h6>
@@ -2289,7 +3026,10 @@
             >
               Cerrar
             </button>
-            <button class="btn-prim" onclick="guardarPrueba()">
+            <button
+              class="btn-prim"
+              onclick="confirmarGuardar('Prueba Psicológica', guardarPrueba)"
+            >
               <i class="fas fa-save me-2"></i>Guardar como Borrador
             </button>
           </div>
@@ -2313,17 +3053,41 @@
           </div>
           <div class="modal-body">
             <div class="row g-4">
-              <div class="col-md-4">
-                <label class="form-label">Código</label
-                ><input class="form-control" id="cCod" placeholder="CM-00X" />
+              <div class="col-md-3">
+                <label class="form-label">ID (Autogenerado)</label>
+                <input
+                  class="form-control"
+                  value="CM-012"
+                  style="
+                    background: #e2e8f0;
+                    color: #64748b;
+                    border: 1px dotted #94a3b8;
+                  "
+                  readonly
+                  disabled
+                />
               </div>
-              <div class="col-md-8">
-                <label class="form-label">Nombre / Descripción</label
-                ><input
+              <div class="col-md-3">
+                <label class="form-label">Código</label>
+                <input
+                  class="form-control"
+                  id="cCod"
+                  placeholder="Ej: CM-LIMA-01"
+                />
+                <small class="text-muted" style="font-size: 0.75rem"
+                  >Código interno de la sede.</small
+                >
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Nombre / Descripción</label>
+                <input
                   class="form-control"
                   id="cDesc"
-                  placeholder="Nombre de sede"
+                  placeholder="Ej: Centro Médico San Borja - Sede Principal"
                 />
+                <small class="text-muted" style="font-size: 0.75rem"
+                  >Nombre comercial del centro o clínica.</small
+                >
               </div>
               <div class="col-12">
                 <label class="form-label">Dirección</label
@@ -2393,7 +3157,21 @@
               data-bs-dismiss="modal"
             >
               Cancelar</button
-            ><button class="btn-prim">
+            ><button
+              class="btn-prim"
+              onclick="
+                confirmarGuardar('Centro Médico', () => {
+                  setTimeout(
+                    () =>
+                      bootstrap.Modal.getInstance(
+                        document.getElementById('modalCentro'),
+                      ).hide(),
+                    300,
+                  );
+                  showToast('Centro Médico guardado correctamente.');
+                })
+              "
+            >
               <i class="fas fa-save me-2"></i>Guardar Cambios
             </button>
           </div>
@@ -2417,21 +3195,41 @@
           </div>
           <div class="modal-body">
             <div class="row g-4">
-              <div class="col-md-5">
-                <label class="form-label">Código</label
-                ><input
+              <div class="col-12">
+                <label class="form-label">ID (Autogenerado)</label>
+                <input
                   class="form-control"
-                  id="sCod"
-                  placeholder="Ej: XX-001"
+                  value="SMP-025"
+                  style="
+                    background: #e2e8f0;
+                    color: #64748b;
+                    border: 1px dotted #94a3b8;
+                  "
+                  readonly
+                  disabled
                 />
               </div>
+              <div class="col-md-5">
+                <label class="form-label">Código</label>
+                <input
+                  class="form-control"
+                  id="sCod"
+                  placeholder="Ej: GR-001"
+                />
+                <small class="text-muted" style="font-size: 0.75rem"
+                  >Código único del registro.</small
+                >
+              </div>
               <div class="col-12">
-                <label class="form-label">Descripción</label
-                ><input
+                <label class="form-label">Descripción</label>
+                <input
                   class="form-control"
                   id="sDesc"
-                  placeholder="Descripción..."
+                  placeholder="Ej: Administrativo / Nivel 1"
                 />
+                <small class="text-muted" style="font-size: 0.75rem"
+                  >Nombre descriptivo corto.</small
+                >
               </div>
               <div class="col-12">
                 <div class="form-check form-switch">
@@ -2455,7 +3253,21 @@
               data-bs-dismiss="modal"
             >
               Cancelar</button
-            ><button class="btn-prim">
+            ><button
+              class="btn-prim"
+              onclick="
+                confirmarGuardar('Registro Simple', () => {
+                  setTimeout(
+                    () =>
+                      bootstrap.Modal.getInstance(
+                        document.getElementById('modalSimple'),
+                      ).hide(),
+                    300,
+                  );
+                  showToast('Registro guardado correctamente.');
+                })
+              "
+            >
               <i class="fas fa-save me-2"></i>Guardar
             </button>
           </div>
@@ -2483,20 +3295,26 @@
           <div class="modal-body">
             <div class="row g-4">
               <div class="col-md-3">
-                <label class="form-label">Código</label
-                ><input
+                <label class="form-label">Código</label>
+                <input
                   class="form-control"
                   id="pCod"
-                  placeholder="PR-XXX-000"
+                  placeholder="Ej: PR-OCC-01"
                 />
+                <small class="text-muted" style="font-size: 0.75rem"
+                  >Ej: PR-XXX-000</small
+                >
               </div>
               <div class="col-md-6">
-                <label class="form-label">Descripción</label
-                ><input
+                <label class="form-label">Descripción</label>
+                <input
                   class="form-control"
                   id="pDesc"
-                  placeholder="Nombre de prestación"
+                  placeholder="Ej: Evaluación Ocupacional Anual"
                 />
+                <small class="text-muted" style="font-size: 0.75rem"
+                  >Nombre descriptivo de la prestación.</small
+                >
               </div>
               <div class="col-md-3">
                 <label class="form-label">Estado</label
@@ -2510,19 +3328,60 @@
                 <label class="form-label">Clasificación</label
                 ><select class="form-select" id="pTipoEx">
                   <option value="">Seleccionar...</option>
-                  <option value="sepo">Examen Médico Ocupacional (SEPO)</option>
+                  <option value="principal">Examen principal</option>
                   <option value="complementario">Examen Complementario</option>
                 </select>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-5">
                 <label class="form-label">Ícono</label>
-                <input class="form-control" id="pIcono" placeholder="Default si se deja vacío" />
+                <div class="d-flex align-items-center gap-3">
+                  <select
+                    id="pIconoSelect"
+                    class="form-select"
+                    onchange="
+                      document.getElementById('pIcono').value = this.value;
+                      document.getElementById('pIconoPreview').innerHTML =
+                        `<i class='fas ${this.value}'></i>`;
+                    "
+                  >
+                    <option value="fa-stethoscope">Auscultación</option>
+                    <option value="fa-heart-pulse">Pulso Cardíaco</option>
+                    <option value="fa-helmet-safety">Seguridad / Altura</option>
+                    <option value="fa-brain">Psicología</option>
+                    <option value="fa-user-doctor">Médico</option>
+                    <option value="fa-file-medical">Expediente Médico</option>
+                    <option value="fa-clipboard-list">Evaluación</option>
+                    <option value="fa-layer-group">Grupo / Modular</option>
+                    <option value="fa-chart-line">Indicadores</option>
+                    <option value="fa-shield-halved">Prevención</option>
+                  </select>
+                  <span
+                    id="pIconoPreview"
+                    style="
+                      font-size: 1.5rem;
+                      color: var(--primary);
+                      min-width: 32px;
+                      text-align: center;
+                    "
+                  >
+                    <i class="fas fa-stethoscope"></i>
+                  </span>
+                  <input type="hidden" id="pIcono" value="fa-stethoscope" />
+                </div>
               </div>
               <div class="col-12">
                 <div class="soft-panel d-flex align-items-center gap-3">
                   <div class="form-check form-switch mb-0">
-                    <input class="form-check-input fs-5" type="checkbox" id="pDepGrupo" />
-                    <label class="form-check-label fw-bold ms-2 mt-1" for="pDepGrupo">¿Depende de Grupo Ocupacional?</label>
+                    <input
+                      class="form-check-input fs-5"
+                      type="checkbox"
+                      id="pDepGrupo"
+                    />
+                    <label
+                      class="form-check-label fw-bold ms-2 mt-1"
+                      for="pDepGrupo"
+                      >¿Depende de Grupo Ocupacional?</label
+                    >
                   </div>
                 </div>
               </div>
@@ -2532,12 +3391,21 @@
                 </h6>
                 <div class="soft-panel mb-4">
                   <div class="row g-3 align-items-end">
-                    <div class="col-md-10">
-                      <label class="form-label">Buscar Ficha (código o nombre)</label
-                      ><input
+                    <div class="col-md-3">
+                      <label class="form-label">Código Ficha</label>
+                      <input
                         class="form-control"
                         id="pfCod"
-                        placeholder="Ej: CPS-001 o nombre de la ficha..."
+                        placeholder="Ej: CPS-001"
+                      />
+                    </div>
+                    <div class="col-md-7">
+                      <label class="form-label">Descripción</label>
+                      <input
+                        class="form-control bg-white"
+                        id="pfDesc"
+                        disabled
+                        placeholder="—"
                       />
                     </div>
                     <div class="col-md-2">
@@ -2566,7 +3434,21 @@
               data-bs-dismiss="modal"
             >
               Cancelar</button
-            ><button class="btn-prim">
+            ><button
+              class="btn-prim"
+              onclick="
+                confirmarGuardar('Prestación', () => {
+                  setTimeout(
+                    () =>
+                      bootstrap.Modal.getInstance(
+                        document.getElementById('modalPrestacion'),
+                      ).hide(),
+                    300,
+                  );
+                  showToast('Prestación guardada correctamente.');
+                })
+              "
+            >
               <i class="fas fa-save me-2"></i>Guardar Prestación
             </button>
           </div>
@@ -2593,16 +3475,26 @@
           <div class="modal-body">
             <div class="row g-4">
               <div class="col-md-3">
-                <label class="form-label">Código Ficha</label
-                ><input class="form-control" id="fCod" placeholder="CPS-00X" />
+                <label class="form-label">Código Ficha</label>
+                <input
+                  class="form-control"
+                  id="fCod"
+                  placeholder="Ej: CPS-P01"
+                />
+                <small class="text-muted" style="font-size: 0.75rem"
+                  >Ej: CPS-XXXX</small
+                >
               </div>
               <div class="col-md-6">
-                <label class="form-label">Descripción</label
-                ><input
+                <label class="form-label">Descripción</label>
+                <input
                   class="form-control"
                   id="fDesc"
-                  placeholder="Nombre de ficha"
+                  placeholder="Ej: Cuestionario de Personalidad"
                 />
+                <small class="text-muted" style="font-size: 0.75rem"
+                  >Nombre descriptivo de la ficha.</small
+                >
               </div>
               <div class="col-md-3">
                 <label class="form-label">Estado</label
@@ -2747,7 +3639,21 @@
               data-bs-dismiss="modal"
             >
               Cancelar</button
-            ><button class="btn-prim">
+            ><button
+              class="btn-prim"
+              onclick="
+                confirmarGuardar('Ficha', () => {
+                  setTimeout(
+                    () =>
+                      bootstrap.Modal.getInstance(
+                        document.getElementById('modalFicha'),
+                      ).hide(),
+                    300,
+                  );
+                  showToast('Ficha guardada correctamente.');
+                })
+              "
+            >
               <i class="fas fa-save me-2"></i>Guardar Ficha
             </button>
           </div>
@@ -2755,119 +3661,128 @@
       </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
-    // ── Orden de Prestaciones ─────────────────────────────────
-    function moverOrden(btn, dir) {
-      const card = btn.closest('.card-item');
-      const lista = card.parentElement;
-      if (dir === 'up' && card.previousElementSibling) {
-        lista.insertBefore(card, card.previousElementSibling);
-      } else if (dir === 'down' && card.nextElementSibling) {
-        lista.insertBefore(card.nextElementSibling, card);
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    >
+      // ── Orden de Prestaciones ─────────────────────────────────
+      function moverOrden(btn, dir) {
+        const card = btn.closest('.card-item');
+        const lista = card.parentNode;
+        if (dir === 'up' && card.previousElementSibling) {
+          lista.insertBefore(card, card.previousElementSibling);
+        } else if (dir === 'down' && card.nextElementSibling) {
+          lista.insertBefore(card.nextElementSibling, card);
+        }
       }
-    }
-    let _grupoOrdenActivo = 'sepo';
-    function abrirAddPrestOrden(grupo) {
-      _grupoOrdenActivo = grupo;
-      document.getElementById('lblGrupoOrden').textContent = grupo === 'sepo'
-        ? 'Añadiendo a: Exámenes Médicos Ocupacionales (SEPO)'
-        : 'Añadiendo a: Exámenes Complementarios';
-      document.getElementById('inputAddPrestOrden').value = '';
-    }
-    function confirmarAddPrestOrden() {
-      const val = document.getElementById('inputAddPrestOrden').value.trim();
-      if (!val) return;
-      const lista = document.getElementById(
-        _grupoOrdenActivo === 'sepo' ? 'lista-sepo' : 'lista-complementario'
-      );
-      const icoBg    = _grupoOrdenActivo === 'sepo' ? '#e0f2fe' : '#ffedd5';
-      const icoCol   = _grupoOrdenActivo === 'sepo' ? 'var(--primary)' : '#c2410c';
-      const icoClass = _grupoOrdenActivo === 'sepo' ? 'fa-heart-pulse' : 'fa-helmet-safety';
-      const n = lista.querySelectorAll('.card-item').length + 1;
-      const cod = (_grupoOrdenActivo === 'sepo' ? 'PR-PSI-' : 'PR-CPL-') + String(n).padStart(3,'0');
-      const tarjeta = document.createElement('div');
-      tarjeta.className = 'card-item';
-      initDrag(tarjeta);
-      tarjeta.innerHTML = `
-        <div class="icon-box" style="background:${icoBg};color:${icoCol}"><i class="fas ${icoClass}"></i></div>
-        <div class="flex-grow-1">
-          <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-            <strong style="color:var(--primary)">${cod}</strong>
-            <span class="muted-dot">•</span>
-            <span class="fw-semibold">${val}</span>
-            <span class="b-activo">Activo</span>
-          </div>
-          <small class="text-muted d-flex align-items-center gap-3 mt-1">
-            <span><i class="fas fa-clipboard-list me-1"></i>0 fichas</span>
-            <span><i class="fas fa-file-medical-alt me-1"></i>0 pruebas</span>
-          </small>
-        </div>
-        <div class="d-flex gap-2 align-items-center">
-          <div class="d-flex flex-column gap-1">
-            <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
-            <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
-          </div>
-          <button class="btn-prim" style="font-size:0.8rem;padding:8px 16px"
-            data-bs-toggle="modal" data-bs-target="#modalOrdenPruebas"
-            onclick="abrirOrdenPruebas('${cod}',false)">
-            <i class="fas fa-sort me-1"></i>Orden de Pruebas
-          </button>
-        </div>`;
-      lista.appendChild(tarjeta);
-    }
-    function abrirOrdenPruebas(codPrest, depGrupo) {
-      document.getElementById('tOrdenPruebas').innerHTML =
-        '<i class="fas fa-sort me-2 text-primary"></i>Orden de Pruebas — ' + codPrest;
-      const sg = document.getElementById('selectorGrupoOrden');
-      const lp = document.getElementById('listaPruebasOrden');
-      if (depGrupo) {
-        sg.style.display = 'block';
-        lp.style.display = 'none';
-        document.getElementById('selectGrupoOrden').value = '';
-      } else {
-        sg.style.display = 'none';
-        lp.style.display = 'block';
+      let _grupoOrdenActivo = 'principal';
+      function abrirAddPrestOrden(grupo) {
+        _grupoOrdenActivo = grupo;
+        document.getElementById('lblGrupoOrden').textContent = grupo === 'principal'
+          ? 'Añadiendo a: Examen Principal'
+          : 'Añadiendo a: Exámenes Complementarios';
+        document.getElementById('inputAddPrestOrden').value = '';
       }
-    }
-    function cargarPruebasOrden() {
-      const grupo = document.getElementById('selectGrupoOrden').value;
-      const lp = document.getElementById('listaPruebasOrden');
-      if (!grupo) return;
-      lp.style.display = 'block';
-      const pruebasPorGrupo = {
-        'GO-001': [
-          { cod: 'PSI-ANS-001', nom: 'Escala de Ansiedad de Beck' },
-          { cod: 'PSI-CMP-002', nom: 'Competencias Laborales Volcán' }
-        ],
-        'GO-002': [
-          { cod: 'PSI-ALT-003', nom: 'Evaluación Psicológica – Altura' },
-          { cod: 'PSI-ANS-001', nom: 'Escala de Ansiedad de Beck' }
-        ],
-        'GO-003': [
-          { cod: 'PSI-CHI-004', nom: 'Entrevista Psicológica Chinalco' },
-          { cod: 'PSI-CMP-002', nom: 'Competencias Laborales Volcán' }
-        ]
-      };
-      const pruebas = pruebasPorGrupo[grupo] || [];
-      lp.innerHTML = pruebas.map(p => `
-        <div class="card-item">
-          <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-file-medical-alt"></i></div>
+      function confirmarAddPrestOrden() {
+        const val = document.getElementById('inputAddPrestOrden').value.trim();
+        if (!val) return;
+        const lista = document.getElementById(
+          _grupoOrdenActivo === 'principal' ? 'lista-sepo' : 'lista-complementario'
+        );
+        const icoBg    = _grupoOrdenActivo === 'principal' ? '#e0f2fe' : '#ffedd5';
+        const icoCol   = _grupoOrdenActivo === 'principal' ? 'var(--primary)' : '#c2410c';
+        const icoClass = _grupoOrdenActivo === 'principal' ? 'fa-heart-pulse' : 'fa-helmet-safety';
+        const n = lista.querySelectorAll('.card-item').length + 1;
+        const cod = (_grupoOrdenActivo === 'principal' ? 'PR-PSI-' : 'PR-CPL-') + String(n).padStart(3,'0');
+        const tarjeta = document.createElement('div');
+        tarjeta.className = 'card-item';
+        initDrag(tarjeta);
+        tarjeta.innerHTML = `
+          <div class="icon-box" style="background:${icoBg};color:${icoCol}"><i class="fas ${icoClass}"></i></div>
           <div class="flex-grow-1">
-            <div class="d-flex align-items-center gap-2">
-              <strong style="color:var(--primary)">${p.cod}</strong>
+            <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+              <strong style="color:var(--primary)">${cod}</strong>
               <span class="muted-dot">•</span>
-              <span class="fw-semibold">${p.nom}</span>
+              <span class="fw-semibold">${val}</span>
+              <span class="b-activo">Activo</span>
             </div>
+            <small class="text-muted d-flex align-items-center gap-3 mt-1">
+              <span><i class="fas fa-clipboard-list me-1"></i>0 fichas</span>
+              <span><i class="fas fa-file-medical-alt me-1"></i>0 pruebas</span>
+            </small>
           </div>
-          <div class="d-flex flex-column gap-1">
-            <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
-            <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
-          </div>
-        </div>`).join('');
-    }
-
+          <div class="d-flex gap-2 align-items-center">
+            <div class="d-flex flex-column gap-1">
+              <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
+              <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
+            </div>
+            <button class="btn-prim" style="font-size:0.8rem;padding:8px 16px"
+              data-bs-toggle="modal" data-bs-target="#modalOrdenPruebas"
+              onclick="abrirOrdenPruebas('${cod}',false)">
+              <i class="fas fa-sort me-1"></i>Orden de Pruebas
+            </button>
+          </div>`;
+        lista.appendChild(tarjeta);
+      }
+      function abrirOrdenPruebas(codPrest, depGrupo) {
+        document.getElementById('tOrdenPruebas').innerHTML =
+          '<i class="fas fa-sort me-2 text-primary"></i>Orden de Pruebas — ' + codPrest;
+        const sg = document.getElementById('selectorGrupoOrden');
+        const lp = document.getElementById('listaPruebasOrden');
+        if (depGrupo) {
+          sg.style.display = 'block';
+          lp.style.display = 'none';
+          document.getElementById('selectGrupoOrden').value = '';
+        } else {
+          sg.style.display = 'none';
+          lp.style.display = 'block';
+        }
+      }
+      function cargarPruebasOrden() {
+        const grupo = document.getElementById('selectGrupoOrden').value;
+        const lp = document.getElementById('listaPruebasOrden');
+        if (!grupo) return;
+        lp.style.display = 'block';
+        const pruebasPorGrupo = {
+          'GO-001': [
+            { cod: 'PSI-ANS-001', nom: 'Escala de Ansiedad de Beck' },
+            { cod: 'PSI-CMP-002', nom: 'Competencias Laborales Volcán' }
+          ],
+          'GO-002': [
+            { cod: 'PSI-ALT-003', nom: 'Evaluación Psicológica – Altura' },
+            { cod: 'PSI-ANS-001', nom: 'Escala de Ansiedad de Beck' }
+          ],
+          'GO-003': [
+            { cod: 'PSI-CHI-004', nom: 'Entrevista Psicológica Chinalco' },
+            { cod: 'PSI-CMP-002', nom: 'Competencias Laborales Volcán' }
+          ]
+        };
+        const pruebas = pruebasPorGrupo[grupo] || [];
+        lp.innerHTML = pruebas.map(p => `
+          <div class="card-item">
+            <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-file-medical-alt"></i></div>
+            <div class="flex-grow-1">
+              <div class="d-flex align-items-center gap-2">
+                <strong style="color:var(--primary)">${p.cod}</strong>
+                <span class="muted-dot">•</span>
+                <span class="fw-semibold">${p.nom}</span>
+              </div>
+            </div>
+            <div class="d-flex flex-column gap-1">
+              <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
+              <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
+            </div>
+          </div>`).join('');
+      }
     </script>
     <script>
+      /* ── TOASTS ── */
+      function showToast(msg) {
+        const toastEl = document.getElementById("statusToast");
+        document.getElementById("toastMsg").textContent = msg;
+        const toast = new bootstrap.Toast(toastEl, { delay: 2500 });
+        toast.show();
+      }
+
       /* ── NAVEGACIÓN ── */
       const SCREENS = [
         "centros",
@@ -2892,13 +3807,17 @@
 
       /* ── ELIMINAR (SOLO SIMULACIÓN) ── */
       function eliminarRegistro(btn, cardClass) {
-        if (!confirm("¿Estás seguro de que deseas eliminar este registro?"))
-          return;
-        const card = btn.closest("." + cardClass);
-        card.style.transition = "all 0.3s ease";
-        card.style.opacity = "0";
-        card.style.transform = "translateX(30px)";
-        setTimeout(() => card.remove(), 300);
+        confirmarEliminar(
+          "¿Eliminar registro?",
+          "Esta acción no se puede deshacer.",
+          () => {
+            const card = btn.closest("." + cardClass);
+            card.style.transition = "all 0.3s ease";
+            card.style.opacity = "0";
+            card.style.transform = "translateX(30px)";
+            setTimeout(() => card.remove(), 300);
+          },
+        );
       }
 
       /* ── AUTOCOMPLETE ── */
@@ -2906,13 +3825,27 @@
         "CPS-001": "Escala de Ansiedad",
         "CPS-002": "Escala de Depresión",
         "CPS-003": "Competencias Laborales - Módulo 1",
+        "CPS-004": "Escala de Estrés Laboral",
+        "CPS-005": "Inventario de Personalidad",
         "CPS-010": "Entrevista Psicológica - Básica",
-        "CPSG-001": "Competencias Laborales",
+        "CPSG-001": "Competencias Laborales (Grupo)",
+        "CPSG-002": "Evaluación de Liderazgo (Grupo)",
       };
       function autocompleteFicha(a, b) {
-        document.getElementById(b).value =
-          FICHAS_DB[document.getElementById(a).value.trim().toUpperCase()] ||
-          "";
+        const val = document.getElementById(a).value.trim().toUpperCase();
+        const inputDes = document.getElementById(b);
+        if (!val) {
+          inputDes.value = "";
+          inputDes.style.color = "";
+          return;
+        }
+        if (FICHAS_DB[val]) {
+          inputDes.value = FICHAS_DB[val];
+          inputDes.style.color = "inherit";
+        } else {
+          inputDes.value = "No encontrada";
+          inputDes.style.color = "red";
+        }
       }
       document.addEventListener("input", (e) => {
         if (e.target?.id === "pfCod") autocompleteFicha("pfCod", "pfDesc");
@@ -2969,22 +3902,32 @@
       function nuevaPrestacion() {
         document.getElementById("tPrest").innerHTML =
           '<i class="fas fa-stethoscope me-2 text-primary"></i>Nueva Prestación';
-        ["pCod", "pDesc"].forEach(
-          (id) => (document.getElementById(id).value = ""),
+        ["pCod", "pDesc", "pIcono"].forEach(
+          (id) =>
+            (document.getElementById(id).value =
+              id === "pIcono" ? "fa-stethoscope" : ""),
         );
+        document.getElementById("pIconoSelect").value = "fa-stethoscope";
+        document.getElementById("pIconoPreview").innerHTML =
+          '<i class="fas fa-stethoscope"></i>';
         document.getElementById("pEstado").value = "activo";
         document.getElementById("pTipoEx").value = "";
         resetBox("boxPF", "emptyPF", "fas fa-inbox", "Sin fichas vinculadas.");
+        updatePrestIconos();
       }
       function editarPrestacion(cod) {
         document.getElementById("tPrest").innerHTML =
           '<i class="fas fa-pen me-2 text-primary"></i>Editar: ' + cod;
         document.getElementById("pCod").value = cod;
+
+        let icon = "fa-stethoscope";
+
         if (cod === "PR-PSI-001") {
           document.getElementById("pDesc").value =
             "Evaluación Psicológica – Entrevista";
           document.getElementById("pEstado").value = "activo";
-          document.getElementById("pTipoEx").value = "sepo";
+          document.getElementById("pTipoEx").value = "principal";
+          icon = "fa-heart-pulse";
           resetBox(
             "boxPF",
             "emptyPF",
@@ -3002,6 +3945,7 @@
             "Psicología Ocupacional – Altura";
           document.getElementById("pEstado").value = "cesado";
           document.getElementById("pTipoEx").value = "altura";
+          icon = "fa-helmet-safety";
           resetBox(
             "boxPF",
             "emptyPF",
@@ -3014,6 +3958,11 @@
             rowPF("CPSG-001", "Competencias Laborales"),
           );
         }
+        document.getElementById("pIcono").value = icon;
+        document.getElementById("pIconoSelect").value = icon;
+        document.getElementById("pIconoPreview").innerHTML =
+          `<i class="fas ${icon}"></i>`;
+        updatePrestIconos();
       }
       function addFichaPrestacion() {
         const cod = document.getElementById("pfCod").value.trim().toUpperCase();
@@ -3159,8 +4108,8 @@
        PRUEBAS PSICOLÓGICAS
     ══════════════════════════════ */
       let currentStep = 0;
-      const TOTAL_STEPS = 5;
-      const STEP_PCT = [20, 40, 60, 80, 100];
+      const TOTAL_STEPS = 6;
+      const STEP_PCT = [16, 33, 50, 66, 83, 100];
 
       function goStep(n) {
         for (let i = 0; i < TOTAL_STEPS; i++) {
@@ -3195,6 +4144,14 @@
           n === TOTAL_STEPS - 1 ? "none" : "inline-flex";
       }
       function nextStep() {
+        if (currentStep === 0) {
+          const cod = document.getElementById("prCod").value.trim();
+          const nom = document.getElementById("prNom").value.trim();
+          if (!cod || !nom) {
+            alert("⚠️ Debes completar Código y Nombre para continuar.");
+            return;
+          }
+        }
         if (currentStep < TOTAL_STEPS - 1) goStep(currentStep + 1);
       }
       function prevStep() {
@@ -3207,6 +4164,9 @@
         ["prCod", "prNom", "prIcon"].forEach(
           (id) => (document.getElementById(id).value = ""),
         );
+        document.getElementById("prIconoSelect").value = "fa-brain";
+        document.getElementById("prEmojiPreview").innerHTML =
+          '<i class="fas fa-brain"></i>';
         document.getElementById("prTipo").value = "";
         document.getElementById("prEstado").value = "borrador";
         resetBox("boxPreg", "emptyPreg", "fas fa-question", "Sin preguntas.");
@@ -3224,28 +4184,28 @@
             nom: "Escala de Ansiedad de Beck",
             tipo: "ingreso",
             est: "activo",
-            icon: "🧠",
+            icon: "fa-brain",
             step: 4,
           },
           "PSI-CMP-002": {
             nom: "Competencias Laborales Volcán",
             tipo: "periodico",
             est: "borrador",
-            icon: "🧩",
+            icon: "fa-puzzle-piece",
             step: 1,
           },
           "PSI-ALT-003": {
             nom: "Evaluación Psicológica – Altura",
             tipo: "altura",
             est: "borrador",
-            icon: "⛰️",
+            icon: "fa-helmet-safety",
             step: 0,
           },
           "PSI-CHI-004": {
             nom: "Entrevista Psicológica Chinalco",
             tipo: "retiro",
             est: "cesado",
-            icon: "📋",
+            icon: "fa-clipboard-check",
             step: 4,
           },
         };
@@ -3255,6 +4215,9 @@
           document.getElementById("prNom").value = d.nom;
           document.getElementById("prTipo").value = d.tipo;
           document.getElementById("prIcon").value = d.icon;
+          document.getElementById("prIconoSelect").value = d.icon;
+          document.getElementById("prEmojiPreview").innerHTML =
+            '<i class="fas ' + d.icon + '"></i>';
           const sel = document.getElementById("prEstado");
           if (!sel.querySelector('option[value="cesado"]')) {
             const o = document.createElement("option");
@@ -3273,6 +4236,9 @@
             "Sin claves.",
           );
           if (d.step >= 1) {
+            // (La portada se deja vacía o prellenada internamente)
+          }
+          if (d.step >= 2) {
             pushItem(
               "boxPreg",
               "emptyPreg",
@@ -3289,7 +4255,7 @@
               rowPregunta(3, "¿Siente palpitaciones frecuentes?"),
             );
           }
-          if (d.step >= 2) {
+          if (d.step >= 3) {
             pushItem("boxAlt", "emptyAlt", rowAlternativa("A", "Nunca", 0));
             pushItem("boxAlt", "emptyAlt", rowAlternativa("B", "A veces", 1));
             pushItem(
@@ -3299,7 +4265,7 @@
             );
             pushItem("boxAlt", "emptyAlt", rowAlternativa("D", "Siempre", 3));
           }
-          if (d.step >= 3) {
+          if (d.step >= 4) {
             pushItem(
               "boxFac",
               "emptyFac",
@@ -3311,18 +4277,23 @@
               rowFactor("FAC-002", "Ansiedad Cognitiva"),
             );
           }
-          if (d.step >= 4) {
+          if (d.step >= 5) {
             pushItem("boxResp", "emptyResp", rowRespuesta(1, "B", "FAC-001"));
             pushItem("boxResp", "emptyResp", rowRespuesta(2, "C", "FAC-002"));
             pushItem("boxResp", "emptyResp", rowRespuesta(3, "A", "FAC-001"));
           }
-          goStep(d.step === 4 ? 4 : d.step);
+          goStep(d.step === 5 ? 5 : d.step);
         }
       }
 
       function guardarPrueba() {
-        alert(
-          "✅ Prueba guardada como Borrador correctamente.\n\nEn la implementación real se enviará al servidor.",
+        showToast("✅ Prueba guardada como Borrador.");
+        setTimeout(
+          () =>
+            bootstrap.Modal.getInstance(
+              document.getElementById("modalPrueba"),
+            ).hide(),
+          300,
         );
       }
 
@@ -3418,24 +4389,92 @@
         return `<div class="item-row"><div class="inf"><span class="tag" style="background:#EFF6FF;color:#1D4ED8;font-weight:700">P${prg}</span><span class="tag" style="background:#F3E8FF;color:#6B21A8;font-weight:700">→ ${clave}</span>${fac ? `<span class="tag tag-niv fw-bold">${fac}</span>` : ""}</div><button class="btn btn-light rounded-circle text-danger p-0" style="width:32px;height:32px;" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button></div>`;
       }
     </script>
-  
+
     <!-- Modal: Añadir Prestación al Orden -->
     <div class="modal fade" id="modalAddPrestOrden" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title"><i class="fas fa-plus me-2 text-primary"></i>Añadir Prestación</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <h5 class="modal-title">
+              <i class="fas fa-plus me-2 text-primary"></i>Añadir Prestación
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
           </div>
           <div class="modal-body">
-            <p class="text-muted mb-3" id="lblGrupoOrden" style="font-size:0.9rem;"></p>
-            <label class="form-label">Buscar Prestación (código o descripción)</label>
-            <input class="form-control" id="inputAddPrestOrden" placeholder="Ej: PR-PSI-001 o Evaluación..." />
-            <small class="text-muted mt-2 d-block"><i class="fas fa-info-circle me-1"></i>Solo se muestran prestaciones en estado Activo.</small>
+            <p
+              class="text-muted mb-3"
+              id="lblGrupoOrden"
+              style="font-size: 0.9rem"
+            ></p>
+            <div class="search-wrap mb-3">
+              <i class="fas fa-search"></i
+              ><input
+                type="text"
+                placeholder="Buscar prestación por código o descripción..."
+              />
+            </div>
+            <div>
+              <div class="card-item p-2 mb-2" style="min-height: auto">
+                <div
+                  class="d-flex w-100 align-items-center justify-content-between"
+                >
+                  <div class="flex-grow-1" style="font-size: 0.85rem">
+                    <strong style="color: var(--primary)">PR-PSI-001</strong
+                    ><span class="muted-dot">•</span
+                    ><span class="fw-semibold"
+                      >Evaluación Psicológica - Entrevista</span
+                    >
+                  </div>
+                  <button
+                    class="btn btn-sm btn-outline-primary"
+                    style="font-size: 0.75rem; padding: 4px 8px"
+                  >
+                    Añadir
+                  </button>
+                </div>
+              </div>
+              <div class="card-item p-2 mb-2" style="min-height: auto">
+                <div
+                  class="d-flex w-100 align-items-center justify-content-between"
+                >
+                  <div class="flex-grow-1" style="font-size: 0.85rem">
+                    <strong style="color: var(--primary)">PR-CPL-005</strong
+                    ><span class="muted-dot">•</span
+                    ><span class="fw-semibold">Examen Médico Ocupacional</span>
+                  </div>
+                  <button
+                    class="btn btn-sm btn-outline-primary"
+                    style="font-size: 0.75rem; padding: 4px 8px"
+                  >
+                    Añadir
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <small class="text-muted mt-2 d-block"
+              ><i class="fas fa-info-circle me-1"></i>Solo se muestran
+              prestaciones en estado Activo.</small
+            >
           </div>
           <div class="modal-footer">
-            <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button>
-            <button class="btn-prim" onclick="confirmarAddPrestOrden()" data-bs-dismiss="modal"><i class="fas fa-plus me-2"></i>Añadir</button>
+            <button
+              class="btn btn-light rounded-pill px-4 fw-bold"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              class="btn-prim"
+              onclick="confirmarAddPrestOrden()"
+              data-bs-dismiss="modal"
+            >
+              <i class="fas fa-plus me-2"></i>Añadir
+            </button>
           </div>
         </div>
       </div>
@@ -3443,17 +4482,38 @@
 
     <!-- Modal: Orden de Pruebas -->
     <div class="modal fade" id="modalOrdenPruebas" tabindex="-1">
-      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div
+        class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
+      >
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="tOrdenPruebas"><i class="fas fa-sort me-2 text-primary"></i>Orden de Pruebas</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <h5 class="modal-title" id="tOrdenPruebas">
+              <i class="fas fa-sort me-2 text-primary"></i>Orden de Pruebas
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
           </div>
           <div class="modal-body">
-            <div id="selectorGrupoOrden" class="soft-panel mb-4" style="display:none;">
-              <p class="fw-bold mb-2"><i class="fas fa-users me-2 text-primary"></i>Esta prestación depende de Grupo Ocupacional</p>
-              <label class="form-label">Selecciona el Grupo Ocupacional para ver sus pruebas</label>
-              <select class="form-select" id="selectGrupoOrden" onchange="cargarPruebasOrden()">
+            <div
+              id="selectorGrupoOrden"
+              class="soft-panel mb-4"
+              style="display: none"
+            >
+              <p class="fw-bold mb-2">
+                <i class="fas fa-users me-2 text-primary"></i>Esta prestación
+                depende de Grupo Ocupacional
+              </p>
+              <label class="form-label"
+                >Selecciona el Grupo Ocupacional para ver sus pruebas</label
+              >
+              <select
+                class="form-select"
+                id="selectGrupoOrden"
+                onchange="cargarPruebasOrden()"
+              >
                 <option value="">Seleccionar grupo...</option>
                 <option value="GO-001">Administrativos</option>
                 <option value="GO-002">Operarios</option>
@@ -3462,95 +4522,298 @@
             </div>
             <div id="listaPruebasOrden">
               <div class="card-item">
-                <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-file-medical-alt"></i></div>
+                <div
+                  class="icon-box"
+                  style="background: #e0f2fe; color: var(--primary)"
+                >
+                  <i class="fas fa-file-medical-alt"></i>
+                </div>
                 <div class="flex-grow-1">
                   <div class="d-flex align-items-center gap-2">
-                    <strong style="color:var(--primary)">PSI-ANS-001</strong><span class="muted-dot">•</span>
+                    <strong style="color: var(--primary)">PSI-ANS-001</strong
+                    ><span class="muted-dot">•</span>
                     <span class="fw-semibold">Escala de Ansiedad de Beck</span>
                   </div>
                 </div>
                 <div class="d-flex flex-column gap-1">
-                  <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
-                  <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
+                  <button
+                    class="btn-action btn-edit"
+                    title="Subir"
+                    onclick="moverOrden(this, 'up')"
+                  >
+                    <i class="fas fa-chevron-up"></i>
+                  </button>
+                  <button
+                    class="btn-action btn-edit"
+                    title="Bajar"
+                    onclick="moverOrden(this, 'down')"
+                  >
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
                 </div>
               </div>
               <div class="card-item">
-                <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-file-medical-alt"></i></div>
+                <div
+                  class="icon-box"
+                  style="background: #e0f2fe; color: var(--primary)"
+                >
+                  <i class="fas fa-file-medical-alt"></i>
+                </div>
                 <div class="flex-grow-1">
                   <div class="d-flex align-items-center gap-2">
-                    <strong style="color:var(--primary)">PSI-CMP-002</strong><span class="muted-dot">•</span>
-                    <span class="fw-semibold">Competencias Laborales Volcán</span>
+                    <strong style="color: var(--primary)">PSI-CMP-002</strong
+                    ><span class="muted-dot">•</span>
+                    <span class="fw-semibold"
+                      >Competencias Laborales Volcán</span
+                    >
                   </div>
                 </div>
                 <div class="d-flex flex-column gap-1">
-                  <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
-                  <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
+                  <button
+                    class="btn-action btn-edit"
+                    title="Subir"
+                    onclick="moverOrden(this, 'up')"
+                  >
+                    <i class="fas fa-chevron-up"></i>
+                  </button>
+                  <button
+                    class="btn-action btn-edit"
+                    title="Bajar"
+                    onclick="moverOrden(this, 'down')"
+                  >
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cerrar</button>
-            <button class="btn-prim" data-bs-dismiss="modal"><i class="fas fa-save me-2"></i>Guardar Orden</button>
+            <button
+              class="btn btn-light rounded-pill px-4 fw-bold"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button
+              class="btn-prim"
+              onclick="
+                confirmarGuardar('Orden de Pruebas', () => {
+                  bootstrap.Modal.getInstance(
+                    document.getElementById('modalOrdenPruebas'),
+                  ).hide();
+                  showToast('Orden guardado correctamente.');
+                })
+              "
+            >
+              <i class="fas fa-save me-2"></i>Guardar Orden
+            </button>
           </div>
         </div>
       </div>
     </div>
 
+    <script>
+      /* ── DRAG & DROP para listas de orden de prestaciones ── */
+      let _dragSrc = null;
 
-  <script>
-    /* ── DRAG & DROP para listas de orden de prestaciones ── */
-    let _dragSrc = null;
-
-    function initDrag(el) {
-      el.setAttribute('draggable', 'true');
-      el.addEventListener('dragstart', function(e) {
-        _dragSrc = this;
-        this.classList.add('dragging');
-        e.dataTransfer.effectAllowed = 'move';
-      });
-      el.addEventListener('dragend', function() {
-        this.classList.remove('dragging');
-        document.querySelectorAll('.drag-over').forEach(n => n.classList.remove('drag-over'));
-      });
-      el.addEventListener('dragover', function(e) {
-        e.preventDefault();
-        e.dataTransfer.dropEffect = 'move';
-        if (this !== _dragSrc) this.classList.add('drag-over');
-      });
-      el.addEventListener('dragleave', function() {
-        this.classList.remove('drag-over');
-      });
-      el.addEventListener('drop', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        this.classList.remove('drag-over');
-        if (_dragSrc && _dragSrc !== this && this.parentElement === _dragSrc.parentElement) {
-          const lista = this.parentElement;
-          const items = Array.from(lista.querySelectorAll('.card-item'));
-          const srcIdx = items.indexOf(_dragSrc);
-          const tgtIdx = items.indexOf(this);
-          if (srcIdx < tgtIdx) {
-            lista.insertBefore(_dragSrc, this.nextSibling);
-          } else {
-            lista.insertBefore(_dragSrc, this);
+      function initDrag(el) {
+        el.setAttribute("draggable", "true");
+        el.addEventListener("dragstart", function (e) {
+          _dragSrc = this;
+          this.classList.add("dragging");
+          e.dataTransfer.effectAllowed = "move";
+        });
+        el.addEventListener("dragend", function () {
+          this.classList.remove("dragging");
+          document
+            .querySelectorAll(".drag-over")
+            .forEach((n) => n.classList.remove("drag-over"));
+        });
+        el.addEventListener("dragover", function (e) {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = "move";
+          if (this !== _dragSrc) this.classList.add("drag-over");
+        });
+        el.addEventListener("dragleave", function () {
+          this.classList.remove("drag-over");
+        });
+        el.addEventListener("drop", function (e) {
+          e.stopPropagation();
+          e.preventDefault();
+          this.classList.remove("drag-over");
+          if (
+            _dragSrc &&
+            _dragSrc !== this &&
+            this.parentElement === _dragSrc.parentElement
+          ) {
+            const lista = this.parentElement;
+            const items = Array.from(lista.querySelectorAll(".card-item"));
+            const srcIdx = items.indexOf(_dragSrc);
+            const tgtIdx = items.indexOf(this);
+            if (srcIdx < tgtIdx) {
+              lista.insertBefore(_dragSrc, this.nextSibling);
+            } else {
+              lista.insertBefore(_dragSrc, this);
+            }
           }
-        }
-        _dragSrc = null;
+          _dragSrc = null;
+        });
+      }
+
+      function initDragList(listId) {
+        const lista = document.getElementById(listId);
+        if (!lista) return;
+        lista.querySelectorAll(".card-item").forEach(initDrag);
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        initDragList("lista-sepo");
+        initDragList("lista-complementario");
       });
-    }
 
-    function initDragList(listId) {
-      const lista = document.getElementById(listId);
-      if (!lista) return;
-      lista.querySelectorAll('.card-item').forEach(initDrag);
-    }
+      function updatePrestIconos() {
+        document
+          .querySelectorAll("#screen-prestaciones .card-item")
+          .forEach((card) => {
+            const icono = card.dataset.icono || "stethoscope"; // default
+            const iconEl = card.querySelector(".icon-box i");
+            if (iconEl) {
+              iconEl.className = `fas fa-${icono}`;
+            }
+          });
+      }
 
-    document.addEventListener('DOMContentLoaded', function() {
-      initDragList('lista-sepo');
-      initDragList('lista-complementario');
-    });
-  </script>
+      // Ejecutar al cargar
+      document.addEventListener("DOMContentLoaded", updatePrestIconos);
+    </script>
+    <!-- Modal: Confirmación -->
+    <div class="modal fade" id="modalConfirm" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div
+          class="modal-content text-center py-4 px-3"
+          style="border-radius: 24px"
+        >
+          <div class="mb-3">
+            <div
+              id="mConfirmIcon"
+              class="d-inline-flex align-items-center justify-content-center rounded-circle"
+              style="
+                width: 64px;
+                height: 64px;
+                background: #e0f2fe;
+                color: var(--primary);
+                font-size: 1.5rem;
+              "
+            >
+              <i class="fas fa-question"></i>
+            </div>
+          </div>
+          <h5 class="modal-title mb-2 fw-bold" id="mConfirmTitle">
+            ¿Estás seguro?
+          </h5>
+          <p
+            class="text-muted mb-4 px-2"
+            id="mConfirmMsg"
+            style="font-size: 0.9rem"
+          >
+            Esta acción no se puede deshacer.
+          </p>
+          <div class="d-flex justify-content-center gap-2">
+            <button
+              class="btn btn-light rounded-pill px-4 fw-bold"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button class="btn-prim px-4" id="mConfirmBtn">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-</body>
+    <script>
+      let _accionOnConfirm = null;
+      function confirmarGeneral(
+        titulo,
+        mensaje,
+        accionOnConfirm,
+        tipo = "guardar",
+        icono = "fa-save",
+      ) {
+        document.getElementById("mConfirmTitle").textContent = titulo;
+        document.getElementById("mConfirmMsg").textContent = mensaje;
+        const iconDiv = document.getElementById("mConfirmIcon");
+        iconDiv.innerHTML = '<i class="fas ' + icono + '"></i>';
+        const btn = document.getElementById("mConfirmBtn");
+        if (tipo === "eliminar") {
+          iconDiv.style.background = "#fee2e2";
+          iconDiv.style.color = "#dc2626";
+          btn.className = "btn btn-danger rounded-pill px-4 fw-bold shadow-sm";
+          btn.innerHTML = "Eliminar";
+        } else {
+          iconDiv.style.background = "#e0f2fe";
+          iconDiv.style.color = "var(--primary)";
+          btn.className = "btn-prim px-4";
+          btn.innerHTML = '<i class="fas fa-save me-2"></i>Guardar';
+        }
+        _accionOnConfirm = () => {
+          const mEl = document.getElementById("modalConfirm");
+          const modalInstance = bootstrap.Modal.getInstance(mEl);
+          if (modalInstance) modalInstance.hide();
+          if (accionOnConfirm) accionOnConfirm();
+        };
+        new bootstrap.Modal(document.getElementById("modalConfirm")).show();
+      }
+      document.getElementById("mConfirmBtn")?.addEventListener("click", () => {
+        if (_accionOnConfirm) _accionOnConfirm();
+      });
+      function confirmarGuardar(modulo, accionOnConfirm) {
+        confirmarGeneral(
+          "¿Guardar cambios?",
+          "Desea guardar los cambios en " + modulo + "?",
+          accionOnConfirm,
+          "guardar",
+          "fa-save",
+        );
+      }
+      function confirmarEliminar(titulo, mensaje, accionOnConfirm) {
+        confirmarGeneral(
+          titulo,
+          mensaje,
+          accionOnConfirm,
+          "eliminar",
+          "fa-trash",
+        );
+      }
+    </script>
+
+    <div
+      class="toast-container position-fixed top-0 end-0 p-3"
+      style="z-index: 2000"
+    >
+      <div
+        id="statusToast"
+        class="toast align-items-center text-white bg-success border-0 pr-toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="d-flex p-1">
+          <div
+            class="toast-body d-flex align-items-center fw-medium"
+            style="font-size: 0.95rem; line-height: 1.2"
+          >
+            <i class="fas fa-check-circle fa-lg me-3 text-white"></i>
+            <span id="toastMsg">Registro guardado correctamente.</span>
+          </div>
+          <button
+            type="button"
+            class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
