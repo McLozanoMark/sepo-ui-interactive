@@ -54,6 +54,11 @@
         flex-direction: column;
         z-index: 100;
         box-shadow: 4px 0 24px rgba(0, 0, 0, 0.04);
+        transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow-x: hidden;
+      }
+      .sidebar.collapsed {
+        width: 80px;
       }
       .sidebar-brand {
         padding: 28px 24px;
@@ -63,12 +68,36 @@
         letter-spacing: 1px;
         display: flex;
         align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        white-space: nowrap;
+      }
+      .brand-logo-text {
+        display: flex;
+        align-items: center;
         gap: 12px;
       }
-      .sidebar-brand i {
+      .sidebar-brand i.fa-brain, .sidebar-brand i.fa-bars {
         background: rgba(255, 255, 255, 0.2);
         padding: 8px;
         border-radius: 12px;
+        min-width: 38px;
+        text-align: center;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .sidebar-brand i.fa-brain:hover, .sidebar-brand i.fa-bars:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+      .sidebar.collapsed .sidebar-brand {
+        padding: 28px 20px;
+        justify-content: center;
+      }
+      .sidebar.collapsed .brand-text {
+        display: none;
+      }
+      .sidebar.collapsed .toggle-btn {
+        display: none;
       }
       .sidebar-section {
         padding: 24px 24px 8px;
@@ -77,6 +106,7 @@
         text-transform: uppercase;
         letter-spacing: 1.5px;
         font-weight: 600;
+        white-space: nowrap;
       }
       .sidebar .nav-link {
         color: rgba(255, 255, 255, 0.75);
@@ -89,11 +119,24 @@
         display: flex;
         align-items: center;
         gap: 12px;
+        white-space: nowrap;
+      }
+      .sidebar.collapsed .nav-link {
+        margin: 4px 12px;
+        padding: 12px;
+        justify-content: center;
+      }
+      .sidebar .nav-link i {
+        min-width: 20px;
+        text-align: center;
       }
       .sidebar .nav-link:hover {
         color: #fff;
         background: rgba(255, 255, 255, 0.08);
         transform: translateX(4px);
+      }
+      .sidebar.collapsed .nav-link:hover {
+        transform: translateY(-2px);
       }
       .sidebar .nav-link.active {
         color: #fff;
@@ -101,12 +144,20 @@
         box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
         font-weight: 600;
       }
+      .sidebar.collapsed .sidebar-section span,
+      .sidebar.collapsed .nav-link span {
+        display: none;
+      }
 
       /* MAIN */
       .main-content {
         margin-left: 260px;
         padding: 24px 40px;
         min-height: 100vh;
+        transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .main-content.expanded {
+        margin-left: 80px;
       }
 
       .page-header {
@@ -698,14 +749,138 @@
         background: rgba(21, 101, 192, 0.05) !important;
         border-radius: 20px;
       }
+      /* =========================================
+         RESPONSIVE (Tablets y Móviles)
+         ========================================= */
+
+      /* Para Tablets (max-width: 992px) */
+      @media (max-width: 992px) {
+        .sidebar {
+          width: 200px;
+        }
+        .sidebar.collapsed {
+          width: 80px;
+        }
+        .main-content {
+          margin-left: 200px;
+          padding: 20px 24px;
+        }
+        .main-content.expanded {
+          margin-left: 80px;
+        }
+        .search-wrap input {
+          width: 220px;
+        }
+        .search-wrap input:focus {
+          width: 260px;
+        }
+      }
+
+      /* Para Móviles (max-width: 768px) */
+      @media (max-width: 768px) {
+        /* Sidebar */
+        .sidebar, .sidebar.collapsed {
+          position: relative;
+          width: 100%;
+          height: auto;
+          flex-direction: row;
+          flex-wrap: wrap;
+          z-index: 1000;
+        }
+        .sidebar-brand .toggle-btn {
+          display: none !important;
+        }
+        .sidebar-section {
+          display: none;
+        }
+        .sidebar .nav {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          width: 100%;
+          padding-bottom: 12px;
+        }
+
+        /* Main Content */
+        .main-content {
+          margin-left: 0;
+          padding: 16px;
+        }
+
+        /* Page Header y Buscadores */
+        .page-header {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .page-header > div,
+        .page-header .d-flex {
+          flex-direction: column;
+          align-items: stretch !important;
+          width: 100%;
+        }
+        .search-wrap,
+        .search-wrap input,
+        .btn-prim {
+          width: 100%;
+        }
+
+        /* Tarjetas Bento */
+        .card-item {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .card-item .d-flex.gap-2 {
+          align-self: flex-end;
+          margin-top: 12px;
+        }
+
+        /* Tarjetas Pruebas */
+        .card-prueba {
+          flex-direction: column;
+        }
+        .prueba-cover {
+          width: 100%;
+          height: 60px;
+        }
+        .prueba-actions {
+          flex-direction: row;
+          justify-content: flex-end;
+          padding: 12px 20px;
+        }
+
+        /* Modal Wizard (Pruebas) */
+        .col-md-3.pe-4.border-end {
+          border-right: none !important;
+          padding-right: 0 !important;
+        }
+        .stepper {
+          flex-direction: row;
+          overflow-x: auto;
+          margin-bottom: 16px;
+        }
+        .stepper-sub {
+          display: none;
+        }
+        .col-md-9.ps-4 {
+          padding-left: 0 !important;
+        }
+      }
     </style>
   </head>
 
   <body>
     <!-- Sidebar -->
-    <nav class="sidebar">
-      <div class="sidebar-brand"><i class="fas fa-brain"></i> SEPO</div>
-      <div class="sidebar-section mt-2">Principal</div>
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-logo-text" onclick="toggleSidebar()">
+          <i class="fas fa-brain fa-fw" title="Expandir/Contraer menú"></i> 
+          <span class="brand-text">SEPO</span>
+        </div>
+        <div class="toggle-btn" onclick="toggleSidebar()" title="Contraer menú">
+          <i class="fas fa-bars fa-fw"></i>
+        </div>
+      </div>
+      <div class="sidebar-section mt-2"><span>Principal</span></div>
       <ul class="nav flex-column">
         <li>
           <a
@@ -713,17 +888,16 @@
             id="nav-dashboard"
             href="#"
             onclick="go('dashboard')"
-            ><i class="fas fa-th-large fa-fw"></i> Dashboard</a
+            ><i class="fas fa-th-large fa-fw"></i> <span>Dashboard</span></a
           >
         </li>
         <li>
           <a class="nav-link" id="nav-pruebas" href="#" onclick="go('pruebas')"
-            ><i class="fas fa-file-medical-alt fa-fw"></i> Pruebas
-            Psicológicas</a
+            ><i class="fas fa-file-medical-alt fa-fw"></i> <span>Pruebas Psicológicas</span></a
           >
         </li>
       </ul>
-      <div class="sidebar-section mt-4">Mantenimientos</div>
+      <div class="sidebar-section mt-4"><span>Mantenimientos</span></div>
       <ul class="nav flex-column">
         <li>
           <a
@@ -731,12 +905,12 @@
             id="nav-centros"
             href="#"
             onclick="go('centros')"
-            ><i class="fas fa-hospital fa-fw"></i> Centros Médicos</a
+            ><i class="fas fa-hospital fa-fw"></i> <span>Centros Médicos</span></a
           >
         </li>
         <li>
           <a class="nav-link" id="nav-grado" href="#" onclick="go('grado')"
-            ><i class="fas fa-graduation-cap fa-fw"></i> Grado de Instrucción</a
+            ><i class="fas fa-graduation-cap fa-fw"></i> <span>Grado de Instrucción</span></a
           >
         </li>
         <li>
@@ -745,12 +919,12 @@
             id="nav-ocupaciones"
             href="#"
             onclick="go('ocupaciones')"
-            ><i class="fas fa-briefcase fa-fw"></i> Ocupaciones</a
+            ><i class="fas fa-briefcase fa-fw"></i> <span>Ocupaciones</span></a
           >
         </li>
         <li>
           <a class="nav-link" id="nav-grupos" href="#" onclick="go('grupos')"
-            ><i class="fas fa-users fa-fw"></i> Grupos Ocupacionales</a
+            ><i class="fas fa-users fa-fw"></i> <span>Grupos Ocupacionales</span></a
           >
         </li>
         <li>
@@ -759,62 +933,52 @@
             id="nav-prestaciones"
             href="#"
             onclick="go('prestaciones')"
-            ><i class="fas fa-stethoscope fa-fw"></i> Prestaciones</a
+            ><i class="fas fa-stethoscope fa-fw"></i> <span>Prestaciones</span></a
           >
         </li>
         <li>
           <a class="nav-link" id="nav-fichas" href="#" onclick="go('fichas')"
-            ><i class="fas fa-clipboard-list fa-fw"></i> Fichas</a
+            ><i class="fas fa-clipboard-list fa-fw"></i> <span>Fichas</span></a
           >
         </li>
       </ul>
-      <div class="sidebar-section mt-4">Configuración</div>
+      <div class="sidebar-section mt-4"><span>Configuración</span></div>
       <ul class="nav flex-column">
         <li>
           <a class="nav-link" id="nav-orden" href="#" onclick="go('orden')"
-            ><i class="fas fa-sort fa-fw"></i> Orden de Prestaciones</a
+            ><i class="fas fa-sort fa-fw"></i> <span>Orden de Prestaciones</span></a
           >
         </li>
       </ul>
     </nav>
 
     <!-- Main -->
-    <div class="main-content">
+    <div class="main-content" id="main-content">
       <!-- ======== PRUEBAS PSICOLÓGICAS ======== -->
       <div class="screen" id="screen-pruebas">
         <div class="page-header">
           <div>
             <h1 class="page-title">
-              <i
-                class="fas fa-file-medical-alt me-2"
-                style="color: var(--primary)"
-              ></i
-              >Pruebas Psicológicas
+              <i class="fas fa-file-medical-alt me-2" style="color: var(--primary)"></i>Pruebas Psicológicas
             </h1>
             <p class="page-subtitle">
               Búsqueda por nombre, tipo o código · 4 pruebas registradas
             </p>
+            <div class="alert alert-info py-2 mt-2 mb-0 bg-opacity-10 d-flex align-items-center small border-0 shadow-sm" style="border-left: 4px solid #0dcaf0 !important;">
+               <i class="fas fa-info-circle me-3 fs-5 text-info"></i>
+               <div class="text-muted"><strong>Instructivo de Ayuda:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Por favor configure los campos según indique el manual de usuario o las guías institucionales.</div>
+            </div>
           </div>
           <div class="d-flex gap-3 align-items-center">
             <div class="search-wrap">
               <i class="fas fa-search"></i>
-              <input
-                type="text"
-                id="buscarPrueba"
-                placeholder="Buscar por nombre, tipo o código..."
-                oninput="filtrarPruebas()"
-              />
+              <input type="text" id="buscarPrueba" placeholder="Buscar por nombre, tipo o código..." oninput="filtrarPruebas()" />
             </div>
-            <button
-              class="btn-prim"
-              data-bs-toggle="modal"
-              data-bs-target="#modalPrueba"
-              onclick="nuevaPrueba()"
-            >
+            <button class="btn-prim" onclick="nuevaPrueba()">
               <i class="fas fa-plus me-2"></i>Nueva Prueba
             </button>
           </div>
-        </div>
+      </div>
 
         <div id="listaPruebas">
           <!-- Prueba 1 -->
@@ -879,8 +1043,6 @@
             <div class="prueba-actions">
               <button
                 class="btn-action btn-edit"
-                data-bs-toggle="modal"
-                data-bs-target="#modalPrueba"
                 onclick="editarPrueba('PSI-ANS-001')"
                 title="Editar"
               >
@@ -957,8 +1119,6 @@
             <div class="prueba-actions">
               <button
                 class="btn-action btn-edit"
-                data-bs-toggle="modal"
-                data-bs-target="#modalPrueba"
                 onclick="editarPrueba('PSI-CMP-002')"
                 title="Editar"
               >
@@ -1035,8 +1195,6 @@
             <div class="prueba-actions">
               <button
                 class="btn-action btn-edit"
-                data-bs-toggle="modal"
-                data-bs-target="#modalPrueba"
                 onclick="editarPrueba('PSI-ALT-003')"
                 title="Editar"
               >
@@ -1112,8 +1270,6 @@
             <div class="prueba-actions">
               <button
                 class="btn-action btn-edit"
-                data-bs-toggle="modal"
-                data-bs-target="#modalPrueba"
                 onclick="editarPrueba('PSI-CHI-004')"
                 title="Editar"
               >
@@ -1188,6 +1344,7 @@
               ><input
                 type="text"
                 placeholder="Buscar código, nombre, distrito..."
+                oninput="filtrarPantalla('screen-centros', this.value)"
               />
             </div>
             <button
@@ -1313,7 +1470,7 @@
           <div class="d-flex gap-3">
             <div class="search-wrap">
               <i class="fas fa-search"></i
-              ><input type="text" placeholder="Buscar grado..." />
+              ><input type="text" placeholder="Buscar grado..." oninput="filtrarPantalla('screen-grado', this.value)" />
             </div>
             <button
               class="btn-prim"
@@ -1431,7 +1588,7 @@
           <div class="d-flex gap-3">
             <div class="search-wrap">
               <i class="fas fa-search"></i
-              ><input type="text" placeholder="Buscar ocupación..." />
+              ><input type="text" placeholder="Buscar ocupación..." oninput="filtrarPantalla('screen-ocupaciones', this.value)" />
             </div>
           </div>
         </div>
@@ -1479,7 +1636,7 @@
           <div class="d-flex gap-3">
             <div class="search-wrap">
               <i class="fas fa-search"></i
-              ><input type="text" placeholder="Buscar grupo..." />
+              ><input type="text" placeholder="Buscar grupo..." oninput="filtrarPantalla('screen-grupos', this.value)" />
             </div>
             <button
               class="btn-prim"
@@ -1620,6 +1777,7 @@
               ><input
                 type="text"
                 placeholder="Buscar código, descripción, tipo..."
+                oninput="filtrarPantalla('screen-prestaciones', this.value)"
               />
             </div>
             <button
@@ -1757,6 +1915,7 @@
               ><input
                 type="text"
                 placeholder="Buscar por código o descripción..."
+                oninput="filtrarPantalla('screen-fichas', this.value)"
               />
             </div>
             <button
@@ -1878,7 +2037,7 @@
           <div class="d-flex gap-3 align-items-center">
             <div class="search-wrap">
               <i class="fas fa-search"></i
-              ><input type="text" placeholder="Buscar prestación..." />
+              ><input type="text" placeholder="Buscar prestación..." oninput="filtrarPantalla('screen-orden', this.value)" />
             </div>
           </div>
         </div>
@@ -2408,30 +2567,41 @@
           >Interfaz en desarrollo
         </div>
       </div>
-    </div>
-    <!-- /main-content -->
 
     <!-- ============================================
-       MODAL: PRUEBA PSICOLÓGICA
-  ============================================ -->
-    <div class="modal fade" id="modalPrueba" tabindex="-1">
-      <div
-        class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
-      >
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="tPrueba">
-              <i class="fas fa-file-medical-alt me-2 text-primary"></i>Nueva
-              Prueba Psicológica
-            </h5>
+         SCREEN: WIZARD PRUEBA PSICOLÓGICA
+    ============================================ -->
+    <div class="screen" id="screen-prueba-form">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title" id="tPrueba">
+            <i class="fas fa-file-medical-alt me-2 text-primary"></i>Nueva
+            Prueba Psicológica
+          </h1>
+          <p class="page-subtitle">Configuración de prueba psicológica</p>
+        </div>
+        <div class="d-flex gap-3 align-items-center">
             <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-            ></button>
+              class="btn btn-light rounded-pill px-4 fw-bold shadow-sm"
+              onclick="go('pruebas')"
+              style="border: 1px solid var(--border-light);"
+            >
+              Cerrar
+            </button>
+            <button
+              class="btn-prim"
+              onclick="confirmarGuardar('Prueba Psicológica', guardarPrueba)"
+            >
+              <i class="fas fa-save me-2"></i>Guardar como Borrador
+            </button>
+        </div>
+          <div class="alert alert-info py-2 mt-2 mb-0 bg-opacity-10 d-flex align-items-center small border-0 shadow-sm w-100" style="border-left: 4px solid #0dcaf0 !important;">
+            <i class="fas fa-info-circle me-3 fs-5 text-info"></i>
+            <div class="text-muted"><strong>Instructivo de Ayuda:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Por favor configure los campos según indique el manual de usuario o las guías institucionales.</div>
           </div>
-          <div class="modal-body">
-            <div class="row g-0">
+      </div>
+      <div class="card-item p-4" style="display: block;">
+        <div class="row g-0">
               <!-- Stepper lateral -->
               <div class="col-md-3 pe-4 border-end">
                 <p class="form-label mb-3">Progreso de configuración</p>
@@ -2740,111 +2910,73 @@
                     <i class="fas fa-file-alt me-2"></i>Portada (Mensaje y
                     Recursos)
                   </h6>
-                  <div class="soft-panel mb-3 p-3 pt-2">
-                    <label class="form-label mb-2"
-                      >Simulador de Editor HTML</label
-                    >
-                    <div
-                      style="
-                        border: 1px solid var(--border-light);
-                        border-radius: 8px;
-                        overflow: hidden;
-                        background: #fff;
-                      "
-                    >
-                      <div
-                        class="d-flex align-items-center p-2 border-bottom gap-2 bg-light"
-                      >
-                        <button
-                          class="btn btn-sm btn-light p-1 border"
-                          title="Negrita"
-                        >
-                          <i class="fas fa-bold fa-fw"></i>
-                        </button>
-                        <button
-                          class="btn btn-sm btn-light p-1 border"
-                          title="Cursiva"
-                        >
-                          <i class="fas fa-italic fa-fw"></i>
-                        </button>
-                        <button
-                          class="btn btn-sm btn-light p-1 border"
-                          title="Subrayado"
-                        >
-                          <i class="fas fa-underline fa-fw"></i>
-                        </button>
-                        <span style="color: var(--border-light)">|</span>
-                        <button
-                          class="btn btn-sm btn-light p-1 border"
-                          title="Insertar Imagen"
-                        >
-                          <i class="far fa-image fa-fw"></i>
-                        </button>
-                        <button
-                          class="btn btn-sm btn-light p-1 border"
-                          title="Añadir Link"
-                        >
-                          <i class="fas fa-link fa-fw"></i>
-                        </button>
+                  <div class="row">
+                    <!-- Formulario de Plantilla -->
+                    <div class="col-md-5">
+                      <div class="soft-panel mb-3 p-3 pt-2">
+                        <label class="form-label mb-2" for="selectPlantillaPortada">Plantilla de Portada</label>
+                        <select class="form-select mb-3" id="selectPlantillaPortada" onchange="renderPreviewPortada()">
+                          <option value="estandar">Plantilla Estándar</option>
+                          <option value="detallada">Plantilla Detallada</option>
+                        </select>
+                        
+                        <label class="form-label mb-2" for="portadaTitulo">Título de la Prueba</label>
+                        <input class="form-control mb-3" id="portadaTitulo" type="text" placeholder="Ej. Evaluación Psicológica..." oninput="renderPreviewPortada()">
+                        
+                        <label class="form-label mb-2" for="portadaInstrucciones">Instrucciones</label>
+                        <textarea class="form-control mb-3" id="portadaInstrucciones" rows="5" placeholder="Escribe aquí las instrucciones de la prueba..." oninput="renderPreviewPortada()"></textarea>
+
+                        <label class="form-label mb-2" for="portadaImagen"><i class="fas fa-image me-1"></i> Imagen de Fondo Personalizada (Puede seleccionar varias)</label>
+                        <input class="form-control" type="file" id="portadaImagen" accept="image/*" multiple onchange="renderPreviewPortada()">
                       </div>
-                      <div
-                        contenteditable="true"
-                        style="
-                          min-height: 200px;
-                          padding: 16px;
-                          outline: none;
-                          font-size: 0.95rem;
-                        "
-                      >
-                        Escribe aquí el texto introductorio o las instrucciones
-                        para la prueba...
+                    </div>
+                    
+                    <!-- Vista Previa -->
+                    <div class="col-md-7">
+                      <div class="soft-panel p-3 bg-white" style="border: 1px dashed var(--border-light); height: 100%;">
+                        <label class="form-label mb-2 text-muted fw-bold" style="font-size:0.85rem"><i class="fas fa-eye me-1"></i> VISTA PREVIA DE LA PORTADA</label>
+                        <div id="previewPortada" class="p-4" style="border-radius: 8px; border: 1px solid #e2e8f0; background: #f3f3f3; min-height: 250px; display:flex; justify-content: center; align-items: center;">
+                          <!-- Aquí se dibujará la plantilla -->
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <!-- PASO 2 -->
+                
                 <div class="tab-pane-custom" id="step-2">
-                  <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
-                    <i class="fas fa-question-circle me-2"></i>Preguntas
-                  </h6>
-                  <div class="soft-panel mb-3">
-                    <div class="row g-3 align-items-end">
-                      <div class="col-md-2">
-                        <label class="form-label">N°</label
-                        ><input
-                          class="form-control"
-                          id="pregNum"
-                          placeholder="01"
-                        />
+                  <div class="alert alert-info py-2 mt-0 mb-4 bg-opacity-10 d-flex align-items-center small border-0 shadow-sm" style="border-left: 4px solid #0dcaf0 !important;">
+                    <i class="fas fa-info-circle me-3 fs-5 text-info"></i>
+                    <div class="text-muted"><strong>Instructivo de Configuración de Preguntas:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h6 class="fw-bold m-0" style="color: var(--primary-hover)">
+                      <i class="fas fa-question-circle me-2"></i>Preguntas de Cuestionario
+                    </h6>
+                    <button class="btn btn-prim btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuevaPregunta">
+                      <i class="fas fa-plus me-1"></i> Añadir Pregunta
+                    </button>
+                  </div>
+                  
+                  <div class="soft-panel mb-3 p-3">
+                    <div class="d-flex gap-2">
+                      <div class="input-group" style="flex: 1;">
+                        <span class="input-group-text bg-white border-end-0 text-muted"><i class="fas fa-search"></i></span>
+                        <input type="text" class="form-control border-start-0" id="buscarPregunta" placeholder="Buscar preguntas por descripción..." oninput="filtrarPreguntas()">
                       </div>
-                      <div class="col-md-8">
-                        <label class="form-label">Texto de la pregunta</label
-                        ><input
-                          class="form-control"
-                          id="pregTxt"
-                          placeholder="Escribe la pregunta..."
-                        />
-                      </div>
-                      <div class="col-md-2">
-                        <button
-                          class="btn btn-grp w-100"
-                          onclick="addPregunta()"
-                          style="padding: 12px"
-                        >
-                          <i class="fas fa-plus"></i>
-                        </button>
-                      </div>
+                      <select class="form-select" id="filtroTipoPregunta" style="width: auto;" onchange="filtrarPreguntas()">
+                        <option value="todos">Todos los tipos</option>
+                        <option value="abierta">Abierta</option>
+                        <option value="cerrada">Cerrada</option>
+                      </select>
                     </div>
                   </div>
-                  <div class="items-box" id="boxPreg">
-                    <div
-                      class="text-center text-muted py-4 small"
-                      id="emptyPreg"
-                    >
-                      <i class="fas fa-question fa-3x mb-3 opacity-25"></i
-                      ><br />Sin preguntas.
-                    </div>
-                  </div>
+                  
+                  <ul class="items-box list-unstyled p-0 m-0" id="boxPreg">
+                    <li class="text-center text-muted py-4 small" id="emptyPreg">
+                      <i class="fas fa-question fa-3x mb-3 opacity-25"></i><br>Sin preguntas. Agregue una nueva pregunta.
+                    </li>
+                  </ul>
                 </div>
                 <!-- PASO 3 -->
                 <div class="tab-pane-custom" id="step-3">
@@ -3019,19 +3151,49 @@
               </div>
             </div>
           </div>
-          <div class="modal-footer">
-            <button
-              class="btn btn-light rounded-pill px-4 fw-bold"
-              data-bs-dismiss="modal"
-            >
-              Cerrar
-            </button>
-            <button
-              class="btn-prim"
-              onclick="confirmarGuardar('Prueba Psicológica', guardarPrueba)"
-            >
-              <i class="fas fa-save me-2"></i>Guardar como Borrador
-            </button>
+        </div>
+      </div>
+    </div>
+
+    </div>
+    <!-- /main-content -->
+
+    <!-- Modal: Añadir Pregunta -->
+    <div class="modal fade" id="modalNuevaPregunta" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="fas fa-plus-circle me-2 text-primary"></i>Nueva Pregunta
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body bg-light">
+            <div class="row g-3">
+              <!-- SELECTOR DE TIPO -->
+              <div class="col-md-12">
+                <label class="form-label fw-bold" style="color:var(--primary)">Seleccionar Tipo de Pregunta</label>
+                <select class="form-select border-primary shadow-sm" id="mpTipoPreg_Master" onchange="renderizarControlesPregunta()">
+                  <option value="" selected disabled>-- Elige un tipo --</option>
+                  <option value="abierta">Abierta</option>
+                  <option value="cerrada">Cerrada</option>
+                  <option value="matriz">Matriz</option>
+                  <option value="tarjeta">Tarjeta</option>
+                </select>
+              </div>
+
+              <!-- CONTENEDOR DINAMICO PARA EL FORM DE PREGUNTA -->
+              <div class="col-12" id="mpContenedorPregunta" style="display:none; transition: all 0.3s;">
+                  <!-- Se inyecta por JS -->
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-between bg-white">
+            <button class="btn btn-outline-secondary fw-bold" onclick="previsualizarPregunta()"><i class="fas fa-eye me-1"></i> Previsualizar</button>
+            <div>
+              <button class="btn btn-light fw-bold" data-bs-dismiss="modal">Cancelar</button>
+              <button class="btn btn-prim px-4 fw-bold" onclick="guardarNuevaPregunta()">Guardar Pregunta</button>
+            </div>
           </div>
         </div>
       </div>
@@ -3404,8 +3566,7 @@
                       <input
                         class="form-control bg-white"
                         id="pfDesc"
-                        disabled
-                        placeholder="—"
+                        placeholder="Busca por descripción..."
                       />
                     </div>
                     <div class="col-md-2">
@@ -3609,8 +3770,7 @@
                       ><input
                         class="form-control bg-white"
                         id="sfDes"
-                        disabled
-                        placeholder="—"
+                        placeholder="Busca por descripción..."
                       />
                     </div>
                     <div class="col-md-3">
@@ -3669,9 +3829,9 @@
         const card = btn.closest('.card-item');
         const lista = card.parentNode;
         if (dir === 'up' && card.previousElementSibling) {
-          lista.insertBefore(card, card.previousElementSibling);
+          card.insertAdjacentElement('afterend', card.previousElementSibling);
         } else if (dir === 'down' && card.nextElementSibling) {
-          lista.insertBefore(card.nextElementSibling, card);
+          card.insertAdjacentElement('beforebegin', card.nextElementSibling);
         }
       }
       let _grupoOrdenActivo = 'principal';
@@ -3724,24 +3884,62 @@
         lista.appendChild(tarjeta);
       }
       function abrirOrdenPruebas(codPrest, depGrupo) {
-        document.getElementById('tOrdenPruebas').innerHTML =
-          '<i class="fas fa-sort me-2 text-primary"></i>Orden de Pruebas — ' + codPrest;
+        document.getElementById('tOrdenPruebas').innerHTML = '<i class="fas fa-sort me-2 text-primary"></i>Orden de Pruebas — ' + codPrest;
+        
         const sg = document.getElementById('selectorGrupoOrden');
         const lp = document.getElementById('listaPruebasOrden');
+        
+        // Reset modal base content
+        lp.innerHTML = `
+          <div class="card-item">
+            <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-file-medical-alt"></i></div>
+            <div class="flex-grow-1">
+              <div class="d-flex align-items-center gap-2">
+                <strong style="color:var(--primary)">PSI-ANS-001</strong><span class="muted-dot">•</span><span class="fw-semibold">Escala de Ansiedad de Beck</span>
+              </div>
+            </div>
+            <div class="d-flex flex-column gap-1">
+              <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
+              <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
+            </div>
+          </div>
+          <div class="card-item">
+            <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-file-medical-alt"></i></div>
+            <div class="flex-grow-1">
+              <div class="d-flex align-items-center gap-2">
+                <strong style="color:var(--primary)">PSI-CMP-002</strong><span class="muted-dot">•</span><span class="fw-semibold">Competencias Laborales Volcán</span>
+              </div>
+            </div>
+            <div class="d-flex flex-column gap-1">
+              <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
+              <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
+            </div>
+          </div>
+        `;
+        
+        const selectElement = document.getElementById('selectGrupoOrden');
+        
         if (depGrupo) {
           sg.style.display = 'block';
           lp.style.display = 'none';
-          document.getElementById('selectGrupoOrden').value = '';
+          if(selectElement) selectElement.value = '';
         } else {
           sg.style.display = 'none';
           lp.style.display = 'block';
         }
       }
+
       function cargarPruebasOrden() {
         const grupo = document.getElementById('selectGrupoOrden').value;
         const lp = document.getElementById('listaPruebasOrden');
-        if (!grupo) return;
+        
+        if (!grupo) {
+            lp.style.display = 'none';
+            return;
+        }
+        
         lp.style.display = 'block';
+        
         const pruebasPorGrupo = {
           'GO-001': [
             { cod: 'PSI-ANS-001', nom: 'Escala de Ansiedad de Beck' },
@@ -3749,15 +3947,22 @@
           ],
           'GO-002': [
             { cod: 'PSI-ALT-003', nom: 'Evaluación Psicológica – Altura' },
-            { cod: 'PSI-ANS-001', nom: 'Escala de Ansiedad de Beck' }
+            { cod: 'PSI-ANS-001', nom: 'Escala de Ansiedad de Beck' },
+            { cod: 'PSI-CHI-004', nom: 'Entrevista Psicológica Chinalco' }
           ],
           'GO-003': [
             { cod: 'PSI-CHI-004', nom: 'Entrevista Psicológica Chinalco' },
-            { cod: 'PSI-CMP-002', nom: 'Competencias Laborales Volcán' }
+            { cod: 'PSI-CMP-002', nom: 'Competencias Laborales Volcán' },
+            { cod: 'PSI-ALT-003', nom: 'Evaluación Psicológica – Altura' }
           ]
         };
+        
         const pruebas = pruebasPorGrupo[grupo] || [];
-        lp.innerHTML = pruebas.map(p => `
+        renderizarListaPruebas(pruebas, lp);
+      }
+      
+      function renderizarListaPruebas(pruebas, contenedor) {
+        contenedor.innerHTML = pruebas.map(p => `
           <div class="card-item">
             <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-file-medical-alt"></i></div>
             <div class="flex-grow-1">
@@ -3772,6 +3977,23 @@
               <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
             </div>
           </div>`).join('');
+      }
+
+      function moverOrden(btn, direccion) {
+        const itemActual = btn.closest('.card-item');
+        if (!itemActual) return;
+        
+        if (direccion === 'up') {
+          const itemAnterior = itemActual.previousElementSibling;
+          if (itemAnterior) {
+            itemAnterior.insertAdjacentElement('beforebegin', itemActual);
+          }
+        } else if (direccion === 'down') {
+          const itemSiguiente = itemActual.nextElementSibling;
+          if (itemSiguiente) {
+             itemSiguiente.insertAdjacentElement('afterend', itemActual);
+          }
+        }
       }
     </script>
     <script>
@@ -3793,6 +4015,7 @@
         "fichas",
         "dashboard",
         "pruebas",
+        "prueba-form",
         "orden",
       ];
       function go(id) {
@@ -3821,35 +4044,52 @@
       }
 
       /* ── AUTOCOMPLETE ── */
-      const FICHAS_DB = {
-        "CPS-001": "Escala de Ansiedad",
-        "CPS-002": "Escala de Depresión",
-        "CPS-003": "Competencias Laborales - Módulo 1",
-        "CPS-004": "Escala de Estrés Laboral",
-        "CPS-005": "Inventario de Personalidad",
-        "CPS-010": "Entrevista Psicológica - Básica",
-        "CPSG-001": "Competencias Laborales (Grupo)",
-        "CPSG-002": "Evaluación de Liderazgo (Grupo)",
-      };
-      function autocompleteFicha(a, b) {
-        const val = document.getElementById(a).value.trim().toUpperCase();
-        const inputDes = document.getElementById(b);
+      const FICHAS_DB = [
+        { codigo: "CPS-001", descripcion: "Escala de Ansiedad" },
+        { codigo: "CPS-002", descripcion: "Escala de Depresión" },
+        { codigo: "CPS-003", descripcion: "Competencias Laborales - Módulo 1" },
+        { codigo: "CPS-004", descripcion: "Escala de Estrés Laboral" },
+        { codigo: "CPS-005", descripcion: "Inventario de Personalidad" },
+        { codigo: "CPS-010", descripcion: "Entrevista Psicológica - Básica" },
+        { codigo: "CPSG-001", descripcion: "Competencias Laborales (Grupo)" },
+        { codigo: "CPSG-002", descripcion: "Evaluación de Liderazgo (Grupo)" }
+      ];
+      function autocompleteFicha(sourceId, targetId, isCodeSource) {
+        const sourceInput = document.getElementById(sourceId);
+        const targetInput = document.getElementById(targetId);
+        const val = sourceInput.value.trim().toLowerCase();
+        
         if (!val) {
-          inputDes.value = "";
-          inputDes.style.color = "";
+          targetInput.value = "";
+          targetInput.style.color = "";
+          targetInput.style.fontWeight = "normal";
           return;
         }
-        if (FICHAS_DB[val]) {
-          inputDes.value = FICHAS_DB[val];
-          inputDes.style.color = "inherit";
+        
+        const encontrada = FICHAS_DB.find(f => 
+          f.codigo.toLowerCase().includes(val) || 
+          f.descripcion.toLowerCase().includes(val)
+        );
+
+        if (encontrada) {
+          if (isCodeSource) {
+            targetInput.value = encontrada.descripcion;
+          } else {
+            targetInput.value = encontrada.codigo;
+          }
+          targetInput.style.color = "var(--primary)";
+          targetInput.style.fontWeight = "bold";
         } else {
-          inputDes.value = "No encontrada";
-          inputDes.style.color = "red";
+          targetInput.value = "";
+          targetInput.style.color = "";
+          targetInput.style.fontWeight = "normal";
         }
       }
       document.addEventListener("input", (e) => {
-        if (e.target?.id === "pfCod") autocompleteFicha("pfCod", "pfDesc");
-        if (e.target?.id === "sfCod") autocompleteFicha("sfCod", "sfDes");
+        if (e.target?.id === "pfCod") autocompleteFicha("pfCod", "pfDesc", true);
+        if (e.target?.id === "pfDesc") autocompleteFicha("pfDesc", "pfCod", false);
+        if (e.target?.id === "sfCod") autocompleteFicha("sfCod", "sfDes", true);
+        if (e.target?.id === "sfDes") autocompleteFicha("sfDes", "sfCod", false);
       });
 
       /* ── HELPERS ── */
@@ -4173,6 +4413,13 @@
         resetBox("boxAlt", "emptyAlt", "fas fa-list", "Sin alternativas.");
         resetBox("boxFac", "emptyFac", "fas fa-layer-group", "Sin factores.");
         resetBox("boxResp", "emptyResp", "fas fa-check-double", "Sin claves.");
+        
+        document.getElementById("portadaTitulo").value = "";
+        document.getElementById("portadaInstrucciones").value = "";
+        document.getElementById("selectPlantillaPortada").value = "estandar";
+        renderPreviewPortada();
+        
+        go('prueba-form');
         goStep(0);
       }
 
@@ -4236,7 +4483,10 @@
             "Sin claves.",
           );
           if (d.step >= 1) {
-            // (La portada se deja vacía o prellenada internamente)
+            document.getElementById("selectPlantillaPortada").value = "detallada";
+            document.getElementById("portadaTitulo").value = d.nom + " - Bienvenida";
+            document.getElementById("portadaInstrucciones").value = "1. Lea atentamente antes de contestar.\n2. No hay respuestas correctas o incorrectas.\n3. Tiene un tiempo límite según aplique.";
+            renderPreviewPortada();
           }
           if (d.step >= 2) {
             pushItem(
@@ -4282,19 +4532,82 @@
             pushItem("boxResp", "emptyResp", rowRespuesta(2, "C", "FAC-002"));
             pushItem("boxResp", "emptyResp", rowRespuesta(3, "A", "FAC-001"));
           }
+          go('prueba-form');
           goStep(d.step === 5 ? 5 : d.step);
         }
       }
 
       function guardarPrueba() {
         showToast("✅ Prueba guardada como Borrador.");
-        setTimeout(
-          () =>
-            bootstrap.Modal.getInstance(
-              document.getElementById("modalPrueba"),
-            ).hide(),
-          300,
-        );
+        setTimeout(() => go('pruebas'), 300);
+      }
+
+      function renderPreviewPortada() {
+        const plantilla = document.getElementById("selectPlantillaPortada").value;
+        const titulo = document.getElementById("portadaTitulo").value || "TÍTULO DE LA PORTADA";
+        const instrucciones = document.getElementById("portadaInstrucciones").value || "Instrucciones de la prueba irán aquí...";
+        const container = document.getElementById("previewPortada");
+        const fileInput = document.getElementById("portadaImagen");
+        
+        let imagesHtml = "";
+        
+        if (fileInput && fileInput.files && fileInput.files.length > 0) {
+          for (let i = 0; i < fileInput.files.length; i++) {
+            const fileUrl = URL.createObjectURL(fileInput.files[i]);
+            imagesHtml += `<img src="${fileUrl}" style="height: 140px; width: auto; max-width: 100%; object-fit: contain; border-radius: 2px;" />`;
+          }
+        } else {
+          const fallbackImageSvg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='#e2e8f0'/><circle cx='200' cy='120' r='45' fill='#cbd5e1'/><path d='M100,300 C100,200 300,200 300,300 Z' fill='#94a3b8'/><text x='200' y='280' text-anchor='middle' font-family='sans-serif' font-size='14' fill='#64748b'>Sin imagen</text></svg>`;
+          const imgSrc = `data:image/svg+xml,${encodeURIComponent(fallbackImageSvg)}`;
+          imagesHtml = `<img src="${imgSrc}" style="width: 100%; height: auto; max-height: 200px; object-fit: contain; border-radius: 2px;" />`;
+        }
+        
+        let htmlPreview = "";
+        
+        // Asegurar que los saltos de línea se respeten en HTML si no usamos pre-wrap, pero pre-wrap es mejor
+        const estiloTexto = "font-size: 0.95rem; line-height: 1.5; white-space: pre-wrap;";
+        
+        if (plantilla === "estandar") {
+          // Diseño lado a lado limpio (Clínico)
+          htmlPreview = `
+            <div style="background-color: #ffffff; width: 100%; min-height: 240px; padding: 25px; text-align: left; box-sizing: border-box; border-radius: 6px;">
+                <h2 style="color: #0d2a75; font-weight: 800; margin-bottom: 5px; font-size: 1.3rem; line-height: 1.2; text-transform: uppercase;">${titulo}</h2>
+                <h4 style="color: #0b347a; font-weight: 700; margin-bottom: 20px; font-size: 0.9rem; text-transform: uppercase;"></h4>
+                
+                <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+                  <div style="flex: 1.2; min-width: 280px; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; background: #fff; padding: 10px; border: 1px solid #e2e8f0; box-shadow: 2px 2px 10px rgba(0,0,0,0.08); border-radius: 4px;">
+                     ${imagesHtml}
+                  </div>
+              
+                  <div style="flex: 2; min-width: 300px; color: #0d2a75;">
+                     <h5 style="font-weight: 800; font-size: 1rem; margin-bottom: 8px;">INSTRUCCIONES:</h5>
+                     <div style="${estiloTexto}">${instrucciones}</div>
+                  </div>
+                </div>
+            </div>
+          `;
+        } else if (plantilla === "detallada") {
+          // Diseño vertical limpio con recuadro
+          htmlPreview = `
+            <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-top: 5px solid #0d2a75; width: 100%; min-height: 240px; padding: 25px; text-align: center; box-sizing: border-box; border-radius: 6px;">
+                <h2 style="color: #0d2a75; font-weight: 800; margin-bottom: 5px; font-size: 1.4rem; line-height: 1.2; text-transform: uppercase;">${titulo}</h2>
+                <h4 style="color: #1e3a8a; font-weight: 700; margin-bottom: 20px; font-size: 0.9rem; text-transform: uppercase;">EVALUACIÓN PSICOLÓGICA DETALLADA</h4>
+                
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                  <div style="width: 100%; max-width: 600px; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 10px; background: #fff; padding: 5px; border: 1px solid #e2e8f0; box-shadow: 2px 2px 10px rgba(0,0,0,0.08); border-radius: 4px;">
+                     ${imagesHtml}
+                  </div>
+              
+                  <div style="width: 100%; color: #0d2a75; text-align: left; background: #ffffff; padding: 20px; border-radius: 6px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                     <h5 style="font-weight: 800; font-size: 1rem; margin-bottom: 8px;">INSTRUCCIONES:</h5>
+                     <div style="${estiloTexto}">${instrucciones}</div>
+                  </div>
+                </div>
+            </div>
+          `;
+        }
+        
+        container.innerHTML = htmlPreview;
       }
 
       function filtrarPruebas() {
@@ -4316,19 +4629,306 @@
           });
       }
 
-      function addPregunta() {
-        const num = document.getElementById("pregNum").value.trim(),
-          txt = document.getElementById("pregTxt").value.trim();
-        if (!num || !txt) {
-          alert("Completa número y texto.");
-          return;
-        }
-        pushItem("boxPreg", "emptyPreg", rowPregunta(num, txt));
-        document.getElementById("pregNum").value = "";
-        document.getElementById("pregTxt").value = "";
+      function filtrarPantalla(id, value) {
+        const q = value.trim().toLowerCase();
+        document.querySelectorAll("#" + id + " .card-item").forEach(card => {
+          const txt = card.textContent.toLowerCase();
+          card.style.display = txt.includes(q) ? "" : "none";
+        });
       }
-      function rowPregunta(n, txt) {
-        return `<div class="item-row"><div class="inf"><span class="tag" style="background:#EFF6FF;color:#1D4ED8;font-weight:700">P${n}</span><span class="fw-medium">${txt}</span></div><button class="btn btn-light rounded-circle text-danger p-0" style="width:32px;height:32px;" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button></div>`;
+
+      function filtrarPillContainer(id, value) {
+        const q = value.trim().toLowerCase();
+        document.querySelectorAll("#" + id + " .item-row").forEach(card => {
+          const txt = card.textContent.toLowerCase();
+          card.style.display = txt.includes(q) ? "" : "none";
+        });
+      }
+      function filtrarPreguntas() {
+        const q = document.getElementById("buscarPregunta").value.trim().toLowerCase();
+        const tipoSel = document.getElementById("filtroTipoPregunta").value;
+        document.querySelectorAll("#boxPreg .item-row").forEach(row => {
+          const txt = row.querySelector(".desc") ? row.querySelector(".desc").textContent.toLowerCase() : "";
+          const rowTipo = row.getAttribute('data-tipo') || "";
+          const matchText = txt.includes(q);
+          const matchTipo = (tipoSel === 'todos') || (rowTipo === tipoSel);
+          row.style.display = (matchText && matchTipo) ? "" : "none";
+        });
+      }
+
+      let draggedPregItem = null;
+      function dragPregRow(e) { draggedPregItem = e.target.closest('.item-row'); e.dataTransfer.effectAllowed = 'move'; setTimeout(() => { if(draggedPregItem) draggedPregItem.style.opacity = '0.5'; }, 0); }
+      function dragOverPregRow(e) { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; const overItem = e.target.closest('.item-row'); if (overItem && overItem !== draggedPregItem) { const list = overItem.parentNode; const items = [...list.querySelectorAll('.item-row')]; if (items.indexOf(draggedPregItem) < items.indexOf(overItem)) overItem.after(draggedPregItem); else overItem.before(draggedPregItem); } }
+      function dropPregRow(e) { e.stopPropagation(); return false; }
+      function dragEndPregRow(e) { if (draggedPregItem) draggedPregItem.style.opacity = '1'; draggedPregItem = null; const items = document.querySelectorAll('#boxPreg .item-row'); items.forEach((item, index) => { const badge = item.querySelector('.badge.bg-primary'); if(badge) badge.textContent = `P${index + 1}`; }); }
+
+      function rowPregunta(n, txt, tipo = 'abierta') {
+        const iconInfo = tipo === 'abierta' ? 'fas fa-align-left text-warning' : (tipo === 'cerrada' ? 'fas fa-check-circle text-primary' : 'fas fa-question text-muted');
+        return `<li class="item-row p-3 mb-2 border rounded shadow-sm d-flex justify-content-between align-items-center bg-white" data-tipo="${tipo}" draggable="true" ondragstart="dragPregRow(event)" ondragover="dragOverPregRow(event)" ondrop="dropPregRow(event)" ondragend="dragEndPregRow(event)">
+          <div class="inf d-flex align-items-center gap-3">
+            <i class="fas fa-grip-lines text-muted" style="cursor: grab;" title="Arrastrar para ordenar"></i>
+            <div>
+              <span class="badge bg-primary mb-1">P${n}</span>
+              <span class="badge bg-light text-dark border ms-1"><i class="${iconInfo} me-1"></i>${tipo.charAt(0).toUpperCase() + tipo.slice(1)}</span>
+              <h6 class="mb-0 fw-bold desc mt-1">${txt}</h6>
+            </div>
+          </div>
+          <div class="d-flex gap-1">
+            <button class="btn btn-sm btn-light border"><i class="fas fa-edit text-muted"></i></button>
+            <button class="btn btn-sm btn-light border text-danger" onclick="this.closest('.item-row').remove()"><i class="fas fa-trash"></i></button>
+          </div>
+        </li>`;
+      }
+
+      function renderizarControlesPregunta() {
+        const tipo = document.getElementById('mpTipoPreg_Master').value;
+        const c = document.getElementById('mpContenedorPregunta');
+        
+        if(!tipo) { c.style.display = 'none'; return; }
+        c.style.display = 'block';
+
+        let html = '';
+        if (tipo === 'abierta') {
+          html = `
+            <div class="p-3 mb-0 border rounded shadow-sm bg-white border-top border-4" style="border-top-color: #f59e0b !important;">
+              <h6 class="fw-bold mb-3"><i class="fas fa-align-left me-2 text-warning"></i>Configuración - Pregunta Abierta</h6>
+              
+              <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label text-muted small fw-bold mb-1">Tipo de Vista</label>
+                    <select class="form-select" id="mp_A_tipoVista">
+                      <option value="1">Básica</option>
+                      <option value="2">Ventana emergente (solo modal)</option>
+                      <option value="3">Tabla</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label text-muted small fw-bold mb-1">Tipo de Dato de la Pregunta</label>
+                    <select class="form-select" id="mp_A_tipoDato" onchange="ctrlAbierta()">
+                      <option value="texto">Texto</option>
+                      <option value="imagen">Imagen</option>
+                      <option value="texto_imagen">Texto/Imagen</option>
+                    </select>
+                  </div>
+                  
+                  <div class="col-md-12" id="mp_A_boxText">
+                    <label class="form-label fw-bold small text-primary mb-1">Descripción de Pregunta</label>
+                    <input type="text" class="form-control" id="mp_A_text" placeholder="Escribe tu pregunta abierta aquí...">
+                  </div>
+                  
+                  <div class="col-md-12" id="mp_A_boxImage" style="display:none;">
+                    <label class="form-label fw-bold small text-primary mb-1"><i class="fas fa-image me-1"></i> Subir Imagen</label>
+                    <input type="file" class="form-control" accept="image/*">
+                  </div>
+                  
+                  <div class="col-md-4">
+                    <label class="form-label text-muted small fw-bold mb-1">Tipo de Respuesta</label>
+                    <select class="form-select" id="mp_A_tipoResp" onchange="ctrlAbierta()">
+                      <option value="unica">Única</option>
+                      <option value="multiple">Múltiple</option>
+                    </select>
+                  </div>
+                  
+                  <div class="col-md-4" id="mp_A_boxNumResp" style="display:none;">
+                    <label class="form-label text-muted small fw-bold mb-1">K. de Resp.</label>
+                    <input type="number" class="form-control" id="mp_A_numResp" value="2" min="2" oninput="ctrlAbierta()">
+                  </div>
+
+                  <div class="col-md-4" id="mp_A_boxNumRespValidas" style="display:none;">
+                    <label class="form-label text-muted small fw-bold mb-1">Resp. Válidas</label>
+                    <input type="number" class="form-control" id="mp_A_numRespVal" value="1" min="1">
+                  </div>
+                  
+                  <div class="col-md-4">
+                    <label class="form-label text-muted small fw-bold mb-1">Dato Respuesta</label>
+                    <select class="form-select" id="mp_A_tipoDatoResp">
+                      <option value="numerico">Numérico</option>
+                      <option value="texto">Texto</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-12 mt-2">
+                    <div class="d-flex align-items-center gap-3">
+                      <label class="form-label m-0 text-muted small fw-bold">¿Tiene precarga? (Valores por defecto)</label>
+                      <div class="form-check form-check-inline m-0">
+                        <input class="form-check-input" type="radio" name="mp_A_precargaRd" id="mp_A_precargaNo" value="no" checked onchange="ctrlAbierta()">
+                        <label class="form-check-label" for="mp_A_precargaNo">No</label>
+                      </div>
+                      <div class="form-check form-check-inline m-0">
+                        <input class="form-check-input" type="radio" name="mp_A_precargaRd" id="mp_A_precargaSi" value="si" onchange="ctrlAbierta()">
+                        <label class="form-check-label" for="mp_A_precargaSi">Sí</label>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-12" id="mp_A_boxPrecarga" style="display:none;">
+                     <div class="p-3 bg-light rounded border border-secondary border-opacity-25" id="mp_A_precargaFields"></div>
+                  </div>
+              </div>
+            </div>
+          `;
+        } else if (tipo === 'cerrada') {
+          html = `
+            <div class="p-3 mb-0 border rounded shadow-sm bg-white border-top border-4" style="border-top-color: #3b82f6 !important;">
+              <h6 class="fw-bold mb-3"><i class="fas fa-check-circle me-2 text-primary"></i>Configuración - Pregunta Cerrada</h6>
+              <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label text-muted small fw-bold mb-1">Tipo de Vista</label>
+                    <select class="form-select" id="mp_C_tipoVista">
+                      <option value="1">Básica</option>
+                      <option value="2">Ventana emergente (solo modal)</option>
+                      <option value="3">Tabla</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label text-muted small fw-bold mb-1">Tipo de Dato de la Pregunta</label>
+                    <select class="form-select" id="mp_C_tipoDato" onchange="ctrlCerrada()">
+                      <option value="texto">Texto</option>
+                      <option value="imagen">Imagen</option>
+                      <option value="texto_imagen">Texto/Imagen</option>
+                    </select>
+                  </div>
+                  
+                  <div class="col-md-12" id="mp_C_boxText">
+                    <label class="form-label fw-bold small text-primary mb-1">Descripción de Pregunta</label>
+                    <input type="text" class="form-control" id="mp_C_text" placeholder="Escribe tu pregunta cerrada aquí...">
+                  </div>
+                  
+                  <div class="col-md-12" id="mp_C_boxImage" style="display:none;">
+                    <label class="form-label fw-bold small text-primary mb-1"><i class="fas fa-image me-1"></i> Subir Imagen</label>
+                    <input type="file" class="form-control" accept="image/*">
+                  </div>
+                  
+                  <div class="col-md-4">
+                    <label class="form-label text-muted small fw-bold mb-1">Tipo de Respuesta</label>
+                    <select class="form-select" id="mp_C_tipoResp" onchange="ctrlCerrada()">
+                      <option value="unica">Única</option>
+                      <option value="multiple">Múltiple</option>
+                    </select>
+                  </div>
+                  
+                  <div class="col-md-4" id="mp_C_boxNumResp" style="display:none;">
+                    <label class="form-label text-muted small fw-bold mb-1">Límite Múltiple</label>
+                    <input type="number" class="form-control" id="mp_C_numResp" value="2" min="2">
+                  </div>
+
+                  <div class="col-md-4">
+                    <label class="form-label text-muted small fw-bold mb-1">Nº Columnas</label>
+                    <input type="number" class="form-control" id="mp_C_numCol" value="1" min="1" max="6">
+                  </div>
+                  
+                  <div class="col-12 mt-4">
+                     <div class="d-flex justify-content-between align-items-center mb-2">
+                       <h6 class="fw-bold text-muted m-0"><i class="fas fa-list mt-1 me-1"></i> Creador de Alternativas</h6>
+                     </div>
+                     <div id="mp_C_alternativas_box" class="d-flex flex-column gap-2 mb-3"></div>
+                     <button class="btn btn-outline-primary btn-sm w-100 border-dashed fw-bold py-2" onclick="addMpcAlternativa()">
+                       <i class="fas fa-plus me-1"></i> Añadir Nueva Alternativa
+                     </button>
+                  </div>
+              </div>
+            </div>
+          `;
+        } else {
+          html = `<div class="alert alert-secondary mb-0"><i class="fas fa-info-circle me-2"></i>Funcionalidad no implementada para '${tipo}' actualmente. Elige Abierta o Cerrada.</div>`;
+        }
+        
+        c.innerHTML = html;
+        
+        if(tipo === 'abierta') ctrlAbierta();
+        if(tipo === 'cerrada') {
+          ctrlCerrada(); 
+          document.getElementById('mp_C_alternativas_box').innerHTML = '';
+          addMpcAlternativa(); 
+        }
+      }
+
+      function ctrlAbierta() {
+        const td = document.getElementById('mp_A_tipoDato').value;
+        document.getElementById('mp_A_boxText').style.display = (td === 'texto' || td === 'texto_imagen') ? 'block' : 'none';
+        document.getElementById('mp_A_boxImage').style.display = (td === 'imagen' || td === 'texto_imagen') ? 'block' : 'none';
+        
+        const tr = document.getElementById('mp_A_tipoResp').value;
+        const isMulti = (tr === 'multiple');
+        document.getElementById('mp_A_boxNumResp').style.display = isMulti ? 'block' : 'none';
+        document.getElementById('mp_A_boxNumRespValidas').style.display = isMulti ? 'block' : 'none';
+
+        const rdSi = document.getElementById('mp_A_precargaSi');
+        const boxPrecarga = document.getElementById('mp_A_boxPrecarga');
+        const countFields = isMulti ? (parseInt(document.getElementById('mp_A_numResp').value) || 1) : 1;
+        
+        if (rdSi && rdSi.checked) {
+          boxPrecarga.style.display = 'block';
+          let inputsHtml = '<label class="form-label small text-primary fw-bold mb-2">Configure los valores por defecto a inyectar:</label>';
+          for(let i=1; i<=countFields; i++) {
+             inputsHtml += `<input type="text" class="form-control form-control-sm mb-2" placeholder="Valor por defecto para el cajón ${i}...">`;
+          }
+          document.getElementById('mp_A_precargaFields').innerHTML = inputsHtml;
+        } else {
+          boxPrecarga.style.display = 'none';
+        }
+      }
+
+      function ctrlCerrada() {
+        const td = document.getElementById('mp_C_tipoDato').value;
+        document.getElementById('mp_C_boxText').style.display = (td === 'texto' || td === 'texto_imagen') ? 'block' : 'none';
+        document.getElementById('mp_C_boxImage').style.display = (td === 'imagen' || td === 'texto_imagen') ? 'block' : 'none';
+        const tr = document.getElementById('mp_C_tipoResp').value;
+        document.getElementById('mp_C_boxNumResp').style.display = (tr === 'multiple') ? 'block' : 'none';
+      }
+
+      function addMpcAlternativa() {
+         const box = document.getElementById('mp_C_alternativas_box');
+         const div = document.createElement('div');
+         div.className = "d-flex gap-2 align-items-center p-2 border rounded bg-white shadow-sm";
+         div.innerHTML = `
+            <div style="width: 130px;">
+              <select class="form-select form-select-sm mpc-tipoalt bg-light fw-bold" onchange="swMpcAlt(this)">
+                 <option value="texto">Txt / Desc</option>
+                 <option value="imagen">Img visual</option>
+              </select>
+            </div>
+            <div class="flex-grow-1 mpc-dynamic-box">
+               <input type="text" class="form-control form-control-sm border-primary" placeholder="Descripción de alternativa...">
+            </div>
+            <button class="btn btn-sm btn-outline-danger border-0" onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+         `;
+         box.appendChild(div);
+      }
+
+      function swMpcAlt(sel) {
+         const c = sel.parentElement.nextElementSibling;
+         if(sel.value === 'texto') {
+            c.innerHTML = '<input type="text" class="form-control form-control-sm border-primary" placeholder="Descripción de alternativa...">';
+         } else {
+            c.innerHTML = '<input type="file" class="form-control form-control-sm border-primary" accept="image/*">';
+         }
+      }
+
+      function previsualizarPregunta() {
+         const tipo = document.getElementById('mpTipoPreg_Master').value;
+         if(!tipo) { showToast('Seleccione un tipo primero.'); return; }
+         showToast('Modal de Pre-visualización generado correctamente.');
+      }
+
+      function guardarNuevaPregunta() {
+         const tipo = document.getElementById('mpTipoPreg_Master').value;
+         if(!tipo) { alert('Selecciona el tipo de pregunta'); return; }
+         
+         let txt = "Nueva Pregunta " + (document.querySelectorAll("#boxPreg .item-row").length + 1);
+         if(tipo === "abierta" && document.getElementById('mp_A_text')) txt = document.getElementById('mp_A_text').value || txt;
+         if(tipo === "cerrada" && document.getElementById('mp_C_text')) txt = document.getElementById('mp_C_text').value || txt;
+
+         const n = document.querySelectorAll("#boxPreg .item-row").length + 1;
+         
+         const div = document.createElement('div');
+         div.innerHTML = rowPregunta(n, txt, tipo);
+         const empty = document.getElementById("emptyPreg");
+         if(empty) empty.remove();
+         document.getElementById("boxPreg").appendChild(div.firstElementChild);
+
+         showToast('✅ Pregunta generada y guardada.');
+         bootstrap.Modal.getInstance(document.getElementById('modalNuevaPregunta')).hide();
       }
 
       function addAlternativa() {
@@ -4419,6 +5019,7 @@
                 placeholder="Buscar prestación por código o descripción..."
                 class="form-control w-100"
                 style="border-radius: 100px"
+                oninput="filtrarPillContainer('modalAddPrestOrden', this.value)"
               />
             </div>
 
@@ -4812,6 +5413,11 @@
           "eliminar",
           "fa-trash",
         );
+      }
+
+      function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('collapsed');
+        document.getElementById('main-content').classList.toggle('expanded');
       }
     </script>
 
