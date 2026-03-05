@@ -1132,6 +1132,9 @@
               </div>
             </div>
             <div class="prueba-actions">
+              <button class="btn-action btn-edit" style="background: #f1f5f9; color: #0f172a;" title="Previsualizar" onclick="showToast('Abriendo vista previa de la prueba...')">
+                <i class="fas fa-eye"></i>
+              </button>
               <button
                 class="btn-action btn-edit"
                 onclick="editarPrueba('PSI-ANS-001')"
@@ -1208,6 +1211,9 @@
               </div>
             </div>
             <div class="prueba-actions">
+              <button class="btn-action btn-edit" style="background: #f1f5f9; color: #0f172a;" title="Previsualizar" onclick="showToast('Abriendo vista previa de la prueba...')">
+                <i class="fas fa-eye"></i>
+              </button>
               <button
                 class="btn-action btn-edit"
                 onclick="editarPrueba('PSI-CMP-002')"
@@ -1284,6 +1290,9 @@
               </div>
             </div>
             <div class="prueba-actions">
+              <button class="btn-action btn-edit" style="background: #f1f5f9; color: #0f172a;" title="Previsualizar" onclick="showToast('Abriendo vista previa de la prueba...')">
+                <i class="fas fa-eye"></i>
+              </button>
               <button
                 class="btn-action btn-edit"
                 onclick="editarPrueba('PSI-ALT-003')"
@@ -1359,6 +1368,9 @@
               </div>
             </div>
             <div class="prueba-actions">
+              <button class="btn-action btn-edit" style="background: #f1f5f9; color: #0f172a;" title="Previsualizar" onclick="showToast('Abriendo vista previa de la prueba...')">
+                <i class="fas fa-eye"></i>
+              </button>
               <button
                 class="btn-action btn-edit"
                 onclick="editarPrueba('PSI-CHI-004')"
@@ -3447,24 +3459,32 @@
           if (lp) {
             lp.style.display = 'block';
             lp.innerHTML = `
-              <div class="card-item">
-                <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-file-medical-alt"></i></div>
-                <div class="flex-grow-1"><div class="d-flex align-items-center gap-2">
-                  <strong style="color:var(--primary)">PSI-ANS-001</strong><span class="muted-dot">•</span><span class="fw-semibold">Escala de Ansiedad de Beck</span>
-                </div></div>
-                <div class="d-flex flex-column align-items-center gap-1 me-2">
+              <div class="card-item item-row p-3 mb-2 border rounded shadow-sm bg-white d-flex align-items-center justify-content-between">
+                <div class="d-flex flex-column">
+                    <strong class="text-primary" style="font-size: 0.9rem;">PSI-ANS-001</strong>
+                    <span class="text-dark fw-medium mb-1">Escala de Ansiedad de Beck</span>
+                    <div class="d-flex gap-2">
+                        <span class="text-muted" style="font-size: 0.75rem;"><i class="fas fa-clock me-1"></i>45 min</span>
+                        <span class="text-muted" style="font-size: 0.75rem;"><i class="fas fa-question-circle me-1"></i>30 preg</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-column align-items-center gap-1">
                     <label class="small text-muted fw-bold mb-0" style="font-size: 0.65rem;">Posición</label>
-                    <input type="number" class="form-control form-control-sm text-center fw-bold" value="1" min="1" style="width: 50px; height: 32px; border-radius: 8px; border: 2px solid var(--border-light);" onchange="reordenarPrestacion(this)">
+                    <input type="number" class="form-control form-control-sm text-center fw-bold text-primary border-primary" style="width: 50px; border-radius: 8px;" value="1" min="1" onchange="reordenarPrestacion(this)">
                 </div>
               </div>
-              <div class="card-item">
-                <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-file-medical-alt"></i></div>
-                <div class="flex-grow-1"><div class="d-flex align-items-center gap-2">
-                  <strong style="color:var(--primary)">PSI-CMP-002</strong><span class="muted-dot">•</span><span class="fw-semibold">Competencias Laborales Volcán</span>
-                </div></div>
-                <div class="d-flex flex-column align-items-center gap-1 me-2">
+              <div class="card-item item-row p-3 mb-2 border rounded shadow-sm bg-white d-flex align-items-center justify-content-between">
+                <div class="d-flex flex-column">
+                    <strong class="text-primary" style="font-size: 0.9rem;">PSI-CMP-002</strong>
+                    <span class="text-dark fw-medium mb-1">Competencias Laborales Volcán</span>
+                    <div class="d-flex gap-2">
+                        <span class="text-muted" style="font-size: 0.75rem;"><i class="fas fa-clock me-1"></i>45 min</span>
+                        <span class="text-muted" style="font-size: 0.75rem;"><i class="fas fa-question-circle me-1"></i>30 preg</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-column align-items-center gap-1">
                     <label class="small text-muted fw-bold mb-0" style="font-size: 0.65rem;">Posición</label>
-                    <input type="number" class="form-control form-control-sm text-center fw-bold" value="2" min="1" style="width: 50px; height: 32px; border-radius: 8px; border: 2px solid var(--border-light);" onchange="reordenarPrestacion(this)">
+                    <input type="number" class="form-control form-control-sm text-center fw-bold text-primary border-primary" style="width: 50px; border-radius: 8px;" value="2" min="1" onchange="reordenarPrestacion(this)">
                 </div>
               </div>`;
             lp.querySelectorAll('.card-item').forEach(initDrag);
@@ -3482,16 +3502,20 @@
           return;
         }
         lp.style.display = 'block';
-        lp.innerHTML = pruebas.map(p => `
-          <div class="card-item">
-            <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-file-medical-alt"></i></div>
-            <div class="flex-grow-1"><div class="d-flex align-items-center gap-2">
-              <strong style="color:var(--primary)">${p.cod}</strong><span class="muted-dot">•</span><span class="fw-semibold">${p.nom}</span>
-            </div></div>
-            <div class="d-flex flex-column align-items-center gap-1 me-2">
-                <label class="small text-muted fw-bold mb-0" style="font-size: 0.65rem;">Posición</label>
-                <input type="number" class="form-control form-control-sm text-center fw-bold" value="${index + 1}" min="1" style="width: 50px; height: 32px; border-radius: 8px; border: 2px solid var(--border-light);" onchange="reordenarPrestacion(this)">
-            </div>
+        lp.innerHTML = pruebas.map((p, index) => `
+          <div class="card-item item-row p-3 mb-2 border rounded shadow-sm bg-white d-flex align-items-center justify-content-between">
+              <div class="d-flex flex-column">
+                  <strong class="text-primary" style="font-size: 0.9rem;">${p.cod}</strong>
+                  <span class="text-dark fw-medium mb-1">${p.nom}</span>
+                  <div class="d-flex gap-2">
+                      <span class="text-muted" style="font-size: 0.75rem;"><i class="fas fa-clock me-1"></i>45 min</span>
+                      <span class="text-muted" style="font-size: 0.75rem;"><i class="fas fa-question-circle me-1"></i>30 preg</span>
+                  </div>
+              </div>
+              <div class="d-flex flex-column align-items-center gap-1">
+                  <label class="small text-muted fw-bold mb-0" style="font-size: 0.65rem;">Posición</label>
+                  <input type="number" class="form-control form-control-sm text-center fw-bold text-primary border-primary" style="width: 50px; border-radius: 8px;" value="${index + 1}" min="1" onchange="reordenarPrestacion(this)">
+              </div>
           </div>`).join('');
         lp.querySelectorAll('.card-item').forEach(initDrag);
       }
@@ -5009,32 +5033,41 @@
                   <label class="form-label">Nombre / Descripción</label>
                   <input class="form-control" id="cDesc" placeholder="Ej: Centro Médico San Borja" />
                 </div>
-                <div class="col-12">
+                <div class="col-md-12">
                   <label class="form-label">Dirección</label>
-                  <input class="form-control" id="cDir" placeholder="Av. / Jr. ..." />
+                  <input type="text" class="form-control" id="cDir" placeholder="Ej: Av. Principal 123">
                 </div>
                 <div class="col-md-4">
                   <label class="form-label">Departamento</label>
-                  <select class="form-select" id="cDpto"><option>Lima</option></select>
+                  <select class="form-select" id="cDep">
+                    <option value="">Seleccionar...</option>
+                    <option value="Lima">Lima</option>
+                  </select>
                 </div>
                 <div class="col-md-4">
                   <label class="form-label">Provincia</label>
-                  <select class="form-select" id="cProv"><option>Lima</option></select>
+                  <select class="form-select" id="cProv">
+                    <option value="">Seleccionar...</option>
+                    <option value="Lima">Lima</option>
+                  </select>
                 </div>
                 <div class="col-md-4">
                   <label class="form-label">Distrito</label>
-                  <select class="form-select" id="cDist"><option>San Borja</option></select>
+                  <select class="form-select" id="cDist">
+                    <option value="">Seleccionar...</option>
+                    <option value="San Borja">San Borja</option>
+                  </select>
                 </div>
-                <div class="col-12">
-                  <div class="soft-panel d-flex justify-content-between align-items-center flex-wrap gap-3">
-                    <div class="form-check form-switch mb-0">
-                      <input class="form-check-input fs-5" type="checkbox" id="cVirtual" />
-                      <label class="form-check-label fw-bold ms-2 mt-1" for="cVirtual">Permite evaluación virtual</label>
-                    </div>
-                    <div class="form-check form-switch mb-0">
-                      <input class="form-check-input fs-5" type="checkbox" id="cActivo" checked />
-                      <label class="form-check-label fw-bold ms-2 mt-1" for="cActivo">Estado Activo</label>
-                    </div>
+                <div class="col-md-6 d-flex align-items-center mt-4">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="cVirtual">
+                    <label class="form-check-label fw-medium ms-2" for="cVirtual">¿Permite evaluación virtual?</label>
+                  </div>
+                </div>
+                <div class="col-md-6 d-flex align-items-center mt-4">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="cActivo" checked>
+                    <label class="form-check-label fw-medium ms-2" for="cActivo">Estado (Activo)</label>
                   </div>
                 </div>
               </div>
