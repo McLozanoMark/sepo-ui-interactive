@@ -5204,6 +5204,7 @@
         </div>
       </div>
     </div>
+    <script>
       function reordenarPrestacion(input) {
         const card = input.closest('.card-item');
         const container = card.parentNode;
@@ -5268,10 +5269,6 @@
         if(sidebar) obs.observe(sidebar, { attributes: true, attributeFilter: ['class'] });
       });
     </script>
-    <button class="fab-btn" onclick="nuevaPrueba()" id="mainFab">
-      <i class="fas fa-plus"></i>
-      <span class="fab-tooltip">Nueva Prueba</span>
-    </button>
   </body>
 </html>
 
