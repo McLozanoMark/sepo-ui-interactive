@@ -354,46 +354,59 @@
        PRUEBAS PSICOLÓGICAS
     ══════════════════════════════ */
       let currentStep = 0;
-      const TOTAL_STEPS = 5;
-      const STEP_PCT = [20, 40, 60, 80, 100];
+      const stepIds = [0, 1, 2, 2.5, 3, 4];
+      const stepPct = [16, 33, 50, 66, 83, 100];
 
       function goStep(n) {
-        for (let i = 0; i < TOTAL_STEPS; i++) {
-          document.getElementById("step-" + i)?.classList.remove("active");
-          const snum = document.getElementById("snum-" + i);
-          const item = document.querySelectorAll(".stepper-item")[i];
+        n = parseFloat(n);
+        const cIdx = stepIds.indexOf(n);
+        if (cIdx === -1) return;
+
+        for (let i = 0; i < stepIds.length; i++) {
+          const sId = stepIds[i];
+          const elTab = document.getElementById("step-" + sId);
+          if (elTab) elTab.classList.remove("active");
+          const snum = document.getElementById("snum-" + sId);
+          const items = document.querySelectorAll(".stepper-item");
+          const item = items[i];
           if (snum && item) {
             item.classList.remove("active");
-            if (i < n) {
+            if (i < cIdx) {
               snum.className = "stepper-num done";
               snum.innerHTML =
                 '<i class="fas fa-check" style="font-size:.7rem"></i>';
-            } else if (i === n) {
+            } else if (sId === n) {
               snum.className = "stepper-num active";
-              snum.innerHTML = i + 1;
+              snum.innerHTML = sId === 2.5 ? "P" : (sId + 1);
               item.classList.add("active");
             } else {
               snum.className = "stepper-num pend";
-              snum.innerHTML = i + 1;
+              snum.innerHTML = sId === 2.5 ? "P" : (sId + 1);
             }
           }
         }
-        document.getElementById("step-" + n)?.classList.add("active");
+        const activeTab = document.getElementById("step-" + n);
+        if (activeTab) activeTab.classList.add("active");
+        
         currentStep = n;
-        document.getElementById("modalProgressFill").style.width =
-          STEP_PCT[n] + "%";
-        document.getElementById("modalProgressPct").textContent =
-          STEP_PCT[n] + "%";
-        document.getElementById("btnPrev").style.display =
-          n === 0 ? "none" : "inline-flex";
-        document.getElementById("btnNext").style.display =
-          n === TOTAL_STEPS - 1 ? "none" : "inline-flex";
+        const fill = document.getElementById("modalProgressFill");
+        if(fill) fill.style.width = stepPct[cIdx] + "%";
+        
+        const pct = document.getElementById("modalProgressPct");
+        if(pct) pct.textContent = stepPct[cIdx] + "%";
+        
+        const btnPrev = document.getElementById("btnPrev");
+        if(btnPrev) btnPrev.style.display = cIdx === 0 ? "none" : "inline-flex";
+        
+        const btnNext = document.getElementById("btnNext");
+        if(btnNext) btnNext.style.display = cIdx === stepIds.length - 1 ? "none" : "inline-flex";
         
         const btnFinal = document.getElementById("btnGuardarFinal");
         if(btnFinal) {
-           btnFinal.style.display = (n === TOTAL_STEPS - 1) ? "inline-flex" : "none";
+           btnFinal.style.display = (cIdx === stepIds.length - 1) ? "inline-flex" : "none";
         }
       }
+      
       function nextStep() {
         if (currentStep === 0) {
           const cod = document.getElementById("prCod").value.trim();
@@ -403,10 +416,15 @@
             return;
           }
         }
-        if (currentStep < TOTAL_STEPS - 1) goStep(currentStep + 1);
+        const cIdx = stepIds.indexOf(currentStep);
+        if (cIdx >= 0 && cIdx < stepIds.length - 1) {
+          goStep(stepIds[cIdx + 1]);
+        }
       }
+      
       function prevStep() {
-        if (currentStep > 0) goStep(currentStep - 1);
+        const cIdx = stepIds.indexOf(currentStep);
+        if (cIdx > 0) goStep(stepIds[cIdx - 1]);
       }
 
       function nuevaPrueba() {
@@ -687,7 +705,7 @@
         if (tipo === 'abierta') {
           html = `
             <div class="p-3 mb-0 border rounded shadow-sm bg-white border-top border-4" style="border-top-color: #f59e0b !important;">
-              <h6 class="fw-bold mb-3"><i class="fas fa-align-left me-2 text-warning"></i>Configuración - Pregunta Abierta</h6>
+              <h6 class="fw-bold mb-3"><i class="fas fa-align-left me-2 text-warning"></i>Configuración - Plantilla de Resultados</h6>
               
               <div class="row g-3">
                   <div class="col-md-6">
@@ -726,7 +744,7 @@
                   </div>
                   
                   <div class="col-md-4" id="mp_A_boxNumResp" style="display:none;">
-                    <label class="form-label text-muted small fw-bold mb-1">K. de Resp.</label>
+                    <label class="form-label text-muted small fw-bold mb-1">Cant. de Resp.</label>
                     <input type="number" class="form-control" id="mp_A_numResp" value="2" min="2" oninput="ctrlAbierta()">
                   </div>
 
@@ -783,7 +801,7 @@
                     </select>
                   </div>
 
-<div class="col-12 mt-4">
+<div class="col-12 mt-4" style="display: none;">
                      <div class="d-flex justify-content-between align-items-center mb-2">
                        <h6 class="fw-bold text-muted m-0"><i class="fas fa-list mt-1 me-1"></i> Creador de Alternativas / Claves</h6>
                      </div>
@@ -883,8 +901,6 @@
         
         if(tipo === 'abierta') {
           ctrlAbierta();
-          const bA = document.getElementById('mp_A_alternativas_box'); bA.innerHTML = ''; if(!bA.dataset.sortInit) { Sortable.create(bA, {handle: '.handle', animation: 150}); bA.dataset.sortInit = '1'; }
-          addMpaAlternativa();
         }
         if(tipo === 'cerrada') {
           ctrlCerrada(); 
@@ -1543,3 +1559,36 @@
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 </body>
 </html>
+function cargarPlantillaRespuestasDemo() {
+    const lista = document.getElementById('listaPlantillaResp');
+    const empty = document.getElementById('emptyPlantilla');
+    if (empty) empty.remove();
+    
+    lista.innerHTML = `
+      <div class="item-row mb-2 p-3 border rounded shadow-sm bg-white d-flex align-items-center justify-content-between">
+          <div class="d-flex flex-column">
+              <strong class="text-primary" style="font-size: 0.9rem;">P1 - ¿Qué número continúa de la serie?</strong>
+              <span class="text-muted" style="font-size: 0.75rem;">Abierta (2 respuestas esperadas)</span>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+              <label class="small text-muted mb-0">Ptos. por acierto:</label>
+              <input type="number" class="form-control form-control-sm text-center" value="0.5" step="0.1" style="width: 70px;">
+          </div>
+      </div>
+      <div class="item-row p-3 border rounded shadow-sm bg-white d-flex align-items-center justify-content-between">
+          <div class="d-flex flex-column">
+              <strong class="text-primary" style="font-size: 0.9rem;">P2 - Nivel de ansiedad frecuente</strong>
+              <span class="text-muted" style="font-size: 0.75rem;">Cerrada (Likert 5)</span>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+              <label class="small text-muted mb-0">Plantilla:</label>
+              <select class="form-select form-select-sm" style="width: 150px;">
+                  <option>Likert Estándar (1-5)</option>
+                  <option>Likert Invertido (5-1)</option>
+                  <option>Personalizado</option>
+              </select>
+          </div>
+      </div>
+    `;
+    showToast('Preguntas sincronizadas con la plantilla.');
+}

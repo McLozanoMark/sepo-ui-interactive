@@ -2153,7 +2153,7 @@
           </div>
           <div id="lista-sepo">
             <!-- Card 1 -->
-            <div class="card-item" draggable="true">
+            <div class="card-item">
               <div
                 class="icon-box"
                 style="background: #e0f2fe; color: var(--primary)"
@@ -2179,21 +2179,9 @@
                 </small>
               </div>
               <div class="d-flex gap-2 align-items-center">
-                <div class="d-flex flex-column gap-1">
-                  <button
-                    class="btn-action btn-edit"
-                    title="Subir"
-                    onclick="moverOrden(this, 'up')"
-                  >
-                    <i class="fas fa-chevron-up"></i>
-                  </button>
-                  <button
-                    class="btn-action btn-edit"
-                    title="Bajar"
-                    onclick="moverOrden(this, 'down')"
-                  >
-                    <i class="fas fa-chevron-down"></i>
-                  </button>
+                <div class="d-flex flex-column align-items-center gap-1 me-2">
+                  <label class="small text-muted fw-bold mb-0" style="font-size: 0.65rem;">Posición</label>
+                  <input type="number" class="form-control form-control-sm text-center fw-bold" value="1" min="1" style="width: 50px; height: 32px; border-radius: 8px; border: 2px solid var(--border-light);" onchange="reordenarPrestacion(this)">
                 </div>
                 <button
                   class="btn-prim"
@@ -2207,7 +2195,7 @@
               </div>
             </div>
             <!-- Card 2 -->
-            <div class="card-item" draggable="true">
+            <div class="card-item">
               <div class="icon-box" style="background: #fff7ed; color: #c2410c">
                 <i class="fas fa-comments"></i>
               </div>
@@ -2228,21 +2216,9 @@
                 </small>
               </div>
               <div class="d-flex gap-2 align-items-center">
-                <div class="d-flex flex-column gap-1">
-                  <button
-                    class="btn-action btn-edit"
-                    title="Subir"
-                    onclick="moverOrden(this, 'up')"
-                  >
-                    <i class="fas fa-chevron-up"></i>
-                  </button>
-                  <button
-                    class="btn-action btn-edit"
-                    title="Bajar"
-                    onclick="moverOrden(this, 'down')"
-                  >
-                    <i class="fas fa-chevron-down"></i>
-                  </button>
+                <div class="d-flex flex-column align-items-center gap-1 me-2">
+                  <label class="small text-muted fw-bold mb-0" style="font-size: 0.65rem;">Posición</label>
+                  <input type="number" class="form-control form-control-sm text-center fw-bold" value="1" min="1" style="width: 50px; height: 32px; border-radius: 8px; border: 2px solid var(--border-light);" onchange="reordenarPrestacion(this)">
                 </div>
                 <button
                   class="btn-prim"
@@ -2256,7 +2232,7 @@
               </div>
             </div>
             <!-- Card 3 -->
-            <div class="card-item" draggable="true">
+            <div class="card-item">
               <div class="icon-box" style="background: #eef2ff; color: #4338ca">
                 <i class="fas fa-brain"></i>
               </div>
@@ -2277,21 +2253,9 @@
                 </small>
               </div>
               <div class="d-flex gap-2 align-items-center">
-                <div class="d-flex flex-column gap-1">
-                  <button
-                    class="btn-action btn-edit"
-                    title="Subir"
-                    onclick="moverOrden(this, 'up')"
-                  >
-                    <i class="fas fa-chevron-up"></i>
-                  </button>
-                  <button
-                    class="btn-action btn-edit"
-                    title="Bajar"
-                    onclick="moverOrden(this, 'down')"
-                  >
-                    <i class="fas fa-chevron-down"></i>
-                  </button>
+                <div class="d-flex flex-column align-items-center gap-1 me-2">
+                  <label class="small text-muted fw-bold mb-0" style="font-size: 0.65rem;">Posición</label>
+                  <input type="number" class="form-control form-control-sm text-center fw-bold" value="1" min="1" style="width: 50px; height: 32px; border-radius: 8px; border: 2px solid var(--border-light);" onchange="reordenarPrestacion(this)">
                 </div>
                 <button
                   class="btn-prim"
@@ -2305,7 +2269,7 @@
               </div>
             </div>
             <!-- Card 4 -->
-            <div class="card-item" draggable="true">
+            <div class="card-item">
               <div class="icon-box" style="background: #f0f9ff; color: #0369a1">
                 <i class="fas fa-clipboard-list"></i>
               </div>
@@ -2326,21 +2290,9 @@
                 </small>
               </div>
               <div class="d-flex gap-2 align-items-center">
-                <div class="d-flex flex-column gap-1">
-                  <button
-                    class="btn-action btn-edit"
-                    title="Subir"
-                    onclick="moverOrden(this, 'up')"
-                  >
-                    <i class="fas fa-chevron-up"></i>
-                  </button>
-                  <button
-                    class="btn-action btn-edit"
-                    title="Bajar"
-                    onclick="moverOrden(this, 'down')"
-                  >
-                    <i class="fas fa-chevron-down"></i>
-                  </button>
+                <div class="d-flex flex-column align-items-center gap-1 me-2">
+                  <label class="small text-muted fw-bold mb-0" style="font-size: 0.65rem;">Posición</label>
+                  <input type="number" class="form-control form-control-sm text-center fw-bold" value="1" min="1" style="width: 50px; height: 32px; border-radius: 8px; border: 2px solid var(--border-light);" onchange="reordenarPrestacion(this)">
                 </div>
                 <button
                   class="btn-prim"
@@ -2354,7 +2306,7 @@
               </div>
             </div>
             <!-- Card 5 -->
-            <div class="card-item" draggable="true">
+            <div class="card-item">
               <div class="icon-box" style="background: #f8fafc; color: #1e293b">
                 <i class="fas fa-user-doctor"></i>
               </div>
@@ -2377,21 +2329,9 @@
                 </small>
               </div>
               <div class="d-flex gap-2 align-items-center">
-                <div class="d-flex flex-column gap-1">
-                  <button
-                    class="btn-action btn-edit"
-                    title="Subir"
-                    onclick="moverOrden(this, 'up')"
-                  >
-                    <i class="fas fa-chevron-up"></i>
-                  </button>
-                  <button
-                    class="btn-action btn-edit"
-                    title="Bajar"
-                    onclick="moverOrden(this, 'down')"
-                  >
-                    <i class="fas fa-chevron-down"></i>
-                  </button>
+                <div class="d-flex flex-column align-items-center gap-1 me-2">
+                  <label class="small text-muted fw-bold mb-0" style="font-size: 0.65rem;">Posición</label>
+                  <input type="number" class="form-control form-control-sm text-center fw-bold" value="1" min="1" style="width: 50px; height: 32px; border-radius: 8px; border: 2px solid var(--border-light);" onchange="reordenarPrestacion(this)">
                 </div>
                 <button
                   class="btn-prim"
@@ -2430,7 +2370,7 @@
           </div>
           <div id="lista-complementario">
             <!-- Card 1 -->
-            <div class="card-item" draggable="true">
+            <div class="card-item">
               <div class="icon-box" style="background: #ffedd5; color: #c2410c">
                 <i class="fas fa-helmet-safety"></i>
               </div>
@@ -2451,21 +2391,11 @@
                 </small>
               </div>
               <div class="d-flex gap-2 align-items-center">
-                <div class="d-flex flex-column gap-1">
-                  <button
-                    class="btn-action btn-edit"
-                    title="Subir"
-                    onclick="moverOrden(this, 'up')"
-                  >
-                    <i class="fas fa-chevron-up"></i>
-                  </button>
-                  <button
-                    class="btn-action btn-edit"
-                    title="Bajar"
-                    onclick="moverOrden(this, 'down')"
-                  >
-                    <i class="fas fa-chevron-down"></i>
-                  </button>
+                <div class="d-flex flex-column align-items-center gap-1 me-2">
+                  <label class="small text-muted fw-bold mb-0" style="font-size: 0.65rem;">Posición</label>
+                  <input type="number" class="form-control form-control-sm text-center fw-bold text-primary border-primary" 
+                         style="width: 55px; border-radius: 8px;" value="1" min="1" 
+                         onchange="showToast('Posición actualizada correctamente')">
                 </div>
                 <button
                   class="btn-prim"
@@ -2479,7 +2409,7 @@
               </div>
             </div>
             <!-- Card 2 -->
-            <div class="card-item" draggable="true">
+            <div class="card-item">
               <div class="icon-box" style="background: #f0fdf4; color: #15803d">
                 <i class="fas fa-shield-halved"></i>
               </div>
@@ -2502,21 +2432,11 @@
                 </small>
               </div>
               <div class="d-flex gap-2 align-items-center">
-                <div class="d-flex flex-column gap-1">
-                  <button
-                    class="btn-action btn-edit"
-                    title="Subir"
-                    onclick="moverOrden(this, 'up')"
-                  >
-                    <i class="fas fa-chevron-up"></i>
-                  </button>
-                  <button
-                    class="btn-action btn-edit"
-                    title="Bajar"
-                    onclick="moverOrden(this, 'down')"
-                  >
-                    <i class="fas fa-chevron-down"></i>
-                  </button>
+                <div class="d-flex flex-column align-items-center gap-1 me-2">
+                  <label class="small text-muted fw-bold mb-0" style="font-size: 0.65rem;">Posición</label>
+                  <input type="number" class="form-control form-control-sm text-center fw-bold text-primary border-primary" 
+                         style="width: 55px; border-radius: 8px;" value="2" min="1" 
+                         onchange="showToast('Posición actualizada correctamente')">
                 </div>
                 <button
                   class="btn-prim"
@@ -2530,7 +2450,7 @@
               </div>
             </div>
             <!-- Card 3 -->
-            <div class="card-item" draggable="true">
+            <div class="card-item">
               <div class="icon-box" style="background: #fff7ed; color: #ea580c">
                 <i class="fas fa-truck-fast"></i>
               </div>
@@ -2551,21 +2471,11 @@
                 </small>
               </div>
               <div class="d-flex gap-2 align-items-center">
-                <div class="d-flex flex-column gap-1">
-                  <button
-                    class="btn-action btn-edit"
-                    title="Subir"
-                    onclick="moverOrden(this, 'up')"
-                  >
-                    <i class="fas fa-chevron-up"></i>
-                  </button>
-                  <button
-                    class="btn-action btn-edit"
-                    title="Bajar"
-                    onclick="moverOrden(this, 'down')"
-                  >
-                    <i class="fas fa-chevron-down"></i>
-                  </button>
+                <div class="d-flex flex-column align-items-center gap-1 me-2">
+                  <label class="small text-muted fw-bold mb-0" style="font-size: 0.65rem;">Posición</label>
+                  <input type="number" class="form-control form-control-sm text-center fw-bold text-primary border-primary" 
+                         style="width: 55px; border-radius: 8px;" value="3" min="1" 
+                         onchange="showToast('Posición actualizada correctamente')">
                 </div>
                 <button
                   class="btn-prim"
@@ -2602,21 +2512,11 @@
                 </small>
               </div>
               <div class="d-flex gap-2 align-items-center">
-                <div class="d-flex flex-column gap-1">
-                  <button
-                    class="btn-action btn-edit"
-                    title="Subir"
-                    onclick="moverOrden(this, 'up')"
-                  >
-                    <i class="fas fa-chevron-up"></i>
-                  </button>
-                  <button
-                    class="btn-action btn-edit"
-                    title="Bajar"
-                    onclick="moverOrden(this, 'down')"
-                  >
-                    <i class="fas fa-chevron-down"></i>
-                  </button>
+                <div class="d-flex flex-column align-items-center gap-1 me-2">
+                  <label class="small text-muted fw-bold mb-0" style="font-size: 0.65rem;">Posición</label>
+                  <input type="number" class="form-control form-control-sm text-center fw-bold text-primary border-primary" 
+                         style="width: 55px; border-radius: 8px;" value="4" min="1" 
+                         onchange="showToast('Posición actualizada correctamente')">
                 </div>
                 <button
                   class="btn-prim"
@@ -2806,6 +2706,14 @@
                     <div>
                       <div class="stepper-label">Preguntas</div>
                       <div class="stepper-sub">Listado de ítems</div>
+                    </div>
+                  </div>
+                  
+                  <div class="stepper-item" onclick="goStep(2.5)">
+                    <div class="stepper-num pend" id="snum-2.5">P</div>
+                    <div>
+                      <div class="stepper-label">Plantilla Respuestas</div>
+                      <div class="stepper-sub">Valores y puntajes</div>
                     </div>
                   </div>
                   
@@ -3076,6 +2984,28 @@
                     </li>
                   </ul>
                 </div>
+                
+                <!-- PASO 2.5 -->
+                <div class="tab-pane-custom" id="step-2.5">
+                  <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h6 class="fw-bold m-0" style="color: var(--primary-hover)">
+                      <i class="fas fa-list-ol me-2"></i>Plantilla de Respuestas
+                    </h6>
+                    <button class="btn btn-sm btn-outline-primary fw-bold" onclick="cargarPlantillaRespuestasDemo()">
+                      <i class="fas fa-sync-alt me-1"></i> Sincronizar Preguntas
+                    </button>
+                  </div>
+                  <div class="soft-panel p-4 mb-3">
+                    <p class="text-muted small mb-3">Asigna valores, puntajes o plantillas globales a las preguntas abiertas y cerradas antes de asociar los factores.</p>
+                    <ul class="items-box list-unstyled p-0 m-0" id="listaPlantillaResp">
+                      <li class="text-center text-muted py-4 small" id="emptyPlantilla">
+                        <i class="fas fa-clipboard-check fa-3x mb-3 opacity-25"></i><br>
+                        Haga clic en "Sincronizar Preguntas" para listar los ítems creados.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
                 <!-- PASO 3 -->
                 <div class="tab-pane-custom" id="step-3">
                   <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
@@ -3215,21 +3145,18 @@
         </div>
       </div>
     </div><!-- screen-prueba-form -->
-    <!-- /main-content -->
+    </div><!-- /main-content -->
 
-    <!-- Modal: Añadir Pregunta -->
+    <!-- MODALS CONSOLIDATED AT END OF BODY -->
     <div class="modal fade" id="modalNuevaPregunta" tabindex="-1">
       <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">
-              <i class="fas fa-plus-circle me-2 text-primary"></i>Nueva Pregunta
-            </h5>
+            <h5 class="modal-title"><i class="fas fa-plus-circle me-2 text-primary"></i>Nueva Pregunta</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body bg-light">
             <div class="row g-3">
-              <!-- SELECTOR DE TIPO -->
               <div class="col-md-12">
                 <label class="form-label fw-bold" style="color:var(--primary)">Seleccionar Tipo de Pregunta</label>
                 <select class="form-select border-primary shadow-sm" id="mpTipoPreg_Master" onchange="renderizarControlesPregunta()">
@@ -3237,15 +3164,9 @@
                   <option value="abierta">Abierta</option>
                   <option value="cerrada">Cerrada</option>
                   <option value="numerica">Numérica</option>
-                  <option value="matriz">Matriz</option>
-                  <option value="tarjeta">Tarjeta</option>
                 </select>
               </div>
-
-              <!-- CONTENEDOR DINAMICO PARA EL FORM DE PREGUNTA -->
-              <div class="col-12" id="mpContenedorPregunta" style="display:none; transition: all 0.3s;">
-                  <!-- Se inyecta por JS -->
-              </div>
+              <div class="col-12" id="mpContenedorPregunta" style="display:none; transition: all 0.3s;"></div>
             </div>
           </div>
           <div class="modal-footer d-flex justify-content-between bg-white">
@@ -3259,500 +3180,149 @@
       </div>
     </div>
 
-    <!-- Modal: Centros -->
     <div class="modal fade" id="modalCentro" tabindex="-1">
       <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="tCentro">
-              <i class="fas fa-hospital me-2 text-primary"></i>Centro Médico
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-            ></button>
+            <h5 class="modal-title" id="tCentro"><i class="fas fa-hospital me-2 text-primary"></i>Centro Médico</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body">
-            <div class="soft-panel mb-4 p-3">
-              <h6 class="fw-bold mb-3 text-primary"><i class="fas fa-info-circle me-2"></i>Datos Generales</h6>
-              <div class="row g-4">
-                <div class="col-md-3">
-                  <label class="form-label">ID (Autogenerado)</label>
-                  <input class="form-control" value="CM-012" style="background:#e2e8f0;color:#64748b;border:1px dotted #94a3b8;" readonly disabled />
-                </div>
-                <div class="col-md-3">
-                  <label class="form-label">Código</label>
-                  <input class="form-control" id="cCod" placeholder="Ej: CM-LIMA-01" />
-                  <small class="text-muted" style="font-size:0.75rem">Código interno de la sede.</small>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Nombre / Descripción</label>
-                  <input class="form-control" id="cDesc" placeholder="Ej: Centro Médico San Borja - Sede Principal" />
-                  <small class="text-muted" style="font-size:0.75rem">Nombre comercial del centro o clínica.</small>
-                </div>
-                <div class="col-12">
-                  <label class="form-label">Dirección</label>
-                  <input class="form-control" id="cDir" placeholder="Av. / Jr. ..." />
-                </div>
-                <div class="col-md-4">
-                  <label class="form-label">Departamento</label>
-                  <select class="form-select" id="cDpto">
-                    <option>Lima</option><option>Arequipa</option>
-                  </select>
-                </div>
-                <div class="col-md-4">
-                  <label class="form-label">Provincia</label>
-                  <select class="form-select" id="cProv">
-                    <option>Lima</option><option>Cañete</option>
-                  </select>
-                </div>
-                <div class="col-md-4">
-                  <label class="form-label">Distrito</label>
-                  <select class="form-select" id="cDist">
-                    <option>San Borja</option><option>Miraflores</option><option>Lince</option>
-                  </select>
-                </div>
-                <div class="col-12">
-                  <div class="soft-panel d-flex justify-content-between align-items-center flex-wrap gap-3">
-                    <div class="form-check form-switch mb-0">
-                      <input class="form-check-input fs-5" type="checkbox" id="cVirtual" />
-                      <label class="form-check-label fw-bold ms-2 mt-1" for="cVirtual">
-                        <i class="fas fa-laptop-medical text-primary me-1"></i>Permite evaluación virtual
-                      </label>
-                    </div>
-                    <div class="form-check form-switch mb-0">
-                      <input class="form-check-input fs-5" type="checkbox" id="cActivo" checked />
-                      <label class="form-check-label fw-bold ms-2 mt-1" for="cActivo">Estado Activo</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div class="soft-panel mb-4 p-3"><div class="row g-4">
+              <div class="col-md-3"><label class="form-label">ID (Autogenerado)</label><input class="form-control" value="CM-012" style="background:#e2e8f0;color:#64748b;border:1px dotted #94a3b8;" readonly disabled /></div>
+              <div class="col-md-3"><label class="form-label">Código</label><input class="form-control" id="cCod" placeholder="Ej: CM-LIMA-01" /></div>
+              <div class="col-md-6"><label class="form-label">Nombre / Descripción</label><input class="form-control" id="cDesc" placeholder="Ej: Centro Médico San Borja" /></div>
+            </div></div>
           </div>
           <div class="modal-footer">
             <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button>
-            <button class="btn-prim" onclick="confirmarGuardar('Centro Médico', () => { setTimeout(() => bootstrap.Modal.getInstance(document.getElementById('modalCentro')).hide(), 300); showToast('Centro Médico guardado correctamente.'); })">
-              <i class="fas fa-save me-2"></i>Guardar Cambios
-            </button>
+            <button class="btn-prim" onclick="confirmarGuardar('Centro Médico', () => { setTimeout(() => bootstrap.Modal.getInstance(document.getElementById('modalCentro')).hide(), 300); showToast('Centro Médico guardado correctamente.'); })"><i class="fas fa-save me-2"></i>Guardar Cambios</button>
           </div>
         </div>
       </div>
     </div>
 
-
-    <!-- Modal: Simple -->
     <div class="modal fade" id="modalSimple" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered" style="max-width: 460px">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="tSimple">
-              <i class="fas fa-plus me-2 text-primary"></i>Nuevo Registro
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-            ></button>
+            <h5 class="modal-title" id="tSimple"><i class="fas fa-plus me-2 text-primary"></i>Nuevo Registro</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body">
             <div class="row g-4">
-              <div class="col-12">
-                <label class="form-label">ID (Autogenerado)</label>
-                <input
-                  class="form-control"
-                  value="SMP-025"
-                  style="
-                    background: #e2e8f0;
-                    color: #64748b;
-                    border: 1px dotted #94a3b8;
-                  "
-                  readonly
-                  disabled
-                />
-              </div>
-              <div class="col-md-5">
-                <label class="form-label">Código</label>
-                <input
-                  class="form-control"
-                  id="sCod"
-                  placeholder="Ej: GR-001"
-                />
-                <small class="text-muted" style="font-size: 0.75rem"
-                  >Código único del registro.</small
-                >
-              </div>
-              <div class="col-12">
-                <label class="form-label">Descripción</label>
-                <input
-                  class="form-control"
-                  id="sDesc"
-                  placeholder="Ej: Administrativo / Nivel 1"
-                />
-                <small class="text-muted" style="font-size: 0.75rem"
-                  >Nombre descriptivo corto.</small
-                >
-              </div>
-              <div class="col-12">
-                <div class="form-check form-switch">
-                  <input
-                    class="form-check-input fs-5"
-                    type="checkbox"
-                    id="sActivo"
-                    checked
-                  /><label
-                    class="form-check-label fw-bold ms-2 mt-1"
-                    for="sActivo"
-                    >Estado Activo</label
-                  >
-                </div>
-              </div>
+              <div class="col-12"><label class="form-label">ID (Autogenerado)</label><input class="form-control" value="SMP-025" style="background:#e2e8f0;color:#64748b;border:1px dotted #94a3b8;" readonly disabled /></div>
+              <div class="col-md-5"><label class="form-label">Código</label><input class="form-control" id="sCod" placeholder="Ej: GR-001" /></div>
+              <div class="col-12"><label class="form-label">Descripción</label><input class="form-control" id="sDesc" placeholder="Ej: Administrativo" /></div>
             </div>
           </div>
           <div class="modal-footer">
-            <button
-              class="btn btn-light rounded-pill px-4 fw-bold"
-              data-bs-dismiss="modal"
-            >
-              Cancelar</button
-            ><button
-              class="btn-prim"
-              onclick="
-                confirmarGuardar('Registro Simple', () => {
-                  setTimeout(
-                    () =>
-                      bootstrap.Modal.getInstance(
-                        document.getElementById('modalSimple'),
-                      ).hide(),
-                    300,
-                  );
-                  showToast('Registro guardado correctamente.');
-                })
-              "
-            >
-              <i class="fas fa-save me-2"></i>Guardar
-            </button>
+            <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn-prim" onclick="confirmarGuardar('Registro Simple', () => { setTimeout(() => bootstrap.Modal.getInstance(document.getElementById('modalSimple')).hide(), 300); showToast('Registro guardado correctamente.'); })"><i class="fas fa-save me-2"></i>Guardar</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Modal: Prestación -->
     <div class="modal fade" id="modalPrestacion" tabindex="-1">
-      <div
-        class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
-      >
+      <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="tPrest">
-              <i class="fas fa-stethoscope me-2 text-primary"></i>Nueva
-              Prestación
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-            ></button>
+            <h5 class="modal-title" id="tPrest"><i class="fas fa-stethoscope me-2 text-primary"></i>Nueva Prestación</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body">
-            <div class="soft-panel mb-4 p-3">
-              <h6 class="fw-bold mb-3 text-primary"><i class="fas fa-stethoscope me-2"></i>Datos de Prestación</h6>
-              <div class="row g-4">
-                <div class="col-md-3">
-                  <label class="form-label">Código</label>
-                  <input class="form-control" id="pCod" placeholder="Ej: PR-OCC-01" />
-                  <small class="text-muted" style="font-size:0.75rem">Ej: PR-XXX-000</small>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Descripción</label>
-                  <input class="form-control" id="pDesc" placeholder="Ej: Evaluación Ocupacional Anual" />
-                  <small class="text-muted" style="font-size:0.75rem">Nombre descriptivo de la prestación.</small>
-                </div>
-                <div class="col-md-3">
-                  <label class="form-label">Estado</label>
-                  <select class="form-select" id="pEstado">
-                    <option value="borrador">Borrador</option>
-                    <option value="activo">Activo</option>
-                    <option value="cesado">Cesado</option>
-                  </select>
-                </div>
-                <div class="col-md-4">
-                  <label class="form-label">Clasificación</label>
-                  <select class="form-select" id="pTipoEx">
-                    <option value="">Seleccionar...</option>
-                    <option value="principal">Examen principal</option>
-                    <option value="complementario">Examen Complementario</option>
-                  </select>
-                </div>
-                <div class="col-md-5">
-                  <label class="form-label">Ícono</label>
-                  <div class="d-flex align-items-center gap-3">
-                    <select id="pIconoSelect" class="form-select" onchange="document.getElementById('pIcono').value=this.value;document.getElementById('pIconoPreview').innerHTML='<i class=\'fas '+this.value+'\'></i>';"><option value="">Seleccionar...</option></select>
-                    <span id="pIconoPreview" style="font-size:1.5rem;color:var(--primary);min-width:32px;text-align:center;"><i class="fas fa-stethoscope"></i></span>
-                    <input type="hidden" id="pIcono" value="fa-stethoscope" />
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="soft-panel d-flex align-items-center gap-3">
-                    <div class="form-check form-switch mb-0">
-                      <input class="form-check-input fs-5" type="checkbox" id="pDepGrupo" />
-                      <label class="form-check-label fw-bold ms-2 mt-1" for="pDepGrupo">¿Depende de Grupo Ocupacional?</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 mt-4">
-              <h6 class="fw-bold mb-3" style="color:var(--primary)"><i class="fas fa-link me-2"></i>Fichas Vinculadas</h6>
-              <div class="soft-panel mb-4">
-                <div class="row g-3 align-items-end">
-                  <div class="col-md-10">
-                    <label class="form-label"><i class="fas fa-search me-1"></i>Buscar Ficha</label>
-                    <input class="form-control bg-white" id="pfCod" placeholder="Buscar ficha por código o descripción..." />
-                  </div>
-                  <div class="col-md-2">
-                    <button class="btn btn-grp w-100" onclick="addFichaPrestacion()" style="padding:12px">
-                      <i class="fas fa-plus"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="items-box" id="boxPF">
-                <div class="text-center text-muted py-4 small" id="emptyPF">
-                  <i class="fas fa-inbox fa-3x mb-3 opacity-25"></i><br />Sin fichas vinculadas.
-                </div>
-              </div>
-            </div>
+            <div class="soft-panel mb-4 p-3"><div class="row g-4">
+              <div class="col-md-3"><label class="form-label">Código</label><input class="form-control" id="pCod" placeholder="Ej: PR-OCC-01" /></div>
+              <div class="col-md-6"><label class="form-label">Descripción</label><input class="form-control" id="pDesc" placeholder="Ej: Evaluación Ocupacional" /></div>
+              <div class="col-md-3"><label class="form-label">Estado</label><select class="form-select" id="pEstado"><option value="activo">Activo</option><option value="borrador">Borrador</option></select></div>
+            </div></div>
           </div>
-
           <div class="modal-footer">
-            <button
-              class="btn btn-light rounded-pill px-4 fw-bold"
-              data-bs-dismiss="modal"
-            >
-              Cancelar</button
-            ><button
-              class="btn-prim"
-              onclick="
-                confirmarGuardar('Prestación', () => {
-                  setTimeout(
-                    () =>
-                      bootstrap.Modal.getInstance(
-                        document.getElementById('modalPrestacion'),
-                      ).hide(),
-                    300,
-                  );
-                  showToast('Prestación guardada correctamente.');
-                })
-              "
-            >
-              <i class="fas fa-save me-2"></i>Guardar Prestación
-            </button>
+            <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn-prim" onclick="confirmarGuardar('Prestación', () => { setTimeout(() => bootstrap.Modal.getInstance(document.getElementById('modalPrestacion')).hide(), 300); showToast('Prestación guardada correctamente.'); })"><i class="fas fa-save me-2"></i>Guardar Prestación</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Modal: Fichas -->
     <div class="modal fade" id="modalFicha" tabindex="-1">
-      <div
-        class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
-      >
+      <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="tFicha">
-              <i class="fas fa-clipboard-list me-2 text-primary"></i>Nueva Ficha
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-            ></button>
+            <h5 class="modal-title" id="tFicha"><i class="fas fa-clipboard-list me-2 text-primary"></i>Nueva Ficha</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body">
-            <div class="soft-panel mb-4 p-3"><h6 class="fw-bold mb-3 text-primary"><i class="fas fa-clipboard-list me-2"></i>Datos de la Ficha</h6><div class="row g-4">
-              <div class="col-md-3">
-                <label class="form-label">Código Ficha</label>
-                <input
-                  class="form-control"
-                  id="fCod"
-                  placeholder="Ej: CPS-P01"
-                />
-                <small class="text-muted" style="font-size: 0.75rem"
-                  >Ej: CPS-XXXX</small
-                >
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Descripción</label>
-                <input
-                  class="form-control"
-                  id="fDesc"
-                  placeholder="Ej: Cuestionario de Personalidad"
-                />
-                <small class="text-muted" style="font-size: 0.75rem"
-                  >Nombre descriptivo de la ficha.</small
-                >
-              </div>
-              <div class="col-md-3">
-                <label class="form-label">Estado</label
-                ><select class="form-select" id="fEstado">
-                  <option value="borrador">Borrador</option>
-                  <option value="activo">Activo</option>
-                </select>
-              </div>
-              <div class="col-12">
-                <div class="soft-panel d-flex gap-5 flex-wrap">
-                  <div class="form-check form-switch mb-0">
-                    <input
-                      class="form-check-input fs-5"
-                      type="checkbox"
-                      id="chkGrupo"
-                      onchange="toggleGrupo()"
-                    /><label
-                      class="form-check-label fw-bold ms-2 mt-1 text-primary"
-                      for="chkGrupo"
-                      ><i class="fas fa-layer-group me-1"></i>¿Es Ficha
-                      Grupo?</label
-                    >
-                  </div>
-                  <div class="form-check form-switch mb-0">
-                    <input
-                      class="form-check-input fs-5"
-                      type="checkbox"
-                      id="chkFinalizar"
-                    /><label
-                      class="form-check-label fw-bold ms-2 mt-1"
-                      for="chkFinalizar"
-                      ><i class="fas fa-flag-checkered me-1 text-success"></i
-                      >Finalizar al completar</label
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 mt-4" id="secCD">
-                <h6 class="fw-bold mb-3" style="color: var(--primary)">
-                  <i class="fas fa-list-ul me-2"></i>Códigos Dato
-                </h6>
-                <div class="soft-panel mb-4">
-                  <div class="row g-3 align-items-end">
-                    <div class="col-md-2">
-                      <label class="form-label">Cód. Dato</label
-                      ><input
-                        class="form-control"
-                        id="cdCod"
-                        placeholder="PUN-001"
-                      />
-                    </div>
-                    <div class="col-md-3">
-                      <label class="form-label">Descripción</label
-                      ><input
-                        class="form-control"
-                        id="cdDes"
-                        placeholder="Nombre..."
-                      />
-                    </div>
-                    <div class="col-md-3">
-                      <label class="form-label">Tipo</label
-                      ><select class="form-select" id="cdTip">
-                        <option value="">Seleccionar...</option>
-                        <option value="puntaje">📊 Puntaje</option>
-                        <option value="nivel">🔤 Nivel</option>
-                        <option value="interpretacion">
-                          📝 Interpretación
-                        </option>
-                      </select>
-                    </div>
-                    <div class="col-md-2">
-                      <label class="form-label">Estado</label
-                      ><select class="form-select" id="cdEst">
-                        <option value="activo">Activo</option>
-                        <option value="cesado">Cesado</option>
-                      </select>
-                    </div>
-                    <div class="col-md-2">
-                      <button
-                        class="btn btn-grp w-100"
-                        onclick="addCD()"
-                        style="padding: 12px"
-                      >
-                        <i class="fas fa-plus"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div class="items-box" id="boxCD">
-                  <div class="text-center text-muted py-4 small" id="emptyCD">
-                    <i class="fas fa-inbox fa-3x mb-3 opacity-25"></i><br />Sin
-                    Códigos Dato.
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 mt-4" id="secSF" style="display: none">
-                <h6 class="fw-bold mb-3" style="color: var(--primary)">
-                  <i class="fas fa-sitemap me-2"></i>Sub-fichas (Fichas Hijas)
-                </h6>
-                <div class="soft-panel mb-4">
-                  <div class="row g-3 align-items-end">
-                    <div class="col-md-3">
-                      <label class="form-label">Código Hija</label
-                      ><input
-                        class="form-control"
-                        id="sfCod"
-                        placeholder="Buscar..."
-                      />
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">DESCRIPCIÓN DE LA FICHA</label
-                      ><input
-                        class="form-control bg-white"
-                        id="sfDes"
-                        placeholder="Busca por descripción..."
-                      />
-                    </div>
-                    <div class="col-md-3">
-                      <button
-                        class="btn btn-grp w-100"
-                        onclick="addSF()"
-                        style="padding: 12px"
-                      >
-                        <i class="fas fa-link me-2"></i>Vincular
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div class="items-box" id="boxSF">
-                  <div class="text-center text-muted py-4 small" id="emptySF">
-                    <i class="fas fa-sitemap fa-3x mb-3 opacity-25"></i
-                    ><br />Sin fichas hijas.
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div class="soft-panel mb-4 p-3"><div class="row g-4">
+              <div class="col-md-3"><label class="form-label">Código Ficha</label><input class="form-control" id="fCod" /></div>
+              <div class="col-md-6"><label class="form-label">Descripción</label><input class="form-control" id="fDesc" /></div>
+            </div></div>
           </div>
           <div class="modal-footer">
-            <button
-              class="btn btn-light rounded-pill px-4 fw-bold"
-              data-bs-dismiss="modal"
-            >
-              Cancelar</button
-            ><button
-              class="btn-prim"
-              onclick="
-                confirmarGuardar('Ficha', () => {
-                  setTimeout(
-                    () =>
-                      bootstrap.Modal.getInstance(
-                        document.getElementById('modalFicha'),
-                      ).hide(),
-                    300,
-                  );
-                  showToast('Ficha guardada correctamente.');
-                })
-              "
-            >
-              <i class="fas fa-save me-2"></i>Guardar Ficha
-            </button>
+            <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn-prim" onclick="confirmarGuardar('Ficha', () => { setTimeout(() => bootstrap.Modal.getInstance(document.getElementById('modalFicha')).hide(), 300); showToast('Ficha guardada correctamente.'); })"><i class="fas fa-save me-2"></i>Guardar Ficha</button>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalAddPrestOrden" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><i class="fas fa-plus-circle me-2 text-primary"></i>Añadir Prestación</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <p id="lblGrupoOrden" style="font-size:0.9rem"></p>
+            <div class="search-wrap mb-3"><i class="fas fa-search"></i><input type="text" id="inputBuscadorPrestOrden" placeholder="Buscar..." class="form-control" style="border-radius:100px" oninput="filtrarListaPrestOrden(this.value)" /></div>
+            <div id="listaPrestOrden" style="max-height:320px;overflow-y:auto">
+                <div class="item-row p-3"><div class="inf"><span class="tag tag-tipo fw-bold">PR-PSI-010</span><span class="fw-medium">Evaluación Psicológica Gerencial</span></div><button class="btn btn-sm btn-prim" onclick="confirmarAddPrestOrden('PR-PSI-010','Evaluación Psicológica Gerencial')"><i class="fas fa-plus me-1"></i>Añadir</button></div>
+                <div class="item-row p-3"><div class="inf"><span class="tag tag-tipo fw-bold">PR-ALT-008</span><span class="fw-medium">Test de Altura Nivel 2</span></div><button class="btn btn-sm btn-prim" onclick="confirmarAddPrestOrden('PR-ALT-008','Test de Altura Nivel 2')"><i class="fas fa-plus me-1"></i>Añadir</button></div>
+            </div>
+          </div>
+          <div class="modal-footer"><button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cerrar</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalOrdenPruebas" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="tOrdenPruebas"><i class="fas fa-sort me-2 text-primary"></i>Orden de Pruebas</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div id="selectorGrupoOrden" class="soft-panel mb-4" style="display: none">
+              <select class="form-select" id="selectGrupoOrden" onchange="cargarPruebasOrden()"><option value="">Seleccionar grupo...</option><option value="GO-001">Administrativos</option><option value="GO-002">Operarios</option><option value="GO-003">Operativos</option></select>
+            </div>
+            <div id="listaPruebasOrden"></div>
+          </div>
+          <div class="modal-footer"><button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cerrar</button><button class="btn-prim" onclick="confirmarGuardar('Orden de Pruebas', () => { bootstrap.Modal.getInstance(document.getElementById('modalOrdenPruebas')).hide(); showToast('Orden guardado correctamente.'); })"><i class="fas fa-save me-2"></i>Guardar Orden</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalConfirm" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content text-center py-4 px-3" style="border-radius: 24px">
+          <div class="mb-3"><div id="mConfirmIcon" class="d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 64px; height: 64px; background: #e0f2fe; color: var(--primary); font-size: 1.5rem;"><i class="fas fa-question"></i></div></div>
+          <h5 class="modal-title mb-2 fw-bold" id="mConfirmTitle">¿Estás seguro?</h5>
+          <p class="text-muted mb-4 px-2" id="mConfirmMsg" style="font-size: 0.9rem">Esta acción no se puede deshacer.</p>
+          <div class="d-flex justify-content-center gap-2"><button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button><button class="btn-prim px-4" id="mConfirmBtn">Confirmar</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 2000">
+      <div id="statusToast" class="toast align-items-center text-white bg-success border-0 pr-toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex p-1">
+          <div class="toast-body d-flex align-items-center fw-medium" style="font-size: 0.95rem; line-height: 1.2">
+            <i class="fas fa-check-circle fa-lg me-3 text-white"></i><span id="toastMsg">Registro guardado correctamente.</span>
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
       </div>
     </div>
@@ -3760,34 +3330,50 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       // ── Orden de Prestaciones ─────────────────────────────────
+      // (Drag & Drop e initDrag definidos más abajo en el bloque dedicado)
+
+      /* ── Mover ítem arriba/abajo ── */
       function moverOrden(btn, dir) {
         const card = btn.closest('.card-item');
-        const lista = card.parentNode;
+        if (!card) return;
         if (dir === 'up' && card.previousElementSibling) {
-          card.insertAdjacentElement('afterend', card.previousElementSibling);
+          card.parentNode.insertBefore(card, card.previousElementSibling);
         } else if (dir === 'down' && card.nextElementSibling) {
-          card.insertAdjacentElement('beforebegin', card.nextElementSibling);
+          card.parentNode.insertBefore(card.nextElementSibling, card);
         }
       }
+
+      /* ── Modal: Añadir Prestación al Orden ── */
       let _grupoOrdenActivo = 'principal';
+
       function abrirAddPrestOrden(grupo) {
         _grupoOrdenActivo = grupo;
-        document.getElementById('lblGrupoOrden').textContent = grupo === 'principal'
+        const lbl = document.getElementById('lblGrupoOrden');
+        if (lbl) lbl.textContent = grupo === 'principal'
           ? 'Añadiendo a: Examen Principal'
           : 'Añadiendo a: Exámenes Complementarios';
-        document.getElementById('inputAddPrestOrden').value = '';
+        const inp = document.getElementById('inputBuscadorPrestOrden');
+        if (inp) inp.value = '';
+        // Mostrar todos los items del listado
+        document.querySelectorAll('#listaPrestOrden .item-row').forEach(r => r.style.display = '');
       }
-      function confirmarAddPrestOrden() {
-        const val = document.getElementById('inputAddPrestOrden').value.trim();
-        if (!val) return;
+
+      function filtrarListaPrestOrden(query) {
+        const q = query.toLowerCase();
+        document.querySelectorAll('#listaPrestOrden .item-row').forEach(row => {
+          const txt = row.textContent.toLowerCase();
+          row.style.display = txt.includes(q) ? '' : 'none';
+        });
+      }
+
+      function confirmarAddPrestOrden(cod, nombre) {
         const lista = document.getElementById(
           _grupoOrdenActivo === 'principal' ? 'lista-sepo' : 'lista-complementario'
         );
+        if (!lista) return;
         const icoBg    = _grupoOrdenActivo === 'principal' ? '#e0f2fe' : '#ffedd5';
         const icoCol   = _grupoOrdenActivo === 'principal' ? 'var(--primary)' : '#c2410c';
         const icoClass = _grupoOrdenActivo === 'principal' ? 'fa-heart-pulse' : 'fa-helmet-safety';
-        const n = lista.querySelectorAll('.card-item').length + 1;
-        const cod = (_grupoOrdenActivo === 'principal' ? 'PR-PSI-' : 'PR-CPL-') + String(n).padStart(3,'0');
         const tarjeta = document.createElement('div');
         tarjeta.className = 'card-item';
         initDrag(tarjeta);
@@ -3797,7 +3383,7 @@
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
               <strong style="color:var(--primary)">${cod}</strong>
               <span class="muted-dot">•</span>
-              <span class="fw-semibold">${val}</span>
+              <span class="fw-semibold">${nombre}</span>
               <span class="b-activo">Activo</span>
             </div>
             <small class="text-muted d-flex align-items-center gap-3 mt-1">
@@ -3806,142 +3392,115 @@
             </small>
           </div>
           <div class="d-flex gap-2 align-items-center">
-            <div class="d-flex flex-column gap-1">
-              <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
-              <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
+            <div class="d-flex flex-column align-items-center gap-1 me-2">
+                <label class="small text-muted fw-bold mb-0" style="font-size: 0.65rem;">Posición</label>
+                <input type="number" class="form-control form-control-sm text-center fw-bold" value="${lista.querySelectorAll('.card-item').length + 1}" min="1" style="width: 50px; height: 32px; border-radius: 8px; border: 2px solid var(--border-light);" onchange="reordenarPrestacion(this)">
             </div>
             <button class="btn-prim" style="font-size:0.8rem;padding:8px 16px"
               data-bs-toggle="modal" data-bs-target="#modalOrdenPruebas"
-              onclick="abrirOrdenPruebas('${cod}',false)">
+              onclick="abrirOrdenPruebas('${cod}', false)">
               <i class="fas fa-sort me-1"></i>Orden de Pruebas
             </button>
           </div>`;
         lista.appendChild(tarjeta);
-      }
-      function abrirOrdenPruebas(codPrest, depGrupo) {
-        document.getElementById('tOrdenPruebas').innerHTML = '<i class="fas fa-sort me-2 text-primary"></i>Orden de Pruebas — ' + codPrest;
-        
-        const sg = document.getElementById('selectorGrupoOrden');
-        const lp = document.getElementById('listaPruebasOrden');
-        
-        // Reset modal base content
-        lp.innerHTML = `
-          <div class="card-item">
-            <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-file-medical-alt"></i></div>
-            <div class="flex-grow-1">
-              <div class="d-flex align-items-center gap-2">
-                <strong style="color:var(--primary)">PSI-ANS-001</strong><span class="muted-dot">•</span><span class="fw-semibold">Escala de Ansiedad de Beck</span>
-              </div>
-            </div>
-            <div class="d-flex flex-column gap-1">
-              <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
-              <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
-            </div>
-          </div>
-          <div class="card-item">
-            <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-file-medical-alt"></i></div>
-            <div class="flex-grow-1">
-              <div class="d-flex align-items-center gap-2">
-                <strong style="color:var(--primary)">PSI-CMP-002</strong><span class="muted-dot">•</span><span class="fw-semibold">Competencias Laborales Volcán</span>
-              </div>
-            </div>
-            <div class="d-flex flex-column gap-1">
-              <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
-              <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
-            </div>
-          </div>
-        `;
-        
-        const selectElement = document.getElementById('selectGrupoOrden');
-        
-        if (depGrupo) {
-          sg.style.display = 'block';
-          lp.style.display = 'none';
-          if(selectElement) selectElement.value = '';
-        } else {
-          sg.style.display = 'none';
-          lp.style.display = 'block';
-        }
+        // Cerrar modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('modalAddPrestOrden'));
+        if (modal) modal.hide();
+        showToast('✅ Prestación añadida al orden correctamente.');
       }
 
-      
-      function evaluarDependenciaGrupo(isDependent) {
-         const div = document.getElementById('selectorGrupoOrden');
-         if (div) {
-             div.style.display = isDependent ? 'block' : 'none';
-         }
-      }
-      function abrirOrdenPruebas(id, isDependent = false) {
-         evaluarDependenciaGrupo(isDependent);
-         // (rest of your logic to open the modal)
+      /* ── Modal: Orden de Pruebas ── */
+      const _pruebasPorGrupo = {
+        'GO-001': [
+          { cod: 'PSI-ANS-001', nom: 'Escala de Ansiedad de Beck' },
+          { cod: 'PSI-CMP-002', nom: 'Competencias Laborales Volcán' }
+        ],
+        'GO-002': [
+          { cod: 'PSI-ALT-003', nom: 'Evaluación Psicológica – Altura' },
+          { cod: 'PSI-ANS-001', nom: 'Escala de Ansiedad de Beck' },
+          { cod: 'PSI-CHI-004', nom: 'Entrevista Psicológica Chinalco' }
+        ],
+        'GO-003': [
+          { cod: 'PSI-CHI-004', nom: 'Entrevista Psicológica Chinalco' },
+          { cod: 'PSI-CMP-002', nom: 'Competencias Laborales Volcán' },
+          { cod: 'PSI-ALT-003', nom: 'Evaluación Psicológica – Altura' }
+        ]
+      };
+
+      function abrirOrdenPruebas(codPrest, depGrupo) {
+        // Actualizar título del modal
+        const titulo = document.getElementById('tOrdenPruebas');
+        if (titulo) titulo.innerHTML = '<i class="fas fa-sort me-2 text-primary"></i>Orden de Pruebas — ' + codPrest;
+
+        const sg = document.getElementById('selectorGrupoOrden');
+        const lp = document.getElementById('listaPruebasOrden');
+
+        if (depGrupo) {
+          // Mostrar selector de grupo, ocultar lista
+          if (sg) sg.style.display = 'block';
+          if (lp) lp.style.display = 'none';
+          const sel = document.getElementById('selectGrupoOrden');
+          if (sel) sel.value = '';
+        } else {
+          // Mostrar lista directamente con pruebas pre-cargadas
+          if (sg) sg.style.display = 'none';
+          if (lp) {
+            lp.style.display = 'block';
+            lp.innerHTML = `
+              <div class="card-item">
+                <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-file-medical-alt"></i></div>
+                <div class="flex-grow-1"><div class="d-flex align-items-center gap-2">
+                  <strong style="color:var(--primary)">PSI-ANS-001</strong><span class="muted-dot">•</span><span class="fw-semibold">Escala de Ansiedad de Beck</span>
+                </div></div>
+                <div class="d-flex flex-column align-items-center gap-1 me-2">
+                    <label class="small text-muted fw-bold mb-0" style="font-size: 0.65rem;">Posición</label>
+                    <input type="number" class="form-control form-control-sm text-center fw-bold" value="1" min="1" style="width: 50px; height: 32px; border-radius: 8px; border: 2px solid var(--border-light);" onchange="reordenarPrestacion(this)">
+                </div>
+              </div>
+              <div class="card-item">
+                <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-file-medical-alt"></i></div>
+                <div class="flex-grow-1"><div class="d-flex align-items-center gap-2">
+                  <strong style="color:var(--primary)">PSI-CMP-002</strong><span class="muted-dot">•</span><span class="fw-semibold">Competencias Laborales Volcán</span>
+                </div></div>
+                <div class="d-flex flex-column align-items-center gap-1 me-2">
+                    <label class="small text-muted fw-bold mb-0" style="font-size: 0.65rem;">Posición</label>
+                    <input type="number" class="form-control form-control-sm text-center fw-bold" value="2" min="1" style="width: 50px; height: 32px; border-radius: 8px; border: 2px solid var(--border-light);" onchange="reordenarPrestacion(this)">
+                </div>
+              </div>`;
+            lp.querySelectorAll('.card-item').forEach(initDrag);
+          }
+        }
       }
 
       function cargarPruebasOrden() {
-        const grupo = document.getElementById('selectGrupoOrden').value;
+        const grupo = document.getElementById('selectGrupoOrden')?.value;
         const lp = document.getElementById('listaPruebasOrden');
-        
-        if (!grupo) {
-            lp.style.display = 'none';
-            return;
+        if (!grupo || !lp) return;
+        const pruebas = _pruebasPorGrupo[grupo] || [];
+        if (pruebas.length === 0) {
+          lp.style.display = 'none';
+          return;
         }
-        
         lp.style.display = 'block';
-        
-        const pruebasPorGrupo = {
-          'GO-001': [
-            { cod: 'PSI-ANS-001', nom: 'Escala de Ansiedad de Beck' },
-            { cod: 'PSI-CMP-002', nom: 'Competencias Laborales Volcán' }
-          ],
-          'GO-002': [
-            { cod: 'PSI-ALT-003', nom: 'Evaluación Psicológica – Altura' },
-            { cod: 'PSI-ANS-001', nom: 'Escala de Ansiedad de Beck' },
-            { cod: 'PSI-CHI-004', nom: 'Entrevista Psicológica Chinalco' }
-          ],
-          'GO-003': [
-            { cod: 'PSI-CHI-004', nom: 'Entrevista Psicológica Chinalco' },
-            { cod: 'PSI-CMP-002', nom: 'Competencias Laborales Volcán' },
-            { cod: 'PSI-ALT-003', nom: 'Evaluación Psicológica – Altura' }
-          ]
-        };
-        
-        const pruebas = pruebasPorGrupo[grupo] || [];
-        renderizarListaPruebas(pruebas, lp);
-      }
-      
-      function renderizarListaPruebas(pruebas, contenedor) {
-        contenedor.innerHTML = pruebas.map(p => `
+        lp.innerHTML = pruebas.map(p => `
           <div class="card-item">
             <div class="icon-box" style="background:#e0f2fe;color:var(--primary)"><i class="fas fa-file-medical-alt"></i></div>
-            <div class="flex-grow-1">
-              <div class="d-flex align-items-center gap-2">
-                <strong style="color:var(--primary)">${p.cod}</strong>
-                <span class="muted-dot">•</span>
-                <span class="fw-semibold">${p.nom}</span>
-              </div>
-            </div>
-            <div class="d-flex flex-column gap-1">
-              <button class="btn-action btn-edit" title="Subir" onclick="moverOrden(this,'up')"><i class="fas fa-chevron-up"></i></button>
-              <button class="btn-action btn-edit" title="Bajar" onclick="moverOrden(this,'down')"><i class="fas fa-chevron-down"></i></button>
+            <div class="flex-grow-1"><div class="d-flex align-items-center gap-2">
+              <strong style="color:var(--primary)">${p.cod}</strong><span class="muted-dot">•</span><span class="fw-semibold">${p.nom}</span>
+            </div></div>
+            <div class="d-flex flex-column align-items-center gap-1 me-2">
+                <label class="small text-muted fw-bold mb-0" style="font-size: 0.65rem;">Posición</label>
+                <input type="number" class="form-control form-control-sm text-center fw-bold" value="${index + 1}" min="1" style="width: 50px; height: 32px; border-radius: 8px; border: 2px solid var(--border-light);" onchange="reordenarPrestacion(this)">
             </div>
           </div>`).join('');
+        lp.querySelectorAll('.card-item').forEach(initDrag);
       }
 
-      function moverOrden(btn, direccion) {
-        const itemActual = btn.closest('.card-item');
-        if (!itemActual) return;
-        
-        if (direccion === 'up') {
-          const itemAnterior = itemActual.previousElementSibling;
-          if (itemAnterior) {
-            itemAnterior.insertAdjacentElement('beforebegin', itemActual);
-          }
-        } else if (direccion === 'down') {
-          const itemSiguiente = itemActual.nextElementSibling;
-          if (itemSiguiente) {
-             itemSiguiente.insertAdjacentElement('afterend', itemActual);
-          }
-        }
-      }
+      // Inicializar drag & drop en los card-item existentes al cargar la página
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('#lista-sepo .card-item, #lista-complementario .card-item').forEach(initDrag);
+      });
+
     </script>
     <script>
       /* ── TOASTS ── */
@@ -4615,7 +4174,7 @@
             </div>
           </div>
           <div class="d-flex flex-column gap-1">
-            <button class="btn btn-sm btn-light border" title="Editar"><i class="fas fa-edit text-muted"></i></button>
+            <button class="btn btn-sm btn-light border btn-edit-desc" title="Editar" onclick="editarTextoEnLinea(this)"><i class="fas fa-edit text-muted"></i></button>
             <button class="btn btn-sm btn-light border text-primary" title="Duplicar" onclick="duplicarPregunta(this)"><i class="fas fa-copy"></i></button>
             <button class="btn btn-sm btn-light border text-danger" title="Eliminar" onclick="this.closest('.item-row').remove()"><i class="fas fa-trash"></i></button>
           </div>
@@ -4658,7 +4217,7 @@
         if (tipo === 'abierta') {
           html = `
             <div class="p-3 mb-0 border rounded shadow-sm bg-white border-top border-4" style="border-top-color: #f59e0b !important;">
-              <h6 class="fw-bold mb-3"><i class="fas fa-align-left me-2 text-warning"></i>Configuración - Pregunta Abierta</h6>
+              <h6 class="fw-bold mb-3"><i class="fas fa-align-left me-2 text-warning"></i>Configuración - Plantilla de Resultados</h6>
               
               <div class="row g-3">
                   <div class="col-md-6">
@@ -4697,7 +4256,7 @@
                   </div>
                   
                   <div class="col-md-4" id="mp_A_boxNumResp" style="display:none;">
-                    <label class="form-label text-muted small fw-bold mb-1">K. de Resp.</label>
+                    <label class="form-label text-muted small fw-bold mb-1">Cant. de Resp.</label>
                     <input type="number" class="form-control" id="mp_A_numResp" value="2" min="2" oninput="ctrlAbierta()">
                   </div>
 
@@ -4754,7 +4313,7 @@
                     </select>
                   </div>
 
-<div class="col-12 mt-4">
+<div class="col-12 mt-4" style="display: none;">
                      <div class="d-flex justify-content-between align-items-center mb-2">
                        <h6 class="fw-bold text-muted m-0"><i class="fas fa-list mt-1 me-1"></i> Creador de Alternativas / Claves</h6>
                      </div>
@@ -4878,8 +4437,6 @@
         
         if(tipo === 'abierta') {
           ctrlAbierta();
-          const bA = document.getElementById('mp_A_alternativas_box'); bA.innerHTML = ''; if(!bA.dataset.sortInit) { Sortable.create(bA, {handle: '.handle', animation: 150}); bA.dataset.sortInit = '1'; }
-          addMpaAlternativa();
         }
         if(tipo === 'cerrada') {
           ctrlCerrada(); 
@@ -5139,257 +4696,6 @@
       }
     </script>
 
-    <!-- Modal: Añadir Prestación al Orden -->
-    <div class="modal fade" id="modalAddPrestOrden" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">
-              <i class="fas fa-plus-circle me-2 text-primary"></i>Añadir
-              Prestación
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <p
-              class="text-muted mb-3"
-              id="lblGrupoOrden"
-              style="font-size: 0.9rem"
-            ></p>
-
-            <div class="search-wrap mb-4">
-              <i class="fas fa-search"></i>
-              <input
-                type="text"
-                placeholder="Buscar prestación por código o descripción..."
-                class="form-control w-100"
-                style="border-radius: 100px"
-                oninput="filtrarPillContainer('modalAddPrestOrden', this.value)"
-              />
-            </div>
-
-            <div
-              class="d-flex flex-column gap-2"
-              style="max-height: 300px; overflow-y: auto"
-            >
-              <!-- Item Prestación 1 -->
-              <div class="item-row p-3">
-                <div class="inf">
-                  <span class="tag tag-tipo fw-bold"
-                    ><i class="fas fa-heart-pulse me-1 text-primary"></i
-                    >PR-PSI-010</span
-                  >
-                  <span class="fw-medium"
-                    >Evaluación Psicológica Gerencial</span
-                  >
-                </div>
-                <button
-                  class="btn btn-sm btn-prim"
-                  style="padding: 4px 12px; font-size: 0.8rem"
-                  data-bs-dismiss="modal"
-                  onclick="
-                    showToast('Prestación añadida al orden correctamente.')
-                  "
-                >
-                  Añadir
-                </button>
-              </div>
-
-              <!-- Item Prestación 2 -->
-              <div class="item-row p-3">
-                <div class="inf">
-                  <span class="tag tag-tipo fw-bold"
-                    ><i class="fas fa-helmet-safety me-1 text-danger"></i
-                    >PR-ALT-008</span
-                  >
-                  <span class="fw-medium">Test de Altura Nivel 2</span>
-                </div>
-                <button
-                  class="btn btn-sm btn-prim"
-                  style="padding: 4px 12px; font-size: 0.8rem"
-                  data-bs-dismiss="modal"
-                  onclick="
-                    showToast('Prestación añadida al orden correctamente.')
-                  "
-                >
-                  Añadir
-                </button>
-              </div>
-
-              <!-- Item Prestación 3 -->
-              <div class="item-row p-3">
-                <div class="inf">
-                  <span class="tag tag-tipo fw-bold"
-                    ><i class="fas fa-brain me-1" style="color: #4338ca"></i
-                    >PR-PSI-012</span
-                  >
-                  <span class="fw-medium">Evaluación de Fatiga Laboral</span>
-                </div>
-                <button
-                  class="btn btn-sm btn-prim"
-                  style="padding: 4px 12px; font-size: 0.8rem"
-                  data-bs-dismiss="modal"
-                  onclick="
-                    showToast('Prestación añadida al orden correctamente.')
-                  "
-                >
-                  Añadir
-                </button>
-              </div>
-            </div>
-            <small class="text-muted mt-3 d-block"
-              ><i class="fas fa-info-circle me-1"></i>Solo se muestran
-              prestaciones en estado Activo.</small
-            >
-          </div>
-          <div class="modal-footer">
-            <button
-              class="btn btn-light rounded-pill px-4 fw-bold"
-              data-bs-dismiss="modal"
-            >
-              Cerrar
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal: Orden de Pruebas -->
-    <div class="modal fade" id="modalOrdenPruebas" tabindex="-1">
-      <div
-        class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
-      >
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="tOrdenPruebas">
-              <i class="fas fa-sort me-2 text-primary"></i>Orden de Pruebas
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div
-              id="selectorGrupoOrden"
-              class="soft-panel mb-4"
-              style="display: none"
-            >
-              <p class="fw-bold mb-2">
-                <i class="fas fa-users me-2 text-primary"></i>Esta prestación
-                depende de Grupo Ocupacional
-              </p>
-              <label class="form-label"
-                >Selecciona el Grupo Ocupacional para ver sus pruebas</label
-              >
-              <select
-                class="form-select"
-                id="selectGrupoOrden"
-                onchange="cargarPruebasOrden()"
-              >
-                <option value="">Seleccionar grupo...</option>
-                <option value="GO-001">Administrativos</option>
-                <option value="GO-002">Operarios</option>
-                <option value="GO-003">Operativos</option>
-              </select>
-            </div>
-            <div id="listaPruebasOrden">
-              <div class="card-item">
-                <div
-                  class="icon-box"
-                  style="background: #e0f2fe; color: var(--primary)"
-                >
-                  <i class="fas fa-file-medical-alt"></i>
-                </div>
-                <div class="flex-grow-1">
-                  <div class="d-flex align-items-center gap-2">
-                    <strong style="color: var(--primary)">PSI-ANS-001</strong
-                    ><span class="muted-dot">•</span>
-                    <span class="fw-semibold">Escala de Ansiedad de Beck</span>
-                  </div>
-                </div>
-                <div class="d-flex flex-column gap-1">
-                  <button
-                    class="btn-action btn-edit"
-                    title="Subir"
-                    onclick="moverOrden(this, 'up')"
-                  >
-                    <i class="fas fa-chevron-up"></i>
-                  </button>
-                  <button
-                    class="btn-action btn-edit"
-                    title="Bajar"
-                    onclick="moverOrden(this, 'down')"
-                  >
-                    <i class="fas fa-chevron-down"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-item">
-                <div
-                  class="icon-box"
-                  style="background: #e0f2fe; color: var(--primary)"
-                >
-                  <i class="fas fa-file-medical-alt"></i>
-                </div>
-                <div class="flex-grow-1">
-                  <div class="d-flex align-items-center gap-2">
-                    <strong style="color: var(--primary)">PSI-CMP-002</strong
-                    ><span class="muted-dot">•</span>
-                    <span class="fw-semibold"
-                      >Competencias Laborales Volcán</span
-                    >
-                  </div>
-                </div>
-                <div class="d-flex flex-column gap-1">
-                  <button
-                    class="btn-action btn-edit"
-                    title="Subir"
-                    onclick="moverOrden(this, 'up')"
-                  >
-                    <i class="fas fa-chevron-up"></i>
-                  </button>
-                  <button
-                    class="btn-action btn-edit"
-                    title="Bajar"
-                    onclick="moverOrden(this, 'down')"
-                  >
-                    <i class="fas fa-chevron-down"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              class="btn btn-light rounded-pill px-4 fw-bold"
-              data-bs-dismiss="modal"
-            >
-              Cerrar
-            </button>
-            <button
-              class="btn-prim"
-              onclick="
-                confirmarGuardar('Orden de Pruebas', () => {
-                  bootstrap.Modal.getInstance(
-                    document.getElementById('modalOrdenPruebas'),
-                  ).hide();
-                  showToast('Orden guardado correctamente.');
-                })
-              "
-            >
-              <i class="fas fa-save me-2"></i>Guardar Orden
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <script>
       /* ── DRAG & DROP para listas de orden de prestaciones ── */
       let _dragSrc = null;
@@ -5445,8 +4751,8 @@
       }
 
       document.addEventListener("DOMContentLoaded", function () {
-        initDragList("lista-sepo");
-        initDragList("lista-complementario");
+        // initDragList("lista-sepo");
+        // initDragList("lista-complementario");
       });
 
       function updatePrestIconos() {
@@ -5464,51 +4770,6 @@
       // Ejecutar al cargar
       document.addEventListener("DOMContentLoaded", updatePrestIconos);
     </script>
-    <!-- Modal: Confirmación -->
-    <div class="modal fade" id="modalConfirm" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered modal-sm">
-        <div
-          class="modal-content text-center py-4 px-3"
-          style="border-radius: 24px"
-        >
-          <div class="mb-3">
-            <div
-              id="mConfirmIcon"
-              class="d-inline-flex align-items-center justify-content-center rounded-circle"
-              style="
-                width: 64px;
-                height: 64px;
-                background: #e0f2fe;
-                color: var(--primary);
-                font-size: 1.5rem;
-              "
-            >
-              <i class="fas fa-question"></i>
-            </div>
-          </div>
-          <h5 class="modal-title mb-2 fw-bold" id="mConfirmTitle">
-            ¿Estás seguro?
-          </h5>
-          <p
-            class="text-muted mb-4 px-2"
-            id="mConfirmMsg"
-            style="font-size: 0.9rem"
-          >
-            Esta acción no se puede deshacer.
-          </p>
-          <div class="d-flex justify-content-center gap-2">
-            <button
-              class="btn btn-light rounded-pill px-4 fw-bold"
-              data-bs-dismiss="modal"
-            >
-              Cancelar
-            </button>
-            <button class="btn-prim px-4" id="mConfirmBtn">Confirmar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <script>
       let _accionOnConfirm = null;
       function confirmarGeneral(
@@ -5569,36 +4830,8 @@
         document.getElementById('main-content').classList.toggle('expanded');
       }
     </script>
-
-    <div
-      class="toast-container position-fixed top-0 end-0 p-3"
-      style="z-index: 2000"
-    >
-      <div
-        id="statusToast"
-        class="toast align-items-center text-white bg-success border-0 pr-toast"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-      >
-        <div class="d-flex p-1">
-          <div
-            class="toast-body d-flex align-items-center fw-medium"
-            style="font-size: 0.95rem; line-height: 1.2"
-          >
-            <i class="fas fa-check-circle fa-lg me-3 text-white"></i>
-            <span id="toastMsg">Registro guardado correctamente.</span>
-          </div>
-          <button
-            type="button"
-            class="btn-close btn-close-white me-2 m-auto"
-            data-bs-dismiss="toast"
-            aria-label="Close"
-          ></button>
-        </div>
-      </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js">
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script>
       // ---- LOGICA DE DEMOSTRACION UX ----
       document.addEventListener("DOMContentLoaded", () => {
          // --- Funcionalidad DEMO de Búsqueda y Filtros ---
@@ -5713,17 +4946,332 @@
   <footer style="position:fixed;bottom:0;left:260px;right:0;z-index:50;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);border-top:1px solid #e2e8f0;padding:8px 40px;font-size:0.8rem;color:#94a3b8;transition:left 0.3s cubic-bezier(0.4,0,0.2,1);" id="appFooter">
     <span>&copy; 2025 Salud Ocupacional &mdash; Todos los derechos reservados</span>
   </footer>
-  <script>
-    // Sync footer with sidebar collapse
-    document.addEventListener('DOMContentLoaded', function() {
-      const sidebar = document.getElementById('sidebar');
-      const footer = document.getElementById('appFooter');
-      const obs = new MutationObserver(() => {
-        footer.style.left = sidebar.classList.contains('collapsed') ? '80px' : '260px';
+
+    <!-- MODALS CONSOLIDATED AT END OF BODY -->
+    <div class="modal fade" id="modalNuevaPregunta" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="fas fa-plus-circle me-2 text-primary"></i>Nueva Pregunta
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body bg-light">
+            <div class="row g-3">
+              <div class="col-md-12">
+                <label class="form-label fw-bold" style="color:var(--primary)">Seleccionar Tipo de Pregunta</label>
+                <select class="form-select border-primary shadow-sm" id="mpTipoPreg_Master" onchange="renderizarControlesPregunta()">
+                  <option value="" selected disabled>-- Elige un tipo --</option>
+                  <option value="abierta">Abierta</option>
+                  <option value="cerrada">Cerrada</option>
+                  <option value="numerica">Numérica</option>
+                  <option value="matriz">Matriz</option>
+                  <option value="tarjeta">Tarjeta</option>
+                </select>
+              </div>
+              <div class="col-12" id="mpContenedorPregunta" style="display:none; transition: all 0.3s;"></div>
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-between bg-white">
+            <button class="btn btn-outline-secondary fw-bold" onclick="previsualizarPregunta()"><i class="fas fa-eye me-1"></i> Previsualizar</button>
+            <div>
+              <button class="btn btn-light fw-bold" data-bs-dismiss="modal">Cancelar</button>
+              <button class="btn btn-prim px-4 fw-bold" onclick="guardarNuevaPregunta()">Guardar Pregunta</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalCentro" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="tCentro">
+              <i class="fas fa-hospital me-2 text-primary"></i>Centro Médico
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="soft-panel mb-4 p-3">
+              <h6 class="fw-bold mb-3 text-primary"><i class="fas fa-info-circle me-2"></i>Datos Generales</h6>
+              <div class="row g-4">
+                <div class="col-md-3">
+                  <label class="form-label">ID (Autogenerado)</label>
+                  <input class="form-control" value="CM-012" style="background:#e2e8f0;color:#64748b;border:1px dotted #94a3b8;" readonly disabled />
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">Código</label>
+                  <input class="form-control" id="cCod" placeholder="Ej: CM-LIMA-01" />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Nombre / Descripción</label>
+                  <input class="form-control" id="cDesc" placeholder="Ej: Centro Médico San Borja" />
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Dirección</label>
+                  <input class="form-control" id="cDir" placeholder="Av. / Jr. ..." />
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Departamento</label>
+                  <select class="form-select" id="cDpto"><option>Lima</option></select>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Provincia</label>
+                  <select class="form-select" id="cProv"><option>Lima</option></select>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Distrito</label>
+                  <select class="form-select" id="cDist"><option>San Borja</option></select>
+                </div>
+                <div class="col-12">
+                  <div class="soft-panel d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div class="form-check form-switch mb-0">
+                      <input class="form-check-input fs-5" type="checkbox" id="cVirtual" />
+                      <label class="form-check-label fw-bold ms-2 mt-1" for="cVirtual">Permite evaluación virtual</label>
+                    </div>
+                    <div class="form-check form-switch mb-0">
+                      <input class="form-check-input fs-5" type="checkbox" id="cActivo" checked />
+                      <label class="form-check-label fw-bold ms-2 mt-1" for="cActivo">Estado Activo</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn-prim" onclick="confirmarGuardar('Centro Médico', () => { setTimeout(() => bootstrap.Modal.getInstance(document.getElementById('modalCentro')).hide(), 300); showToast('Centro Médico guardado correctamente.'); })">
+              <i class="fas fa-save me-2"></i>Guardar Cambios
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalSimple" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 460px">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="tSimple"><i class="fas fa-plus me-2 text-primary"></i>Nuevo Registro</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-4">
+              <div class="col-12">
+                <label class="form-label">ID (Autogenerado)</label>
+                <input class="form-control" value="SMP-025" style="background:#e2e8f0;color:#64748b;border:1px dotted #94a3b8;" readonly disabled />
+              </div>
+              <div class="col-md-5">
+                <label class="form-label">Código</label>
+                <input class="form-control" id="sCod" placeholder="Ej: GR-001" />
+              </div>
+              <div class="col-12">
+                <label class="form-label">Descripción</label>
+                <input class="form-control" id="sDesc" placeholder="Ej: Administrativo" />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn-prim" onclick="confirmarGuardar('Registro Simple', () => { setTimeout(() => bootstrap.Modal.getInstance(document.getElementById('modalSimple')).hide(), 300); showToast('Registro guardado correctamente.'); })">
+              <i class="fas fa-save me-2"></i>Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalPrestacion" tabindex="-1">
+      <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="tPrest"><i class="fas fa-stethoscope me-2 text-primary"></i>Nueva Prestación</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="soft-panel mb-4 p-3"><div class="row g-4">
+              <div class="col-md-3"><label class="form-label">Código</label><input class="form-control" id="pCod" /></div>
+              <div class="col-md-6"><label class="form-label">Descripción</label><input class="form-control" id="pDesc" /></div>
+              <div class="col-md-3"><label class="form-label">Estado</label><select class="form-select" id="pEstado"><option value="activo">Activo</option></select></div>
+            </div></div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn-prim" onclick="confirmarGuardar('Prestación', () => { setTimeout(() => bootstrap.Modal.getInstance(document.getElementById('modalPrestacion')).hide(), 300); showToast('Prestación guardada correctamente.'); })">
+              <i class="fas fa-save me-2"></i>Guardar Prestación
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalFicha" tabindex="-1">
+      <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="tFicha"><i class="fas fa-clipboard-list me-2 text-primary"></i>Nueva Ficha</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="soft-panel mb-4 p-3"><div class="row g-4">
+              <div class="col-md-3"><label class="form-label">Código Ficha</label><input class="form-control" id="fCod" /></div>
+              <div class="col-md-6"><label class="form-label">Descripción</label><input class="form-control" id="fDesc" /></div>
+            </div></div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn-prim" onclick="confirmarGuardar('Ficha', () => { setTimeout(() => bootstrap.Modal.getInstance(document.getElementById('modalFicha')).hide(), 300); showToast('Ficha guardada correctamente.'); })">
+              <i class="fas fa-save me-2"></i>Guardar Ficha
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalAddPrestOrden" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><i class="fas fa-plus-circle me-2 text-primary"></i>Añadir Prestación</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <p id="lblGrupoOrden" style="font-size:0.9rem"></p>
+            <div class="search-wrap mb-3">
+              <i class="fas fa-search"></i>
+              <input type="text" id="inputBuscadorPrestOrden" placeholder="Buscar..." class="form-control" style="border-radius:100px" oninput="filtrarListaPrestOrden(this.value)" />
+            </div>
+            <div id="listaPrestOrden" style="max-height:320px;overflow-y:auto"></div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalOrdenPruebas" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="tOrdenPruebas"><i class="fas fa-sort me-2 text-primary"></i>Orden de Pruebas</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div id="selectorGrupoOrden" class="soft-panel mb-4" style="display: none">
+              <select class="form-select" id="selectGrupoOrden" onchange="cargarPruebasOrden()">
+                <option value="">Seleccionar grupo...</option>
+                <option value="GO-001">Administrativos</option>
+                <option value="GO-002">Operarios</option>
+                <option value="GO-003">Operativos</option>
+              </select>
+            </div>
+            <div id="listaPruebasOrden"></div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cerrar</button>
+            <button class="btn-prim" onclick="confirmarGuardar('Orden de Pruebas', () => { bootstrap.Modal.getInstance(document.getElementById('modalOrdenPruebas')).hide(); showToast('Orden guardado correctamente.'); })">
+              <i class="fas fa-save me-2"></i>Guardar Orden
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalConfirm" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content text-center py-4 px-3" style="border-radius: 24px">
+          <div class="mb-3"><div id="mConfirmIcon" class="d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 64px; height: 64px; background: #e0f2fe; color: var(--primary); font-size: 1.5rem;"><i class="fas fa-question"></i></div></div>
+          <h5 class="modal-title mb-2 fw-bold" id="mConfirmTitle">¿Estás seguro?</h5>
+          <p class="text-muted mb-4 px-2" id="mConfirmMsg" style="font-size: 0.9rem">Esta acción no se puede deshacer.</p>
+          <div class="d-flex justify-content-center gap-2">
+            <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn-prim px-4" id="mConfirmBtn">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 2000">
+      <div id="statusToast" class="toast align-items-center text-white bg-success border-0 pr-toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex p-1">
+          <div class="toast-body d-flex align-items-center fw-medium" style="font-size: 0.95rem; line-height: 1.2">
+            <i class="fas fa-check-circle fa-lg me-3 text-white"></i><span id="toastMsg">Registro guardado correctamente.</span>
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+      function reordenarPrestacion(input) {
+        const card = input.closest('.card-item');
+        const container = card.parentNode;
+        const cards = [...container.querySelectorAll('.card-item')];
+        const newPos = parseInt(input.value) - 1;
+        if (newPos >= 0 && newPos < cards.length) {
+          if (newPos === 0) container.prepend(card);
+          else if (newPos >= cards.length - 1) container.appendChild(card);
+          else {
+            const target = cards[newPos];
+            if (cards.indexOf(card) < newPos) target.after(card);
+            else target.before(card);
+          }
+        }
+        // Actualizar todos los inputs del mismo contenedor
+        container.querySelectorAll('.card-item .pos-input, .card-item input[type="number"]').forEach((inp, idx) => {
+          inp.value = idx + 1;
+        });
+      }
+
+      function editarTextoEnLinea(btn) {
+        const row = btn.closest('.item-row');
+        const h6 = row.querySelector('h6.desc');
+        const currentText = h6.textContent;
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'form-control form-control-sm fw-bold';
+        input.value = currentText;
+        input.style.marginTop = '4px';
+        h6.style.display = 'none';
+        h6.after(input);
+        input.focus();
+        btn.onclick = () => guardarTextoEnLinea(btn);
+        btn.className = 'btn btn-sm btn-success border';
+        btn.innerHTML = '<i class="fas fa-save"></i>';
+        input.onkeydown = (e) => { if (e.key === 'Enter') guardarTextoEnLinea(btn); };
+      }
+
+      function guardarTextoEnLinea(btn) {
+        const row = btn.closest('.item-row');
+        const h6 = row.querySelector('h6.desc');
+        const input = row.querySelector('input[type="text"].fw-bold');
+        if (!input) return;
+        h6.textContent = input.value;
+        h6.style.display = 'block';
+        input.remove();
+        btn.onclick = () => editarTextoEnLinea(btn);
+        btn.className = 'btn btn-sm btn-light border btn-edit-desc';
+        btn.innerHTML = '<i class="fas fa-edit text-muted"></i>';
+        showToast('✅ Descripción actualizada.');
+      }
+    </script>
+    <script>
+      // Sync footer with sidebar collapse
+      document.addEventListener('DOMContentLoaded', function() {
+        const sidebar = document.getElementById('sidebar');
+        const footer = document.getElementById('appFooter');
+        const obs = new MutationObserver(() => {
+          if(footer && sidebar)
+            footer.style.left = sidebar.classList.contains('collapsed') ? '80px' : '260px';
+        });
+        if(sidebar) obs.observe(sidebar, { attributes: true, attributeFilter: ['class'] });
       });
-      if(sidebar) obs.observe(sidebar, { attributes: true, attributeFilter: ['class'] });
-    });
-  </script>
-</body>
+    </script>
+    <button class="fab-btn" onclick="nuevaPrueba()" id="mainFab">
+      <i class="fas fa-plus"></i>
+      <span class="fab-tooltip">Nueva Prueba</span>
+    </button>
+  </body>
 </html>
 
