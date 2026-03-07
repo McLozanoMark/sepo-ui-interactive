@@ -304,6 +304,37 @@
         transition: all 0.2s;
         flex-shrink: 0;
       }
+      /* FORMULA BUILDER STYLES */
+      #formulaTabs .nav-link {
+        color: #64748b;
+        border: none;
+        padding: 8px 16px;
+        transition: all 0.3s ease;
+      }
+      #formulaTabs .nav-link.active {
+        background: white !important;
+        color: var(--primary) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+      .hover-bg-light:hover {
+        background-color: #f8fafc;
+        border-color: var(--primary) !important;
+      }
+      .monospace {
+        font-family: 'Fira Code', 'Courier New', Courier, monospace;
+      }
+      #smartTemplatesBox::-webkit-scrollbar {
+        width: 6px;
+      }
+      #smartTemplatesBox::-webkit-scrollbar-thumb {
+        background: #e2e8f0;
+        border-radius: 10px;
+      }
+      .btn-xs {
+        padding: 2px 8px;
+        font-size: 0.75rem;
+        border-radius: 6px;
+      }
       .btn-edit {
         background: #eff6ff;
         color: var(--primary);
@@ -565,10 +596,6 @@
         z-index: 1000;
         background: #f8fafc;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        margin-left: -2rem;
-        margin-right: -2rem;
-        padding-left: 2rem;
-        padding-right: 2rem;
         margin-bottom: 2rem;
         border-bottom: 1px solid var(--border-light);
         display: flex;
@@ -1093,7 +1120,7 @@
                 oninput="filtrarPruebas()"
               />
             </div>
-            <button class="btn-prim" onclick="nuevaPrueba()">
+            <button class="btn-prim" onclick="nuevaPrueba()" data-bs-toggle="tooltip" title="Crear una evaluación psicológica desde cero">
               <i class="fas fa-plus me-2"></i>Nueva Prueba
             </button>
           </div>
@@ -3844,6 +3871,9 @@
                     class="btn btn-prim btn-sm"
                     data-bs-toggle="modal"
                     data-bs-target="#modalNuevaPregunta"
+                    data-bs-toggle="tooltip"
+                    title="Abre el modal para añadir una nueva pregunta"
+                    onclick="preguntaActualEditando = null; document.getElementById('mpTipoPreg_Master').value = ''; renderizarControlesPregunta();"
                   >
                     <i class="fas fa-plus me-1"></i> Añadir Pregunta
                   </button>
@@ -4075,181 +4105,125 @@
                     </div>
 
                     <div class="col-12 mt-2 pt-3 border-top pb-1">
-                      <label
-                        class="form-label fw-bold mb-2"
-                        style="color: var(--primary)"
-                        ><i class="fas fa-square-root-alt me-2"></i>Constructor
-                        de Fórmula</label
+                      <!-- NUEVO CONSTRUCTOR DE FORMULAS MULTI-MODO -->
+                      <label class="form-label fw-bold small text-primary mb-2"
+                        ><i class="fas fa-magic me-2"></i>Constructor de Fórmula Multimodo</label
                       >
-                      <div
-                        class="d-flex flex-wrap gap-2 mb-2 align-items-center bg-light p-2 rounded drop-shadow-sm"
-                        style="border: 1px dashed var(--border-light)"
-                      >
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-white border fw-bold"
-                          onclick="insertarFormula(' SI ')"
-                        >
-                          SI
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-white border fw-bold text-primary"
-                          onclick="insertarFormula(' ENTONCES ')"
-                        >
-                          ENTONCES
-                        </button>
-                        <span class="border-end mx-1"></span>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-white border fw-bold"
-                          title="Suma"
-                          onclick="insertarFormula(' + ')"
-                        >
-                          <i class="fas fa-plus"></i>
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-white border fw-bold"
-                          title="Resta"
-                          onclick="insertarFormula(' - ')"
-                        >
-                          <i class="fas fa-minus"></i>
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-white border fw-bold"
-                          title="Multiplicación"
-                          onclick="insertarFormula(' * ')"
-                        >
-                          <i class="fas fa-times"></i>
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-white border fw-bold"
-                          title="División"
-                          onclick="insertarFormula(' / ')"
-                        >
-                          <i class="fas fa-divide"></i>
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-white border fw-bold"
-                          title="Paréntesis"
-                          onclick="insertarFormula('(')"
-                        >
-                          (
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-white border fw-bold"
-                          title="Paréntesis"
-                          onclick="insertarFormula(')')"
-                        >
-                          )
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-white border fw-bold"
-                          title="Igual"
-                          onclick="insertarFormula(' == ')"
-                        >
-                          ==
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-white border fw-bold"
-                          title="Mayor"
-                          onclick="insertarFormula(' > ')"
-                        >
-                          &gt;
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-white border fw-bold"
-                          title="Menor"
-                          onclick="insertarFormula(' < ')"
-                        >
-                          &lt;
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-white border fw-bold"
-                          title="Mayor Igual"
-                          onclick="insertarFormula(' >= ')"
-                        >
-                          &gt;=
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-white border fw-bold"
-                          title="Menor Igual"
-                          onclick="insertarFormula(' <= ')"
-                        >
-                          &lt;=
-                        </button>
-                        <span class="border-end mx-1"></span>
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-outline-info fw-bold"
-                          onclick="
-                            showToast('Se abriría modal de múltiples variables')
-                          "
-                        >
-                          <i class="fas fa-list-check me-1"></i> Sumar ++
-                          Preguntas
-                        </button>
-                        <span class="border-end mx-1"></span>
+
+                      <ul class="nav nav-tabs mb-3 border-0 bg-light p-1 rounded-pill" id="formulaTabs" role="tablist" style="max-width: 600px;">
+                        <li class="nav-item flex-grow-1" role="presentation">
+                          <button class="nav-link active rounded-pill fw-bold" id="f-excel-tab" data-bs-toggle="pill" data-bs-target="#f-excel" type="button" role="tab" style="font-size: 0.85rem;"><i class="fas fa-table me-1"></i> Modo Excel</button>
+                        </li>
+                        <li class="nav-item flex-grow-1" role="presentation">
+                          <button class="nav-link rounded-pill fw-bold" id="f-smart-tab" data-bs-toggle="pill" data-bs-target="#f-smart" type="button" role="tab" style="font-size: 0.85rem;"><i class="fas fa-search me-1"></i> Smart Search</button>
+                        </li>
+                        <li class="nav-item flex-grow-1" role="presentation">
+                          <button class="nav-link rounded-pill fw-bold" id="f-lego-tab" data-bs-toggle="pill" data-bs-target="#f-lego" type="button" role="tab" style="font-size: 0.85rem;"><i class="fas fa-shapes me-1"></i> Constructor Visual</button>
+                        </li>
+                      </ul>
+
+                      <div class="tab-content bg-white p-3 border rounded shadow-sm mb-3" id="formulaTabsContent">
+                        <!-- MODO EXCEL -->
+                        <div class="tab-pane fade show active" id="f-excel" role="tabpanel">
+                           <div class="d-flex align-items-center bg-light border p-2 mb-2 rounded">
+                             <div class="fw-bold text-success me-2 px-2 border-end border-2 border-success">ƒx</div>
+                             <input type="text" class="form-control border-0 bg-transparent fw-bold" placeholder="Escriba su fórmula al estilo Excel..." id="excelFormulaInput" 
+                                    onkeyup="syncFormula(this.value)" 
+                                    style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 1.1rem;">
+                           </div>
+                           <div class="d-flex flex-wrap gap-1 mt-2">
+                             <span class="small text-muted me-2 pt-1">Funciones comunes:</span>
+                             <button class="btn btn-xs btn-outline-success" onclick="insertarEnExcel('SUMA(')">SUMA</button>
+                             <button class="btn btn-xs btn-outline-success" onclick="insertarEnExcel('PROMEDIO(')">PROMEDIO</button>
+                             <button class="btn btn-xs btn-outline-success" onclick="insertarEnExcel('CONTARSI(')">CONTAR.SI</button>
+                             <button class="btn btn-xs btn-outline-success" onclick="insertarEnExcel('SI(')">SI</button>
+                           </div>
+                        </div>
+
+                        <!-- MODO SMART SEARCH -->
+                        <div class="tab-pane fade" id="f-smart" role="tabpanel">
+                           <div class="mb-2">
+                             <input type="text" class="form-control" placeholder="Ej: 'Suma de todas las preguntas', 'Promedio de factores'..." id="smartFormulaSearch" onkeyup="filterFormulaTemplates(this.value)">
+                           </div>
+                           <div id="smartTemplatesBox" class="d-flex flex-column gap-1 overflow-auto" style="max-height: 120px;">
+                             <div class="p-2 border rounded cursor-pointer hover-bg-light" onclick="insertarFormula('SUM({P1_PTJ}, {P2_PTJ})')">
+                               <div class="fw-bold small">Suma básica de ítems</div>
+                               <div class="text-muted" style="font-size: 11px;">Suma los puntajes de las preguntas seleccionadas.</div>
+                             </div>
+                             <div class="p-2 border rounded cursor-pointer hover-bg-light" onclick="insertarFormula('(SUM({TODO}) / COUNT({TODO}))')">
+                               <div class="fw-bold small">Promedio Global</div>
+                               <div class="text-muted" style="font-size: 11px;">Calcula el promedio de todas las preguntas de la prueba.</div>
+                             </div>
+                             <div class="p-2 border rounded cursor-pointer hover-bg-light" onclick="insertarFormula('IF(ABS({P1_PTJ}-{P2_PTJ})>2, 1, 0)')">
+                               <div class="fw-bold small">Validación de Consistencia</div>
+                               <div class="text-muted" style="font-size: 11px;">Compara si dos ítems tienen diferencias críticas.</div>
+                             </div>
+                           </div>
+                        </div>
+
+                        <!-- MODO CONSTRUCTOR LEGO (ORIGINAL) -->
+                        <div class="tab-pane fade" id="f-lego" role="tabpanel">
+                          <div class="d-flex flex-wrap gap-2 align-items-center">
+                            <button type="button" class="btn btn-sm btn-white border fw-bold" onclick="insertarFormula(' SI ')">SI</button>
+                            <button type="button" class="btn btn-sm btn-white border fw-bold text-primary" onclick="insertarFormula(' ENTONCES ')">ENTONCES</button>
+                            <span class="border-end mx-1"></span>
+                            <button type="button" class="btn btn-sm btn-white border fw-bold" title="Suma" onclick="insertarFormula(' + ')"><i class="fas fa-plus"></i></button>
+                            <button type="button" class="btn btn-sm btn-white border fw-bold" title="Resta" onclick="insertarFormula(' - ')"><i class="fas fa-minus"></i></button>
+                            <button type="button" class="btn btn-sm btn-white border fw-bold" title="Multiplicación" onclick="insertarFormula(' * ')"><i class="fas fa-times"></i></button>
+                            <button type="button" class="btn btn-sm btn-white border fw-bold" title="División" onclick="insertarFormula(' / ')"><i class="fas fa-divide"></i></button>
+                            <button type="button" class="btn btn-sm btn-white border fw-bold" title="Paréntesis" onclick="insertarFormula('(')">(</button>
+                            <button type="button" class="btn btn-sm btn-white border fw-bold" title="Paréntesis" onclick="insertarFormula(')')">)</button>
+                            <span class="border-end mx-1"></span>
+                            <button type="button" class="btn btn-sm btn-white border fw-bold" onclick="insertarFormula(' == ')">==</button>
+                            <button type="button" class="btn btn-sm btn-white border fw-bold" onclick="insertarFormula(' > ')">&gt;</button>
+                            <button type="button" class="btn btn-sm btn-white border fw-bold" onclick="insertarFormula(' < ')">&lt;</button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- AREA DE RESULTADO FINAL (INVISIBLE O TEXTAREA DE RESPALDO) -->
+                      <div class="mb-3 position-relative">
+                        <textarea
+                          id="facFormula"
+                          class="form-control p-3 bg-light border-0 shadow-none d-none"
+                          placeholder="Resultado de fórmula..."
+                          readonly
+                        ></textarea>
+                        <div class="bg-success bg-opacity-10 p-3 rounded border border-success border-opacity-25" id="formulaPreviewFinal">
+                           <div class="text-muted small fw-bold mb-1">VISTA FINAL DE LA FÓRMULA:</div>
+                           <div class="monospace fw-bold text-success fs-5" id="formulaTextPreview">...</div>
+                        </div>
+                      </div>
+
+                      <div class="d-flex flex-wrap gap-2 mb-2 align-items-center">
                         <select
                           id="facSelPreg"
-                          class="form-select form-select-sm w-auto d-inline-block border-secondary text-secondary fw-bold"
+                          class="form-select form-select-sm w-auto d-inline-block border-secondary text-secondary fw-bold shadow-sm"
                           style="min-width: 140px"
-                          onchange="
-                            if (this.value)
-                              insertarFormula('{' + this.value + '}');
-                            this.value = '';
-                          "
+                          onchange="if (this.value) insertarFormula('{' + this.value + '}'); this.value = '';"
                         >
-                          <option value="">Var. Preguntas</option>
+                          <option value="">Insertar Ítem</option>
                           <option value="P1_PTJ">P1 - Puntaje</option>
                           <option value="P2_PTJ">P2 - Puntaje</option>
                         </select>
                         <select
                           id="facSelFac"
-                          class="form-select form-select-sm w-auto d-inline-block border-secondary text-secondary fw-bold"
+                          class="form-select form-select-sm w-auto d-inline-block border-secondary text-secondary fw-bold shadow-sm"
                           style="min-width: 140px"
-                          onchange="
-                            if (this.value)
-                              insertarFormula('[' + this.value + ']');
-                            this.value = '';
-                          "
+                          onchange="if (this.value) insertarFormula('[' + this.value + ']'); this.value = '';"
                         >
-                          <option value="">Var. Factores</option>
+                          <option value="">Insertar Factor</option>
                           <option value="FAC-001">FAC-001</option>
                         </select>
                         <button
                           type="button"
-                          class="btn btn-sm btn-outline-danger ms-auto"
+                          class="btn btn-sm btn-outline-danger ms-auto shadow-sm"
                           title="Borrar Todo"
-                          onclick="
-                            document.getElementById('facFormula').value = ''
-                          "
+                          onclick="document.getElementById('facFormula').value = ''; syncFormula('');"
                         >
-                          <i class="fas fa-eraser"></i> Limpiar
+                          <i class="fas fa-trash-alt me-1"></i> Limpiar Todo
                         </button>
                       </div>
-                      <textarea
-                        id="facFormula"
-                        class="form-control p-3 bg-white border border-primary shadow-sm"
-                        style="
-                          min-height: 80px;
-                          font-family: monospace;
-                          font-size: 1.1rem;
-                          line-height: 1.5;
-                          font-weight: 600;
-                        "
-                        placeholder="Constructor de Fórmula Visual (Ej: SUM({P1_PTJ}, {P2_PTJ}) / 2)"
-                      ></textarea>
                     </div>
 
                     <div class="col-12 text-end mt-4">
@@ -5814,10 +5788,6 @@
                      <div class="d-flex justify-content-between align-items-center mb-2">
                        <h6 class="fw-bold text-muted m-0"><i class="fas fa-list mt-1 me-1"></i> Creador de Alternativas / Claves</h6>
                      </div>
-                     <div class="form-check form-switch mt-1">
-                        <input class="form-check-input" type="checkbox" checked onchange="const b = this.closest('.col-12'); b.querySelectorAll('.mpc-pts-box').forEach(el=> el.style.display = this.checked ? 'block' : 'none');">
-                        <label class="form-check-label small fw-bold text-muted">Habilitar puntajes personalizados</label>
-                     </div>
                      <div id="mp_A_alternativas_box" class="d-flex flex-column gap-2 mb-3"></div>
                      <button class="btn btn-outline-warning text-dark btn-sm w-100 border-dashed fw-bold py-2" onclick="addMpaAlternativa()">
                        <i class="fas fa-plus me-1"></i> Añadir Nueva Alternativa
@@ -5907,10 +5877,6 @@
 <div class="col-12 mt-4">
                      <div class="d-flex justify-content-between align-items-center mb-2">
                        <h6 class="fw-bold text-muted m-0"><i class="fas fa-list mt-1 me-1"></i> Creador de Alternativas</h6>
-                     </div>
-                     <div class="form-check form-switch mt-1">
-                        <input class="form-check-input" type="checkbox" checked onchange="const b = this.closest('.col-12'); b.querySelectorAll('.mpc-pts-box').forEach(el=> el.style.display = this.checked ? 'block' : 'none');">
-                        <label class="form-check-label small fw-bold text-muted">Habilitar puntajes personalizados</label>
                      </div>
                      <div id="mp_C_alternativas_box" class="d-flex flex-column gap-2 mb-3"></div>
                      <button class="btn btn-outline-primary btn-sm w-100 border-dashed fw-bold py-2" onclick="addMpcAlternativa()">
@@ -6072,7 +6038,6 @@
                <input type="text" class="form-control form-control-sm border-primary" placeholder="Descripción de la alternativa...">
                <div class="img-preview-circle d-none"></div>
             </div>
-            <div style="width: 70px;" class="mpc-pts-box"><input type="number" class="form-control form-control-sm border-primary text-center" placeholder="Pts" value="0" min="0" step="0.1"></div>
             <button class="btn btn-sm btn-outline-primary border-0" title="Duplicar" onclick="duplicarAlternativa(this)"><i class="fas fa-copy"></i></button>
             <button class="btn btn-sm btn-outline-danger border-0" title="Eliminar" onclick="const p = this.closest('[id]'); this.closest('.item-alt').remove(); renumerarContenedor('#' + p.id);"><i class="fas fa-times"></i></button>
          `;
@@ -6101,7 +6066,6 @@
                <input type="text" class="form-control form-control-sm border-warning" placeholder="Descripción de la alternativa...">
                <div class="img-preview-circle d-none"></div>
             </div>
-            <div style="width: 70px;" class="mpc-pts-box"><input type="number" class="form-control form-control-sm border-warning text-center" placeholder="Pts" value="0" min="0" step="0.1"></div>
             <button class="btn btn-sm btn-outline-primary border-0" title="Duplicar" onclick="duplicarAlternativa(this)"><i class="fas fa-copy"></i></button>
             <button class="btn btn-sm btn-outline-danger border-0" title="Eliminar" onclick="const p = this.closest('[id]'); this.closest('.item-alt').remove(); renumerarContenedor('#' + p.id);"><i class="fas fa-times"></i></button>
          `;
@@ -6162,7 +6126,126 @@
           showToast("Seleccione un tipo primero.");
           return;
         }
-        showToast("Modal de Pre-visualización generado correctamente.");
+
+        let txt = "Pregunta de prueba";
+        let opciones = ["Opción A", "Opción B", "Opción C", "Opción D"];
+
+        if (tipo === "abierta" && document.getElementById("mp_A_text"))
+          txt = document.getElementById("mp_A_text").value || txt;
+        if (tipo === "cerrada" && document.getElementById("mp_C_text"))
+          txt = document.getElementById("mp_C_text").value || txt;
+        if (tipo === "matriz" && document.getElementById("mp_M_text"))
+          txt = document.getElementById("mp_M_text").value || txt;
+        if (tipo === "tarjeta" && document.getElementById("mp_T_text"))
+          txt = document.getElementById("mp_T_text").value || txt;
+
+        const badgeMap = {
+          cerrada: "Pregunta Cerrada",
+          abierta: "Pregunta Abierta",
+          matriz: "Matriz",
+          tarjeta: "Tarjeta",
+        };
+
+        let altBoxId = null;
+        if (tipo === "abierta") altBoxId = "mp_A_alternativas_box";
+        if (tipo === "cerrada") altBoxId = "mp_C_alternativas_box";
+        if (tipo === "tarjeta") altBoxId = "mp_T_alternativas_box";
+
+        if (altBoxId) {
+          const altBox = document.getElementById(altBoxId);
+          if (altBox) {
+            const rowInputs = altBox.querySelectorAll(".mpc-dynamic-box input[type='text']");
+            if (rowInputs.length > 0) {
+              opciones = Array.from(rowInputs).map(i => i.value.trim() || "Alternativa sin texto");
+            }
+          }
+        }
+
+        pvData = {
+          titulo: "Previsualización de Pregunta",
+          icono: "👁️",
+          tipo: "Prueba de Diseño",
+          desc: "Vista previa generada al vuelo.",
+          tiempo: "--:--",
+          preguntas: [
+            {
+              tipo: tipo,
+              texto: txt,
+              badge: badgeMap[tipo] || "General",
+              opciones: opciones
+            }
+          ]
+        };
+
+        pvIdx = 0;
+        pvSeconds = 0;
+        pvRespuestas = {};
+
+        document.getElementById("pvTitle").textContent = pvData.titulo;
+        document.getElementById("pvSubtitle").textContent = pvData.tipo;
+        document.getElementById("pvIcon").textContent = pvData.icono;
+        document.getElementById("pvCoverIcon").textContent = pvData.icono;
+        document.getElementById("pvCoverTitle").textContent = pvData.titulo;
+        document.getElementById("pvCoverDesc").textContent = pvData.desc;
+        document.getElementById("pvTotalQ").textContent = 1;
+        document.getElementById("pvEstTime").textContent = pvData.tiempo;
+
+        // Force skip cover directly to questions for quick preview
+        pvShow("pvPortada", false);
+        pvShow("pvPreguntas", true, "block");
+        pvShow("pvFinal", false);
+        document.getElementById("pvTimer").style.display = "flex";
+        
+        if(pvTimerInterval) clearInterval(pvTimerInterval);
+        pvTimerInterval = setInterval(() => {
+          pvSeconds++;
+          const m = String(Math.floor(pvSeconds / 60)).padStart(2, "0");
+          const s = String(pvSeconds % 60).padStart(2, "0");
+          document.getElementById("pvTimerText").textContent = m + ":" + s;
+        }, 1000);
+        
+        renderPregunta();
+
+        // Ocultar modal de edición momentaneamente
+        const m = bootstrap.Modal.getInstance(document.getElementById("modalNuevaPregunta"));
+        if (m) m.hide();
+
+        new bootstrap.Modal(document.getElementById("modalPreview")).show();
+        
+        // Al cerrar el modalPreview, podemos opcionalmente re-abrir el editor
+        const previewEl = document.getElementById("modalPreview");
+        
+        const cleanupPreview = () => {
+           if (preguntaActualEditando || document.getElementById("mpTipoPreg_Master").value) {
+               new bootstrap.Modal(document.getElementById("modalNuevaPregunta")).show();
+           }
+           previewEl.removeEventListener("hidden.bs.modal", cleanupPreview);
+        };
+        previewEl.addEventListener("hidden.bs.modal", cleanupPreview);
+      }
+
+      let preguntaActualEditando = null;
+
+      function editarPreguntaRow(btn) {
+        preguntaActualEditando = btn.closest(".item-row");
+        const tipo = preguntaActualEditando.getAttribute("data-tipo");
+        const txt = preguntaActualEditando.querySelector(".desc-text").textContent;
+
+        const sel = document.getElementById("mpTipoPreg_Master");
+        if (sel) {
+          sel.value = tipo;
+          renderizarControlesPregunta();
+          setTimeout(() => {
+            const mapIdA = "mp_A_text";
+            const mapIdC = "mp_C_text";
+            if (tipo === "abierta" && document.getElementById(mapIdA)) {
+              document.getElementById(mapIdA).value = txt;
+            } else if (tipo === "cerrada" && document.getElementById(mapIdC)) {
+              document.getElementById(mapIdC).value = txt;
+            }
+            new bootstrap.Modal(document.getElementById("modalNuevaPregunta")).show();
+          }, 50);
+        }
       }
 
       function guardarNuevaPregunta() {
@@ -6180,15 +6263,28 @@
         if (tipo === "cerrada" && document.getElementById("mp_C_text"))
           txt = document.getElementById("mp_C_text").value || txt;
 
-        const n = document.querySelectorAll("#boxPreg .item-row").length + 1;
-
         const div = document.createElement("div");
-        div.innerHTML = rowPregunta(n, txt, tipo);
-        const empty = document.getElementById("emptyPreg");
-        if (empty) empty.remove();
-        document.getElementById("boxPreg").appendChild(div.firstElementChild);
 
-        showToast("✅ Pregunta generada y guardada.");
+        if (preguntaActualEditando) {
+          // Edit mode
+          let n = 1;
+          const posInput = preguntaActualEditando.querySelector(".pos-input");
+          if (posInput) n = parseInt(posInput.value) || 1;
+          
+          div.innerHTML = rowPregunta(n, txt, tipo);
+          preguntaActualEditando.outerHTML = div.innerHTML;
+          preguntaActualEditando = null;
+          showToast("✅ Pregunta actualizada.");
+        } else {
+          // Create mode
+          const n = document.querySelectorAll("#boxPreg .item-row").length + 1;
+          div.innerHTML = rowPregunta(n, txt, tipo);
+          const empty = document.getElementById("emptyPreg");
+          if (empty) empty.remove();
+          document.getElementById("boxPreg").appendChild(div.firstElementChild);
+          showToast("✅ Pregunta generada y guardada.");
+        }
+
         bootstrap.Modal.getInstance(
           document.getElementById("modalNuevaPregunta"),
         ).hide();
@@ -6219,34 +6315,144 @@
         const start = t.selectionStart;
         const end = t.selectionEnd;
         t.value = t.value.substring(0, start) + txt + t.value.substring(end);
+        
+        // Sync UI
+        syncFormula(t.value);
+        
         t.focus();
         t.selectionStart = t.selectionEnd = start + txt.length;
       }
 
+      function syncFormula(val) {
+        document.getElementById("formulaTextPreview").textContent = val || "...";
+        document.getElementById("excelFormulaInput").value = val;
+        document.getElementById("facFormula").value = val;
+      }
+
+      function insertarEnExcel(fn) {
+        insertarFormula(fn);
+      }
+
+      function filterFormulaTemplates(query) {
+        const box = document.getElementById("smartTemplatesBox");
+        const items = box.querySelectorAll(".p-2");
+        const q = query.toLowerCase();
+        items.forEach(it => {
+          const text = it.textContent.toLowerCase();
+          it.style.display = text.includes(q) ? "block" : "none";
+        });
+      }
+
+      let factorActualEditando = null;
+
       function addFactor() {
-        const cod = document
-          .getElementById("facCod")
-          .value.trim()
-          .toUpperCase();
+        const cod = document.getElementById("facCod").value.trim().toUpperCase();
         const desc = document.getElementById("facDesc").value.trim();
-        const formula = document.getElementById("facFormula")
-          ? document.getElementById("facFormula").value.trim()
-          : "";
+        const formula = document.getElementById("facFormula") ? document.getElementById("facFormula").value.trim() : "";
+        
         if (!cod || !desc) {
           alert("Completa código y descripción.");
           return;
         }
-        pushItem("boxFac", "emptyFac", rowFactor(cod, desc, formula));
+
+        if (factorActualEditando) {
+          // Update mode
+          factorActualEditando.innerHTML = rowFactorHTML(cod, desc, formula);
+          factorActualEditando = null;
+          showToast("✅ Factor actualizado.");
+          
+          // Reset button text
+          const btn = document.querySelector('button[onclick="addFactor()"]');
+          if (btn) btn.innerHTML = '<i class="fas fa-save me-2"></i> Guardar Nuevo Factor';
+        } else {
+          // Create mode
+          pushItem("boxFac", "emptyFac", rowFactor(cod, desc, formula));
+          showToast("✅ Factor guardado.");
+        }
+
+        // Reset fields
         document.getElementById("facCod").value = "";
         document.getElementById("facDesc").value = "";
-        if (document.getElementById("facFormula"))
+        if (document.getElementById("facFormula")) {
           document.getElementById("facFormula").value = "";
+          syncFormula("");
+        }
       }
+      function rowPregunta(n, txt, tipo) {
+        let lbl = tipo.charAt(0).toUpperCase() + tipo.slice(1);
+        let badgeColor = "bg-primary";
+        if (tipo === "abierta") badgeColor = "bg-warning text-dark";
+        else if (tipo === "cerrada") badgeColor = "bg-primary";
+        else if (tipo === "matriz") badgeColor = "bg-info text-dark";
+        else if (tipo === "tarjeta") badgeColor = "bg-danger";
+
+        return `<div class="item-row d-flex align-items-center mb-2 p-2 border rounded bg-light" draggable="true" ondragstart="dragPregRow(event)" ondragover="dragOverPregRow(event)" ondrop="dropPregRow(event)" ondragend="dragEndPregRow(event)" data-tipo="${tipo}">
+          <i class="fas fa-grip-vertical handle me-3 text-muted" style="cursor: grab;"></i>
+          <input type="number" class="form-control form-control-sm text-center pos-input me-3" style="width: 50px;" value="${n}" onchange="reordenarPorInput(this, '#boxPreg')">
+          <span class="badge bg-primary me-3">P${n}</span>
+          <span class="desc-text desc fw-medium flex-grow-1">${txt}</span>
+          <span class="badge ${badgeColor} me-3">${lbl}</span>
+          <button class="btn btn-sm btn-outline-primary ms-1" data-bs-toggle="tooltip" title="Editar pregunta actual" onclick="editarPreguntaRow(this)"><i class="fas fa-pen"></i></button>
+          <button class="btn btn-sm btn-outline-secondary ms-1" data-bs-toggle="tooltip" title="Clonar pregunta con todos sus atributos" onclick="duplicarPregunta(this)"><i class="fas fa-copy"></i></button>
+          <button class="btn btn-sm btn-outline-danger ms-1" data-bs-toggle="tooltip" title="Eliminar pregunta" onclick="this.closest('.item-row').remove(); renumerarContenedor('#boxPreg');"><i class="fas fa-trash"></i></button>
+        </div>`;
+      }
+
       function rowFactor(cod, desc, formula = "") {
+        return `<div class="item-row d-flex align-items-center mb-2 p-2 border rounded bg-light" data-cod="${cod}" data-desc="${desc}" data-formula="${formula}">
+          ${rowFactorHTML(cod, desc, formula)}
+        </div>`;
+      }
+
+      function rowFactorHTML(cod, desc, formula) {
         const fBadge = formula
           ? `<span class="badge bg-light text-primary border ms-2 d-inline-block mt-1 text-truncate" style="max-width:200px;" title="${formula}"><i class="fas fa-square-root-alt me-1"></i>${formula}</span>`
           : "";
-        return `<div class="item-row"><div class="inf"><span class="tag tag-punt fw-bold">${cod}</span><span class="fw-medium">${desc}</span>${fBadge}</div><button class="btn btn-light rounded-circle text-danger p-0" style="width:32px;height:32px;" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button></div>`;
+        return `
+          <div class="inf flex-grow-1">
+            <span class="tag tag-punt fw-bold">${cod}</span>
+            <span class="fw-medium">${desc}</span>
+            ${fBadge}
+          </div>
+          <div class="d-flex gap-1">
+            <button class="btn btn-sm btn-outline-primary" title="Editar Factor" onclick="editarFactorRow(this)"><i class="fas fa-pen"></i></button>
+            <button class="btn btn-sm btn-outline-secondary" title="Duplicar Factor" onclick="duplicarFactor(this)"><i class="fas fa-copy"></i></button>
+            <button class="btn btn-sm btn-outline-danger" title="Eliminar" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button>
+          </div>
+        `;
+      }
+
+      function editarFactorRow(btn) {
+        const row = btn.closest(".item-row");
+        const cod = row.getAttribute("data-cod");
+        const desc = row.getAttribute("data-desc");
+        const formula = row.getAttribute("data-formula");
+
+        document.getElementById("facCod").value = cod;
+        document.getElementById("facDesc").value = desc;
+        if (document.getElementById("facFormula")) {
+          document.getElementById("facFormula").value = formula;
+          syncFormula(formula);
+        }
+
+        factorActualEditando = row;
+        
+        // Update button text to indicate edit mode
+        const saveBtn = document.querySelector('button[onclick="addFactor()"]');
+        if (saveBtn) saveBtn.innerHTML = '<i class="fas fa-sync me-2"></i> Actualizar Factor';
+        
+        // Scroll to form
+        document.getElementById("facCod").scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      function duplicarFactor(btn) {
+        const row = btn.closest(".item-row");
+        const cod = row.getAttribute("data-cod") + "_COPY";
+        const desc = row.getAttribute("data-desc") + " (Copia)";
+        const formula = row.getAttribute("data-formula");
+        
+        pushItem("boxFac", "emptyFac", rowFactor(cod, desc, formula));
+        showToast("✅ Factor duplicado.");
       }
 
       function addRespuesta() {
@@ -8507,6 +8713,16 @@
         const pvModal = document.getElementById("modalPreview");
         if (pvModal)
           pvModal.addEventListener("hidden.bs.modal", detenerTimerPreview);
+          
+        // Initialize tooltips for elements with title
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'));
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+          if (!tooltipTriggerEl.getAttribute("data-bs-toggle")) {
+            tooltipTriggerEl.setAttribute("data-bs-toggle", "tooltip");
+            tooltipTriggerEl.setAttribute("data-bs-placement", "top");
+          }
+          return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
       });
     </script>
   </body>
