@@ -321,7 +321,7 @@
         border-color: var(--primary) !important;
       }
       .monospace {
-        font-family: 'Fira Code', 'Courier New', Courier, monospace;
+        font-family: "Fira Code", "Courier New", Courier, monospace;
       }
       #smartTemplatesBox::-webkit-scrollbar {
         width: 6px;
@@ -1120,7 +1120,12 @@
                 oninput="filtrarPruebas()"
               />
             </div>
-            <button class="btn-prim" onclick="nuevaPrueba()" data-bs-toggle="tooltip" title="Crear una evaluación psicológica desde cero">
+            <button
+              class="btn-prim"
+              onclick="nuevaPrueba()"
+              data-bs-toggle="tooltip"
+              title="Crear una evaluación psicológica desde cero"
+            >
               <i class="fas fa-plus me-2"></i>Nueva Prueba
             </button>
           </div>
@@ -3873,7 +3878,11 @@
                     data-bs-target="#modalNuevaPregunta"
                     data-bs-toggle="tooltip"
                     title="Abre el modal para añadir una nueva pregunta"
-                    onclick="preguntaActualEditando = null; document.getElementById('mpTipoPreg_Master').value = ''; renderizarControlesPregunta();"
+                    onclick="
+                      preguntaActualEditando = null;
+                      document.getElementById('mpTipoPreg_Master').value = '';
+                      renderizarControlesPregunta();
+                    "
                   >
                     <i class="fas fa-plus me-1"></i> Añadir Pregunta
                   </button>
@@ -4107,76 +4116,312 @@
                     <div class="col-12 mt-2 pt-3 border-top pb-1">
                       <!-- NUEVO CONSTRUCTOR DE FORMULAS MULTI-MODO -->
                       <label class="form-label fw-bold small text-primary mb-2"
-                        ><i class="fas fa-magic me-2"></i>Constructor de Fórmula Multimodo</label
+                        ><i class="fas fa-magic me-2"></i>Constructor de Fórmula
+                        Multimodo</label
                       >
 
-                      <ul class="nav nav-tabs mb-3 border-0 bg-light p-1 rounded-pill" id="formulaTabs" role="tablist" style="max-width: 600px;">
+                      <ul
+                        class="nav nav-tabs mb-3 border-0 bg-light p-1 rounded-pill"
+                        id="formulaTabs"
+                        role="tablist"
+                        style="max-width: 600px"
+                      >
                         <li class="nav-item flex-grow-1" role="presentation">
-                          <button class="nav-link active rounded-pill fw-bold" id="f-excel-tab" data-bs-toggle="pill" data-bs-target="#f-excel" type="button" role="tab" style="font-size: 0.85rem;"><i class="fas fa-table me-1"></i> Modo Excel</button>
+                          <button
+                            class="nav-link active rounded-pill fw-bold"
+                            id="f-excel-tab"
+                            data-bs-toggle="pill"
+                            data-bs-target="#f-excel"
+                            type="button"
+                            role="tab"
+                            style="font-size: 0.85rem"
+                          >
+                            <i class="fas fa-table me-1"></i> Modo Excel
+                          </button>
                         </li>
                         <li class="nav-item flex-grow-1" role="presentation">
-                          <button class="nav-link rounded-pill fw-bold" id="f-smart-tab" data-bs-toggle="pill" data-bs-target="#f-smart" type="button" role="tab" style="font-size: 0.85rem;"><i class="fas fa-search me-1"></i> Smart Search</button>
+                          <button
+                            class="nav-link rounded-pill fw-bold"
+                            id="f-smart-tab"
+                            data-bs-toggle="pill"
+                            data-bs-target="#f-smart"
+                            type="button"
+                            role="tab"
+                            style="font-size: 0.85rem"
+                          >
+                            <i class="fas fa-search me-1"></i> Smart Search
+                          </button>
                         </li>
                         <li class="nav-item flex-grow-1" role="presentation">
-                          <button class="nav-link rounded-pill fw-bold" id="f-lego-tab" data-bs-toggle="pill" data-bs-target="#f-lego" type="button" role="tab" style="font-size: 0.85rem;"><i class="fas fa-shapes me-1"></i> Constructor Visual</button>
+                          <button
+                            class="nav-link rounded-pill fw-bold"
+                            id="f-lego-tab"
+                            data-bs-toggle="pill"
+                            data-bs-target="#f-lego"
+                            type="button"
+                            role="tab"
+                            style="font-size: 0.85rem"
+                          >
+                            <i class="fas fa-shapes me-1"></i> Constructor
+                            Visual
+                          </button>
                         </li>
                       </ul>
 
-                      <div class="tab-content bg-white p-3 border rounded shadow-sm mb-3" id="formulaTabsContent">
+                      <div
+                        class="tab-content bg-white p-3 border rounded shadow-sm mb-3"
+                        id="formulaTabsContent"
+                      >
                         <!-- MODO EXCEL -->
-                        <div class="tab-pane fade show active" id="f-excel" role="tabpanel">
-                           <div class="d-flex align-items-center bg-light border p-2 mb-2 rounded">
-                             <div class="fw-bold text-success me-2 px-2 border-end border-2 border-success">ƒx</div>
-                             <input type="text" class="form-control border-0 bg-transparent fw-bold" placeholder="Escriba su fórmula al estilo Excel..." id="excelFormulaInput" 
-                                    onkeyup="syncFormula(this.value)" 
-                                    style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 1.1rem;">
-                           </div>
-                           <div class="d-flex flex-wrap gap-1 mt-2">
-                             <span class="small text-muted me-2 pt-1">Funciones comunes:</span>
-                             <button class="btn btn-xs btn-outline-success" onclick="insertarEnExcel('SUMA(')">SUMA</button>
-                             <button class="btn btn-xs btn-outline-success" onclick="insertarEnExcel('PROMEDIO(')">PROMEDIO</button>
-                             <button class="btn btn-xs btn-outline-success" onclick="insertarEnExcel('CONTARSI(')">CONTAR.SI</button>
-                             <button class="btn btn-xs btn-outline-success" onclick="insertarEnExcel('SI(')">SI</button>
-                           </div>
+                        <div
+                          class="tab-pane fade show active"
+                          id="f-excel"
+                          role="tabpanel"
+                        >
+                          <div
+                            class="bg-light border p-2 mb-2 rounded shadow-inner"
+                          >
+                            <div
+                              class="d-flex align-items-center mb-2 border-bottom pb-1 border-success border-opacity-25"
+                            >
+                              <div class="fw-bold text-success me-2 px-2">
+                                ƒx
+                              </div>
+                              <small class="text-muted"
+                                >Editor de fórmula profesional</small
+                              >
+                            </div>
+                            <textarea
+                              class="form-control border-0 bg-transparent fw-bold"
+                              placeholder="Escriba o pegue su fórmula compleja aquí..."
+                              id="excelFormulaInput"
+                              onkeyup="syncFormula(this.value)"
+                              rows="2"
+                              style="
+                                font-family: &quot;Fira Code&quot;, monospace;
+                                font-size: 1.05rem;
+                                resize: none;
+                              "
+                            ></textarea>
+                          </div>
+                          <div class="d-flex flex-wrap gap-1 mt-2">
+                            <span class="small text-muted me-2 pt-1"
+                              >Funciones:</span
+                            >
+                            <button
+                              class="btn btn-xs btn-outline-success"
+                              onclick="insertarEnExcel('SUMA(')"
+                            >
+                              SUMA
+                            </button>
+                            <button
+                              class="btn btn-xs btn-outline-success"
+                              onclick="insertarEnExcel('PROMEDIO(')"
+                            >
+                              PROMEDIO
+                            </button>
+                            <button
+                              class="btn btn-xs btn-outline-success"
+                              onclick="insertarEnExcel('SI(')"
+                            >
+                              SI
+                            </button>
+                            <button
+                              class="btn btn-xs btn-outline-secondary"
+                              onclick="insertarEnExcel('ABS(')"
+                            >
+                              ABS
+                            </button>
+                            <button
+                              class="btn btn-xs btn-outline-secondary"
+                              onclick="insertarEnExcel('CONTAR(')"
+                            >
+                              CONTAR
+                            </button>
+                          </div>
                         </div>
 
                         <!-- MODO SMART SEARCH -->
                         <div class="tab-pane fade" id="f-smart" role="tabpanel">
-                           <div class="mb-2">
-                             <input type="text" class="form-control" placeholder="Ej: 'Suma de todas las preguntas', 'Promedio de factores'..." id="smartFormulaSearch" onkeyup="filterFormulaTemplates(this.value)">
-                           </div>
-                           <div id="smartTemplatesBox" class="d-flex flex-column gap-1 overflow-auto" style="max-height: 120px;">
-                             <div class="p-2 border rounded cursor-pointer hover-bg-light" onclick="insertarFormula('SUM({P1_PTJ}, {P2_PTJ})')">
-                               <div class="fw-bold small">Suma básica de ítems</div>
-                               <div class="text-muted" style="font-size: 11px;">Suma los puntajes de las preguntas seleccionadas.</div>
-                             </div>
-                             <div class="p-2 border rounded cursor-pointer hover-bg-light" onclick="insertarFormula('(SUM({TODO}) / COUNT({TODO}))')">
-                               <div class="fw-bold small">Promedio Global</div>
-                               <div class="text-muted" style="font-size: 11px;">Calcula el promedio de todas las preguntas de la prueba.</div>
-                             </div>
-                             <div class="p-2 border rounded cursor-pointer hover-bg-light" onclick="insertarFormula('IF(ABS({P1_PTJ}-{P2_PTJ})>2, 1, 0)')">
-                               <div class="fw-bold small">Validación de Consistencia</div>
-                               <div class="text-muted" style="font-size: 11px;">Compara si dos ítems tienen diferencias críticas.</div>
-                             </div>
-                           </div>
+                          <div class="row g-2 mb-3">
+                            <div class="col-md-12">
+                              <div class="input-group input-group-sm">
+                                <span
+                                  class="input-group-text bg-primary text-white border-primary"
+                                  ><i class="fas fa-plus-circle"></i
+                                ></span>
+                                <input
+                                  type="text"
+                                  class="form-control border-primary"
+                                  placeholder="Sumar rango rápido. Ej: 1-20"
+                                  id="rangeSumInput"
+                                />
+                                <button
+                                  class="btn btn-primary fw-bold"
+                                  type="button"
+                                  onclick="generarRangoSuma()"
+                                >
+                                  Generar Suma
+                                </button>
+                              </div>
+                              <div
+                                class="form-text mt-1"
+                                style="font-size: 10px"
+                              >
+                                Escriba los números de pregunta (ej: 1-10) para
+                                generar {P1}+{P2}...
+                              </div>
+                            </div>
+                          </div>
+                          <div class="mb-2 border-top pt-2">
+                            <input
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Buscar plantillas de sistemas modernos..."
+                              id="smartFormulaSearch"
+                              onkeyup="filterFormulaTemplates(this.value)"
+                            />
+                          </div>
+                          <div
+                            id="smartTemplatesBox"
+                            class="d-flex flex-column gap-1 overflow-auto"
+                            style="max-height: 100px"
+                          >
+                            <div
+                              class="p-2 border rounded cursor-pointer hover-bg-light"
+                              onclick="
+                                insertarFormula('SUM({P1_PTJ}, {P2_PTJ})')
+                              "
+                            >
+                              <div class="fw-bold small">
+                                Suma básica de ítems
+                              </div>
+                              <div class="text-muted" style="font-size: 11px">
+                                Suma los puntajes de las preguntas
+                                seleccionadas.
+                              </div>
+                            </div>
+                            <div
+                              class="p-2 border rounded cursor-pointer hover-bg-light"
+                              onclick="
+                                insertarFormula('(SUM({TODO}) / COUNT({TODO}))')
+                              "
+                            >
+                              <div class="fw-bold small">Promedio Global</div>
+                              <div class="text-muted" style="font-size: 11px">
+                                Calcula el promedio de todas las preguntas de la
+                                prueba.
+                              </div>
+                            </div>
+                            <div
+                              class="p-2 border rounded cursor-pointer hover-bg-light"
+                              onclick="
+                                insertarFormula(
+                                  'IF(ABS({P1_PTJ}-{P2_PTJ})>2, 1, 0)',
+                                )
+                              "
+                            >
+                              <div class="fw-bold small">
+                                Validación de Consistencia
+                              </div>
+                              <div class="text-muted" style="font-size: 11px">
+                                Compara si dos ítems tienen diferencias
+                                críticas.
+                              </div>
+                            </div>
+                          </div>
                         </div>
 
                         <!-- MODO CONSTRUCTOR LEGO (ORIGINAL) -->
                         <div class="tab-pane fade" id="f-lego" role="tabpanel">
-                          <div class="d-flex flex-wrap gap-2 align-items-center">
-                            <button type="button" class="btn btn-sm btn-white border fw-bold" onclick="insertarFormula(' SI ')">SI</button>
-                            <button type="button" class="btn btn-sm btn-white border fw-bold text-primary" onclick="insertarFormula(' ENTONCES ')">ENTONCES</button>
+                          <div
+                            class="d-flex flex-wrap gap-2 align-items-center"
+                          >
+                            <button
+                              type="button"
+                              class="btn btn-sm btn-white border fw-bold"
+                              onclick="insertarFormula(' SI ')"
+                            >
+                              SI
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-sm btn-white border fw-bold text-primary"
+                              onclick="insertarFormula(' ENTONCES ')"
+                            >
+                              ENTONCES
+                            </button>
                             <span class="border-end mx-1"></span>
-                            <button type="button" class="btn btn-sm btn-white border fw-bold" title="Suma" onclick="insertarFormula(' + ')"><i class="fas fa-plus"></i></button>
-                            <button type="button" class="btn btn-sm btn-white border fw-bold" title="Resta" onclick="insertarFormula(' - ')"><i class="fas fa-minus"></i></button>
-                            <button type="button" class="btn btn-sm btn-white border fw-bold" title="Multiplicación" onclick="insertarFormula(' * ')"><i class="fas fa-times"></i></button>
-                            <button type="button" class="btn btn-sm btn-white border fw-bold" title="División" onclick="insertarFormula(' / ')"><i class="fas fa-divide"></i></button>
-                            <button type="button" class="btn btn-sm btn-white border fw-bold" title="Paréntesis" onclick="insertarFormula('(')">(</button>
-                            <button type="button" class="btn btn-sm btn-white border fw-bold" title="Paréntesis" onclick="insertarFormula(')')">)</button>
+                            <button
+                              type="button"
+                              class="btn btn-sm btn-white border fw-bold"
+                              title="Suma"
+                              onclick="insertarFormula(' + ')"
+                            >
+                              <i class="fas fa-plus"></i>
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-sm btn-white border fw-bold"
+                              title="Resta"
+                              onclick="insertarFormula(' - ')"
+                            >
+                              <i class="fas fa-minus"></i>
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-sm btn-white border fw-bold"
+                              title="Multiplicación"
+                              onclick="insertarFormula(' * ')"
+                            >
+                              <i class="fas fa-times"></i>
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-sm btn-white border fw-bold"
+                              title="División"
+                              onclick="insertarFormula(' / ')"
+                            >
+                              <i class="fas fa-divide"></i>
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-sm btn-white border fw-bold"
+                              title="Paréntesis"
+                              onclick="insertarFormula('(')"
+                            >
+                              (
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-sm btn-white border fw-bold"
+                              title="Paréntesis"
+                              onclick="insertarFormula(')')"
+                            >
+                              )
+                            </button>
                             <span class="border-end mx-1"></span>
-                            <button type="button" class="btn btn-sm btn-white border fw-bold" onclick="insertarFormula(' == ')">==</button>
-                            <button type="button" class="btn btn-sm btn-white border fw-bold" onclick="insertarFormula(' > ')">&gt;</button>
-                            <button type="button" class="btn btn-sm btn-white border fw-bold" onclick="insertarFormula(' < ')">&lt;</button>
+                            <button
+                              type="button"
+                              class="btn btn-sm btn-white border fw-bold"
+                              onclick="insertarFormula(' == ')"
+                            >
+                              ==
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-sm btn-white border fw-bold"
+                              onclick="insertarFormula(' > ')"
+                            >
+                              &gt;
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-sm btn-white border fw-bold"
+                              onclick="insertarFormula(' < ')"
+                            >
+                              &lt;
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -4189,18 +4434,34 @@
                           placeholder="Resultado de fórmula..."
                           readonly
                         ></textarea>
-                        <div class="bg-success bg-opacity-10 p-3 rounded border border-success border-opacity-25" id="formulaPreviewFinal">
-                           <div class="text-muted small fw-bold mb-1">VISTA FINAL DE LA FÓRMULA:</div>
-                           <div class="monospace fw-bold text-success fs-5" id="formulaTextPreview">...</div>
+                        <div
+                          class="bg-success bg-opacity-10 p-3 rounded border border-success border-opacity-25"
+                          id="formulaPreviewFinal"
+                        >
+                          <div class="text-muted small fw-bold mb-1">
+                            VISTA FINAL DE LA FÓRMULA:
+                          </div>
+                          <div
+                            class="monospace fw-bold text-success fs-5"
+                            id="formulaTextPreview"
+                          >
+                            ...
+                          </div>
                         </div>
                       </div>
 
-                      <div class="d-flex flex-wrap gap-2 mb-2 align-items-center">
+                      <div
+                        class="d-flex flex-wrap gap-2 mb-2 align-items-center"
+                      >
                         <select
                           id="facSelPreg"
                           class="form-select form-select-sm w-auto d-inline-block border-secondary text-secondary fw-bold shadow-sm"
                           style="min-width: 140px"
-                          onchange="if (this.value) insertarFormula('{' + this.value + '}'); this.value = '';"
+                          onchange="
+                            if (this.value)
+                              insertarFormula('{' + this.value + '}');
+                            this.value = '';
+                          "
                         >
                           <option value="">Insertar Ítem</option>
                           <option value="P1_PTJ">P1 - Puntaje</option>
@@ -4210,7 +4471,11 @@
                           id="facSelFac"
                           class="form-select form-select-sm w-auto d-inline-block border-secondary text-secondary fw-bold shadow-sm"
                           style="min-width: 140px"
-                          onchange="if (this.value) insertarFormula('[' + this.value + ']'); this.value = '';"
+                          onchange="
+                            if (this.value)
+                              insertarFormula('[' + this.value + ']');
+                            this.value = '';
+                          "
                         >
                           <option value="">Insertar Factor</option>
                           <option value="FAC-001">FAC-001</option>
@@ -4219,7 +4484,10 @@
                           type="button"
                           class="btn btn-sm btn-outline-danger ms-auto shadow-sm"
                           title="Borrar Todo"
-                          onclick="document.getElementById('facFormula').value = ''; syncFormula('');"
+                          onclick="
+                            document.getElementById('facFormula').value = '';
+                            syncFormula('');
+                          "
                         >
                           <i class="fas fa-trash-alt me-1"></i> Limpiar Todo
                         </button>
@@ -6154,9 +6422,13 @@
         if (altBoxId) {
           const altBox = document.getElementById(altBoxId);
           if (altBox) {
-            const rowInputs = altBox.querySelectorAll(".mpc-dynamic-box input[type='text']");
+            const rowInputs = altBox.querySelectorAll(
+              ".mpc-dynamic-box input[type='text']",
+            );
             if (rowInputs.length > 0) {
-              opciones = Array.from(rowInputs).map(i => i.value.trim() || "Alternativa sin texto");
+              opciones = Array.from(rowInputs).map(
+                (i) => i.value.trim() || "Alternativa sin texto",
+              );
             }
           }
         }
@@ -6172,9 +6444,9 @@
               tipo: tipo,
               texto: txt,
               badge: badgeMap[tipo] || "General",
-              opciones: opciones
-            }
-          ]
+              opciones: opciones,
+            },
+          ],
         };
 
         pvIdx = 0;
@@ -6195,31 +6467,38 @@
         pvShow("pvPreguntas", true, "block");
         pvShow("pvFinal", false);
         document.getElementById("pvTimer").style.display = "flex";
-        
-        if(pvTimerInterval) clearInterval(pvTimerInterval);
+
+        if (pvTimerInterval) clearInterval(pvTimerInterval);
         pvTimerInterval = setInterval(() => {
           pvSeconds++;
           const m = String(Math.floor(pvSeconds / 60)).padStart(2, "0");
           const s = String(pvSeconds % 60).padStart(2, "0");
           document.getElementById("pvTimerText").textContent = m + ":" + s;
         }, 1000);
-        
+
         renderPregunta();
 
         // Ocultar modal de edición momentaneamente
-        const m = bootstrap.Modal.getInstance(document.getElementById("modalNuevaPregunta"));
+        const m = bootstrap.Modal.getInstance(
+          document.getElementById("modalNuevaPregunta"),
+        );
         if (m) m.hide();
 
         new bootstrap.Modal(document.getElementById("modalPreview")).show();
-        
+
         // Al cerrar el modalPreview, podemos opcionalmente re-abrir el editor
         const previewEl = document.getElementById("modalPreview");
-        
+
         const cleanupPreview = () => {
-           if (preguntaActualEditando || document.getElementById("mpTipoPreg_Master").value) {
-               new bootstrap.Modal(document.getElementById("modalNuevaPregunta")).show();
-           }
-           previewEl.removeEventListener("hidden.bs.modal", cleanupPreview);
+          if (
+            preguntaActualEditando ||
+            document.getElementById("mpTipoPreg_Master").value
+          ) {
+            new bootstrap.Modal(
+              document.getElementById("modalNuevaPregunta"),
+            ).show();
+          }
+          previewEl.removeEventListener("hidden.bs.modal", cleanupPreview);
         };
         previewEl.addEventListener("hidden.bs.modal", cleanupPreview);
       }
@@ -6229,7 +6508,8 @@
       function editarPreguntaRow(btn) {
         preguntaActualEditando = btn.closest(".item-row");
         const tipo = preguntaActualEditando.getAttribute("data-tipo");
-        const txt = preguntaActualEditando.querySelector(".desc-text").textContent;
+        const txt =
+          preguntaActualEditando.querySelector(".desc-text").textContent;
 
         const sel = document.getElementById("mpTipoPreg_Master");
         if (sel) {
@@ -6243,7 +6523,9 @@
             } else if (tipo === "cerrada" && document.getElementById(mapIdC)) {
               document.getElementById(mapIdC).value = txt;
             }
-            new bootstrap.Modal(document.getElementById("modalNuevaPregunta")).show();
+            new bootstrap.Modal(
+              document.getElementById("modalNuevaPregunta"),
+            ).show();
           }, 50);
         }
       }
@@ -6270,7 +6552,7 @@
           let n = 1;
           const posInput = preguntaActualEditando.querySelector(".pos-input");
           if (posInput) n = parseInt(posInput.value) || 1;
-          
+
           div.innerHTML = rowPregunta(n, txt, tipo);
           preguntaActualEditando.outerHTML = div.innerHTML;
           preguntaActualEditando = null;
@@ -6315,18 +6597,63 @@
         const start = t.selectionStart;
         const end = t.selectionEnd;
         t.value = t.value.substring(0, start) + txt + t.value.substring(end);
-        
+
         // Sync UI
         syncFormula(t.value);
-        
+
         t.focus();
         t.selectionStart = t.selectionEnd = start + txt.length;
       }
 
       function syncFormula(val) {
-        document.getElementById("formulaTextPreview").textContent = val || "...";
         document.getElementById("excelFormulaInput").value = val;
         document.getElementById("facFormula").value = val;
+
+        const preview = document.getElementById("formulaTextPreview");
+        const panel = document.getElementById("formulaPreviewFinal");
+
+        // Validation: Check parentheses
+        const openP = (val.match(/\(/g) || []).length;
+        const closeP = (val.match(/\)/g) || []).length;
+
+        if (openP !== closeP) {
+          preview.textContent = val + " (⚠️ Paréntesis no cerrados)";
+          preview.className =
+            "monospace fw-bold text-danger fs-5 animate__animated animate__pulse";
+          panel.className =
+            "bg-danger bg-opacity-10 p-3 rounded border border-danger border-opacity-25";
+        } else {
+          preview.textContent = val || "...";
+          preview.className = "monospace fw-bold text-success fs-5";
+          panel.className =
+            "bg-success bg-opacity-10 p-3 rounded border border-success border-opacity-25";
+        }
+      }
+
+      function generarRangoSuma() {
+        const input = document.getElementById("rangeSumInput").value.trim();
+        if (!input.includes("-")) {
+          alert("Use el formato inicio-fin (Ej: 1-10)");
+          return;
+        }
+        const parts = input.split("-");
+        const inicio = parseInt(parts[0]);
+        const fin = parseInt(parts[1]);
+
+        if (isNaN(inicio) || isNaN(fin) || inicio >= fin) {
+          alert("Rango inválido.");
+          return;
+        }
+
+        let formula = "";
+        for (let i = inicio; i <= fin; i++) {
+          formula += `{P${i}_PTJ}`;
+          if (i < fin) formula += " + ";
+        }
+
+        insertarFormula(formula);
+        document.getElementById("rangeSumInput").value = "";
+        showToast("✅ Rango de suma generado.");
       }
 
       function insertarEnExcel(fn) {
@@ -6337,7 +6664,7 @@
         const box = document.getElementById("smartTemplatesBox");
         const items = box.querySelectorAll(".p-2");
         const q = query.toLowerCase();
-        items.forEach(it => {
+        items.forEach((it) => {
           const text = it.textContent.toLowerCase();
           it.style.display = text.includes(q) ? "block" : "none";
         });
@@ -6346,10 +6673,15 @@
       let factorActualEditando = null;
 
       function addFactor() {
-        const cod = document.getElementById("facCod").value.trim().toUpperCase();
+        const cod = document
+          .getElementById("facCod")
+          .value.trim()
+          .toUpperCase();
         const desc = document.getElementById("facDesc").value.trim();
-        const formula = document.getElementById("facFormula") ? document.getElementById("facFormula").value.trim() : "";
-        
+        const formula = document.getElementById("facFormula")
+          ? document.getElementById("facFormula").value.trim()
+          : "";
+
         if (!cod || !desc) {
           alert("Completa código y descripción.");
           return;
@@ -6360,10 +6692,12 @@
           factorActualEditando.innerHTML = rowFactorHTML(cod, desc, formula);
           factorActualEditando = null;
           showToast("✅ Factor actualizado.");
-          
+
           // Reset button text
           const btn = document.querySelector('button[onclick="addFactor()"]');
-          if (btn) btn.innerHTML = '<i class="fas fa-save me-2"></i> Guardar Nuevo Factor';
+          if (btn)
+            btn.innerHTML =
+              '<i class="fas fa-save me-2"></i> Guardar Nuevo Factor';
         } else {
           // Create mode
           pushItem("boxFac", "emptyFac", rowFactor(cod, desc, formula));
@@ -6436,13 +6770,17 @@
         }
 
         factorActualEditando = row;
-        
+
         // Update button text to indicate edit mode
         const saveBtn = document.querySelector('button[onclick="addFactor()"]');
-        if (saveBtn) saveBtn.innerHTML = '<i class="fas fa-sync me-2"></i> Actualizar Factor';
-        
+        if (saveBtn)
+          saveBtn.innerHTML =
+            '<i class="fas fa-sync me-2"></i> Actualizar Factor';
+
         // Scroll to form
-        document.getElementById("facCod").scrollIntoView({ behavior: 'smooth', block: 'center' });
+        document
+          .getElementById("facCod")
+          .scrollIntoView({ behavior: "smooth", block: "center" });
       }
 
       function duplicarFactor(btn) {
@@ -6450,7 +6788,7 @@
         const cod = row.getAttribute("data-cod") + "_COPY";
         const desc = row.getAttribute("data-desc") + " (Copia)";
         const formula = row.getAttribute("data-formula");
-        
+
         pushItem("boxFac", "emptyFac", rowFactor(cod, desc, formula));
         showToast("✅ Factor duplicado.");
       }
@@ -8713,9 +9051,11 @@
         const pvModal = document.getElementById("modalPreview");
         if (pvModal)
           pvModal.addEventListener("hidden.bs.modal", detenerTimerPreview);
-          
+
         // Initialize tooltips for elements with title
-        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'));
+        const tooltipTriggerList = [].slice.call(
+          document.querySelectorAll("[title]"),
+        );
         tooltipTriggerList.map(function (tooltipTriggerEl) {
           if (!tooltipTriggerEl.getAttribute("data-bs-toggle")) {
             tooltipTriggerEl.setAttribute("data-bs-toggle", "tooltip");
