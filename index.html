@@ -1061,6 +1061,14 @@
             </p>
           </div>
           <div class="d-flex gap-3 align-items-center">
+            <select
+              class="form-select"
+              style="width: 140px; border-radius: 100px"
+            >
+              <option>Estado: Todos</option>
+              <option>Activo</option>
+              <option>Inactivo</option>
+            </select>
             <div class="search-wrap">
               <i class="fas fa-search"></i>
               <input type="text" id="buscarPrueba" placeholder="Buscar por nombre, tipo o código..." oninput="filtrarPruebas()" />
@@ -1875,6 +1883,14 @@
               <option>Sí</option>
               <option>No</option>
             </select>
+            <select
+              class="form-select"
+              style="width: 140px; border-radius: 100px"
+            >
+              <option>Estado: Todos</option>
+              <option>Activo</option>
+              <option>Inactivo</option>
+            </select>
             <div class="search-wrap">
               <i class="fas fa-search"></i
               ><input
@@ -2013,6 +2029,14 @@
               placeholder="Cód. Prestación"
               style="width: 180px; border-radius: 100px"
             />
+            <select
+              class="form-select"
+              style="width: 140px; border-radius: 100px"
+            >
+              <option>Estado: Todos</option>
+              <option>Activo</option>
+              <option>Inactivo</option>
+            </select>
             <div class="search-wrap">
               <i class="fas fa-search"></i
               ><input
@@ -2150,7 +2174,7 @@
           <div class="d-flex align-items-center justify-content-between mb-3">
             <div class="d-flex align-items-center gap-3">
               <span class="tag tag-tipo"
-                ><i class="fas fa-briefcase-medical me-1"></i>Exámenes Principales</span
+                ><i class="fas fa-briefcase-medical me-1"></i>Examen Médico Ocupacional (EMO)</span
               >
               <small class="text-muted">Ingreso · Periódico · Retiro</small>
             </div>
@@ -2703,7 +2727,7 @@
                     <div class="stepper-num active" id="snum-0">1</div>
                     <div>
                       <div class="stepper-label">Info General</div>
-                      <div class="stepper-sub">Código, nombre, tipo</div>
+                      <div class="stepper-sub">Código, título, tipo</div>
                     </div>
                   </div>
                   <div class="stepper-item" onclick="goStep(1)">
@@ -2721,26 +2745,34 @@
                     </div>
                   </div>
                   
-                  <div class="stepper-item" onclick="goStep(2.5)">
-                    <div class="stepper-num pend" id="snum-2.5">P</div>
+                  <div class="stepper-item" onclick="goStep(3)">
+                    <div class="stepper-num pend" id="snum-3">4</div>
+                    <div>
+                      <div class="stepper-label">Bloqueo preg.</div>
+                      <div class="stepper-sub">Reglas visuales</div>
+                    </div>
+                  </div>
+                  
+                  <div class="stepper-item" onclick="goStep(4)">
+                    <div class="stepper-num pend" id="snum-4">5</div>
                     <div>
                       <div class="stepper-label">Plantilla Respuestas</div>
                       <div class="stepper-sub">Valores y puntajes</div>
                     </div>
                   </div>
                   
-                  <div class="stepper-item" onclick="goStep(3)">
-                    <div class="stepper-num pend" id="snum-3">4</div>
+                  <div class="stepper-item" onclick="goStep(5)">
+                    <div class="stepper-num pend" id="snum-5">6</div>
                     <div>
                       <div class="stepper-label">Factores</div>
                       <div class="stepper-sub">Dimensiones a medir</div>
                     </div>
                   </div>
-                  <div class="stepper-item" onclick="goStep(4)">
-                    <div class="stepper-num pend" id="snum-4">5</div>
+                  <div class="stepper-item" onclick="goStep(6)">
+                    <div class="stepper-num pend" id="snum-6">7</div>
                     <div>
-                      <div class="stepper-label">Respuestas</div>
-                      <div class="stepper-sub">Claves de corrección</div>
+                      <div class="stepper-label">Fichas Asociadas</div>
+                      <div class="stepper-sub">Vincular resultados</div>
                     </div>
                   </div>
                 </div>
@@ -2790,14 +2822,14 @@
                       >
                     </div>
                     <div class="col-md-8">
-                      <label class="form-label">Nombre / Descripción</label>
+                      <label class="form-label">Título</label>
                       <input
                         class="form-control"
                         id="prNom"
                         placeholder="Ej: Escala de Ansiedad de Beck"
                       />
                       <small class="text-muted" style="font-size: 0.75rem"
-                        >Nombre comercial o técnico de la prueba.</small
+                        >Título comercial o técnico de la prueba.</small
                       >
                     </div>
 
@@ -2945,9 +2977,20 @@
                         <label class="form-label mb-2" for="portadaTitulo">Título de la Prueba</label>
                         <input class="form-control mb-3" id="portadaTitulo" type="text" placeholder="Ej. Evaluación Psicológica..." oninput="renderPreviewPortada()">
                         
-                        <label class="form-label mb-2" for="portadaInstrucciones">Instrucciones</label>
-                        <textarea class="form-control mb-3" id="portadaInstrucciones" rows="5" placeholder="Escribe aquí las instrucciones de la prueba..." oninput="renderPreviewPortada()"></textarea>
-
+                        <label class="form-label mb-2" for="portadaInstrucciones">Instrucciones (Editor HTML)</label>
+                        <div class="border rounded mb-3">
+                           <div class="bg-light p-2 border-bottom d-flex gap-2 text-muted">
+                             <button class="btn btn-sm btn-light border-0"><i class="fas fa-bold"></i></button>
+                             <button class="btn btn-sm btn-light border-0"><i class="fas fa-italic"></i></button>
+                             <button class="btn btn-sm btn-light border-0"><i class="fas fa-underline"></i></button>
+                             <span class="border-end mx-1"></span>
+                             <button class="btn btn-sm btn-light border-0"><i class="fas fa-align-left"></i></button>
+                             <button class="btn btn-sm btn-light border-0"><i class="fas fa-align-center"></i></button>
+                             <button class="btn btn-sm btn-light border-0"><i class="fas fa-list-ul"></i></button>
+                             <button class="btn btn-sm btn-light border-0"><i class="fas fa-image"></i></button>
+                           </div>
+                           <textarea class="form-control border-0" id="portadaInstrucciones" rows="5" placeholder="Escribe aquí las instrucciones de la prueba usando formato..." oninput="renderPreviewPortada()"></textarea>
+                        </div>
                         <label class="form-label mb-2" for="portadaImagen"><i class="fas fa-image me-1"></i> Imagen de Fondo Personalizada (Puede seleccionar varias)</label>
                         <input class="form-control" type="file" id="portadaImagen" accept="image/*" multiple onchange="renderPreviewPortada()">
                       </div>
@@ -2997,8 +3040,17 @@
                   </ul>
                 </div>
                 
-                <!-- PASO 2.5 -->
-                <div class="tab-pane-custom" id="step-2.5">
+                <!-- PASO 3 -->
+                <div class="tab-pane-custom" id="step-3">
+                  <h6 class="fw-bold mb-4" style="color: var(--primary-hover)"><i class="fas fa-ban me-2"></i>Bloqueo de Preguntas</h6>
+                  <div class="soft-panel p-4 mb-3 text-center text-muted">
+                    <i class="fas fa-lock fa-3x mb-3 opacity-25"></i><br>
+                    <p class="small mb-0">Seleccione las opciones restrictivas y bloqueos para la visualización de preguntas según criterios configurados.</p>
+                  </div>
+                </div>
+
+                <!-- PASO 4 -->
+                <div class="tab-pane-custom" id="step-4">
                   <div class="d-flex justify-content-between align-items-center mb-4">
                     <h6 class="fw-bold m-0" style="color: var(--primary-hover)">
                       <i class="fas fa-list-ol me-2"></i>Plantilla de Respuestas
@@ -3008,48 +3060,117 @@
                     </button>
                   </div>
                   <div class="soft-panel p-4 mb-3">
-                    <p class="text-muted small mb-3">Asigna valores, puntajes o plantillas globales a las preguntas abiertas y cerradas antes de asociar los factores.</p>
-                    <ul class="items-box list-unstyled p-0 m-0" id="listaPlantillaResp">
-                      <li class="text-center text-muted py-4 small" id="emptyPlantilla">
-                        <i class="fas fa-clipboard-check fa-3x mb-3 opacity-25"></i><br>
-                        Haga clic en "Sincronizar Preguntas" para listar los ítems creados.
-                      </li>
+                    <p class="text-muted small mb-3">Asigna valores, puntajes o plantillas globales a las alternativas (cerradas) o texto/números exactos (abiertas).</p>
+                    
+                    <div class="border rounded bg-white p-3 shadow-sm mb-4 border-primary">
+                       <h6 class="fw-bold text-primary mb-3"><i class="fas fa-sliders-h me-2"></i>Asignar Regla de Respuesta / Puntaje</h6>
+                       <div class="row g-3 align-items-end">
+                          <div class="col-md-3">
+                             <label class="form-label small fw-bold text-muted">Pregunta Destino</label>
+                             <select class="form-select form-select-sm border-secondary"><option>P1 - ¿Con qué frecuencia...?</option><option>P2 - Edad...</option></select>
+                          </div>
+                          <div class="col-md-4">
+                             <label class="form-label small fw-bold text-muted">Condición (Alternativa / Valor Exacto)</label>
+                             <input type="text" class="form-control form-control-sm border-secondary" placeholder="Ej: A, B, 'Sí', 15...">
+                          </div>
+                          <div class="col-md-2">
+                             <label class="form-label small fw-bold text-muted">Puntaje</label>
+                             <input type="number" class="form-control form-control-sm border-secondary text-success fw-bold" value="1.0" step="0.1" title="Admite valores decimales (Confirmado)">
+                          </div>
+                          <div class="col-md-3 text-end">
+                             <button class="btn btn-sm btn-primary w-100 fw-bold"><i class="fas fa-plus me-1"></i> Añadir Regla</button>
+                          </div>
+                       </div>
+                    </div>
+
+                    <ul class="items-box list-unstyled p-0 m-0 mb-4" id="listaPlantillaResp">
+                       <li class="item-row p-2 mb-2 border rounded shadow-sm d-flex justify-content-between align-items-center bg-white"><div class="inf"><span class="badge bg-primary me-2">P1</span><span class="fw-bold me-2">Alternativa 'A'</span><span class="text-muted small"><i class="fas fa-arrow-right mx-1"></i>Vale: <span class="text-success fw-bold">1.5 pts</span></span></div><button class="btn btn-light rounded-circle text-danger p-0" style="width:28px;height:28px;" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button></li>
+                       <li class="item-row p-2 mb-2 border rounded shadow-sm d-flex justify-content-between align-items-center bg-white"><div class="inf"><span class="badge bg-primary me-2">P2</span><span class="fw-bold me-2">Texto Igual a 'Sí'</span><span class="text-muted small"><i class="fas fa-arrow-right mx-1"></i>Vale: <span class="text-success fw-bold">0.0 pts</span></span></div><button class="btn btn-light rounded-circle text-danger p-0" style="width:28px;height:28px;" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button></li>
                     </ul>
+                    <div class="d-flex gap-2 justify-content-end border-top pt-3">
+                      <button class="btn btn-light px-4 fw-bold" onclick="showToast('Cambios cancelados')">Cancelar</button>
+                      <button class="btn btn-outline-secondary px-4 fw-bold" onclick="document.getElementById('listaPlantillaResp').innerHTML=''; showToast('Registros limpiados')">Limpiar</button>
+                      <button class="btn btn-prim px-4 fw-bold" onclick="showToast('Plantilla Guardada con Éxito')"><i class="fas fa-save me-2"></i> Grabar</button>
+                    </div>
                   </div>
                 </div>
 
-                <!-- PASO 3 -->
-                <div class="tab-pane-custom" id="step-3">
+                <!-- PASO 5 -->
+                <div class="tab-pane-custom" id="step-5">
                   <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
                     <i class="fas fa-layer-group me-2"></i>Factores
                     (Dimensiones)
                   </h6>
-                  <div class="soft-panel mb-3">
-                    <div class="row g-3 align-items-end">
-                      <div class="col-md-3">
-                        <label class="form-label">Código Factor</label
-                        ><input
-                          class="form-control"
-                          id="facCod"
-                          placeholder="FAC-001"
-                        />
-                      </div>
-                      <div class="col-md-7">
-                        <label class="form-label">Descripción del Factor</label
-                        ><input
-                          class="form-control"
-                          id="facDesc"
-                          placeholder="Ej: Ansiedad Somática"
-                        />
-                      </div>
+                  <div class="soft-panel mb-3 p-4">
+                    <div class="row g-3">
                       <div class="col-md-2">
-                        <button
-                          class="btn btn-grp w-100"
-                          onclick="addFactor()"
-                          style="padding: 12px"
-                        >
-                          <i class="fas fa-plus"></i>
-                        </button>
+                        <label class="form-label text-primary fw-bold small">Orden Ejec.</label>
+                        <input type="number" class="form-control" id="facOrd" value="1" min="1" />
+                      </div>
+                      <div class="col-md-3">
+                        <label class="form-label text-primary fw-bold small">Código Factor</label>
+                        <input class="form-control" id="facCod" placeholder="FAC-001" />
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label text-primary fw-bold small">Descripción del Factor</label>
+                        <input class="form-control" id="facDesc" placeholder="Ej: Ansiedad Somática" />
+                      </div>
+                      <div class="col-md-3">
+                        <label class="form-label text-primary fw-bold small">Decimales Res.</label>
+                        <input type="number" class="form-control" id="facDec" value="2" min="0" max="4" title="Resultado numérico con este tope de decimales" />
+                      </div>
+                      
+                      <div class="col-md-12 my-2 mt-3 d-flex gap-4 flex-wrap">
+                        <div class="form-check form-switch">
+                           <input class="form-check-input" type="checkbox" id="facDepEdad">
+                           <label class="form-check-label fw-bold text-muted small" for="facDepEdad">Dependencia de edad (Rangos)</label>
+                        </div>
+                        <div class="form-check form-switch">
+                           <input class="form-check-input" type="checkbox" id="facDepSexo">
+                           <label class="form-check-label fw-bold text-muted small" for="facDepSexo">Dependencia de sexo (M/F)</label>
+                        </div>
+                        <div class="form-check form-switch">
+                           <input class="form-check-input" type="checkbox" id="facDepNivel">
+                           <label class="form-check-label fw-bold text-muted small" for="facDepNivel">Dependencia Nivel (Requiere tabla base)</label>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 mt-2 pt-3 border-top pb-1">
+                        <label class="form-label fw-bold mb-2" style="color:var(--primary)"><i class="fas fa-square-root-alt me-2"></i>Constructor de Fórmula</label>
+                        <div class="d-flex flex-wrap gap-2 mb-2 align-items-center bg-light p-2 rounded drop-shadow-sm" style="border: 1px dashed var(--border-light)">
+                           <button type="button" class="btn btn-sm btn-white border fw-bold" onclick="insertarFormula(' SI ')">SI</button>
+                           <button type="button" class="btn btn-sm btn-white border fw-bold text-primary" onclick="insertarFormula(' ENTONCES ')">ENTONCES</button>
+                           <span class="border-end mx-1"></span>
+                           <button type="button" class="btn btn-sm btn-white border fw-bold" title="Suma" onclick="insertarFormula(' + ')"><i class="fas fa-plus"></i></button>
+                           <button type="button" class="btn btn-sm btn-white border fw-bold" title="Resta" onclick="insertarFormula(' - ')"><i class="fas fa-minus"></i></button>
+                           <button type="button" class="btn btn-sm btn-white border fw-bold" title="Multiplicación" onclick="insertarFormula(' * ')"><i class="fas fa-times"></i></button>
+                           <button type="button" class="btn btn-sm btn-white border fw-bold" title="División" onclick="insertarFormula(' / ')"><i class="fas fa-divide"></i></button>
+                           <button type="button" class="btn btn-sm btn-white border fw-bold" title="Paréntesis" onclick="insertarFormula('(')">(</button>
+                           <button type="button" class="btn btn-sm btn-white border fw-bold" title="Paréntesis" onclick="insertarFormula(')')">)</button>
+                           <button type="button" class="btn btn-sm btn-white border fw-bold" title="Igual" onclick="insertarFormula(' == ')">==</button>
+                           <button type="button" class="btn btn-sm btn-white border fw-bold" title="Mayor" onclick="insertarFormula(' > ')">&gt;</button>
+                           <button type="button" class="btn btn-sm btn-white border fw-bold" title="Menor" onclick="insertarFormula(' < ')">&lt;</button>
+                           <button type="button" class="btn btn-sm btn-white border fw-bold" title="Mayor Igual" onclick="insertarFormula(' >= ')">&gt;=</button>
+                           <button type="button" class="btn btn-sm btn-white border fw-bold" title="Menor Igual" onclick="insertarFormula(' <= ')">&lt;=</button>
+                           <span class="border-end mx-1"></span>
+                           <button type="button" class="btn btn-sm btn-outline-info fw-bold" onclick="showToast('Se abriría modal de múltiples variables')"><i class="fas fa-list-check me-1"></i> Sumar ++ Preguntas</button>
+                           <span class="border-end mx-1"></span>
+                           <select id="facSelPreg" class="form-select form-select-sm w-auto d-inline-block border-secondary text-secondary fw-bold" style="min-width:140px;" onchange="if(this.value) insertarFormula('{' + this.value + '}'); this.value='';">
+                             <option value="">Var. Preguntas</option>
+                             <option value="P1_PTJ">P1 - Puntaje</option>
+                             <option value="P2_PTJ">P2 - Puntaje</option>
+                           </select>
+                           <select id="facSelFac" class="form-select form-select-sm w-auto d-inline-block border-secondary text-secondary fw-bold" style="min-width:140px;" onchange="if(this.value) insertarFormula('[' + this.value + ']'); this.value='';">
+                             <option value="">Var. Factores</option>
+                             <option value="FAC-001">FAC-001</option>
+                           </select>
+                           <button type="button" class="btn btn-sm btn-outline-danger ms-auto" title="Borrar Todo" onclick="document.getElementById('facFormula').value = ''"><i class="fas fa-eraser"></i> Limpiar</button>
+                        </div>
+                        <textarea id="facFormula" class="form-control p-3 bg-white border border-primary shadow-sm" style="min-height: 80px; font-family: monospace; font-size: 1.1rem; line-height:1.5; font-weight: 600;" placeholder="Constructor de Fórmula Visual (Ej: SUM({P1_PTJ}, {P2_PTJ}) / 2)"></textarea>
+                      </div>
+                      
+                      <div class="col-12 text-end mt-4">
+                        <button class="btn btn-outline-primary px-4 py-2 fw-bold w-100" onclick="addFactor()"><i class="fas fa-save me-2"></i> Guardar Nuevo Factor</button>
                       </div>
                     </div>
                   </div>
@@ -3063,74 +3184,47 @@
                     </div>
                   </div>
                 </div>
-                <!-- PASO 4 -->
-                <div class="tab-pane-custom" id="step-4">
+                <!-- PASO 6 -->
+                <div class="tab-pane-custom" id="step-6">
                   <h6 class="fw-bold mb-4" style="color: var(--primary-hover)">
-                    <i class="fas fa-check-double me-2"></i>Claves de Respuesta
+                    <i class="fas fa-link me-2"></i>Fichas Asociadas a la Prueba
                   </h6>
-                  <div class="soft-panel mb-3">
-                    <div class="row g-3 align-items-end">
-                      <div class="col-md-4">
-                        <label class="form-label fw-bold text-primary small"><i class="fas fa-magic me-1"></i> Usar Plantilla de Respuesta</label>
-                        <select class="form-select" id="tplRespSelect" onchange="aplicarPlantillaRespuesta()">
-                          <option value="">-- Seleccionar --</option>
-                          <option value="likert5">Likert 5 (Siempre - Nunca)</option>
-                          <option value="likert4">Likert 4 (Totalmente - Nada)</option>
-                          <option value="si_no">Binario (Sí / No)</option>
-                          <option value="frecuencia">Frecuencia (Mucho - Poco)</option>
-                        </select>
+                  <div class="soft-panel mb-3 p-4">
+                    <div class="row g-3">
+                      <div class="col-md-9">
+                        <label class="form-label text-primary fw-bold small">Buscar Ficha para asociar</label>
+                        <div class="search-wrap">
+                          <i class="fas fa-search"></i>
+                          <input type="text" class="form-control bg-white" placeholder="Buscar ficha por código o descripción..." style="border-radius:12px; padding-left:40px;" />
+                        </div>
                       </div>
-                      <div class="col-md-8 text-end">
-                        <small class="text-muted d-block mb-1">Crea automáticamente las claves según la plantilla seleccionada.</small>
+                      <div class="col-md-3 d-flex align-items-end">
+                        <button class="btn btn-outline-primary fw-bold w-100" onclick="showToast('Ficha vinculada con éxito')"><i class="fas fa-plus me-1"></i> Vincular Ficha</button>
                       </div>
-                    </div>
-                  </div>
-                  <div class="soft-panel mb-3">
-                    <div class="row g-3 align-items-end">
-                      <div class="col-md-2">
-                        <label class="form-label">Pregunta N°</label
-                        ><input
-                          class="form-control"
-                          id="respPrg"
-                          placeholder="01"
-                          type="number"
-                          min="1"
-                        />
-                      </div>
-                      <div class="col-md-3">
-                        <label class="form-label">Respuesta Correcta</label
-                        ><input
-                          class="form-control"
-                          id="respClave"
-                          placeholder="A / B / C..."
-                        />
-                      </div>
-                      <div class="col-md-4">
-                        <label class="form-label">Factor asociado</label
-                        ><input
-                          class="form-control"
-                          id="respFac"
-                          placeholder="FAC-001"
-                        />
-                      </div>
-                      <div class="col-md-3">
-                        <button
-                          class="btn btn-grp w-100"
-                          onclick="addRespuesta()"
-                          style="padding: 12px"
-                        >
-                          <i class="fas fa-plus"></i>
-                        </button>
+                      
+                      <div class="col-12 mt-4 pt-4 border-top">
+                        <label class="form-label text-primary fw-bold small"><i class="fas fa-tag me-1 text-primary"></i> Códigos Dato y Condicionales (Ficha Seleccionada)</label>
+                        <div class="border rounded bg-white p-3 shadow-sm border-secondary mt-2">
+                          <div class="d-flex align-items-center gap-3 mb-3">
+                             <div class="form-check form-switch m-0">
+                               <input class="form-check-input" type="checkbox" id="faCheck1" checked>
+                               <label class="form-check-label fw-bold small text-dark" for="faCheck1">Activar vínculo general de Códigos Dato</label>
+                             </div>
+                             <small class="text-muted"><i class="fas fa-info-circle me-1"></i>Permite trazar los campos de esta prueba hacia datos guardados en una ficha global.</small>
+                          </div>
+                          <div class="d-flex flex-wrap align-items-center gap-3 bg-light p-2 rounded">
+                             <select class="form-select form-select-sm w-auto fw-bold text-muted border-secondary"><option>PTJ-001 (Puntaje Total)</option></select>
+                             <span class="text-muted fw-bold small"><i class="fas fa-arrow-right"></i> Mapeo dinámico final:</span>
+                             <select class="form-select form-select-sm w-auto fw-bold text-muted border-secondary"><option>Variable: RESULTADO_TOTAL</option></select>
+                             <button class="btn btn-sm btn-white border fw-bold text-success ms-auto"><i class="fas fa-check me-1"></i> Vinculado</button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div class="items-box" id="boxResp">
-                    <div
-                      class="text-center text-muted py-4 small"
-                      id="emptyResp"
-                    >
-                      <i class="fas fa-check-double fa-3x mb-3 opacity-25"></i
-                      ><br />Sin claves.
+                  <div class="items-box">
+                    <div class="text-center text-muted py-4 small">
+                      <i class="fas fa-link fa-3x mb-3 opacity-25"></i><br />Sin fichas vinculadas actualmente.
                     </div>
                   </div>
                 </div>
@@ -3158,175 +3252,6 @@
       </div>
     </div><!-- screen-prueba-form -->
     </div><!-- /main-content -->
-
-    <!-- MODALS CONSOLIDATED AT END OF BODY -->
-    <div class="modal fade" id="modalNuevaPregunta" tabindex="-1">
-      <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title"><i class="fas fa-plus-circle me-2 text-primary"></i>Nueva Pregunta</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body bg-light">
-            <div class="row g-3">
-              <div class="col-md-12">
-                <label class="form-label fw-bold" style="color:var(--primary)">Seleccionar Tipo de Pregunta</label>
-                <select class="form-select border-primary shadow-sm" id="mpTipoPreg_Master" onchange="renderizarControlesPregunta()">
-                  <option value="" selected disabled>-- Elige un tipo --</option>
-                  <option value="abierta">Abierta</option>
-                  <option value="cerrada">Cerrada</option>
-                  <option value="numerica">Numérica</option>
-                </select>
-              </div>
-              <div class="col-12" id="mpContenedorPregunta" style="display:none; transition: all 0.3s;"></div>
-            </div>
-          </div>
-          <div class="modal-footer d-flex justify-content-between bg-white">
-            <button class="btn btn-outline-secondary fw-bold" onclick="previsualizarPregunta()"><i class="fas fa-eye me-1"></i> Previsualizar</button>
-            <div>
-              <button class="btn btn-light fw-bold" data-bs-dismiss="modal">Cancelar</button>
-              <button class="btn btn-prim px-4 fw-bold" onclick="guardarNuevaPregunta()">Guardar Pregunta</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="modalCentro" tabindex="-1">
-      <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="tCentro"><i class="fas fa-hospital me-2 text-primary"></i>Centro Médico</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body">
-            <div class="soft-panel mb-4 p-3"><div class="row g-4">
-              <div class="col-md-3"><label class="form-label">ID (Autogenerado)</label><input class="form-control" value="CM-012" style="background:#e2e8f0;color:#64748b;border:1px dotted #94a3b8;" readonly disabled /></div>
-              <div class="col-md-3"><label class="form-label">Código</label><input class="form-control" id="cCod" placeholder="Ej: CM-LIMA-01" /></div>
-              <div class="col-md-6"><label class="form-label">Nombre / Descripción</label><input class="form-control" id="cDesc" placeholder="Ej: Centro Médico San Borja" /></div>
-            </div></div>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button>
-            <button class="btn-prim" onclick="confirmarGuardar('Centro Médico', () => { setTimeout(() => bootstrap.Modal.getInstance(document.getElementById('modalCentro')).hide(), 300); showToast('Centro Médico guardado correctamente.'); })"><i class="fas fa-save me-2"></i>Guardar Cambios</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="modalSimple" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered" style="max-width: 460px">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="tSimple"><i class="fas fa-plus me-2 text-primary"></i>Nuevo Registro</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body">
-            <div class="row g-4">
-              <div class="col-12"><label class="form-label">ID (Autogenerado)</label><input class="form-control" value="SMP-025" style="background:#e2e8f0;color:#64748b;border:1px dotted #94a3b8;" readonly disabled /></div>
-              <div class="col-md-5"><label class="form-label">Código</label><input class="form-control" id="sCod" placeholder="Ej: GR-001" /></div>
-              <div class="col-12"><label class="form-label">Descripción</label><input class="form-control" id="sDesc" placeholder="Ej: Administrativo" /></div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button>
-            <button class="btn-prim" onclick="confirmarGuardar('Registro Simple', () => { setTimeout(() => bootstrap.Modal.getInstance(document.getElementById('modalSimple')).hide(), 300); showToast('Registro guardado correctamente.'); })"><i class="fas fa-save me-2"></i>Guardar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="modalPrestacion" tabindex="-1">
-      <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="tPrest"><i class="fas fa-stethoscope me-2 text-primary"></i>Nueva Prestación</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body">
-            <div class="soft-panel mb-4 p-3"><div class="row g-4">
-              <div class="col-md-3"><label class="form-label">Código</label><input class="form-control" id="pCod" placeholder="Ej: PR-OCC-01" /></div>
-              <div class="col-md-6"><label class="form-label">Descripción</label><input class="form-control" id="pDesc" placeholder="Ej: Evaluación Ocupacional" /></div>
-              <div class="col-md-3"><label class="form-label">Estado</label><select class="form-select" id="pEstado"><option value="activo">Activo</option><option value="borrador">Borrador</option></select></div>
-            </div></div>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button>
-            <button class="btn-prim" onclick="confirmarGuardar('Prestación', () => { setTimeout(() => bootstrap.Modal.getInstance(document.getElementById('modalPrestacion')).hide(), 300); showToast('Prestación guardada correctamente.'); })"><i class="fas fa-save me-2"></i>Guardar Prestación</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="modalFicha" tabindex="-1">
-      <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="tFicha"><i class="fas fa-clipboard-list me-2 text-primary"></i>Nueva Ficha</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body">
-            <div class="soft-panel mb-4 p-3"><div class="row g-4">
-              <div class="col-md-3"><label class="form-label">Código Ficha</label><input class="form-control" id="fCod" /></div>
-              <div class="col-md-6"><label class="form-label">Descripción</label><input class="form-control" id="fDesc" /></div>
-            </div></div>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button>
-            <button class="btn-prim" onclick="confirmarGuardar('Ficha', () => { setTimeout(() => bootstrap.Modal.getInstance(document.getElementById('modalFicha')).hide(), 300); showToast('Ficha guardada correctamente.'); })"><i class="fas fa-save me-2"></i>Guardar Ficha</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="modalAddPrestOrden" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title"><i class="fas fa-plus-circle me-2 text-primary"></i>Añadir Prestación</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body">
-            <p id="lblGrupoOrden" style="font-size:0.9rem"></p>
-            <div class="search-wrap mb-3"><i class="fas fa-search"></i><input type="text" id="inputBuscadorPrestOrden" placeholder="Buscar..." class="form-control" style="border-radius:100px" oninput="filtrarListaPrestOrden(this.value)" /></div>
-            <div id="listaPrestOrden" style="max-height:320px;overflow-y:auto">
-                <div class="item-row p-3"><div class="inf"><span class="tag tag-tipo fw-bold">PR-PSI-010</span><span class="fw-medium">Evaluación Psicológica Gerencial</span></div><button class="btn btn-sm btn-prim" onclick="confirmarAddPrestOrden('PR-PSI-010','Evaluación Psicológica Gerencial')"><i class="fas fa-plus me-1"></i>Añadir</button></div>
-                <div class="item-row p-3"><div class="inf"><span class="tag tag-tipo fw-bold">PR-ALT-008</span><span class="fw-medium">Test de Altura Nivel 2</span></div><button class="btn btn-sm btn-prim" onclick="confirmarAddPrestOrden('PR-ALT-008','Test de Altura Nivel 2')"><i class="fas fa-plus me-1"></i>Añadir</button></div>
-            </div>
-          </div>
-          <div class="modal-footer"><button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cerrar</button></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="modalOrdenPruebas" tabindex="-1">
-      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="tOrdenPruebas"><i class="fas fa-sort me-2 text-primary"></i>Orden de Pruebas</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body">
-            <div id="selectorGrupoOrden" class="soft-panel mb-4" style="display: none">
-              <select class="form-select" id="selectGrupoOrden" onchange="cargarPruebasOrden()"><option value="">Seleccionar grupo...</option><option value="GO-001">Administrativos</option><option value="GO-002">Operarios</option><option value="GO-003">Operativos</option></select>
-            </div>
-            <div id="listaPruebasOrden"></div>
-          </div>
-          <div class="modal-footer"><button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cerrar</button><button class="btn-prim" onclick="confirmarGuardar('Orden de Pruebas', () => { bootstrap.Modal.getInstance(document.getElementById('modalOrdenPruebas')).hide(); showToast('Orden guardado correctamente.'); })"><i class="fas fa-save me-2"></i>Guardar Orden</button></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="modalConfirm" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered modal-sm">
-        <div class="modal-content text-center py-4 px-3" style="border-radius: 24px">
-          <div class="mb-3"><div id="mConfirmIcon" class="d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 64px; height: 64px; background: #e0f2fe; color: var(--primary); font-size: 1.5rem;"><i class="fas fa-question"></i></div></div>
-          <h5 class="modal-title mb-2 fw-bold" id="mConfirmTitle">¿Estás seguro?</h5>
-          <p class="text-muted mb-4 px-2" id="mConfirmMsg" style="font-size: 0.9rem">Esta acción no se puede deshacer.</p>
-          <div class="d-flex justify-content-center gap-2"><button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button><button class="btn-prim px-4" id="mConfirmBtn">Confirmar</button></div>
-        </div>
-      </div>
-    </div>
 
     <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 2000">
       <div id="statusToast" class="toast align-items-center text-white bg-success border-0 pr-toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -3623,14 +3548,15 @@
       /* ── HELPERS ── */
       function pushItem(boxId, emptyId, html) {
         const box = document.getElementById(boxId);
+        if(!box) return;
         document.getElementById(emptyId)?.remove();
         const d = document.createElement("div");
         d.innerHTML = html;
         box.appendChild(d.firstElementChild);
       }
       function resetBox(boxId, emptyId, icon, msg) {
-        document.getElementById(boxId).innerHTML =
-          `<div class="text-center text-muted py-4 small" id="${emptyId}"><i class="${icon} fa-3x mb-3 opacity-25"></i><br>${msg}</div>`;
+        const box = document.getElementById(boxId);
+        if(box) box.innerHTML = `<div class="text-center text-muted py-4 small" id="${emptyId}"><i class="${icon} fa-3x mb-3 opacity-25"></i><br>${msg}</div>`;
       }
 
       /* ── CENTROS ── */
@@ -3882,8 +3808,8 @@
        PRUEBAS PSICOLÓGICAS
     ══════════════════════════════ */
       let currentStep = 0;
-      const TOTAL_STEPS = 5;
-      const STEP_PCT = [20, 40, 60, 80, 100];
+      const TOTAL_STEPS = 7;
+      const STEP_PCT = [14, 28, 42, 57, 71, 85, 100];
 
       function goStep(n) {
         for (let i = 0; i < TOTAL_STEPS; i++) {
@@ -3908,10 +3834,9 @@
         }
         document.getElementById("step-" + n)?.classList.add("active");
         currentStep = n;
-        document.getElementById("modalProgressFill").style.width =
-          STEP_PCT[n] + "%";
-        document.getElementById("modalProgressPct").textContent =
-          STEP_PCT[n] + "%";
+        const pct = STEP_PCT[n] !== undefined ? STEP_PCT[n] : 0;
+        document.getElementById("modalProgressFill").style.width = pct + "%";
+        document.getElementById("modalProgressPct").textContent = pct + "%";
         document.getElementById("btnPrev").style.display =
           n === 0 ? "none" : "inline-flex";
         document.getElementById("btnNext").style.display =
@@ -3947,9 +3872,7 @@
         document.getElementById("prEmojiPreview").innerHTML =
           '<i class="fas fa-brain"></i>';
         resetBox("boxPreg", "emptyPreg", "fas fa-question", "Sin preguntas.");
-        
         resetBox("boxFac", "emptyFac", "fas fa-layer-group", "Sin factores.");
-        resetBox("boxResp", "emptyResp", "fas fa-check-double", "Sin claves.");
         
         document.getElementById("portadaTitulo").value = "";
         document.getElementById("portadaInstrucciones").value = "";
@@ -4002,14 +3925,7 @@
           document.getElementById("prEmojiPreview").innerHTML =
             '<i class="fas ' + d.icon + '"></i>';
           resetBox("boxPreg", "emptyPreg", "fas fa-question", "Sin preguntas.");
-          
           resetBox("boxFac", "emptyFac", "fas fa-layer-group", "Sin factores.");
-          resetBox(
-            "boxResp",
-            "emptyResp",
-            "fas fa-check-double",
-            "Sin claves.",
-          );
           if (d.step >= 1) {
             document.getElementById("selectPlantillaPortada").value = "detallada";
             document.getElementById("portadaTitulo").value = d.nom + " - Bienvenida";
@@ -4038,16 +3954,11 @@
                pushItem("boxFac", "emptyFac", rowFactor("FAC-ENT-B", "Estabilidad Emocional"));
             }
           }
-          if (d.step >= 4) {
-            if (cod === "PSI-ANS-001") {
-               pushItem("boxResp", "emptyResp", rowRespuesta(1, "B", "FAC-001"));
-               pushItem("boxResp", "emptyResp", rowRespuesta(2, "C", "FAC-002"));
-            } else if (cod === "PSI-CHI-004") {
-               pushItem("boxResp", "emptyResp", rowRespuesta(1, "-", "FAC-ENT-A"));
-            }
+          if (d.step >= 5) {
+             // Ya no existe step 4 Claves de Respuesta original, pero simulamos Factores que es paso 6 
           }
           go('prueba-form');
-          goStep(d.step > 4 ? 4 : d.step);
+          goStep(d.step > 6 ? 6 : d.step);
         }
       }
 
@@ -4133,11 +4044,11 @@
           .querySelectorAll("#listaPruebas .card-prueba")
           .forEach((card) => {
             const txt = (
-              card.dataset.nombre +
+              (card.dataset.nombre || "") +
               " " +
-              card.dataset.tipo +
+              (card.dataset.tipo || "") +
               " " +
-              card.dataset.codigo
+              (card.dataset.codigo || "")
             ).toLowerCase();
             card.style.display = txt.includes(q) ? "" : "none";
           });
@@ -4170,19 +4081,47 @@
         });
       }
 
+      function renumerarContenedor(containerSelector) {
+        const container = document.querySelector(containerSelector);
+        if (!container) return;
+        const isAlt = containerSelector.includes('alternativas');
+        const items = container.querySelectorAll(isAlt ? '.item-alt' : '.item-row');
+        items.forEach((item, index) => {
+          const inp = item.querySelector('.pos-input');
+          if (inp) inp.value = index + 1;
+          if (!isAlt) {
+             const badge = item.querySelector('.badge.bg-primary');
+             if (badge) badge.textContent = `P${index + 1}`;
+          }
+        });
+      }
+
       let draggedPregItem = null;
       function dragPregRow(e) { draggedPregItem = e.target.closest('.item-row'); e.dataTransfer.effectAllowed = 'move'; setTimeout(() => { if(draggedPregItem) draggedPregItem.style.opacity = '0.5'; }, 0); }
       function dragOverPregRow(e) { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; const overItem = e.target.closest('.item-row'); if (overItem && overItem !== draggedPregItem) { const list = overItem.parentNode; const items = [...list.querySelectorAll('.item-row')]; if (items.indexOf(draggedPregItem) < items.indexOf(overItem)) overItem.after(draggedPregItem); else overItem.before(draggedPregItem); } }
       function dropPregRow(e) { e.stopPropagation(); return false; }
-      function dragEndPregRow(e) { if (draggedPregItem) draggedPregItem.style.opacity = '1'; draggedPregItem = null; const items = document.querySelectorAll('#boxPreg .item-row'); items.forEach((item, index) => { const badge = item.querySelector('.badge.bg-primary'); if(badge) badge.textContent = `P${index + 1}`; }); }
+      function dragEndPregRow(e) { 
+        if (draggedPregItem) draggedPregItem.style.opacity = '1'; 
+        const pId = draggedPregItem ? draggedPregItem.parentNode.id : 'boxPreg';
+        draggedPregItem = null; 
+        renumerarContenedor('#' + pId); 
+      }
 
-            function duplicarPregunta(btn) {
+      function duplicarPregunta(btn) {
          const row = btn.closest('.item-row');
+         const p = row.parentNode;
          const clone = row.cloneNode(true);
          clone.classList.remove('dragging');
          clone.style.opacity = '1';
          row.after(clone);
-         dragEndPregRow(); // to renumber
+         renumerarContenedor('#' + p.id);
+         
+         const editBtn = clone.querySelector('.btn-edit-desc');
+         if(editBtn) {
+            setTimeout(() => {
+                editarTextoEnLinea(editBtn);
+            }, 50);
+         }
       }
 
       function rowPregunta(n, txt, tipo = 'abierta') {
@@ -4190,7 +4129,7 @@
         return `<li class="item-row p-3 mb-2 border rounded shadow-sm d-flex justify-content-between align-items-center bg-white" data-tipo="${tipo}" draggable="true" ondragstart="dragPregRow(event)" ondragover="dragOverPregRow(event)" ondrop="dropPregRow(event)" ondragend="dragEndPregRow(event)">
           <div class="inf d-flex align-items-center gap-3">
             <i class="fas fa-grip-lines text-muted" style="cursor: grab;" title="Arrastrar para ordenar"></i>
-            <input type="number" class="pos-input" value="${n}" min="1" onchange="reordenarPorInput(this, '#boxPreg')">
+            <input type="number" class="pos-input" value="${n}" min="1" onchange="reordenarPorInput(this, '#' + this.closest('[id]').id)">
             <div>
               <span class="badge bg-primary mb-1">P${n}</span>
               <span class="badge bg-light text-dark border ms-1"><i class="${iconInfo} me-1"></i>${tipo.charAt(0).toUpperCase() + tipo.slice(1)}</span>
@@ -4200,15 +4139,16 @@
           <div class="d-flex flex-column gap-1">
             <button class="btn btn-sm btn-light border btn-edit-desc" title="Editar" onclick="editarTextoEnLinea(this)"><i class="fas fa-edit text-muted"></i></button>
             <button class="btn btn-sm btn-light border text-primary" title="Duplicar" onclick="duplicarPregunta(this)"><i class="fas fa-copy"></i></button>
-            <button class="btn btn-sm btn-light border text-danger" title="Eliminar" onclick="this.closest('.item-row').remove()"><i class="fas fa-trash"></i></button>
+            <button class="btn btn-sm btn-light border text-danger" title="Eliminar" onclick="const p = this.closest('.item-row').parentNode; this.closest('.item-row').remove(); renumerarContenedor('#' + p.id);"><i class="fas fa-trash"></i></button>
           </div>
         </li>`;
       }
 
       function reordenarPorInput(input, containerSelector) {
-        const row = input.closest('.item-row');
+        const isAlt = containerSelector.includes('alternativas');
+        const row = input.closest(isAlt ? '.item-alt' : '.item-row');
         const container = document.querySelector(containerSelector);
-        const children = [...container.querySelectorAll('.item-row')];
+        const children = [...container.querySelectorAll(isAlt ? '.item-alt' : '.item-row')];
         const newPos = parseInt(input.value) - 1;
         
         if (newPos >= 0 && newPos < children.length) {
@@ -4227,7 +4167,7 @@
         } else {
           input.value = children.indexOf(row) + 1;
         }
-        dragEndPregRow(); // Para renumerar badges si aplica
+        renumerarContenedor(containerSelector);
       }
 
       function renderizarControlesPregunta() {
@@ -4328,7 +4268,7 @@
                   </div>
 
                   
-                  <div class="col-md-4 mt-2">
+                  <div class="col-md-4 mt-2" id="mp_A_boxVineta">
                     <label class="form-label text-muted small fw-bold mb-1">Tipo de Viñeta</label>
                     <select class="form-select form-select-sm" id="mp_vineta">
                       <option value="num">Números (1, 2, 3)</option>
@@ -4453,8 +4393,42 @@
               </div>
             </div>
           `;
+        } else if (tipo === 'matriz') {
+          html = `
+            <div class="p-3 mb-0 border rounded shadow-sm bg-white border-top border-4" style="border-top-color: #8b5cf6 !important;">
+              <h6 class="fw-bold mb-3"><i class="fas fa-th me-2 text-purple" style="color:#8b5cf6"></i>Configuración - Pregunta Matriz</h6>
+              <div class="row g-3">
+                 <div class="col-md-12">
+                   <label class="form-label fw-bold small text-primary mb-1">Descripción de la Matriz</label>
+                   <input type="text" class="form-control" placeholder="Escribe la pregunta matriz...">
+                 </div>
+                 <div class="col-md-6">
+                   <label class="form-label text-muted small fw-bold mb-1">Filas (Sub-preguntas)</label>
+                   <textarea class="form-control" rows="3" placeholder="Fila 1\\nFila 2\\n..."></textarea>
+                 </div>
+                 <div class="col-md-6">
+                   <label class="form-label text-muted small fw-bold mb-1">Columnas (Opciones)</label>
+                   <textarea class="form-control" rows="3" placeholder="Opción 1\\nOpción 2\\n..."></textarea>
+                 </div>
+              </div>
+            </div>`;
+        } else if (tipo === 'tarjeta') {
+          html = `
+            <div class="p-3 mb-0 border rounded shadow-sm bg-white border-top border-4" style="border-top-color: #ec4899 !important;">
+              <h6 class="fw-bold mb-3"><i class="fas fa-id-card me-2 text-pink" style="color:#ec4899"></i>Configuración - Pregunta Tarjeta</h6>
+              <div class="row g-3">
+                 <div class="col-md-12">
+                   <label class="form-label fw-bold small text-primary mb-1">Descripción de la Tarjeta</label>
+                   <input type="text" class="form-control" placeholder="Escribe la descripción de identificación...">
+                 </div>
+                 <div class="col-md-12">
+                   <label class="form-label fw-bold small text-primary mb-1">Contenido HTML / Rich Text</label>
+                   <textarea class="form-control" rows="4" placeholder="Contenido descriptivo de la tarjeta de presentación..."></textarea>
+                 </div>
+              </div>
+            </div>`;
         } else {
-          html = `<div class="alert alert-secondary mb-0"><i class="fas fa-info-circle me-2"></i>Funcionalidad no implementada para '${tipo}' actualmente. Elige Abierta, Cerrada o Numérica.</div>`;
+          html = `<div class="alert alert-secondary mb-0"><i class="fas fa-info-circle me-2"></i>Funcionalidad no implementada para '${tipo}' actualmente. Elige Abierta, Cerrada, Numérica, Matriz o Tarjeta.</div>`;
         }
         
         c.innerHTML = html;
@@ -4493,6 +4467,10 @@
         } else {
           boxPrecarga.style.display = 'none';
         }
+        
+        // Viñetas: Quitar selector cuando el tipo es pregunta abierta con múltiples respuestas
+        const boxVineta = document.getElementById('mp_A_boxVineta');
+        if (boxVineta) boxVineta.style.display = isMulti ? 'none' : 'block';
       }
 
       function ctrlCerrada() {
@@ -4526,7 +4504,7 @@
             </div>
             <div style="width: 70px;" class="mpc-pts-box"><input type="number" class="form-control form-control-sm border-primary text-center" placeholder="Pts" value="0" min="0" step="0.1"></div>
             <button class="btn btn-sm btn-outline-primary border-0" title="Duplicar" onclick="duplicarAlternativa(this)"><i class="fas fa-copy"></i></button>
-            <button class="btn btn-sm btn-outline-danger border-0" title="Eliminar" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            <button class="btn btn-sm btn-outline-danger border-0" title="Eliminar" onclick="const p = this.closest('[id]'); this.closest('.item-alt').remove(); renumerarContenedor('#' + p.id);"><i class="fas fa-times"></i></button>
          `;
          box.appendChild(div);
       }
@@ -4554,19 +4532,21 @@
             </div>
             <div style="width: 70px;" class="mpc-pts-box"><input type="number" class="form-control form-control-sm border-warning text-center" placeholder="Pts" value="0" min="0" step="0.1"></div>
             <button class="btn btn-sm btn-outline-primary border-0" title="Duplicar" onclick="duplicarAlternativa(this)"><i class="fas fa-copy"></i></button>
-            <button class="btn btn-sm btn-outline-danger border-0" title="Eliminar" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            <button class="btn btn-sm btn-outline-danger border-0" title="Eliminar" onclick="const p = this.closest('[id]'); this.closest('.item-alt').remove(); renumerarContenedor('#' + p.id);"><i class="fas fa-times"></i></button>
          `;
          box.appendChild(div);
       }
 
-            function duplicarAlternativa(btn) {
-         const row = btn.closest('.d-flex');
+      function duplicarAlternativa(btn) {
+         const row = btn.closest('.item-alt');
+         const p = row.parentNode;
          const clone = row.cloneNode(true);
          // Transfer select states
          const selOriginal = row.querySelector('select');
          const selClone = clone.querySelector('select');
          if(selOriginal && selClone) { selClone.value = selOriginal.value; }
          row.after(clone);
+         renumerarContenedor('#' + p.id);
       }
 
       function swMpcAlt(sel) {
@@ -4646,22 +4626,31 @@
         return `<div class="item-row"><div class="inf"><span class="tag" style="background:#F3E8FF;color:#6B21A8;font-weight:700">${clave}</span><span class="fw-medium">${desc}</span>${pts !== "" ? `<span class="tag" style="background:#E0F2FE;color:#0369A1">${pts} pts</span>` : ""}</div><button class="btn btn-light rounded-circle text-danger p-0" style="width:32px;height:32px;" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button></div>`;
       }
 
+      function insertarFormula(txt) {
+         const t = document.getElementById('facFormula');
+         const start = t.selectionStart;
+         const end = t.selectionEnd;
+         t.value = t.value.substring(0, start) + txt + t.value.substring(end);
+         t.focus();
+         t.selectionStart = t.selectionEnd = start + txt.length;
+      }
+
       function addFactor() {
-        const cod = document
-            .getElementById("facCod")
-            .value.trim()
-            .toUpperCase(),
-          desc = document.getElementById("facDesc").value.trim();
+        const cod = document.getElementById("facCod").value.trim().toUpperCase();
+        const desc = document.getElementById("facDesc").value.trim();
+        const formula = document.getElementById("facFormula") ? document.getElementById("facFormula").value.trim() : "";
         if (!cod || !desc) {
           alert("Completa código y descripción.");
           return;
         }
-        pushItem("boxFac", "emptyFac", rowFactor(cod, desc));
+        pushItem("boxFac", "emptyFac", rowFactor(cod, desc, formula));
         document.getElementById("facCod").value = "";
         document.getElementById("facDesc").value = "";
+        if(document.getElementById("facFormula")) document.getElementById("facFormula").value = "";
       }
-      function rowFactor(cod, desc) {
-        return `<div class="item-row"><div class="inf"><span class="tag tag-punt fw-bold">${cod}</span><span class="fw-medium">${desc}</span></div><button class="btn btn-light rounded-circle text-danger p-0" style="width:32px;height:32px;" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button></div>`;
+      function rowFactor(cod, desc, formula = "") {
+        const fBadge = formula ? `<span class="badge bg-light text-primary border ms-2 d-inline-block mt-1 text-truncate" style="max-width:200px;" title="${formula}"><i class="fas fa-square-root-alt me-1"></i>${formula}</span>` : "";
+        return `<div class="item-row"><div class="inf"><span class="tag tag-punt fw-bold">${cod}</span><span class="fw-medium">${desc}</span>${fBadge}</div><button class="btn btn-light rounded-circle text-danger p-0" style="width:32px;height:32px;" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button></div>`;
       }
 
       function addRespuesta() {
@@ -4705,14 +4694,15 @@
               const empty = document.getElementById('emptyResp');
               if(empty) empty.remove();
               
-              for(let i=1; i<=pregs; i++) {
+              const pregBadges = Array.from(document.querySelectorAll('#boxPreg .item-row .badge.bg-primary')).map(b => b.textContent.replace('P', ''));
+              pregBadges.forEach(qNum => {
                  selected.forEach(opt => {
                     const clave = opt.split(':')[0].trim();
                     const div = document.createElement('div');
-                    div.innerHTML = rowRespuesta(i, clave, '');
+                    div.innerHTML = rowRespuesta(qNum, clave, '');
                     box.appendChild(div.firstElementChild);
                  });
-              }
+              });
               showToast('✅ Plantilla aplicada con éxito.');
               document.getElementById('tplRespSelect').value = "";
            });
@@ -5126,9 +5116,37 @@
           <div class="modal-body">
             <div class="soft-panel mb-4 p-3"><div class="row g-4">
               <div class="col-md-3"><label class="form-label">Código</label><input class="form-control" id="pCod" /></div>
-              <div class="col-md-6"><label class="form-label">Descripción</label><input class="form-control" id="pDesc" /></div>
-              <div class="col-md-3"><label class="form-label">Estado</label><select class="form-select" id="pEstado"><option value="activo">Activo</option></select></div>
+              <div class="col-md-5"><label class="form-label">Descripción</label><input class="form-control" id="pDesc" /></div>
+              <div class="col-md-2"><label class="form-label">Estado</label><select class="form-select" id="pEstado"><option value="activo">Activo</option><option value="inactivo">Inactivo</option></select></div>
+              <div class="col-md-2 d-flex align-items-end mb-2">
+                <div class="form-check form-switch w-100">
+                  <input class="form-check-input" type="checkbox" id="pDepGrupo">
+                  <label class="form-check-label fw-medium ms-2 lh-1 small text-muted" for="pDepGrupo">Dep. Grupo Ocupacional</label>
+                </div>
+              </div>
+              <div class="col-md-4"><label class="form-label">Tipo de Examen</label><select class="form-select" id="pTipoExamen"><option value="emo">Examen Médico Ocupacional (EMO)</option><option value="complementario">Complementario</option></select></div>
             </div></div>
+            
+            <h6 class="fw-bold mb-3" style="color: var(--primary-hover)"><i class="fas fa-clipboard-list me-2"></i>Fichas Asociadas</h6>
+            <div class="soft-panel p-3">
+              <div class="d-flex gap-2 mb-3">
+                <div class="search-wrap flex-grow-1">
+                  <i class="fas fa-search"></i>
+                  <input type="text" class="form-control" placeholder="Buscar ficha por código o descripción... (Presione Enter)" id="inputBuscarFichaPrestacion" style="border-radius:12px; padding-left: 42px;">
+                </div>
+                <button class="btn btn-prim" onclick="addFichaPrestacion()"><i class="fas fa-plus me-1"></i> Añadir</button>
+              </div>
+              <div class="items-box p-2" id="listaFichasPrestacion">
+                <!-- Card de ficha ejemplo -->
+                <div class="item-row mb-2">
+                  <div class="inf">
+                    <span class="tag tag-fich">CPS-001</span>
+                    <span class="fw-medium text-dark">Escala de Ansiedad</span>
+                  </div>
+                  <button class="btn btn-sm btn-light text-danger border-0" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
             <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button>
@@ -5151,7 +5169,49 @@
             <div class="soft-panel mb-4 p-3"><div class="row g-4">
               <div class="col-md-3"><label class="form-label">Código Ficha</label><input class="form-control" id="fCod" /></div>
               <div class="col-md-6"><label class="form-label">Descripción</label><input class="form-control" id="fDesc" /></div>
+              <div class="col-md-3"><label class="form-label">Estado</label><select class="form-select" id="fEstado"><option value="activo">Activo</option><option value="inactivo">Inactivo</option></select></div>
+              
+              <div class="col-md-6 mt-3">
+                <div class="form-check text-muted fw-bold small d-flex align-items-center mb-0 mt-1">
+                  <input class="form-check-input mt-0 me-2" type="checkbox" id="fFinalizada">
+                  <label class="form-check-label" for="fFinalizada">¿La ficha deberá ser finalizada en su realización?</label>
+                </div>
+              </div>
+              <div class="col-md-6 mt-3 text-end">
+                <div class="form-check form-switch d-inline-block text-muted fw-bold small">
+                  <input class="form-check-input" type="checkbox" id="fTieneGrupo" onchange="document.getElementById('fGrupoBox').style.display = this.checked ? 'block' : 'none'">
+                  <label class="form-check-label ms-2" for="fTieneGrupo">¿La ficha contiene un grupo de fichas?</label>
+                </div>
+              </div>
             </div></div>
+
+            <div id="fGrupoBox" style="display:none;">
+              <h6 class="fw-bold mb-3" style="color: var(--primary-hover)"><i class="fas fa-layer-group me-2"></i>Grupo de Fichas (Sub-fichas)</h6>
+              <div class="soft-panel p-3">
+                <div class="d-flex gap-2 mb-3">
+                  <div class="search-wrap flex-grow-1">
+                    <i class="fas fa-search"></i>
+                    <input type="text" class="form-control" placeholder="Buscar sub-ficha para añadir por código... (Presione Enter)" id="inputBuscarSubFicha" style="border-radius:12px; padding-left: 42px;">
+                  </div>
+                  <button class="btn btn-outline-primary fw-bold" onclick="showToast('Sub-ficha agregada')"><i class="fas fa-plus me-1"></i> Añadir</button>
+                </div>
+                <div class="items-box p-2" id="listaSubFichas">
+                  <div class="text-center text-muted fst-italic py-3 small"><i class="fas fa-info-circle me-1"></i> Digite el código de ficha a añadir en la parte superior.</div>
+                </div>
+              </div>
+            </div>
+            
+            <div id="fCodigoDatoBox">
+              <h6 class="fw-bold mb-3" style="color: var(--primary-hover)"><i class="fas fa-tag me-2"></i>Códigos Dato de la Ficha</h6>
+              <p class="text-muted small mb-0 ms-1">Como la ficha no es un grupo, se enlistan a continuación los códigos dato asociados a sus campos.</p>
+              <div class="soft-panel p-3 mt-3">
+                <table class="table table-sm table-borderless text-muted small align-middle m-0">
+                  <tr class="border-bottom"><th>Campo</th><th>Código Dato Vinculado</th></tr>
+                  <tr><td class="fw-bold">Puntaje Total</td><td><span class="badge bg-light text-dark border"><i class="fas fa-tag me-1 text-primary"></i> PTJ-001</span></td></tr>
+                  <tr><td class="fw-bold">Nivel de Riesgo</td><td><span class="badge bg-light text-dark border"><i class="fas fa-tag me-1 text-primary"></i> NVL-001</span></td></tr>
+                </table>
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
             <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button>
