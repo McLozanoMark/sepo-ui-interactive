@@ -8112,6 +8112,8 @@
               id === "pIcono" ? "fa-stethoscope" : ""),
         );
         document.getElementById("pCod").disabled = false;
+        document.getElementById("pDesc").disabled = false;
+        document.getElementById("pEstado").disabled = false;
         document.getElementById("pIconoSelect").value = "fa-stethoscope";
         document.getElementById("pIconoPreview").innerHTML =
           '<i class="fas fa-stethoscope"></i>';
@@ -8137,6 +8139,8 @@
           '<i class="fas fa-pen me-2 text-primary"></i>Editar: ' + cod;
         document.getElementById("pCod").value = cod;
         document.getElementById("pCod").disabled = true;
+        document.getElementById("pDesc").disabled = true;
+        document.getElementById("pEstado").disabled = true;
 
         let icon = "fa-stethoscope";
 
@@ -8256,6 +8260,8 @@
           '<i class="fas fa-clipboard-list me-2 text-primary"></i>Nueva Ficha';
         document.getElementById("fCod").value = "";
         document.getElementById("fCod").disabled = false;
+        document.getElementById("fDesc").disabled = false;
+        document.getElementById("fEstado").disabled = false;
         document.getElementById("fDesc").value = "";
         document.getElementById("chkGrupo").checked = false;
         document.getElementById("chkFinalizar").checked = false;
@@ -8270,6 +8276,17 @@
           '<i class="fas fa-pen me-2 text-primary"></i>Editar Ficha: ' + cod;
         document.getElementById("fCod").value = cod;
         document.getElementById("fCod").disabled = true;
+        document.getElementById("fDesc").disabled = true;
+        document.getElementById("fEstado").disabled = true;
+
+        const demoDescs = {
+          "CPS-001": "Escala de Ansiedad",
+          "CPS-010": "Entrevista Psicológica - Básica",
+          "FLB-005": "Examen de Metales Pesados",
+          "FMO-004": "Ficha Médica Ocupacional",
+        };
+        document.getElementById("fDesc").value = demoDescs[cod] || "Ficha de Evaluación";
+
         setEstadoFichaMode("edit");
         document.getElementById("fEstado").value = "activo";
         document.getElementById("chkGrupo").checked = !!esGrupo;
