@@ -610,12 +610,12 @@
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       }
-      
+
       .custom-search-cool {
         position: relative;
         background: white;
         border-radius: 100px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
         padding: 5px 15px;
         transition: all 0.3s ease;
         border: 1px solid #e2e8f0;
@@ -1080,7 +1080,35 @@
         }
       }
     </style>
-  </head>
+  
+    <style>
+    .btn-pruebas-cool {
+      background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+      color: #4338ca;
+      border: 1px solid #a5b4fc;
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    .btn-pruebas-cool:hover {
+      background: linear-gradient(135deg, #c7d2fe 0%, #a5b4fc 100%);
+      color: #3730a3;
+      border-color: #818cf8;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(67, 56, 202, 0.15);
+    }
+    .btn-pruebas-cool i {
+      color: #4338ca !important;
+    }
+    </style>
+</head>
 
   <body>
     <!-- Sidebar -->
@@ -1102,13 +1130,19 @@
             id="nav-dashboard"
             href="#"
             onclick="go('dashboard')"
-            title="Dashboard" data-bs-placement="right"
+            title="Dashboard"
+            data-bs-placement="right"
             ><i class="fas fa-th-large fa-fw"></i> <span>Dashboard</span></a
           >
         </li>
         <li>
-          <a class="nav-link" id="nav-pruebas" href="#" onclick="go('pruebas')"
-            title="Pruebas Psicológicas" data-bs-placement="right"
+          <a
+            class="nav-link"
+            id="nav-pruebas"
+            href="#"
+            onclick="go('pruebas')"
+            title="Pruebas Psicológicas"
+            data-bs-placement="right"
             ><i class="fas fa-file-medical-alt fa-fw"></i>
             <span>Pruebas Psicológicas</span></a
           >
@@ -1122,14 +1156,20 @@
             id="nav-centros"
             href="#"
             onclick="go('centros')"
-            title="Centros Médicos" data-bs-placement="right"
+            title="Centros Médicos"
+            data-bs-placement="right"
             ><i class="fas fa-hospital fa-fw"></i>
             <span>Centros Médicos</span></a
           >
         </li>
         <li>
-          <a class="nav-link" id="nav-grado" href="#" onclick="go('grado')"
-            title="Grado de Instrucción" data-bs-placement="right"
+          <a
+            class="nav-link"
+            id="nav-grado"
+            href="#"
+            onclick="go('grado')"
+            title="Grado de Instrucción"
+            data-bs-placement="right"
             ><i class="fas fa-graduation-cap fa-fw"></i>
             <span>Grado de Instrucción</span></a
           >
@@ -1140,13 +1180,19 @@
             id="nav-ocupaciones"
             href="#"
             onclick="go('ocupaciones')"
-            title="Ocupaciones" data-bs-placement="right"
+            title="Ocupaciones"
+            data-bs-placement="right"
             ><i class="fas fa-briefcase fa-fw"></i> <span>Ocupaciones</span></a
           >
         </li>
         <li>
-          <a class="nav-link" id="nav-grupos" href="#" onclick="go('grupos')"
-            title="Grupos Ocupacionales" data-bs-placement="right"
+          <a
+            class="nav-link"
+            id="nav-grupos"
+            href="#"
+            onclick="go('grupos')"
+            title="Grupos Ocupacionales"
+            data-bs-placement="right"
             ><i class="fas fa-users fa-fw"></i>
             <span>Grupos Ocupacionales</span></a
           >
@@ -1157,14 +1203,20 @@
             id="nav-prestaciones"
             href="#"
             onclick="go('prestaciones')"
-            title="Prestaciones" data-bs-placement="right"
+            title="Prestaciones"
+            data-bs-placement="right"
             ><i class="fas fa-stethoscope fa-fw"></i>
             <span>Prestaciones</span></a
           >
         </li>
         <li>
-          <a class="nav-link" id="nav-fichas" href="#" onclick="go('fichas')"
-            title="Fichas" data-bs-placement="right"
+          <a
+            class="nav-link"
+            id="nav-fichas"
+            href="#"
+            onclick="go('fichas')"
+            title="Fichas"
+            data-bs-placement="right"
             ><i class="fas fa-clipboard-list fa-fw"></i> <span>Fichas</span></a
           >
         </li>
@@ -1172,8 +1224,13 @@
       <div class="sidebar-section mt-4"><span>Configuración</span></div>
       <ul class="nav flex-column">
         <li>
-          <a class="nav-link" id="nav-orden" href="#" onclick="go('orden')"
-            title="Orden de Prestaciones" data-bs-placement="right"
+          <a
+            class="nav-link"
+            id="nav-orden"
+            href="#"
+            onclick="go('orden')"
+            title="Orden de Prestaciones"
+            data-bs-placement="right"
             ><i class="fas fa-sort fa-fw"></i>
             <span>Orden de Prestaciones</span></a
           >
@@ -1695,110 +1752,195 @@
         </div>
 
         <div class="card-item">
-          <div class="icon-box" style="background: #e0f2fe; color: var(--primary)">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
             <i class="fas fa-clinic-medical"></i>
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--primary)">CM-003</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--primary)">CM-003</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Clínica Ocupacional Arequipa</span>
               <span class="b-activo">Activo</span>
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Av. Ejército 1024, Cayma · (Arequipa / Arequipa)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Av. Ejército 1024,
+              Cayma · (Arequipa / Arequipa)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-003', true, false)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-003', true, false)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
 
         <div class="card-item">
-          <div class="icon-box" style="background: #e0f2fe; color: var(--primary)">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
             <i class="fas fa-clinic-medical"></i>
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--primary)">CM-004</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--primary)">CM-004</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Policlínico Salud Vida</span>
               <span class="b-activo">Activo</span>
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Jr. Unión 150 · (Lima / Lima)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Jr. Unión 150 · (Lima /
+              Lima)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-004', true, false)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-004', true, false)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
 
         <div class="card-item">
-          <div class="icon-box" style="background: #e0f2fe; color: var(--primary)">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
             <i class="fas fa-clinic-medical"></i>
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--primary)">CM-005</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--primary)">CM-005</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Centro Médico Los Andes</span>
               <span class="b-activo">Activo</span>
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Av. Huancavelica 550 · (Junín / Huancayo)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Av. Huancavelica 550 ·
+              (Junín / Huancayo)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-005', true, false)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-005', true, false)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
 
         <div class="card-item">
-          <div class="icon-box" style="background: #e0f2fe; color: var(--primary)">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
             <i class="fas fa-clinic-medical"></i>
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--primary)">CM-006</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--primary)">CM-006</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Medicina Laboral del Norte</span>
               <span class="b-activo">Activo</span>
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Av. Grau 880 · (Piura / Piura)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Av. Grau 880 · (Piura /
+              Piura)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-006', true, false)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-006', true, false)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
 
         <div class="card-item">
-          <div class="icon-box" style="background: #e0f2fe; color: var(--primary)">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
             <i class="fas fa-clinic-medical"></i>
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--primary)">CM-007</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--primary)">CM-007</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Clínica San Juan</span>
               <span class="b-activo">Activo</span>
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Jr. Pizarro 410 · (La Libertad / Trujillo)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Jr. Pizarro 410 · (La
+              Libertad / Trujillo)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-007', true, false)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-007', true, false)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
@@ -1810,150 +1952,269 @@
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--text-muted)">CM-008</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--text-muted)">CM-008</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Centro de Salud Integral Puno</span>
               <span class="b-cesado">Cesado</span>
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Av. El Sol 320 · (Puno / Puno)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Av. El Sol 320 · (Puno
+              / Puno)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-008', false, false)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-008', false, false)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
 
         <div class="card-item">
-          <div class="icon-box" style="background: #e0f2fe; color: var(--primary)">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
             <i class="fas fa-clinic-medical"></i>
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--primary)">CM-009</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--primary)">CM-009</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Clínica El Sol</span>
               <span class="b-activo">Activo</span>
-              <span class="tag" style="background: #f1f5f9; color: #0f172a"><i class="fas fa-laptop-medical me-1 text-primary"></i>Virtual Habilitado</span>
+              <span class="tag" style="background: #f1f5f9; color: #0f172a"
+                ><i class="fas fa-laptop-medical me-1 text-primary"></i>Virtual
+                Habilitado</span
+              >
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Jr. Moquegua 110 · (Tacna / Tacna)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Jr. Moquegua 110 ·
+              (Tacna / Tacna)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-009', true, true)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-009', true, true)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
 
         <div class="card-item">
-          <div class="icon-box" style="background: #e0f2fe; color: var(--primary)">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
             <i class="fas fa-clinic-medical"></i>
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--primary)">CM-010</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--primary)">CM-010</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Occupational Health Cuzco</span>
               <span class="b-activo">Activo</span>
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Av. Garcilaso 780 · (Cusco / Cusco)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Av. Garcilaso 780 ·
+              (Cusco / Cusco)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-010', true, false)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-010', true, false)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
 
         <div class="card-item">
-          <div class="icon-box" style="background: #e0f2fe; color: var(--primary)">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
             <i class="fas fa-clinic-medical"></i>
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--primary)">CM-011</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--primary)">CM-011</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Clínica de Especialidades Huanuco</span>
               <span class="b-activo">Activo</span>
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Jr. Dos de Mayo 900 · (Huánuco / Huánuco)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Jr. Dos de Mayo 900 ·
+              (Huánuco / Huánuco)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-011', true, false)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-011', true, false)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
 
         <div class="card-item">
-          <div class="icon-box" style="background: #e0f2fe; color: var(--primary)">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
             <i class="fas fa-clinic-medical"></i>
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--primary)">CM-012</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--primary)">CM-012</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Medicina Preventiva Iquitos</span>
               <span class="b-activo">Activo</span>
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Av. La Marina 200 · (Loreto / Maynas)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Av. La Marina 200 ·
+              (Loreto / Maynas)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-012', true, false)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-012', true, false)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
 
         <div class="card-item">
-          <div class="icon-box" style="background: #e0f2fe; color: var(--primary)">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
             <i class="fas fa-clinic-medical"></i>
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--primary)">CM-013</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--primary)">CM-013</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Seguridad Salud Piura</span>
               <span class="b-activo">Activo</span>
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Jr. Ayacucho 440 · (Piura / Piura)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Jr. Ayacucho 440 ·
+              (Piura / Piura)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-013', true, false)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-013', true, false)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
 
         <div class="card-item">
-          <div class="icon-box" style="background: #e0f2fe; color: var(--primary)">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
             <i class="fas fa-clinic-medical"></i>
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--primary)">CM-014</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--primary)">CM-014</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Policlínico Ocupacional Tacna</span>
               <span class="b-activo">Activo</span>
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Av. Bolognesi 500 · (Tacna / Tacna)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Av. Bolognesi 500 ·
+              (Tacna / Tacna)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-014', true, false)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-014', true, false)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
@@ -1965,106 +2226,191 @@
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--text-muted)">CM-015</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--text-muted)">CM-015</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Clínica San Marcos</span>
               <span class="b-cesado">Cesado</span>
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Jr. San Martin 300 · (Áncash / Huaraz)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Jr. San Martin 300 ·
+              (Áncash / Huaraz)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-015', false, false)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-015', false, false)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
 
         <div class="card-item">
-          <div class="icon-box" style="background: #e0f2fe; color: var(--primary)">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
             <i class="fas fa-clinic-medical"></i>
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--primary)">CM-016</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--primary)">CM-016</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Salud Total Chimbote</span>
               <span class="b-activo">Activo</span>
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Av. Enrique Meiggs 110 · (Áncash / Santa)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Av. Enrique Meiggs 110
+              · (Áncash / Santa)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-016', true, false)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-016', true, false)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
 
         <div class="card-item">
-          <div class="icon-box" style="background: #e0f2fe; color: var(--primary)">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
             <i class="fas fa-clinic-medical"></i>
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--primary)">CM-017</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--primary)">CM-017</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Centro Preventivo Huancayo</span>
               <span class="b-activo">Activo</span>
-              <span class="tag" style="background: #f1f5f9; color: #0f172a"><i class="fas fa-laptop-medical me-1 text-primary"></i>Virtual Habilitado</span>
+              <span class="tag" style="background: #f1f5f9; color: #0f172a"
+                ><i class="fas fa-laptop-medical me-1 text-primary"></i>Virtual
+                Habilitado</span
+              >
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Av. Giráldez 220 · (Junín / Huancayo)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Av. Giráldez 220 ·
+              (Junín / Huancayo)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-017', true, true)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-017', true, true)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
 
         <div class="card-item">
-          <div class="icon-box" style="background: #e0f2fe; color: var(--primary)">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
             <i class="fas fa-clinic-medical"></i>
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--primary)">CM-018</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--primary)">CM-018</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Centro Ocupacional Cajamarca</span>
               <span class="b-activo">Activo</span>
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Jr. Amalia Puga 600 · (Cajamarca / Cajamarca)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Jr. Amalia Puga 600 ·
+              (Cajamarca / Cajamarca)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-018', true, false)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-018', true, false)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
 
         <div class="card-item">
-          <div class="icon-box" style="background: #e0f2fe; color: var(--primary)">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
             <i class="fas fa-clinic-medical"></i>
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--primary)">CM-019</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--primary)">CM-019</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Salud y Bienestar Ayacucho</span>
               <span class="b-activo">Activo</span>
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Jr. 9 de Diciembre 450 · (Ayacucho / Huamanga)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Jr. 9 de Diciembre 450
+              · (Ayacucho / Huamanga)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-019', true, false)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-019', true, false)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
@@ -2076,62 +2422,113 @@
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--text-muted)">CM-020</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--text-muted)">CM-020</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Clínica Santa Maria</span>
               <span class="b-cesado">Cesado</span>
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Av. Salaverry 1500 · (Lima / Jesús María)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Av. Salaverry 1500 ·
+              (Lima / Jesús María)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-020', false, false)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-020', false, false)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
 
         <div class="card-item">
-          <div class="icon-box" style="background: #e0f2fe; color: var(--primary)">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
             <i class="fas fa-clinic-medical"></i>
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--primary)">CM-021</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--primary)">CM-021</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Policlínico La Merced</span>
               <span class="b-activo">Activo</span>
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Jr. Tarapacá 120 · (Junín / Chanchamayo)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Jr. Tarapacá 120 ·
+              (Junín / Chanchamayo)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-021', true, false)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-021', true, false)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
 
         <div class="card-item">
-          <div class="icon-box" style="background: #e0f2fe; color: var(--primary)">
+          <div
+            class="icon-box"
+            style="background: #e0f2fe; color: var(--primary)"
+          >
             <i class="fas fa-clinic-medical"></i>
           </div>
           <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-              <strong style="color: var(--primary)">CM-022</strong><span class="muted-dot">•</span>
+              <strong style="color: var(--primary)">CM-022</strong
+              ><span class="muted-dot">•</span>
               <span class="fw-semibold">Centro Médico del Sur</span>
               <span class="b-activo">Activo</span>
-              <span class="tag" style="background: #f1f5f9; color: #0f172a"><i class="fas fa-laptop-medical me-1 text-primary"></i>Virtual Habilitado</span>
+              <span class="tag" style="background: #f1f5f9; color: #0f172a"
+                ><i class="fas fa-laptop-medical me-1 text-primary"></i>Virtual
+                Habilitado</span
+              >
             </div>
-            <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>Av. Independencia 900 · (Arequipa / Arequipa)</small>
+            <small class="text-muted"
+              ><i class="fas fa-map-marker-alt me-1"></i>Av. Independencia 900 ·
+              (Arequipa / Arequipa)</small
+            >
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalCentro" onclick="editarCentro('CM-022', true, true)" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCentro"
+              onclick="editarCentro('CM-022', true, true)"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
@@ -2274,130 +2671,260 @@
 
         <div class="card-item">
           <div class="flex-grow-1 d-flex align-items-center gap-3">
-            <strong style="color: var(--primary)">GI-004</strong><span class="muted-dot">•</span><span class="fw-semibold">Técnico Básico</span><span class="b-activo ms-auto">Activo</span>
+            <strong style="color: var(--primary)">GI-004</strong
+            ><span class="muted-dot">•</span
+            ><span class="fw-semibold">Técnico Básico</span
+            ><span class="b-activo ms-auto">Activo</span>
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalSimple" onclick="editarSimple('GI-004', 'Técnico Básico')" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              onclick="editarSimple('GI-004', 'Técnico Básico')"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
         <div class="card-item">
           <div class="flex-grow-1 d-flex align-items-center gap-3">
-            <strong style="color: var(--primary)">GI-005</strong><span class="muted-dot">•</span><span class="fw-semibold">Secundaria Completa</span><span class="b-activo ms-auto">Activo</span>
+            <strong style="color: var(--primary)">GI-005</strong
+            ><span class="muted-dot">•</span
+            ><span class="fw-semibold">Secundaria Completa</span
+            ><span class="b-activo ms-auto">Activo</span>
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalSimple" onclick="editarSimple('GI-005', 'Secundaria Completa')" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              onclick="editarSimple('GI-005', 'Secundaria Completa')"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
         <div class="card-item">
           <div class="flex-grow-1 d-flex align-items-center gap-3">
-            <strong style="color: var(--primary)">GI-006</strong><span class="muted-dot">•</span><span class="fw-semibold">Secundaria Incompleta</span><span class="b-activo ms-auto">Activo</span>
+            <strong style="color: var(--primary)">GI-006</strong
+            ><span class="muted-dot">•</span
+            ><span class="fw-semibold">Secundaria Incompleta</span
+            ><span class="b-activo ms-auto">Activo</span>
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalSimple" onclick="editarSimple('GI-006', 'Secundaria Incompleta')" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              onclick="editarSimple('GI-006', 'Secundaria Incompleta')"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
         <div class="card-item">
           <div class="flex-grow-1 d-flex align-items-center gap-3">
-            <strong style="color: var(--primary)">GI-007</strong><span class="muted-dot">•</span><span class="fw-semibold">Primaria Completa</span><span class="b-activo ms-auto">Activo</span>
+            <strong style="color: var(--primary)">GI-007</strong
+            ><span class="muted-dot">•</span
+            ><span class="fw-semibold">Primaria Completa</span
+            ><span class="b-activo ms-auto">Activo</span>
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalSimple" onclick="editarSimple('GI-007', 'Primaria Completa')" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              onclick="editarSimple('GI-007', 'Primaria Completa')"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
         <div class="card-item">
           <div class="flex-grow-1 d-flex align-items-center gap-3">
-            <strong style="color: var(--primary)">GI-008</strong><span class="muted-dot">•</span><span class="fw-semibold">Primaria Incompleta</span><span class="b-activo ms-auto">Activo</span>
+            <strong style="color: var(--primary)">GI-008</strong
+            ><span class="muted-dot">•</span
+            ><span class="fw-semibold">Primaria Incompleta</span
+            ><span class="b-activo ms-auto">Activo</span>
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalSimple" onclick="editarSimple('GI-008', 'Primaria Incompleta')" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              onclick="editarSimple('GI-008', 'Primaria Incompleta')"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
         <div class="card-item">
           <div class="flex-grow-1 d-flex align-items-center gap-3">
-            <strong style="color: var(--primary)">GI-009</strong><span class="muted-dot">•</span><span class="fw-semibold">Diplomado / Especialización</span><span class="b-activo ms-auto">Activo</span>
+            <strong style="color: var(--primary)">GI-009</strong
+            ><span class="muted-dot">•</span
+            ><span class="fw-semibold">Diplomado / Especialización</span
+            ><span class="b-activo ms-auto">Activo</span>
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalSimple" onclick="editarSimple('GI-009', 'Diplomado / Especialización')" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              onclick="editarSimple('GI-009', 'Diplomado / Especialización')"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
         <div class="card-item">
           <div class="flex-grow-1 d-flex align-items-center gap-3">
-            <strong style="color: var(--primary)">GI-010</strong><span class="muted-dot">•</span><span class="fw-semibold">Maestría</span><span class="b-activo ms-auto">Activo</span>
+            <strong style="color: var(--primary)">GI-010</strong
+            ><span class="muted-dot">•</span
+            ><span class="fw-semibold">Maestría</span
+            ><span class="b-activo ms-auto">Activo</span>
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalSimple" onclick="editarSimple('GI-010', 'Maestría')" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              onclick="editarSimple('GI-010', 'Maestría')"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
         <div class="card-item">
           <div class="flex-grow-1 d-flex align-items-center gap-3">
-            <strong style="color: var(--primary)">GI-011</strong><span class="muted-dot">•</span><span class="fw-semibold">Doctorado</span><span class="b-activo ms-auto">Activo</span>
+            <strong style="color: var(--primary)">GI-011</strong
+            ><span class="muted-dot">•</span
+            ><span class="fw-semibold">Doctorado</span
+            ><span class="b-activo ms-auto">Activo</span>
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalSimple" onclick="editarSimple('GI-011', 'Doctorado')" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              onclick="editarSimple('GI-011', 'Doctorado')"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
         <div class="card-item">
           <div class="flex-grow-1 d-flex align-items-center gap-3">
-            <strong style="color: var(--primary)">GI-012</strong><span class="muted-dot">•</span><span class="fw-semibold">Sin Instrucción Formal</span><span class="b-activo ms-auto">Activo</span>
+            <strong style="color: var(--primary)">GI-012</strong
+            ><span class="muted-dot">•</span
+            ><span class="fw-semibold">Sin Instrucción Formal</span
+            ><span class="b-activo ms-auto">Activo</span>
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalSimple" onclick="editarSimple('GI-012', 'Sin Instrucción Formal')" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              onclick="editarSimple('GI-012', 'Sin Instrucción Formal')"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
         <div class="card-item">
           <div class="flex-grow-1 d-flex align-items-center gap-3">
-            <strong style="color: var(--primary)">GI-013</strong><span class="muted-dot">•</span><span class="fw-semibold">Estudios Técnicos en Curso</span><span class="b-activo ms-auto">Activo</span>
+            <strong style="color: var(--primary)">GI-013</strong
+            ><span class="muted-dot">•</span
+            ><span class="fw-semibold">Estudios Técnicos en Curso</span
+            ><span class="b-activo ms-auto">Activo</span>
           </div>
           <div class="d-flex gap-2">
-            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalSimple" onclick="editarSimple('GI-013', 'Estudios Técnicos en Curso')" title="Editar">
+            <button
+              class="btn-action btn-edit"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSimple"
+              onclick="editarSimple('GI-013', 'Estudios Técnicos en Curso')"
+              title="Editar"
+            >
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-action btn-del" onclick="eliminarRegistro(this, 'card-item')" title="Eliminar">
+            <button
+              class="btn-action btn-del"
+              onclick="eliminarRegistro(this, 'card-item')"
+              title="Eliminar"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </div>
@@ -3864,7 +4391,6 @@
           <div
             class="d-flex gap-3 align-items-center flex-wrap justify-content-end"
           >
-
             <div class="search-wrap custom-search-cool">
               <i class="fas fa-search text-primary"></i>
               <input
@@ -4942,7 +5468,8 @@
               <span
                 class="tag tag-tipo"
                 style="font-size: 1.4rem; font-weight: 800; color: #0f172a"
-                ><i class="fas fa-briefcase-medical me-2"></i>I. EXAMEN PRINCIPAL</span
+                ><i class="fas fa-briefcase-medical me-2"></i>I. EXAMEN
+                PRINCIPAL</span
               >
               <small
                 class="text-muted fw-medium px-2 py-1 bg-white border rounded"
@@ -4997,26 +5524,6 @@
                     title="Prestación"
                     >Evaluación Psicológica - Entrevista</span
                   >
-                  <div class="w-100 mt-1 d-flex gap-2 align-items-center">
-                    <span class="text-muted fw-bold" style="font-size: 0.75rem"
-                      >Factores:</span
-                    >
-                    <span
-                      class="badge bg-light text-secondary border fw-normal"
-                      style="font-size: 0.7rem"
-                      >Ansiedad</span
-                    >
-                    <span
-                      class="badge bg-light text-secondary border fw-normal"
-                      style="font-size: 0.7rem"
-                      >Depresión</span
-                    >
-                    <span
-                      class="badge bg-light text-secondary border fw-normal"
-                      style="font-size: 0.7rem"
-                      >Personalidad</span
-                    >
-                  </div>
                   <span
                     class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 mt-1"
                     style="
@@ -5045,44 +5552,10 @@
                   >
                 </div>
                 <div class="d-flex flex-column align-items-center gap-1">
-                  <label
-                    class="fw-bold text-primary mb-0"
-                    style="
-                      font-size: 0.7rem;
-                      letter-spacing: 1px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-lg text-center fw-bold text-primary border-primary shadow-sm"
-                    onchange="reordenarPrestacion(this)"
-                    value="1"
-                    min="1"
-                    style="
-                      width: 60px;
-                      height: 45px;
-                      border-radius: 10px;
-                      font-size: 1.2rem;
-                      background-color: #fff;
-                    "
-                  />
+                  <label class="fw-bold text-muted mb-0" style="font-size: 0.6rem; letter-spacing: 0.5px; text-transform: uppercase;">ORDEN</label>
+                  <input type="number" class="form-control form-control-sm text-center fw-bold text-primary border" onchange="reordenarPrestacion(this)" value="1" min="1" style="width: 55px; height: 32px; border-radius: 8px; font-size: 0.9rem;" />
                 </div>
-                <button
-                  class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2 fw-medium"
-                  style="
-                    border-radius: 6px;
-                    padding: 4px 12px;
-                    font-size: 0.85rem;
-                    height: 30px;
-                  "
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalOrdenPruebas"
-                  onclick="abrirOrdenPruebas('PR-PSI-001', false)"
-                >
-                  <i class="fas fa-sort"></i> Pruebas
-                </button>
+                <button class="btn btn-pruebas-cool" data-bs-toggle="modal" data-bs-target="#modalOrdenPruebas" onclick="abrirOrdenPruebas('PR-PSI-001', false)"><i class="fas fa-microscope text-primary"></i> Pruebas</button>
               </div>
             </div>
             <!-- Card 2 -->
@@ -5182,20 +5655,7 @@
                     "
                   />
                 </div>
-                <button
-                  class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2 fw-medium"
-                  style="
-                    border-radius: 6px;
-                    padding: 4px 12px;
-                    font-size: 0.85rem;
-                    height: 30px;
-                  "
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalOrdenPruebas"
-                  onclick="abrirOrdenPruebas('PR-PSI-003', true)"
-                >
-                  <i class="fas fa-sort"></i> Pruebas
-                </button>
+                <button class="btn btn-pruebas-cool" data-bs-toggle="modal" data-bs-target="#modalOrdenPruebas" onclick="abrirOrdenPruebas('PR-PSI-003', true)"><i class="fas fa-microscope text-primary"></i> Pruebas</button>
               </div>
             </div>
             <!-- Card 3 -->
@@ -5295,20 +5755,7 @@
                     "
                   />
                 </div>
-                <button
-                  class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2 fw-medium"
-                  style="
-                    border-radius: 6px;
-                    padding: 4px 12px;
-                    font-size: 0.85rem;
-                    height: 30px;
-                  "
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalOrdenPruebas"
-                  onclick="abrirOrdenPruebas('PR-PSI-004', false)"
-                >
-                  <i class="fas fa-sort"></i> Pruebas
-                </button>
+                <button class="btn btn-pruebas-cool" data-bs-toggle="modal" data-bs-target="#modalOrdenPruebas" onclick="abrirOrdenPruebas('PR-PSI-004', false)"><i class="fas fa-microscope text-primary"></i> Pruebas</button>
               </div>
             </div>
             <!-- Card 4 -->
@@ -5408,20 +5855,7 @@
                     "
                   />
                 </div>
-                <button
-                  class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2 fw-medium"
-                  style="
-                    border-radius: 6px;
-                    padding: 4px 12px;
-                    font-size: 0.85rem;
-                    height: 30px;
-                  "
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalOrdenPruebas"
-                  onclick="abrirOrdenPruebas('PR-PSI-005', false)"
-                >
-                  <i class="fas fa-sort"></i> Pruebas
-                </button>
+                <button class="btn btn-pruebas-cool" data-bs-toggle="modal" data-bs-target="#modalOrdenPruebas" onclick="abrirOrdenPruebas('PR-PSI-005', false)"><i class="fas fa-microscope text-primary"></i> Pruebas</button>
               </div>
             </div>
             <!-- Card 5 -->
@@ -5521,20 +5955,7 @@
                     "
                   />
                 </div>
-                <button
-                  class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2 fw-medium"
-                  style="
-                    border-radius: 6px;
-                    padding: 4px 12px;
-                    font-size: 0.85rem;
-                    height: 30px;
-                  "
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalOrdenPruebas"
-                  onclick="abrirOrdenPruebas('PR-PSI-006', false)"
-                >
-                  <i class="fas fa-sort"></i> Pruebas
-                </button>
+                <button class="btn btn-pruebas-cool" data-bs-toggle="modal" data-bs-target="#modalOrdenPruebas" onclick="abrirOrdenPruebas('PR-PSI-006', false)"><i class="fas fa-microscope text-primary"></i> Pruebas</button>
               </div>
             </div>
           </div>
@@ -5661,20 +6082,7 @@
                     "
                   />
                 </div>
-                <button
-                  class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2 fw-medium"
-                  style="
-                    border-radius: 6px;
-                    padding: 4px 12px;
-                    font-size: 0.85rem;
-                    height: 30px;
-                  "
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalOrdenPruebas"
-                  onclick="abrirOrdenPruebas('PR-ALT-002', false)"
-                >
-                  <i class="fas fa-sort"></i> Pruebas
-                </button>
+                <button class="btn btn-pruebas-cool" data-bs-toggle="modal" data-bs-target="#modalOrdenPruebas" onclick="abrirOrdenPruebas('PR-ALT-002', false)"><i class="fas fa-microscope text-primary"></i> Pruebas</button>
               </div>
             </div>
             <!-- Card 2 -->
@@ -5774,20 +6182,7 @@
                     "
                   />
                 </div>
-                <button
-                  class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2 fw-medium"
-                  style="
-                    border-radius: 6px;
-                    padding: 4px 12px;
-                    font-size: 0.85rem;
-                    height: 30px;
-                  "
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalOrdenPruebas"
-                  onclick="abrirOrdenPruebas('PR-ALT-003', false)"
-                >
-                  <i class="fas fa-sort"></i> Pruebas
-                </button>
+                <button class="btn btn-pruebas-cool" data-bs-toggle="modal" data-bs-target="#modalOrdenPruebas" onclick="abrirOrdenPruebas('PR-ALT-003', false)"><i class="fas fa-microscope text-primary"></i> Pruebas</button>
               </div>
             </div>
             <!-- Card 3 -->
@@ -5887,20 +6282,7 @@
                     "
                   />
                 </div>
-                <button
-                  class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2 fw-medium"
-                  style="
-                    border-radius: 6px;
-                    padding: 4px 12px;
-                    font-size: 0.85rem;
-                    height: 30px;
-                  "
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalOrdenPruebas"
-                  onclick="abrirOrdenPruebas('PR-ALT-004', false)"
-                >
-                  <i class="fas fa-sort"></i> Pruebas
-                </button>
+                <button class="btn btn-pruebas-cool" data-bs-toggle="modal" data-bs-target="#modalOrdenPruebas" onclick="abrirOrdenPruebas('PR-ALT-004', false)"><i class="fas fa-microscope text-primary"></i> Pruebas</button>
               </div>
             </div>
             <!-- Card 4 -->
@@ -5997,20 +6379,7 @@
                     "
                   />
                 </div>
-                <button
-                  class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2 fw-medium"
-                  style="
-                    border-radius: 6px;
-                    padding: 4px 12px;
-                    font-size: 0.85rem;
-                    height: 30px;
-                  "
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalOrdenPruebas"
-                  onclick="abrirOrdenPruebas('PR-ALT-005', false)"
-                >
-                  <i class="fas fa-sort"></i> Pruebas
-                </button>
+                <button class="btn btn-pruebas-cool" data-bs-toggle="modal" data-bs-target="#modalOrdenPruebas" onclick="abrirOrdenPruebas('PR-ALT-005', false)"><i class="fas fa-microscope text-primary"></i> Pruebas</button>
               </div>
             </div>
           </div>
@@ -7715,44 +8084,59 @@
       /* ── Modal: Orden de Pruebas ── */
       const _pruebasPorGrupo = {
         "GO-001": {
-          "nombre": "Administrativos",
-          "clasificaciones": {
+          nombre: "Profesionales",
+          clasificaciones: {
             "Exámenes Clínicos": [
-              { cod: "MED-CLIN-001", nom: "Evaluación Médica Ocupacional Anual" },
+              {
+                cod: "MED-CLIN-001",
+                nom: "Evaluación Médica Ocupacional Anual",
+              },
               { cod: "MED-CLIN-002", nom: "Examen Físico Completo" },
               { cod: "MED-OFT-001", nom: "Evaluación Agudeza Visual" },
-              { cod: "MED-OFT-002", nom: "Test de Visión de Colores (Ishihara)" },
-              { cod: "MED-AUD-001", nom: "Audiometría de Tamizaje" }
+              {
+                cod: "MED-OFT-002",
+                nom: "Test de Visión de Colores (Ishihara)",
+              },
+              { cod: "MED-AUD-001", nom: "Audiometría de Tamizaje" },
             ],
             "Pruebas Psicológicas": [
               { cod: "PSI-ANS-001", nom: "Escala de Ansiedad de Beck" },
               { cod: "PSI-EST-001", nom: "Cuestionario de Estrés Laboral" },
-              { cod: "PSI-COG-001", nom: "Test de Atención y Concentración (Toulouse)" },
+              {
+                cod: "PSI-COG-001",
+                nom: "Test de Atención y Concentración (Toulouse)",
+              },
               { cod: "PSI-INT-001", nom: "Test de Inteligencia Emocional" },
-              { cod: "PSI-PER-001", nom: "Inventario de Personalidad (NEO-PI)" },
-              { cod: "PSI-BUR-001", nom: "Inventario de Burnout de Maslach" }
+              {
+                cod: "PSI-PER-001",
+                nom: "Inventario de Personalidad (NEO-PI)",
+              },
+              { cod: "PSI-BUR-001", nom: "Inventario de Burnout de Maslach" },
             ],
             "Exámenes Complementarios": [
               { cod: "COMP-LAB-001", nom: "Hemograma Completo" },
               { cod: "COMP-LAB-002", nom: "Perfil Lipídico" },
               { cod: "COMP-LAB-003", nom: "Examen Completo de Orina" },
               { cod: "COMP-LAB-004", nom: "Glucosa en Ayunas" },
-              { cod: "COMP-CARD-001", nom: "Electrocardiograma en Reposo" }
-            ]
-          }
+              { cod: "COMP-CARD-001", nom: "Electrocardiograma en Reposo" },
+            ],
+          },
         },
         "GO-002": {
-          "nombre": "Operarios",
-          "clasificaciones": {
+          nombre: "Administrativos",
+          clasificaciones: {
             "Exámenes Clínicos, Odontológicos y Especializados": [
-              { cod: "MED-CLIN-001", nom: "Evaluación Médica Ocupacional Anual" },
+              {
+                cod: "MED-CLIN-001",
+                nom: "Evaluación Médica Ocupacional Anual",
+              },
               { cod: "MED-OSTE-001", nom: "Evaluación Músculo Esquelética" },
               { cod: "MED-AUD-002", nom: "Audiometría Clínica" },
               { cod: "MED-OFT-001", nom: "Evaluación Agudeza Visual" },
               { cod: "MED-OFT-002", nom: "Test de Visión de Colores" },
               { cod: "MED-OFT-003", nom: "Test de Profundidad (Estereopsis)" },
               { cod: "MED-ODO-001", nom: "Odontograma Anual" },
-              { cod: "MED-NEU-001", nom: "Examen Neurológico Básico" }
+              { cod: "MED-NEU-001", nom: "Examen Neurológico Básico" },
             ],
             "Pruebas Psicológicas": [
               { cod: "PSI-ALT-003", nom: "Evaluación Psicológica – Altura" },
@@ -7761,7 +8145,7 @@
               { cod: "PSI-SEG-001", nom: "Test de Actitud hacia la Seguridad" },
               { cod: "PSI-FAT-001", nom: "Test de Fatiga y Somnolencia" },
               { cod: "PSI-COG-002", nom: "Test de Memoria Visual" },
-              { cod: "PSI-MOT-001", nom: "Test de Coordinación Visomotriz" }
+              { cod: "PSI-MOT-001", nom: "Test de Coordinación Visomotriz" },
             ],
             "Laboratorio e Imágenes": [
               { cod: "COMP-LAB-001", nom: "Hemograma Completo" },
@@ -7771,27 +8155,30 @@
               { cod: "COMP-RAY-001", nom: "Radiografía de Tórax (OIT)" },
               { cod: "COMP-RAY-002", nom: "Radiografía de Columna Lumbar" },
               { cod: "COMP-CARD-002", nom: "Electrocardiograma en Reposo" },
-              { cod: "COMP-RESP-003", nom: "Espirometría Forzada (CVF)" }
-            ]
-          }
+              { cod: "COMP-RESP-003", nom: "Espirometría Forzada (CVF)" },
+            ],
+          },
         },
         "GO-003": {
-          "nombre": "Operativos",
-          "clasificaciones": {
+          nombre: "Técnicos",
+          clasificaciones: {
             "Pruebas Psicológicas": [
               { cod: "PSI-CHI-004", nom: "Entrevista Psicológica Chinalco" },
               { cod: "PSI-CMP-002", nom: "Competencias Laborales Volcán" },
               { cod: "PSI-ALT-003", nom: "Evaluación Psicológica – Altura" },
               { cod: "PSI-FAT-002", nom: "Escala de Epworth (Somnolencia)" },
               { cod: "PSI-SEG-002", nom: "Test de Propensión a Accidentes" },
-              { cod: "PSI-VIG-001", nom: "Test de Vigilancia Psicomotora" }
+              { cod: "PSI-VIG-001", nom: "Test de Vigilancia Psicomotora" },
             ],
             "Exámenes Médicos Generales": [
-              { cod: "MED-CLIN-001", nom: "Evaluación Médica Ocupacional Anual" },
+              {
+                cod: "MED-CLIN-001",
+                nom: "Evaluación Médica Ocupacional Anual",
+              },
               { cod: "MED-NEU-001", nom: "Examen Neurológico Básico" },
               { cod: "MED-OSTE-001", nom: "Evaluación Músculo Esquelética" },
               { cod: "MED-DERM-001", nom: "Examen Dermatológico" },
-              { cod: "MED-CARD-001", nom: "Evaluación Cardiovascular" }
+              { cod: "MED-CARD-001", nom: "Evaluación Cardiovascular" },
             ],
             "Exámenes Complementarios Especiales": [
               { cod: "COMP-LAB-008", nom: "Examen Toxicológico (Drogas)" },
@@ -7799,51 +8186,55 @@
               { cod: "COMP-RESP-003", nom: "Espirometría Forzada (CVF)" },
               { cod: "COMP-AUD-001", nom: "Audiometría Tonal" },
               { cod: "COMP-RAY-001", nom: "Radiografía de Tórax (OIT)" },
-              { cod: "COMP-RAY-003", nom: "Ecografía Abdominal" }
-            ]
-          }
-        }
+              { cod: "COMP-RAY-003", nom: "Ecografía Abdominal" },
+            ],
+          },
+        },
       };
-      
+
       function abrirOrdenPruebas(codPrest, depGrupo) {
         // Actualizar título del modal
         const titulo = document.getElementById("tOrdenPruebas");
         if (titulo) {
-          titulo.innerHTML = codPrest 
-              ? '<i class="fas fa-sort me-2 text-primary"></i>Orden de Pruebas — ' + codPrest
-              : '<i class="fas fa-sort me-2 text-primary"></i>Orden de Pruebas';
+          titulo.innerHTML = codPrest
+            ? '<i class="fas fa-sort me-2 text-primary"></i>Orden de Pruebas — ' +
+              codPrest
+            : '<i class="fas fa-sort me-2 text-primary"></i>Orden de Pruebas';
         }
-      
+
         const contenedor = document.getElementById("contenedorPruebasOrden");
         const sel = document.getElementById("selectGrupoOrden");
-      
+
         if (sel) sel.value = "";
         if (contenedor) {
-          contenedor.innerHTML = '<div class="text-center text-muted p-4"><i class="fas fa-hand-pointer mb-3 fs-3 text-primary opacity-50"></i><br />Seleccione un Grupo Ocupacional para ver y ordenar sus pruebas.</div>';
+          contenedor.innerHTML =
+            '<div class="text-center text-muted p-4"><i class="fas fa-hand-pointer mb-3 fs-3 text-primary opacity-50"></i><br />Seleccione un Grupo Ocupacional para ver y ordenar sus pruebas.</div>';
         }
       }
-      
+
       function cargarPruebasOrden() {
         const select = document.getElementById("selectGrupoOrden");
         const grupoValue = select?.value;
         const contenedor = document.getElementById("contenedorPruebasOrden");
         if (!contenedor) return;
-      
+
         if (!grupoValue || !_pruebasPorGrupo[grupoValue]) {
-          contenedor.innerHTML = '<div class="text-center text-muted p-4"><i class="fas fa-hand-pointer mb-3 fs-3 text-primary opacity-50"></i><br />Seleccione un Grupo Ocupacional para ver y ordenar sus pruebas.</div>';
+          contenedor.innerHTML =
+            '<div class="text-center text-muted p-4"><i class="fas fa-hand-pointer mb-3 fs-3 text-primary opacity-50"></i><br />Seleccione un Grupo Ocupacional para ver y ordenar sus pruebas.</div>';
           return;
         }
-      
+
         const dataGrupo = _pruebasPorGrupo[grupoValue];
         const nombreGrupo = dataGrupo.nombre;
         const clasificaciones = dataGrupo.clasificaciones;
         const clasifNames = Object.keys(clasificaciones);
-      
+
         if (clasifNames.length === 0) {
-          contenedor.innerHTML = '<div class="text-center text-muted p-4">No hay pruebas estructuradas en clasificaciones para este grupo.</div>';
+          contenedor.innerHTML =
+            '<div class="text-center text-muted p-4">No hay pruebas estructuradas en clasificaciones para este grupo.</div>';
           return;
         }
-      
+
         // Helper template
         const getCardHTML = (p, index) => `
                 <div class="card-item item-row p-3 border rounded shadow-sm bg-white d-flex flex-column" style="margin-bottom: 12px;">
@@ -7853,7 +8244,6 @@
                         </div>
                         <div class="flex-grow-1 d-flex flex-column" style="min-width: 0;">
                             <span style="font-size: 1.1rem; font-weight: 700; color: var(--primary, #2563eb); line-height: 1.35; display: block;">${p.nom || p.descripcion || "Prestación sin nombre"}</span>
-                            <div class="small text-muted mt-1"><i class="fas fa-tags me-1"></i> Factores: [Configuración General]</div>
                             <small class="text-muted fw-medium mt-1" style="font-size: 0.78rem;">${p.cod}</small>
                         </div>
                         <div class="d-flex flex-column align-items-center gap-1 flex-shrink-0">
@@ -7862,26 +8252,26 @@
                         </div>
                     </div>
                 </div>`;
-      
+
         let html = '<div class="accordion" id="accordionPruebasOrden">';
         const colors = ["primary", "success", "warning", "info", "danger"];
-      
+
         clasifNames.forEach((clasifName, cIdx) => {
           const color = colors[cIdx % colors.length];
           const pruebas = clasificaciones[clasifName];
           const isFirst = cIdx === 0;
           const collapseId = `collapse-pruebas-${cIdx}`;
           const headingId = `heading-pruebas-${cIdx}`;
-          
+
           html += `
             <div class="accordion-item mb-3 border-0 shadow-sm" style="border-radius: 12px; overflow: hidden;">
               <h2 class="accordion-header" id="${headingId}">
-                <button class="accordion-button ${isFirst ? '' : 'collapsed'} bg-light fw-bold py-3 border-start border-${color} border-4" type="button" data-bs-toggle="collapse" data-bs-target="#${collapseId}" aria-expanded="${isFirst ? 'true' : 'false'}" aria-controls="${collapseId}">
+                <button class="accordion-button ${isFirst ? "" : "collapsed"} bg-light fw-bold py-3 border-start border-${color} border-4" type="button" data-bs-toggle="collapse" data-bs-target="#${collapseId}" aria-expanded="${isFirst ? "true" : "false"}" aria-controls="${collapseId}">
                   <i class="fas fa-layer-group me-2 text-${color}"></i>Grupo: ${nombreGrupo} (${clasifName})
                   <span class="badge bg-${color} rounded-pill ms-auto me-2">${pruebas.length}</span>
                 </button>
               </h2>
-              <div id="${collapseId}" class="accordion-collapse collapse ${isFirst ? 'show' : ''}" aria-labelledby="${headingId}">
+              <div id="${collapseId}" class="accordion-collapse collapse ${isFirst ? "show" : ""}" aria-labelledby="${headingId}">
                 <div class="accordion-body p-3 bg-white">
                   <div class="lista-ordenable" style="min-height: 60px; border-left: 4px solid var(--bs-${color}, var(--${color}, #2563eb)); padding-left: 8px;">
                     ${pruebas.map((p, i) => getCardHTML(p, i)).join("")}
@@ -7891,21 +8281,21 @@
             </div>
           `;
         });
-        
-        html += '</div>';
-      
+
+        html += "</div>";
+
         contenedor.innerHTML = html;
-      
+
         if (typeof initDrag === "function") {
           contenedor.querySelectorAll(".card-item").forEach(initDrag);
         }
       }
-      
+
       // Inicializar drag & drop en los card-item dinámicos
       document.addEventListener("DOMContentLoaded", function () {
         const contenedor = document.getElementById("contenedorPruebasOrden");
         if (contenedor && typeof initDrag === "function") {
-            contenedor.querySelectorAll(".card-item").forEach(initDrag);
+          contenedor.querySelectorAll(".card-item").forEach(initDrag);
         }
       });
     </script>
@@ -8248,24 +8638,44 @@
         }
       }
       function nuevaFicha() {
-        document.getElementById("tFicha").innerHTML =
-          '<i class="fas fa-clipboard-list me-2 text-primary"></i>Nueva Ficha';
+        document.getElementById("tFicha").innerHTML = '<i class="fas fa-clipboard-list me-2 text-primary"></i>Nueva Ficha';
         document.getElementById("fCod").value = "";
         document.getElementById("fCod").disabled = false;
         document.getElementById("fDesc").disabled = false;
         document.getElementById("fEstado").disabled = false;
         document.getElementById("fDesc").value = "";
-        document.getElementById("chkGrupo").checked = false;
-        document.getElementById("chkFinalizar").checked = false;
+        document.getElementById("fTieneGrupo").checked = false;
+        document.getElementById("fFinalizada").checked = false;
+        document.getElementById("fGrupoBox").style.display = "none";
+        document.getElementById("fCodigoDatoBox").style.display = "block";
+        document.getElementById("fCdTableBody").innerHTML = `
+          <tr>
+            <td class="ps-3"><span class="badge bg-light text-dark border shadow-sm"><i class="fas fa-tag me-1 text-primary"></i> PTJ-001</span></td>
+            <td>Puntaje Total</td>
+            <td><span class="text-muted small"><i class="fas fa-calculator me-1"></i> Puntaje numérico</span></td>
+            <td><span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25" style="font-size: 0.72rem;">Activo</span></td>
+            <td class="text-center"><button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('tr').remove()"><i class="fas fa-trash"></i></button></td>
+          </tr>
+          <tr>
+            <td class="ps-3"><span class="badge bg-light text-dark border shadow-sm"><i class="fas fa-tag me-1 text-primary"></i> NVL-001</span></td>
+            <td>Nivel de Riesgo</td>
+            <td><span class="text-muted small"><i class="fas fa-font me-1"></i> Nivel texto</span></td>
+            <td><span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25" style="font-size: 0.72rem;">Activo</span></td>
+            <td class="text-center"><button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('tr').remove()"><i class="fas fa-trash"></i></button></td>
+          </tr>
+          <tr>
+            <td class="ps-3"><span class="badge bg-light text-dark border shadow-sm"><i class="fas fa-tag me-1 text-primary"></i> INT-001</span></td>
+            <td>Interpretación Clínica</td>
+            <td><span class="text-muted small"><i class="fas fa-comment-alt me-1"></i> Interpretación texto</span></td>
+            <td><span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25" style="font-size: 0.72rem;">Activo</span></td>
+            <td class="text-center"><button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('tr').remove()"><i class="fas fa-trash"></i></button></td>
+          </tr>
+        `;
         setEstadoFichaMode("create");
-        document.getElementById("secCD").style.display = "block";
-        document.getElementById("secSF").style.display = "none";
-        resetBox("boxCD", "emptyCD", "fas fa-inbox", "Sin Códigos Dato.");
-        resetBox("boxSF", "emptySF", "fas fa-sitemap", "Sin sub-fichas.");
       }
+
       function editarFicha(cod, esGrupo) {
-        document.getElementById("tFicha").innerHTML =
-          '<i class="fas fa-pen me-2 text-primary"></i>Editar Ficha: ' + cod;
+        document.getElementById("tFicha").innerHTML = '<i class="fas fa-pen me-2 text-primary"></i>Editar Ficha: ' + cod;
         document.getElementById("fCod").value = cod;
         document.getElementById("fCod").disabled = true;
         document.getElementById("fDesc").disabled = true;
@@ -8278,84 +8688,102 @@
           "FMO-004": "Ficha Médica Ocupacional",
         };
         document.getElementById("fDesc").value = demoDescs[cod] || "Ficha de Evaluación";
-
-        setEstadoFichaMode("edit");
         document.getElementById("fEstado").value = "activo";
-        document.getElementById("chkGrupo").checked = !!esGrupo;
-        toggleGrupo();
-        resetBox("boxCD", "emptyCD", "fas fa-inbox", "Sin Códigos Dato.");
-        resetBox("boxSF", "emptySF", "fas fa-sitemap", "Sin sub-fichas.");
+        document.getElementById("fTieneGrupo").checked = !!esGrupo;
+        
+        document.getElementById("fGrupoBox").style.display = esGrupo ? "block" : "none";
+        document.getElementById("fCodigoDatoBox").style.display = esGrupo ? "none" : "block";
+        
+        setEstadoFichaMode("edit");
+        
         if (!esGrupo) {
-          pushItem(
-            "boxCD",
-            "emptyCD",
-            rowCD("PUN-001", "Puntaje Total", "puntaje", "activo"),
-          );
-          pushItem(
-            "boxCD",
-            "emptyCD",
-            rowCD("NIV-001", "Nivel Resultante", "nivel", "activo"),
-          );
-          pushItem(
-            "boxCD",
-            "emptyCD",
-            rowCD(
-              "INT-001",
-              "Interpretación Clínica",
-              "interpretacion",
-              "activo",
-            ),
-          );
+          document.getElementById("fCdTableBody").innerHTML = `
+            <tr>
+              <td class="ps-3"><span class="badge bg-light text-dark border shadow-sm"><i class="fas fa-tag me-1 text-primary"></i> PTJ-001</span></td>
+              <td>Puntaje Total</td>
+              <td><span class="text-muted small"><i class="fas fa-calculator me-1"></i> Puntaje numérico</span></td>
+              <td><span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25" style="font-size: 0.72rem;">Activo</span></td>
+              <td class="text-center"><button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('tr').remove()"><i class="fas fa-trash"></i></button></td>
+            </tr>
+            <tr>
+              <td class="ps-3"><span class="badge bg-light text-dark border shadow-sm"><i class="fas fa-tag me-1 text-primary"></i> NVL-001</span></td>
+              <td>Nivel de Riesgo</td>
+              <td><span class="text-muted small"><i class="fas fa-font me-1"></i> Nivel texto</span></td>
+              <td><span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25" style="font-size: 0.72rem;">Activo</span></td>
+              <td class="text-center"><button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('tr').remove()"><i class="fas fa-trash"></i></button></td>
+            </tr>
+            <tr>
+              <td class="ps-3"><span class="badge bg-light text-dark border shadow-sm"><i class="fas fa-tag me-1 text-primary"></i> INT-001</span></td>
+              <td>Interpretación Sugerida</td>
+              <td><span class="text-muted small"><i class="fas fa-comment-alt me-1"></i> Interpretación texto</span></td>
+              <td><span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25" style="font-size: 0.72rem;">Activo</span></td>
+              <td class="text-center"><button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('tr').remove()"><i class="fas fa-trash"></i></button></td>
+            </tr>
+          `;
         } else {
-          pushItem("boxSF", "emptySF", rowSF("CPS-001", "Escala de Ansiedad"));
-          pushItem("boxSF", "emptySF", rowSF("CPS-002", "Escala de Depresión"));
-          pushItem(
-            "boxSF",
-            "emptySF",
-            rowSF("CPS-003", "Competencias Laborales - Módulo 1"),
-          );
+          document.getElementById("listaSubFichas").innerHTML = `
+            <div class="card-item p-2 mb-2 d-flex align-items-center justify-content-between border rounded" style="background:#f8fafc;">
+              <span class="small fw-bold text-primary"><i class="fas fa-file-alt me-2"></i>CPS-001</span>
+              <span class="small flex-grow-1 ms-3">Escala de Ansiedad</span>
+              <button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('.card-item').remove()"><i class="fas fa-trash"></i></button>
+            </div>
+          `;
         }
       }
-      function toggleGrupo() {
-        const g = document.getElementById("chkGrupo").checked;
-        document.getElementById("secCD").style.display = g ? "none" : "block";
-        document.getElementById("secSF").style.display = g ? "block" : "none";
-      }
-      function addCD() {
-        const cod = document.getElementById("cdCod").value.trim().toUpperCase(),
-          des = document.getElementById("cdDes").value.trim(),
-          tip = document.getElementById("cdTip").value,
-          est = document.getElementById("cdEst").value;
-        if (!cod || !des || !tip || !est) {
-          alert("Faltan datos.");
+
+      function addCodigoDato() {
+        const cod = document.getElementById("fCdCod").value.trim().toUpperCase();
+        const des = document.getElementById("fCdDesc").value.trim();
+        const tip = document.getElementById("fCdTipo").value;
+        const est = document.getElementById("fCdEstado").value;
+
+        if (!cod || !des) {
+          showToast("⚠️ Ingrese código y descripción");
           return;
         }
-        pushItem("boxCD", "emptyCD", rowCD(cod, des, tip, est));
-        ["cdCod", "cdDes"].forEach(
-          (id) => (document.getElementById(id).value = ""),
-        );
-        document.getElementById("cdTip").value = "";
-        document.getElementById("cdEst").value = "activo";
+
+        const tbody = document.getElementById("fCdTableBody");
+        const tr = document.createElement("tr");
+        
+        const tipIcons = {
+          "Puntaje numérico": "fa-calculator",
+          "Nivel texto": "fa-font",
+          "Interpretación texto": "fa-comment-alt"
+        };
+        const icon = tipIcons[tip] || "fa-tag";
+
+        tr.innerHTML = `
+          <td class="ps-3"><span class="badge bg-light text-dark border shadow-sm"><i class="fas fa-tag me-1 text-primary"></i> ${cod}</span></td>
+          <td>${des}</td>
+          <td><span class="text-muted small"><i class="fas ${icon} me-1"></i> ${tip}</span></td>
+          <td><span class="badge ${est === "Activo" ? "bg-success" : "bg-secondary"} bg-opacity-10 ${est === "Activo" ? "text-success" : "text-secondary"} border ${est === "Activo" ? "border-success" : "border-secondary"} border-opacity-25" style="font-size: 0.72rem;">${est}</span></td>
+          <td class="text-center"><button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('tr').remove()"><i class="fas fa-trash"></i></button></td>
+        `;
+
+        // If it was the "Sin Códigos" message, clear it (though here we clear it in nuevaFicha anyway)
+        tbody.appendChild(tr);
+
+        document.getElementById("fCdCod").value = "";
+        document.getElementById("fCdDesc").value = "";
       }
+
       function addSF() {
-        const cod = document.getElementById("sfCod").value.trim().toUpperCase(),
-          des =
-            document.getElementById("sfDes").value.trim() ||
-            FICHAS_DB[cod] ||
-            "—";
-        if (!cod) {
-          alert("Ingresa código.");
-          return;
-        }
-        pushItem("boxSF", "emptySF", rowSF(cod, des));
-        document.getElementById("sfCod").value = "";
-        document.getElementById("sfDes").value = "";
-      }
-      function rowCD(cod, des, tip, est) {
-        return `<div class="item-row"><div class="inf"><strong style="color:var(--primary)">${cod}</strong><span class="fw-medium">${des}</span><span class="tag ${TIPO_CLASS[tip]}">${TIPO_ICON[tip]} ${TIPO_LABEL[tip]}</span>${est === "activo" ? '<span class="b-activo">Activo</span>' : '<span class="b-cesado">Cesado</span>'}</div><button class="btn btn-light rounded-circle text-danger p-0" style="width:32px;height:32px;" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button></div>`;
-      }
-      function rowSF(cod, des) {
-        return `<div class="item-row"><div class="inf"><span class="tag tag-fich fw-bold"><i class="fas fa-file-alt me-1 text-primary"></i>${cod}</span><span class="fw-medium">${des}</span></div><button class="btn btn-light rounded-circle text-danger p-0" style="width:32px;height:32px;" onclick="this.closest('.item-row').remove()"><i class="fas fa-times"></i></button></div>`;
+        const input = document.getElementById("inputBuscarSubFicha");
+        const cod = input.value.trim().toUpperCase();
+        const des = "Sub-ficha de Evaluación";
+        if (!cod) return;
+
+        const div = document.createElement("div");
+        div.className = "card-item p-2 mb-2 d-flex align-items-center justify-content-between border rounded";
+        div.style.background = "#f8fafc";
+        div.innerHTML = `
+          <span class="small fw-bold text-primary"><i class="fas fa-file-alt me-2"></i>${cod}</span>
+          <span class="small flex-grow-1 ms-3">${des}</span>
+          <button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('.card-item').remove()"><i class="fas fa-trash"></i></button>
+        `;
+        document.getElementById("listaSubFichas").appendChild(div);
+        input.value = "";
+        showToast("Sub-ficha agregada");
       }
 
       /* ══════════════════════════════
@@ -8842,11 +9270,11 @@
       function filtrarCool(id, value) {
         const q = value.trim().toLowerCase();
         const cards = document.querySelectorAll("#" + id + " .card-item");
-        
+
         cards.forEach((card, index) => {
           const txt = card.textContent.toLowerCase();
           const match = txt.includes(q);
-          
+
           if (match) {
             card.style.display = "flex";
             // Retraso escalonado sutil para dar efecto "cascada"
@@ -10758,7 +11186,9 @@
                   <label class="form-label">Tipo de Examen</label
                   ><select class="form-select" id="pTipoExamen">
                     <option value="emo">Examen Principal</option>
-                    <option value="complementario">Examen Complementario</option>
+                    <option value="complementario">
+                      Examen Complementario
+                    </option>
                   </select>
                 </div>
               </div>
@@ -10885,8 +11315,8 @@
                       type="checkbox"
                       id="fTieneGrupo"
                       onchange="
-                        document.getElementById('fGrupoBox').style.display =
-                          this.checked ? 'block' : 'none'
+                        document.getElementById('fGrupoBox').style.display = this.checked ? 'block' : 'none';
+                        document.getElementById('fCodigoDatoBox').style.display = this.checked ? 'none' : 'block';
                       "
                     />
                     <label class="form-check-label ms-2" for="fTieneGrupo"
@@ -10934,37 +11364,63 @@
               <h6 class="fw-bold mb-3" style="color: var(--primary-hover)">
                 <i class="fas fa-tag me-2"></i>Códigos Dato de la Ficha
               </h6>
-              <p class="text-muted small mb-0 ms-1">
-                Como la ficha no es un grupo, se enlistan a continuación los
-                códigos dato asociados a sus campos.
-              </p>
-              <div class="soft-panel p-3 mt-3">
-                <table
-                  class="table table-sm table-borderless text-muted small align-middle m-0"
-                >
-                  <tr class="border-bottom">
-                    <th>Campo</th>
-                    <th>Código Dato Vinculado</th>
-                  </tr>
-                  <tr>
-                    <td class="fw-bold">Puntaje Total</td>
-                    <td>
-                      <span class="badge bg-light text-dark border"
-                        ><i class="fas fa-tag me-1 text-primary"></i>
-                        PTJ-001</span
-                      >
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="fw-bold">Nivel de Riesgo</td>
-                    <td>
-                      <span class="badge bg-light text-dark border"
-                        ><i class="fas fa-tag me-1 text-primary"></i>
-                        NVL-001</span
-                      >
-                    </td>
-                  </tr>
-                </table>
+              <div class="soft-panel p-3 mb-3" style="background-color: #f8fafc; border: 1px dashed #cbd5e1;">
+                <div class="row g-2 align-items-end">
+                  <div class="col-md-2">
+                    <label class="form-label small fw-bold text-muted">Código</label>
+                    <input type="text" id="fCdCod" class="form-control form-control-sm" placeholder="Ej: PTJ-001">
+                  </div>
+                  <div class="col-md-3">
+                    <label class="form-label small fw-bold text-muted">Descripción</label>
+                    <input type="text" id="fCdDesc" class="form-control form-control-sm" placeholder="Ej: Puntaje Total">
+                  </div>
+                  <div class="col-md-3">
+                    <label class="form-label small fw-bold text-muted">Tipo</label>
+                    <select id="fCdTipo" class="form-select form-select-sm">
+                      <option value="Puntaje numérico">Puntaje numérico</option>
+                      <option value="Nivel texto">Nivel texto</option>
+                      <option value="Interpretación texto">Interpretación texto</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2">
+                    <label class="form-label small fw-bold text-muted">Estado</label>
+                    <select id="fCdEstado" class="form-select form-select-sm">
+                      <option value="Activo">Activo</option>
+                      <option value="Inactivo">Inactivo</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2">
+                    <button class="btn btn-primary btn-sm w-100 fw-bold shadow-sm" style="height: 31px;" onclick="addCodigoDato()">
+                      <i class="fas fa-plus me-1"></i> Añadir
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="soft-panel p-0 overflow-hidden">
+                <div class="table-responsive">
+                  <table class="table table-sm table-hover align-middle mb-0" style="font-size: 0.85rem;">
+                    <thead class="bg-light text-muted small" style="border-bottom: 2px solid #e2e8f0;">
+                      <tr>
+                        <th class="ps-3 py-2">Código</th>
+                        <th class="py-2">Descripción</th>
+                        <th class="py-2">Tipo</th>
+                        <th class="py-2">Estado</th>
+                        <th class="text-center py-2">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody id="fCdTableBody">
+                      <!-- Datos ficticios para la demo -->
+                      <tr>
+                        <td class="ps-3"><span class="badge bg-light text-dark border shadow-sm"><i class="fas fa-tag me-1 text-primary"></i> PTJ-001</span></td>
+                        <td>Puntaje Total</td>
+                        <td><span class="text-muted small"><i class="fas fa-calculator me-1"></i> Puntaje numérico</span></td>
+                        <td><span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25" style="font-size: 0.72rem;">Activo</span></td>
+                        <td class="text-center"><button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('tr').remove()"><i class="fas fa-trash"></i></button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -11063,19 +11519,27 @@
           <div class="modal-body p-4">
             <!-- SELECTOR GRUPO -->
             <div id="selectorGrupoOrden" class="soft-panel mb-4">
-              <label class="form-label fw-bold text-primary small">Seleccionar Grupo Ocupacional</label>
-              <select class="form-select border-primary" id="selectGrupoOrden" onchange="cargarPruebasOrden()">
+              <label class="form-label fw-bold text-primary small"
+                >Seleccionar Grupo Ocupacional</label
+              >
+              <select
+                class="form-select border-primary"
+                id="selectGrupoOrden"
+                onchange="cargarPruebasOrden()"
+              >
                 <option value="">Seleccionar grupo...</option>
-                <option value="GO-001">Administrativos</option>
-                <option value="GO-002">Operarios</option>
-                <option value="GO-003">Operativos</option>
+                <option value="GO-001">Profesionales</option>
+                <option value="GO-002">Administrativos</option>
+                <option value="GO-003">Técnicos</option>
               </select>
             </div>
 
             <!-- CONTENEDOR DINÁMICO DE PRUEBAS -->
             <div id="contenedorPruebasOrden">
               <div class="text-center text-muted p-4">
-                <i class="fas fa-hand-pointer mb-3 fs-3 text-primary opacity-50"></i>
+                <i
+                  class="fas fa-hand-pointer mb-3 fs-3 text-primary opacity-50"
+                ></i>
                 <br />
                 Seleccione un Grupo Ocupacional para ver y ordenar sus pruebas.
               </div>
@@ -12320,8 +12784,15 @@
           }
           const tooltip = new bootstrap.Tooltip(tooltipTriggerEl);
           // Only enable sidebar tooltips if it's collapsed
-          if (tooltipTriggerEl.classList.contains("nav-link") && tooltipTriggerEl.closest("#sidebar")) {
-            if (!document.getElementById("sidebar").classList.contains("collapsed")) {
+          if (
+            tooltipTriggerEl.classList.contains("nav-link") &&
+            tooltipTriggerEl.closest("#sidebar")
+          ) {
+            if (
+              !document
+                .getElementById("sidebar")
+                .classList.contains("collapsed")
+            ) {
               tooltip.disable();
             }
           }

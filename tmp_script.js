@@ -198,7 +198,6 @@ function abrirOrdenPruebas(codPrest, depGrupo) {
                   </div>
                   <div class="flex-grow-1 d-flex flex-column" style="min-width: 0;">
                     <span style="font-size: 1.1rem; font-weight: 600; color: var(--text-main); line-height: 1.35; display: block;">Evaluación Psicológica - Entrevista</span>
-                    <div class="small text-muted mt-1"><i class="fas fa-tags me-1"></i> Factores: [Cargar descripción aquí]</div>
                     <small class="text-muted fw-medium mt-1" style="font-size: 0.78rem;">PR-PSI-001</small>
                   </div>
                   <div class="d-flex flex-column align-items-center gap-1 flex-shrink-0">
@@ -220,7 +219,6 @@ function abrirOrdenPruebas(codPrest, depGrupo) {
                   </div>
                   <div class="flex-grow-1 d-flex flex-column" style="min-width: 0;">
                     <span style="font-size: 1.1rem; font-weight: 600; color: var(--text-main); line-height: 1.35; display: block;">Competencias Laborales Volcán</span>
-                    <div class="small text-muted mt-1"><i class="fas fa-tags me-1"></i> Factores: [Cargar descripción aquí]</div>
                     <small class="text-muted fw-medium mt-1" style="font-size: 0.78rem;">PSI-CMP-002</small>
                   </div>
                   <div class="d-flex flex-column align-items-center gap-1 flex-shrink-0">
@@ -256,7 +254,6 @@ function cargarPruebasOrden() {
                   </div>
                   <div class="flex-grow-1 d-flex flex-column" style="min-width: 0;">
                       <span style="font-size: 1.1rem; font-weight: 600; color: var(--text-main); line-height: 1.35; display: block;">${p.nom || p.descripcion || "Prestaci\u00f3n sin nombre"}</span>
-                      <div class="small text-muted mt-1"><i class="fas fa-tags me-1"></i> Factores: [Cargar descripci\u00f3n aqu\u00ed]</div>
                       <small class="text-muted fw-medium mt-1" style="font-size: 0.78rem;">${p.cod}</small>
                   </div>
                   <div class="d-flex flex-column align-items-center gap-1 flex-shrink-0">
