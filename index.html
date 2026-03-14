@@ -6558,7 +6558,20 @@
                     abiertas.
                   </p>
 
-                  <h6 class="fw-bold text-primary mb-3 mt-4">
+                  
+                  <!-- ========================================== -->
+                  <!-- ACTUALIZACION: REPLICAR VALORES RESPUESTAS -->
+                  <!-- ========================================== -->
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                      <h6 class="mb-0 fw-bold">Asignación de puntajes</h6>
+                      <small class="text-muted">Puedes copiar los valores a otras preguntas compatibles.</small>
+                    </div>
+                    <button type="button" class="btn btn-outline-primary rounded-pill fw-semibold" id="btnReplicarValores">
+                      <i class="fas fa-copy me-2"></i>Replicar valores a otras preguntas
+                    </button>
+                  </div>
+<h6 class="fw-bold text-primary mb-3 mt-4">
                     <i class="fas fa-check-circle me-2"></i>Preguntas Cerradas
                   </h6>
                   <div
@@ -8518,6 +8531,40 @@
 <script src="js/modules/bootstrap.js"></script>
 <script src="js/modules/regression-fixes.js"></script>
 <script src="js/legacy/app.legacy.js"></script>
+
+
+    <!-- ========================================== -->
+    <!-- ACTUALIZACION: MODAL REPLICA DE VALORES    -->
+    <!-- ========================================== -->
+    <div class="modal fade" id="modalReplicarValores" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title fw-bold"><i class="fas fa-copy me-2 text-primary"></i>Replicar valores</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-md-12">
+                <label class="form-label">¿De qué pregunta origen quieres copiar los valores?</label>
+                <select id="replicaPreguntaOrigen" class="form-select">
+                  <option value="">Seleccionar pregunta origen...</option>
+                </select>
+              </div>
+              <div class="col-md-12">
+                <label class="form-label">¿A qué preguntas destino se los quieres aplicar?</label>
+                <div id="replicaPreguntasDestino" class="items-box p-3" style="min-height:160px;"></div>
+                <small class="text-muted">Solo se habilitan preguntas con el mismo tipo y la misma cantidad de alternativas.</small>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light fw-semibold" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn-prim" id="btnConfirmarReplicaValores"><i class="fas fa-check me-2"></i>Aplicar réplica</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 </body>
 </html>

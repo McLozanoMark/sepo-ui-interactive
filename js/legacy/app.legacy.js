@@ -3586,3 +3586,706 @@ const PRUEBAS_DEMO = {
           return tooltip;
         });
       });
+
+
+/* ========================================== */
+/* ACTUALIZACION: PREGUNTAS Y PLANTILLAS REAL */
+/* ========================================== */
+(function (window, document) {
+  "use strict";
+
+  function q(sel, root) { return (root || document).querySelector(sel); }
+  function qa(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
+  function safeJsonParse(value, fallback) {
+    try { return JSON.parse(value); } catch (e) { return fallback; }
+  }
+
+  const _renderizarControlesPregunta = window.renderizarControlesPregunta;
+  const _ctrlAbierta = window.ctrlAbierta;
+  const _ctrlCerrada = window.ctrlCerrada;
+  const _swMpcAlt = window.swMpcAlt;
+  const _guardarNuevaPregunta = window.guardarNuevaPregunta;
+  const _editarPreguntaRow = window.editarPreguntaRow;
+  const _precargarBolsito = window.precargarBolsito;
+  const _addMpcAlternativa = window.addMpcAlternativa;
+  const _duplicarAlternativa = window.duplicarAlternativa;
+
+  function sepoInjectOpenExtras() {
+    const root = q("#mpContenedorPregunta");
+    if (!root || q("#sepoOpenExpectedBox", root)) return;
+    const target = q("#mp_A_boxPrecarga", root);
+    if (!target) return;
+
+    const extra = document.createElement("div");
+    extra.id = "sepoOpenExpectedBox";
+    extra.className = "col-md-12 mt-3";
+    extra.innerHTML = `
+      <div class="soft-panel">
+        <div class="row g-3">
+          <div class="col-md-8">
+            <label class="form-label text-muted small fw-bold mb-1">Respuesta esperada</label>
+            <input type="text" class="form-control" id="mp_A_respuestaEsperada" placeholder="Escribe la respuesta esperada...">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label text-muted small fw-bold mb-1">Valor / Puntaje</label>
+            <input type="number" class="form-control" id="mp_A_valorEsperado" min="0" step="0.1" placeholder="Ej: 5">
+          </div>
+        </div>
+      </div>
+    `;
+    target.insertAdjacentElement("afterend", extra);
+  }
+
+  function sepoInjectClosedPrecargaSelect() {
+    const root = q("#mpContenedorPregunta");
+    const box = q("#mp_C_precarga_opciones", root);
+    if (!box || q("#mp_C_precarga_defecto_select", box)) return;
+    box.innerHTML = `
+      <label class="form-label small fw-bold text-primary mb-1">Alternativa(s) por defecto:</label>
+      <select class="form-select form-select-sm" id="mp_C_precarga_defecto_select">
+        <option value="">Seleccionar alternativa...</option>
+      </select>
+    `;
+  }
+
+  function sepoFillClosedPrecargaOptions() {
+    const select = q("#mp_C_precarga_defecto_select");
+    const box = q("#mp_C_alternativas_box");
+    if (!select || !box) return;
+    const prev = select.value;
+    const rows = qa(".item-alt", box);
+    select.innerHTML = '<option value="">Seleccionar alternativa...</option>';
+    rows.forEach(function (row, idx) {
+      const bullet = q(".manual-bullet-input", row) && q(".manual-bullet-input", row).style.display !== "none"
+        ? (q(".manual-bullet-input", row).value || "").trim()
+        : (q(".badge-bullet", row) ? q(".badge-bullet", row).textContent.trim() : "");
+      const txtInput = q(".mpc-dynamic-box input[type='text']", row);
+      const label = txtInput ? (txtInput.value || "").trim() : "Alternativa " + (idx + 1);
+      const opt = document.createElement("option");
+      opt.value = "alt_" + (idx + 1);
+      opt.textContent = (bullet ? bullet + " " : "") + label;
+      select.appendChild(opt);
+    });
+    if (prev && qa("option", select).some(function (o) { return o.value === prev; })) select.value = prev;
+  }
+
+  function sepoBindClosedAltObservers() {
+    const box = q("#mp_C_alternativas_box");
+    if (!box || box.dataset.sepoBoundFeature === "1") return;
+    box.dataset.sepoBoundFeature = "1";
+    box.addEventListener("input", function () { sepoFillClosedPrecargaOptions(); });
+    box.addEventListener("change", function () { sepoFillClosedPrecargaOptions(); sepoSyncImageOtherInputs(box); });
+    box.addEventListener("click", function () {
+      setTimeout(function () {
+        sepoFillClosedPrecargaOptions();
+        sepoSyncImageOtherInputs(box);
+      }, 0);
+    });
+  }
+
+  function sepoSyncImageOtherInputs(root) {
+    qa(".sepo-img-size", root || document).forEach(function (sel) {
+      const wrap = sel.closest(".sepo-img-size-wrap");
+      if (!wrap) return;
+      const custom = q(".sepo-img-custom", wrap);
+      if (custom) custom.style.display = sel.value === "otros" ? "flex" : "none";
+    });
+  }
+
+  function sepoInjectImageOthers(root) {
+    qa(".sepo-img-size, .mpc-dynamic-box select.form-select", root || document).forEach(function (sel) {
+      if (!sel || sel.dataset.sepoOtherReady === "1") return;
+      // only on small size image selectors
+      if (![...sel.options].some(function (o) { return o.value === "small" || o.value === "medium" || o.value === "large"; })) return;
+      const opt = document.createElement("option");
+      opt.value = "otros";
+      opt.textContent = "Otros";
+      sel.appendChild(opt);
+      sel.classList.add("sepo-img-size");
+      sel.dataset.sepoOtherReady = "1";
+      const wrap = document.createElement("div");
+      wrap.className = "sepo-img-size-wrap d-flex align-items-center gap-2";
+      sel.parentNode.insertBefore(wrap, sel);
+      wrap.appendChild(sel);
+      const custom = document.createElement("div");
+      custom.className = "sepo-img-custom d-none align-items-center gap-2";
+      custom.style.display = "none";
+      custom.innerHTML = `
+        <input type="number" class="form-control form-control-sm sepo-img-w" placeholder="Ancho" style="width:85px;" min="1">
+        <input type="number" class="form-control form-control-sm sepo-img-h" placeholder="Alto" style="width:85px;" min="1">
+      `;
+      wrap.appendChild(custom);
+      sel.addEventListener("change", function () { sepoSyncImageOtherInputs(root || document); });
+    });
+    sepoSyncImageOtherInputs(root || document);
+  }
+
+  window.renderizarControlesPregunta = function () {
+    _renderizarControlesPregunta.apply(this, arguments);
+    const tipo = q("#mpTipoPreg_Master") ? q("#mpTipoPreg_Master").value : "";
+    if (tipo === "abierta") {
+      sepoInjectOpenExtras();
+    }
+    if (tipo === "cerrada") {
+      sepoInjectClosedPrecargaSelect();
+      sepoFillClosedPrecargaOptions();
+      sepoBindClosedAltObservers();
+    }
+    sepoInjectImageOthers(q("#mpContenedorPregunta"));
+  };
+
+  window.ctrlAbierta = function () {
+    _ctrlAbierta.apply(this, arguments);
+    sepoInjectOpenExtras();
+    const fields = q("#mp_A_precargaFields");
+    const box = q("#mp_A_boxPrecarga");
+    const yes = q("#mp_A_precargaSi");
+    if (!fields || !box || !yes) return;
+    if (yes.checked) {
+      fields.innerHTML = `
+        <label class="form-label small text-primary fw-bold mb-2">Respuesta por defecto:</label>
+        <select id="mp_A_precargaSelect" class="form-select form-select-sm">
+          <option value="">Seleccionar alternativa...</option>
+          <option value="resp_1">Respuesta 1</option>
+          <option value="resp_2">Respuesta 2</option>
+          <option value="resp_3">Respuesta 3</option>
+        </select>
+      `;
+      box.style.display = "block";
+    }
+  };
+
+  window.ctrlCerrada = function () {
+    _ctrlCerrada.apply(this, arguments);
+    sepoInjectClosedPrecargaSelect();
+    sepoFillClosedPrecargaOptions();
+    sepoBindClosedAltObservers();
+    sepoInjectImageOthers(q("#mpContenedorPregunta"));
+  };
+
+  window.swMpcAlt = function (sel) {
+    _swMpcAlt.apply(this, arguments);
+    sepoInjectImageOthers(sel.closest(".item-alt"));
+    sepoFillClosedPrecargaOptions();
+  };
+
+  window.addMpcAlternativa = function () {
+    _addMpcAlternativa.apply(this, arguments);
+    sepoInjectImageOthers(q("#mp_C_alternativas_box"));
+    sepoFillClosedPrecargaOptions();
+    sepoBindClosedAltObservers();
+  };
+
+  window.duplicarAlternativa = function (btn) {
+    _duplicarAlternativa.apply(this, arguments);
+    setTimeout(function () {
+      sepoInjectImageOthers(q("#mp_C_alternativas_box"));
+      sepoFillClosedPrecargaOptions();
+    }, 0);
+  };
+
+  function sepoReadCurrentQuestionConfig(tipo) {
+    const cfg = { tipo: tipo || "", abierta: {}, cerrada: {} };
+    if (tipo === "abierta") {
+      cfg.abierta = {
+        tipoVista: q("#mp_A_tipoVista") ? q("#mp_A_tipoVista").value : "",
+        tipoDato: q("#mp_A_tipoDato") ? q("#mp_A_tipoDato").value : "",
+        texto: q("#mp_A_text") ? q("#mp_A_text").value : "",
+        tipoResp: q("#mp_A_tipoResp") ? q("#mp_A_tipoResp").value : "",
+        tienePrecarga: q("#mp_A_precargaSi") ? q("#mp_A_precargaSi").checked : false,
+        precarga: q("#mp_A_precargaSelect") ? q("#mp_A_precargaSelect").value : "",
+        respuestaEsperada: q("#mp_A_respuestaEsperada") ? q("#mp_A_respuestaEsperada").value : "",
+        valorEsperado: q("#mp_A_valorEsperado") ? q("#mp_A_valorEsperado").value : ""
+      };
+    } else if (tipo === "cerrada") {
+      cfg.cerrada = {
+        tipoVista: q("#mp_C_tipoVista") ? q("#mp_C_tipoVista").value : "",
+        tipoDato: q("#mp_C_tipoDato") ? q("#mp_C_tipoDato").value : "",
+        texto: q("#mp_C_text") ? q("#mp_C_text").value : "",
+        tipoResp: q("#mp_C_tipoResp") ? q("#mp_C_tipoResp").value : "",
+        tienePrecarga: q("#mp_C_precarga") ? q("#mp_C_precarga").checked : false,
+        precarga: q("#mp_C_precarga_defecto_select") ? q("#mp_C_precarga_defecto_select").value : "",
+        alternativas: qa("#mp_C_alternativas_box .item-alt").map(function (row, idx) {
+          const tSel = q(".mpc-tipoalt", row);
+          const isText = !tSel || tSel.value === "texto";
+          const textInput = q(".mpc-dynamic-box input[type='text']", row);
+          const sizeSel = q(".sepo-img-size", row);
+          return {
+            texto: isText ? ((textInput && textInput.value) || "") : ("Imagen " + (idx + 1)),
+            tipo: isText ? "texto" : "imagen",
+            size: sizeSel ? sizeSel.value : "",
+            w: q(".sepo-img-w", row) ? q(".sepo-img-w", row).value : "",
+            h: q(".sepo-img-h", row) ? q(".sepo-img-h", row).value : "",
+            valor: 0
+          };
+        })
+      };
+    }
+    return cfg;
+  }
+
+  function sepoApplyQuestionConfigToRow(row, cfg) {
+    if (!row) return;
+    row.dataset.sepoConfig = JSON.stringify(cfg || {});
+  }
+
+  function sepoGetStoredQuestions() {
+    return qa("#boxPreg .item-row").map(function (row, idx) {
+      const cfg = safeJsonParse(row.dataset.sepoConfig || "{}", {});
+      const titulo = q(".desc-text", row) ? q(".desc-text", row).textContent.trim() : ("Pregunta " + (idx + 1));
+      const tipo = row.getAttribute("data-tipo") || (cfg.tipo || "");
+      const id = row.dataset.sepoId || ("preg_" + (idx + 1));
+      row.dataset.sepoId = id;
+      let alternativas = [];
+      if (tipo === "cerrada" && cfg.cerrada && Array.isArray(cfg.cerrada.alternativas)) {
+        alternativas = cfg.cerrada.alternativas;
+      }
+      return { id: id, titulo: titulo, tipo: tipo, cfg: cfg, alternativas: alternativas };
+    });
+  }
+
+  function sepoRenderPlantillaReal() {
+    const c = q("#plantillaCerradasContainer");
+    const a = q("#plantillaAbiertasContainer");
+    if (!c || !a) return;
+    const preguntas = sepoGetStoredQuestions();
+    const cerradas = preguntas.filter(function (p) { return p.tipo === "cerrada"; });
+    const abiertas = preguntas.filter(function (p) { return p.tipo === "abierta"; });
+
+    c.innerHTML = cerradas.length ? cerradas.map(function (p) {
+      return `
+        <div class="border rounded bg-white p-3 shadow-sm mb-2 border-primary" data-question-id="${p.id}">
+          <h6 class="fw-bold text-primary mb-2 text-truncate">${p.titulo}</h6>
+          ${(p.alternativas || []).map(function (alt, idx) {
+            const label = alt.tipo === "imagen" ? ("Imagen " + (idx + 1)) : (alt.texto || ("Alternativa " + (idx + 1)));
+            return `
+              <div class="d-flex align-items-center justify-content-between py-1 ${idx < p.alternativas.length - 1 ? "border-bottom border-light" : ""}">
+                <span class="text-dark fw-medium small">${label}</span>
+                <div class="d-flex align-items-center gap-2">
+                  <label class="small text-muted fw-bold mb-0">Pts:</label>
+                  <input type="number" class="form-control form-control-sm border-secondary text-success fw-bold text-center"
+                    style="width:70px;" step="0.1"
+                    data-score-question="${p.id}" data-score-index="${idx}" value="${alt.valor || 0}">
+                </div>
+              </div>`;
+          }).join("")}
+        </div>`;
+    }).join("") : `<div class="alert alert-light text-muted small shadow-sm"><i class="fas fa-info-circle me-2"></i>Las preguntas cerradas se cargarán automáticamente al ingresar a esta pestaña.</div>`;
+
+    a.innerHTML = abiertas.length ? abiertas.map(function (p) {
+      const abierta = (p.cfg && p.cfg.abierta) || {};
+      return `
+        <div class="border rounded bg-white p-3 shadow-sm mb-2 border-warning">
+          <h6 class="fw-bold text-warning mb-2 text-truncate">${p.titulo}</h6>
+          <div class="row g-2">
+            <div class="col-md-8">
+              <label class="small text-muted fw-bold mb-1">Respuesta esperada</label>
+              <input type="text" class="form-control form-control-sm" value="${abierta.respuestaEsperada || ""}">
+            </div>
+            <div class="col-md-4">
+              <label class="small text-muted fw-bold mb-1">Puntaje</label>
+              <input type="number" class="form-control form-control-sm" value="${abierta.valorEsperado || ""}" step="0.1">
+            </div>
+          </div>
+        </div>`;
+    }).join("") : `<div class="alert alert-light text-muted small shadow-sm"><i class="fas fa-info-circle me-2"></i>Las preguntas abiertas se cargarán automáticamente al ingresar a esta pestaña.</div>`;
+  }
+
+  window.guardarNuevaPregunta = function () {
+    const tipo = q("#mpTipoPreg_Master") ? q("#mpTipoPreg_Master").value : "";
+    const box = q("#boxPreg");
+    const editRow = window.preguntaActualEditando || null;
+    const editIndex = editRow && box ? qa(":scope > .item-row", box).indexOf(editRow) : -1;
+    const cfg = sepoReadCurrentQuestionConfig(tipo);
+
+    const result = _guardarNuevaPregunta.apply(this, arguments);
+
+    const rows = box ? qa(":scope > .item-row", box) : [];
+    const row = editIndex >= 0 ? rows[editIndex] : (rows.length ? rows[rows.length - 1] : null);
+    sepoApplyQuestionConfigToRow(row, cfg);
+    sepoRenderPlantillaReal();
+    return result;
+  };
+
+  window.editarPreguntaRow = function (btn) {
+    const row = btn.closest(".item-row");
+    const cfg = safeJsonParse((row && row.dataset.sepoConfig) || "{}", {});
+    _editarPreguntaRow.apply(this, arguments);
+    setTimeout(function () {
+      if (cfg.abierta) {
+        if (q("#mp_A_precargaSi")) q("#mp_A_precargaSi").checked = !!cfg.abierta.tienePrecarga;
+        if (q("#mp_A_precargaNo")) q("#mp_A_precargaNo").checked = !cfg.abierta.tienePrecarga;
+        if (typeof window.ctrlAbierta === "function") window.ctrlAbierta();
+        if (q("#mp_A_precargaSelect")) q("#mp_A_precargaSelect").value = cfg.abierta.precarga || "";
+        if (q("#mp_A_respuestaEsperada")) q("#mp_A_respuestaEsperada").value = cfg.abierta.respuestaEsperada || "";
+        if (q("#mp_A_valorEsperado")) q("#mp_A_valorEsperado").value = cfg.abierta.valorEsperado || "";
+      }
+      if (cfg.cerrada) {
+        if (q("#mp_C_precarga")) q("#mp_C_precarga").checked = !!cfg.cerrada.tienePrecarga;
+        if (q("#mp_C_precarga_opciones")) q("#mp_C_precarga_opciones").style.display = cfg.cerrada.tienePrecarga ? "block" : "none";
+        if (q("#mp_C_precarga_defecto_select")) q("#mp_C_precarga_defecto_select").value = cfg.cerrada.precarga || "";
+      }
+    }, 80);
+  };
+
+  function sepoFillReplicaOrigen() {
+    const sel = q("#replicaPreguntaOrigen");
+    if (!sel) return;
+    const preguntas = sepoGetStoredQuestions().filter(function (p) { return p.tipo === "cerrada"; });
+    sel.innerHTML = '<option value="">Seleccionar pregunta origen...</option>';
+    preguntas.forEach(function (p) {
+      const opt = document.createElement("option");
+      opt.value = p.id;
+      opt.textContent = p.titulo;
+      sel.appendChild(opt);
+    });
+  }
+
+  function sepoIsCompatible(origen, destino) {
+    if (!origen || !destino || origen.id === destino.id) return false;
+    if (origen.tipo !== destino.tipo) return false;
+    if ((origen.alternativas || []).length !== (destino.alternativas || []).length) return false;
+    const ot = (origen.alternativas || []).map(function (a) { return a.tipo || "texto"; }).join("|");
+    const dt = (destino.alternativas || []).map(function (a) { return a.tipo || "texto"; }).join("|");
+    return ot === dt;
+  }
+
+  function sepoRenderReplicaDestinos() {
+    const box = q("#replicaPreguntasDestino");
+    const origenSel = q("#replicaPreguntaOrigen");
+    if (!box || !origenSel) return;
+    const preguntas = sepoGetStoredQuestions().filter(function (p) { return p.tipo === "cerrada"; });
+    const origen = preguntas.find(function (p) { return p.id === origenSel.value; });
+    if (!origen) {
+      box.innerHTML = '<div class="text-muted">Selecciona una pregunta origen.</div>';
+      return;
+    }
+    box.innerHTML = preguntas.map(function (p) {
+      const ok = sepoIsCompatible(origen, p);
+      return `<label class="item-row" style="opacity:${ok ? "1" : ".5"};cursor:${ok ? "pointer" : "not-allowed"};">
+        <div class="inf">
+          <input type="checkbox" class="form-check-input me-2" value="${p.id}" ${ok ? "" : "disabled"}>
+          <div><div class="fw-semibold">${p.titulo}</div><small class="text-muted">Alternativas: ${(p.alternativas || []).length}</small></div>
+        </div>
+      </label>`;
+    }).join("");
+  }
+
+  function sepoOpenReplicaModal() {
+    sepoFillReplicaOrigen();
+    sepoRenderReplicaDestinos();
+    const el = q("#modalReplicarValores");
+    if (el && window.bootstrap) new window.bootstrap.Modal(el).show();
+  }
+
+  function sepoApplyReplica() {
+    const origenSel = q("#replicaPreguntaOrigen");
+    const box = q("#replicaPreguntasDestino");
+    if (!origenSel || !box) return;
+    const preguntas = sepoGetStoredQuestions().filter(function (p) { return p.tipo === "cerrada"; });
+    const origen = preguntas.find(function (p) { return p.id === origenSel.value; });
+    const destinos = qa('input[type="checkbox"]:checked', box).map(function (c) { return c.value; });
+    if (!origen || !destinos.length) {
+      alert("Selecciona una pregunta origen y al menos una pregunta destino.");
+      return;
+    }
+    const origenVals = qa('[data-score-question="' + origen.id + '"]').map(function (input) { return Number(input.value || 0); });
+    destinos.forEach(function (destId) {
+      qa('[data-score-question="' + destId + '"]').forEach(function (input, idx) {
+        input.value = origenVals[idx] != null ? origenVals[idx] : 0;
+      });
+    });
+    const el = q("#modalReplicarValores");
+    const modal = el && window.bootstrap ? window.bootstrap.Modal.getInstance(el) : null;
+    if (modal) modal.hide();
+  }
+
+  function sepoBindFeatureEvents() {
+    if (q("#btnReplicarValores") && !q("#btnReplicarValores").dataset.sepoBound) {
+      q("#btnReplicarValores").dataset.sepoBound = "1";
+      q("#btnReplicarValores").addEventListener("click", sepoOpenReplicaModal);
+    }
+    if (q("#replicaPreguntaOrigen") && !q("#replicaPreguntaOrigen").dataset.sepoBound) {
+      q("#replicaPreguntaOrigen").dataset.sepoBound = "1";
+      q("#replicaPreguntaOrigen").addEventListener("change", sepoRenderReplicaDestinos);
+    }
+    if (q("#btnConfirmarReplicaValores") && !q("#btnConfirmarReplicaValores").dataset.sepoBound) {
+      q("#btnConfirmarReplicaValores").dataset.sepoBound = "1";
+      q("#btnConfirmarReplicaValores").addEventListener("click", sepoApplyReplica);
+    }
+  }
+
+  window.precargarBolsito = function () {
+    _precargarBolsito.apply(this, arguments);
+    sepoRenderPlantillaReal();
+    sepoBindFeatureEvents();
+  };
+
+  document.addEventListener("DOMContentLoaded", function () {
+    sepoBindFeatureEvents();
+  });
+})(window, document);
+
+
+
+/* ========================================== */
+/* ACTUALIZACION: CORRECCIONES PUNTUALES UI   */
+/* ========================================== */
+(function (window, document) {
+  "use strict";
+
+  function q(sel, root) { return (root || document).querySelector(sel); }
+  function qa(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
+
+  function sepoHardCloseModal(modalId) {
+    const modalEl = document.getElementById(modalId);
+    if (!modalEl) return;
+
+    try {
+      if (window.bootstrap) {
+        const instance = window.bootstrap.Modal.getInstance(modalEl) || new window.bootstrap.Modal(modalEl);
+        instance.hide();
+      }
+    } catch (e) {}
+
+    modalEl.classList.remove("show");
+    modalEl.setAttribute("aria-hidden", "true");
+    modalEl.style.display = "none";
+    document.body.classList.remove("modal-open");
+    document.body.style.removeProperty("padding-right");
+    document.body.style.overflow = "";
+    qa(".modal-backdrop").forEach(function (bd) { bd.remove(); });
+  }
+
+  function sepoEnsureModalCleanup() {
+    const modalEl = document.getElementById("modalNuevaPregunta");
+    if (!modalEl || modalEl.dataset.sepoCleanupBound === "1") return;
+    modalEl.dataset.sepoCleanupBound = "1";
+    modalEl.addEventListener("hidden.bs.modal", function () {
+      document.body.classList.remove("modal-open");
+      document.body.style.removeProperty("padding-right");
+      document.body.style.overflow = "";
+      qa(".modal-backdrop").forEach(function (bd) { bd.remove(); });
+    });
+  }
+
+  const _guardarNuevaPregunta_fixBase = window.guardarNuevaPregunta;
+  window.guardarNuevaPregunta = function () {
+    const result = _guardarNuevaPregunta_fixBase.apply(this, arguments);
+    setTimeout(function () { sepoHardCloseModal("modalNuevaPregunta"); }, 10);
+    return result;
+  };
+
+  window.duplicarPregunta = function (btn) {
+    const row = btn.closest(".item-row");
+    const box = document.getElementById("boxPreg");
+    if (!row || !box) return;
+
+    if (btn.dataset.sepoDupBusy === "1") return;
+    btn.dataset.sepoDupBusy = "1";
+
+    const clone = row.cloneNode(true);
+    const desc = clone.querySelector(".desc-text");
+    if (desc) {
+      desc.textContent = (desc.textContent || "Pregunta") + " (Copia)";
+    }
+
+    clone.dataset.sepoId = "preg_" + Date.now();
+
+    if (row.dataset.sepoConfig) {
+      clone.dataset.sepoConfig = row.dataset.sepoConfig;
+    }
+
+    row.after(clone);
+
+    if (typeof window.renumerarContenedor === "function") {
+      window.renumerarContenedor("#boxPreg");
+    }
+
+    if (typeof window.precargarBolsito === "function") {
+      window.precargarBolsito();
+    }
+
+    if (typeof window.showToast === "function") {
+      window.showToast("✅ Pregunta duplicada.");
+    }
+
+    setTimeout(function () {
+      btn.dataset.sepoDupBusy = "0";
+    }, 250);
+  };
+
+  function sepoFindOrderBlock(card) {
+    const candidates = qa("div", card);
+    return candidates.find(function (el) {
+      const label = q("label", el);
+      const input = q('input[type="number"][onchange*="reordenarPrestacion"]', el);
+      return !!label && !!input && /orden/i.test(label.textContent || "");
+    }) || null;
+  }
+
+  function sepoMoveOrderFieldsLeft() {
+    qa("#lista-sepo .card-item, #lista-complementario .card-item, #listaPrestOrden .card-item").forEach(function (card) {
+      const orderInput = q('input[type="number"][onchange*="reordenarPrestacion"]', card);
+      if (!orderInput) return;
+      const orderBlock = orderInput.closest("div");
+      const icon = q(".icon-box", card);
+      const firstMeta = icon ? icon.nextElementSibling : null;
+      if (!orderBlock || !icon || !firstMeta) return;
+      if (orderBlock.previousElementSibling === icon) return;
+      icon.insertAdjacentElement("afterend", orderBlock);
+    });
+  }
+
+  function sepoInferHistorialDesdeDOM(modulo) {
+    const map = {
+      "Centros Médicos": "#screen-centros .card-item",
+      "Grado de Instrucción": "#screen-grado .card-item",
+      "Ocupaciones": "#screen-ocupaciones .card-item",
+      "Grupos Ocupacionales": "#screen-grupos .card-item",
+      "Prestaciones": "#screen-prestaciones .card-item",
+      "Fichas": "#screen-fichas .card-item",
+      "Orden de Prestaciones": "#screen-orden .card-item",
+      "Pruebas Psicológicas": "#screen-pruebas .card-prueba"
+    };
+    const selector = map[modulo];
+    if (!selector) return [];
+    const rows = qa(selector).slice(0, 10);
+    const now = new Date();
+    const stamp = now.getFullYear() + "-" + String(now.getMonth()+1).padStart(2,"0") + "-" + String(now.getDate()).padStart(2,"0") + " " + String(now.getHours()).padStart(2,"0") + ":" + String(now.getMinutes()).padStart(2,"0");
+    return rows.map(function (row, idx) {
+      const strong = q("strong", row);
+      const name = q(".fw-semibold, .prueba-title, .desc-text", row);
+      return {
+        fecha: stamp,
+        usuario: "Sistema",
+        accion: idx % 2 === 0 ? "Consulta" : "Edición",
+        registro: strong ? strong.textContent.trim() : ("REG-" + (idx + 1)),
+        detalles: name ? name.textContent.trim() : "Registro visualizado",
+        modulo: modulo
+      };
+    });
+  }
+
+  const _verHistorialBase = window.verHistorial;
+  window.verHistorial = function (modulo) {
+    const tbody = document.getElementById("historialTableBody");
+    const title = document.getElementById("historialModuloTitle");
+    if (!tbody || !title) {
+      return _verHistorialBase ? _verHistorialBase.apply(this, arguments) : undefined;
+    }
+
+    title.textContent = modulo;
+    let filtrados = [];
+    try {
+      filtrados = (_historialDemo || []).filter(function (h) { return h.modulo === modulo; });
+    } catch (e) {
+      filtrados = [];
+    }
+
+    if (!filtrados.length) {
+      filtrados = sepoInferHistorialDesdeDOM(modulo);
+    }
+
+    tbody.innerHTML = "";
+    if (!filtrados.length) {
+      tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">No hay cambios registrados recientemente.</td></tr>';
+    } else {
+      filtrados.slice().reverse().forEach(function (h) {
+        tbody.innerHTML += `
+          <tr>
+            <td class="ps-4 fw-medium text-muted">${h.fecha}</td>
+            <td>${h.usuario}</td>
+            <td><span class="badge bg-light text-dark border">${h.accion}</span></td>
+            <td class="fw-semibold">${h.registro}</td>
+            <td class="pe-4">${h.detalles}</td>
+          </tr>
+        `;
+      });
+    }
+
+    const modalEl = document.getElementById("modalHistorial");
+    if (modalEl && window.bootstrap) {
+      new window.bootstrap.Modal(modalEl).show();
+    }
+  };
+
+  function sepoCompactLists() {
+    // la mayor parte se resuelve por CSS; aquí solo ajustamos alturas puntuales
+    qa(".card-item").forEach(function (el) {
+      el.style.minHeight = "unset";
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    sepoEnsureModalCleanup();
+    sepoMoveOrderFieldsLeft();
+    sepoCompactLists();
+  });
+
+  document.addEventListener("sepo:screen:change", function () {
+    setTimeout(function () {
+      sepoMoveOrderFieldsLeft();
+      sepoCompactLists();
+    }, 30);
+  });
+
+  window.SEPOUIHardFixes = {
+    sepoHardCloseModal,
+    sepoMoveOrderFieldsLeft
+  };
+})(window, document);
+
+
+
+/* ========================================== */
+/* ACTUALIZACION: HOTFIX DUPLICAR Y ORDEN     */
+/* ========================================== */
+(function (window, document) {
+  "use strict";
+
+  function q(sel, root) { return (root || document).querySelector(sel); }
+  function qa(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
+
+  document.addEventListener("click", function (e) {
+    const btn = e.target.closest('button[title*="Duplicar"], button[title*="duplicar"]');
+    if (!btn) return;
+    const row = btn.closest("#boxPreg .item-row");
+    if (!row) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (typeof window.duplicarPregunta === "function") {
+      window.duplicarPregunta(btn);
+    }
+  }, true);
+
+  function moveOnlyOrderField() {
+    qa("#lista-sepo .card-item, #lista-complementario .card-item, #listaPrestOrden .card-item").forEach(function (card) {
+      const orderInput = q('input[type="number"][onchange*="reordenarPrestacion"]', card);
+      if (!orderInput) return;
+
+      const orderBlock = orderInput.closest("div");
+      if (!orderBlock) return;
+
+      const icon = q(".icon-box", card);
+      const firstMeta = icon ? icon.nextElementSibling : null;
+      if (!icon || !firstMeta) return;
+
+      if (orderBlock.previousElementSibling === icon) return;
+
+      icon.insertAdjacentElement("afterend", orderBlock);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    moveOnlyOrderField();
+  });
+
+  document.addEventListener("sepo:screen:change", function () {
+    setTimeout(moveOnlyOrderField, 30);
+  });
+
+  window.SEPOHotfixV2 = { moveOnlyOrderField: moveOnlyOrderField };
+})(window, document);

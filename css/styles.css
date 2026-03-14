@@ -1232,3 +1232,40 @@
     .btn-pruebas-cool i {
       color: #4338ca !important;
     }
+
+
+/* ========================================== */
+/* ACTUALIZACION: LISTAS MAS COMPACTAS        */
+/* ========================================== */
+.card-item {
+  padding: 8px 12px !important;
+  margin-bottom: 8px !important;
+  border-radius: 12px !important;
+}
+.item-row {
+  padding: 5px 10px !important;
+  min-height: 40px;
+}
+.prueba-body {
+  padding: 8px 12px !important;
+}
+.prueba-actions {
+  padding: 8px 12px !important;
+}
+.prueba-title,
+.card-item .fw-semibold {
+  font-size: 0.95rem !important;
+}
+.icon-box {
+  width: 40px !important;
+  height: 40px !important;
+}
+#screen-prestaciones .card-item,
+#screen-centros .card-item,
+#screen-grado .card-item,
+#screen-ocupaciones .card-item,
+#screen-grupos .card-item,
+#screen-fichas .card-item,
+#screen-orden .card-item {
+  gap: 12px !important;
+}
