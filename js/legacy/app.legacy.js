@@ -4289,3 +4289,1009 @@ const PRUEBAS_DEMO = {
 
   window.SEPOHotfixV2 = { moveOnlyOrderField: moveOnlyOrderField };
 })(window, document);
+
+
+
+/* ========================================== */
+/* ACTUALIZACION: PRUEBAS PSICOLOGICAS F1-F2  */
+/* MODELO: PREGUNTA -> RESPUESTA -> FACTOR    */
+/* ========================================== */
+(function (window, document) {
+  "use strict";
+
+  function q(sel, root) { return (root || document).querySelector(sel); }
+  function qa(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
+  function parseJSON(value, fallback) { try { return JSON.parse(value); } catch (e) { return fallback; } }
+
+  function getPreguntaRows() {
+    return qa("#boxPreg .item-row");
+  }
+
+  function getFactorsCatalog() {
+    return qa("#boxFac .item-row").map(function (row, index) {
+      const code = row.getAttribute("data-cod") || ("FAC-" + (index + 1));
+      const desc = row.getAttribute("data-desc") || (q(".fw-medium", row) ? q(".fw-medium", row).textContent.trim() : ("Factor " + (index + 1)));
+      return { id: code, code: code, label: desc };
+    });
+  }
+
+  function getQuestionsModel() {
+    return getPreguntaRows().map(function (row, index) {
+      const cfg = parseJSON(row.dataset.sepoConfig || "{}", {});
+      const id = row.dataset.sepoId || ("preg_" + (index + 1));
+      row.dataset.sepoId = id;
+      const title = q(".desc-text", row) ? q(".desc-text", row).textContent.trim() : ("Pregunta " + (index + 1));
+      let tipo = row.getAttribute("data-tipo") || cfg.tipo || "";
+      const badges = qa(".badge", row);
+      if (!tipo && badges.length) {
+        const txt = badges.map(function (b) { return (b.textContent || "").toLowerCase(); }).join(" | ");
+        if (txt.includes("abierta")) tipo = "abierta";
+        else if (txt.includes("cerrada")) tipo = "cerrada";
+        else if (txt.includes("matriz")) tipo = "matriz";
+        else if (txt.includes("tarjeta")) tipo = "tarjeta";
+        else if (txt.includes("numerica") || txt.includes("numérica")) tipo = "numerica";
+      }
+      if (tipo === "cerrada") {
+        cfg.cerrada = cfg.cerrada || {};
+        cfg.cerrada.alternativas = Array.isArray(cfg.cerrada.alternativas) ? cfg.cerrada.alternativas : [];
+        cfg.cerrada.alternativas = cfg.cerrada.alternativas.map(function (alt, altIndex) {
+          alt.asignaciones = Array.isArray(alt.asignaciones) && alt.asignaciones.length
+            ? alt.asignaciones
+            : [{ factorId: "", valor: 0 }];
+          return alt;
+        });
+      }
+      if (tipo === "abierta") {
+        cfg.abierta = cfg.abierta || {};
+        cfg.abierta.asignaciones = Array.isArray(cfg.abierta.asignaciones) && cfg.abierta.asignaciones.length
+          ? cfg.abierta.asignaciones
+          : [{ factorId: "", valor: Number(cfg.abierta.valorEsperado || 0) || 0 }];
+      }
+      row.dataset.sepoConfig = JSON.stringify(cfg);
+      return { id: id, title: title, tipo: tipo, cfg: cfg, row: row };
+    });
+  }
+
+  function writeQuestionCfg(questionId, updater) {
+    const row = getPreguntaRows().find(function (r) { return r.dataset.sepoId === questionId; });
+    if (!row) return;
+    const cfg = parseJSON(row.dataset.sepoConfig || "{}", {});
+    updater(cfg);
+    row.dataset.sepoConfig = JSON.stringify(cfg);
+  }
+
+  function factorOptions(selected) {
+    const factors = getFactorsCatalog();
+    const base = ['<option value="">Seleccionar factor...</option>'];
+    factors.forEach(function (f) {
+      base.push('<option value="' + f.id + '"' + (selected === f.id ? ' selected' : '') + '>' + f.code + ' · ' + f.label + '</option>');
+    });
+    return base.join("");
+  }
+
+  function renderClosedAssignments(question) {
+    if (question.tipo === "abierta") return "";
+    const alts = (question.cfg.cerrada && question.cfg.cerrada.alternativas) || [];
+    if (!alts.length) {
+      return '<div class="alert alert-light border text-muted small mb-0">Esta pregunta aún no tiene alternativas configuradas.</div>';
+    }
+    return alts.map(function (alt, altIndex) {
+      const label = alt.tipo === "imagen" ? ("Imagen " + (altIndex + 1)) : (alt.texto || ("Alternativa " + (altIndex + 1)));
+      const rows = (alt.asignaciones || [{ factorId: "", valor: 0 }]).map(function (asig, asigIndex) {
+        return `
+          <div class="row g-2 align-items-center mb-2" data-role="asignacion-row" data-asig-index="${asigIndex}">
+            <div class="col-md-7">
+              <select class="form-select form-select-sm"
+                data-role="factor-select"
+                data-question-id="${question.id}"
+                data-alt-index="${altIndex}"
+                data-asig-index="${asigIndex}">
+                ${factorOptions(asig.factorId || "")}
+              </select>
+            </div>
+            <div class="col-md-3">
+              <input type="number" class="form-control form-control-sm"
+                step="0.1"
+                data-role="factor-value"
+                data-question-id="${question.id}"
+                data-alt-index="${altIndex}"
+                data-asig-index="${asigIndex}"
+                value="${Number(asig.valor || 0)}">
+            </div>
+            <div class="col-md-2">
+              <button type="button"
+                class="btn btn-outline-danger btn-sm w-100"
+                data-role="remove-factor"
+                data-question-id="${question.id}"
+                data-alt-index="${altIndex}"
+                data-asig-index="${asigIndex}">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>`;
+      }).join("");
+
+      return `
+        <div class="border rounded bg-white p-3 shadow-sm mb-2 border-primary">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <div>
+              <div class="fw-bold text-primary">${label}</div>
+              <small class="text-muted">Asigna uno o varios factores para esta alternativa.</small>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <label class="small text-muted fw-bold mb-0">Pts. base:</label>
+              <input type="number" class="form-control form-control-sm text-center"
+                style="width:80px;"
+                data-role="score-value"
+                data-question-id="${question.id}"
+                data-alt-index="${altIndex}"
+                value="${Number(alt.valor || 0)}"
+                step="0.1">
+            </div>
+          </div>
+          ${rows}
+          <button type="button"
+            class="btn btn-outline-primary btn-sm"
+            data-role="add-factor"
+            data-question-id="${question.id}"
+            data-alt-index="${altIndex}">
+            <i class="fas fa-plus me-1"></i>Agregar factor
+          </button>
+        </div>`;
+    }).join("");
+  }
+
+  function renderOpenAssignments(question) {
+    const abierta = question.cfg.abierta || {};
+    const rows = (abierta.asignaciones || [{ factorId: "", valor: 0 }]).map(function (asig, asigIndex) {
+      return `
+        <div class="row g-2 align-items-center mb-2" data-role="asignacion-open-row" data-asig-index="${asigIndex}">
+          <div class="col-md-7">
+            <select class="form-select form-select-sm"
+              data-role="open-factor-select"
+              data-question-id="${question.id}"
+              data-asig-index="${asigIndex}">
+              ${factorOptions(asig.factorId || "")}
+            </select>
+          </div>
+          <div class="col-md-3">
+            <input type="number" class="form-control form-control-sm"
+              step="0.1"
+              data-role="open-factor-value"
+              data-question-id="${question.id}"
+              data-asig-index="${asigIndex}"
+              value="${Number(asig.valor || abierta.valorEsperado || 0)}">
+          </div>
+          <div class="col-md-2">
+            <button type="button"
+              class="btn btn-outline-danger btn-sm w-100"
+              data-role="remove-open-factor"
+              data-question-id="${question.id}"
+              data-asig-index="${asigIndex}">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>`;
+    }).join("");
+
+    return `
+      <div class="border rounded bg-white p-3 shadow-sm mb-2 border-warning">
+        <div class="fw-bold text-warning mb-2">${question.title}</div>
+        <div class="row g-3 mb-2">
+          <div class="col-md-8">
+            <label class="small text-muted fw-bold mb-1">Respuesta esperada</label>
+            <input type="text" class="form-control form-control-sm"
+              data-role="open-expected"
+              data-question-id="${question.id}"
+              value="${abierta.respuestaEsperada || ""}">
+          </div>
+          <div class="col-md-4">
+            <label class="small text-muted fw-bold mb-1">Puntaje base</label>
+            <input type="number" class="form-control form-control-sm"
+              step="0.1"
+              data-role="open-score"
+              data-question-id="${question.id}"
+              value="${Number(abierta.valorEsperado || 0)}">
+          </div>
+        </div>
+        <div class="border-top pt-2 mt-2">
+          <div class="small text-muted fw-bold mb-2">Factores impactados por esta pregunta abierta</div>
+          ${rows}
+          <button type="button"
+            class="btn btn-outline-warning btn-sm"
+            data-role="add-open-factor"
+            data-question-id="${question.id}">
+            <i class="fas fa-plus me-1"></i>Agregar factor
+          </button>
+        </div>
+      </div>`;
+  }
+
+  function renderPsicoPlantilla() {
+    const closedContainer = q("#plantillaCerradasContainer");
+    const openContainer = q("#plantillaAbiertasContainer");
+    if (!closedContainer || !openContainer) return;
+
+    const questions = getQuestionsModel();
+    const closed = questions.filter(function (q) { return q.tipo === "cerrada"; });
+    const open = questions.filter(function (q) { return q.tipo === "abierta"; });
+
+    closedContainer.innerHTML = closed.length
+      ? closed.map(renderClosedAssignments).join("")
+      : '<div class="alert alert-light text-muted small shadow-sm"><i class="fas fa-info-circle me-2"></i>Las preguntas cerradas se cargarán automáticamente al ingresar a esta pestaña.</div>';
+
+    openContainer.innerHTML = open.length
+      ? open.map(renderOpenAssignments).join("")
+      : '<div class="alert alert-light text-muted small shadow-sm"><i class="fas fa-info-circle me-2"></i>Las preguntas abiertas se cargarán automáticamente al ingresar a esta pestaña.</div>';
+  }
+
+  function syncOpenScoreToAssignments(questionId, newValue) {
+    writeQuestionCfg(questionId, function (cfg) {
+      cfg.abierta = cfg.abierta || {};
+      cfg.abierta.valorEsperado = newValue;
+      cfg.abierta.asignaciones = Array.isArray(cfg.abierta.asignaciones) ? cfg.abierta.asignaciones : [];
+      cfg.abierta.asignaciones = cfg.abierta.asignaciones.map(function (item) {
+        if (!item.valor || Number(item.valor) === 0) item.valor = newValue;
+        return item;
+      });
+    });
+  }
+
+  function bindPlantillaEvents() {
+    const closedContainer = q("#plantillaCerradasContainer");
+    const openContainer = q("#plantillaAbiertasContainer");
+    if (closedContainer && closedContainer.dataset.sepoPsicoBound !== "1") {
+      closedContainer.dataset.sepoPsicoBound = "1";
+
+      closedContainer.addEventListener("click", function (e) {
+        const addBtn = e.target.closest('[data-role="add-factor"]');
+        const rmBtn = e.target.closest('[data-role="remove-factor"]');
+        if (addBtn) {
+          const qid = addBtn.dataset.questionId;
+          const altIndex = Number(addBtn.dataset.altIndex);
+          writeQuestionCfg(qid, function (cfg) {
+            cfg.cerrada = cfg.cerrada || {};
+            cfg.cerrada.alternativas = cfg.cerrada.alternativas || [];
+            cfg.cerrada.alternativas[altIndex].asignaciones = cfg.cerrada.alternativas[altIndex].asignaciones || [];
+            cfg.cerrada.alternativas[altIndex].asignaciones.push({ factorId: "", valor: 0 });
+          });
+          renderPsicoPlantilla();
+          return;
+        }
+        if (rmBtn) {
+          const qid = rmBtn.dataset.questionId;
+          const altIndex = Number(rmBtn.dataset.altIndex);
+          const asigIndex = Number(rmBtn.dataset.asigIndex);
+          writeQuestionCfg(qid, function (cfg) {
+            const arr = (((cfg.cerrada || {}).alternativas || [])[altIndex] || {}).asignaciones || [];
+            arr.splice(asigIndex, 1);
+            if (!arr.length) arr.push({ factorId: "", valor: 0 });
+            cfg.cerrada.alternativas[altIndex].asignaciones = arr;
+          });
+          renderPsicoPlantilla();
+        }
+      });
+
+      closedContainer.addEventListener("input", function (e) {
+        const el = e.target;
+        if (el.matches('[data-role="score-value"]')) {
+          const qid = el.dataset.questionId;
+          const altIndex = Number(el.dataset.altIndex);
+          writeQuestionCfg(qid, function (cfg) {
+            cfg.cerrada.alternativas[altIndex].valor = Number(el.value || 0);
+          });
+        }
+        if (el.matches('[data-role="factor-value"]')) {
+          const qid = el.dataset.questionId;
+          const altIndex = Number(el.dataset.altIndex);
+          const asigIndex = Number(el.dataset.asigIndex);
+          writeQuestionCfg(qid, function (cfg) {
+            cfg.cerrada.alternativas[altIndex].asignaciones[asigIndex].valor = Number(el.value || 0);
+          });
+        }
+      });
+
+      closedContainer.addEventListener("change", function (e) {
+        const el = e.target;
+        if (el.matches('[data-role="factor-select"]')) {
+          const qid = el.dataset.questionId;
+          const altIndex = Number(el.dataset.altIndex);
+          const asigIndex = Number(el.dataset.asigIndex);
+          writeQuestionCfg(qid, function (cfg) {
+            cfg.cerrada.alternativas[altIndex].asignaciones[asigIndex].factorId = el.value;
+          });
+        }
+      });
+    }
+
+    if (openContainer && openContainer.dataset.sepoPsicoBound !== "1") {
+      openContainer.dataset.sepoPsicoBound = "1";
+
+      openContainer.addEventListener("click", function (e) {
+        const addBtn = e.target.closest('[data-role="add-open-factor"]');
+        const rmBtn = e.target.closest('[data-role="remove-open-factor"]');
+        if (addBtn) {
+          const qid = addBtn.dataset.questionId;
+          writeQuestionCfg(qid, function (cfg) {
+            cfg.abierta = cfg.abierta || {};
+            cfg.abierta.asignaciones = cfg.abierta.asignaciones || [];
+            cfg.abierta.asignaciones.push({ factorId: "", valor: Number(cfg.abierta.valorEsperado || 0) || 0 });
+          });
+          renderPsicoPlantilla();
+          return;
+        }
+        if (rmBtn) {
+          const qid = rmBtn.dataset.questionId;
+          const asigIndex = Number(rmBtn.dataset.asigIndex);
+          writeQuestionCfg(qid, function (cfg) {
+            cfg.abierta = cfg.abierta || {};
+            cfg.abierta.asignaciones = cfg.abierta.asignaciones || [];
+            cfg.abierta.asignaciones.splice(asigIndex, 1);
+            if (!cfg.abierta.asignaciones.length) cfg.abierta.asignaciones.push({ factorId: "", valor: Number(cfg.abierta.valorEsperado || 0) || 0 });
+          });
+          renderPsicoPlantilla();
+        }
+      });
+
+      openContainer.addEventListener("input", function (e) {
+        const el = e.target;
+        if (el.matches('[data-role="open-expected"]')) {
+          writeQuestionCfg(el.dataset.questionId, function (cfg) {
+            cfg.abierta = cfg.abierta || {};
+            cfg.abierta.respuestaEsperada = el.value;
+          });
+        }
+        if (el.matches('[data-role="open-score"]')) {
+          const val = Number(el.value || 0);
+          syncOpenScoreToAssignments(el.dataset.questionId, val);
+        }
+        if (el.matches('[data-role="open-factor-value"]')) {
+          const qid = el.dataset.questionId;
+          const idx = Number(el.dataset.asigIndex);
+          writeQuestionCfg(qid, function (cfg) {
+            cfg.abierta.asignaciones[idx].valor = Number(el.value || 0);
+          });
+        }
+      });
+
+      openContainer.addEventListener("change", function (e) {
+        const el = e.target;
+        if (el.matches('[data-role="open-factor-select"]')) {
+          const qid = el.dataset.questionId;
+          const idx = Number(el.dataset.asigIndex);
+          writeQuestionCfg(qid, function (cfg) {
+            cfg.abierta.asignaciones[idx].factorId = el.value;
+          });
+        }
+      });
+    }
+  }
+
+  const _oldGuardarPreguntaPsico = window.guardarNuevaPregunta;
+  window.guardarNuevaPregunta = function () {
+    const result = _oldGuardarPreguntaPsico.apply(this, arguments);
+    setTimeout(function () {
+      renderPsicoPlantilla();
+      bindPlantillaEvents();
+    }, 20);
+    return result;
+  };
+
+  const _oldEditarPreguntaPsico = window.editarPreguntaRow;
+  window.editarPreguntaRow = function (btn) {
+    const result = _oldEditarPreguntaPsico.apply(this, arguments);
+    return result;
+  };
+
+  const _oldAddFactorPsico = window.addFactor;
+  if (typeof _oldAddFactorPsico === "function") {
+    window.addFactor = function () {
+      const result = _oldAddFactorPsico.apply(this, arguments);
+      setTimeout(function () {
+        renderPsicoPlantilla();
+        bindPlantillaEvents();
+      }, 20);
+      return result;
+    };
+  }
+
+  const _oldPrecargarBolsitoPsico = window.precargarBolsito;
+  window.precargarBolsito = function () {
+    const result = _oldPrecargarBolsitoPsico.apply(this, arguments);
+    renderPsicoPlantilla();
+    bindPlantillaEvents();
+    return result;
+  };
+
+  document.addEventListener("DOMContentLoaded", function () {
+    bindPlantillaEvents();
+  });
+
+  window.SEPOPruebasPsicoFases12 = {
+    render: renderPsicoPlantilla,
+    getQuestionsModel: getQuestionsModel,
+    getFactorsCatalog: getFactorsCatalog
+  };
+})(window, document);
+
+
+/* ACTUALIZACION: CORRECCION TIPO ABIERTA */
+
+
+/* ACTUALIZACION: FILTRO SOLO CERRADAS EN PLANTILLA */
+
+
+
+/* ========================================== */
+/* ACTUALIZACION: DEMO CONFIGURADA PRUEBAS    */
+/* ========================================== */
+(function (window, document) {
+  "use strict";
+
+  function q(sel, root) { return (root || document).querySelector(sel); }
+  function qa(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
+  function parseJSON(value, fallback) { try { return JSON.parse(value); } catch (e) { return fallback; } }
+
+  function sepoDemoClosedAlternatives(title) {
+    const txt = String(title || "").toLowerCase();
+    if (txt.includes("frecuencia") || txt.includes("intensidad")) {
+      return [
+        { texto: "Nunca", tipo: "texto", valor: 0, asignaciones: [{ factorId: "", valor: 0 }] },
+        { texto: "A veces", tipo: "texto", valor: 1, asignaciones: [{ factorId: "", valor: 1 }] },
+        { texto: "Siempre", tipo: "texto", valor: 2, asignaciones: [{ factorId: "", valor: 2 }] }
+      ];
+    }
+    if (txt.includes("seleccione") || txt.includes("síntoma") || txt.includes("sintoma")) {
+      return [
+        { texto: "Fatiga", tipo: "texto", valor: 1, asignaciones: [{ factorId: "", valor: 1 }] },
+        { texto: "Palpitaciones", tipo: "texto", valor: 1, asignaciones: [{ factorId: "", valor: 1 }] },
+        { texto: "Sudoración", tipo: "texto", valor: 1, asignaciones: [{ factorId: "", valor: 1 }] }
+      ];
+    }
+    if (txt.includes("imagen") || txt.includes("ilustración") || txt.includes("ilustracion")) {
+      return [
+        { texto: "Sí, me resulta familiar", tipo: "texto", valor: 2, asignaciones: [{ factorId: "", valor: 2 }] },
+        { texto: "Parcialmente", tipo: "texto", valor: 1, asignaciones: [{ factorId: "", valor: 1 }] },
+        { texto: "No", tipo: "texto", valor: 0, asignaciones: [{ factorId: "", valor: 0 }] }
+      ];
+    }
+    return [
+      { texto: "Opción A", tipo: "texto", valor: 0, asignaciones: [{ factorId: "", valor: 0 }] },
+      { texto: "Opción B", tipo: "texto", valor: 1, asignaciones: [{ factorId: "", valor: 1 }] },
+      { texto: "Opción C", tipo: "texto", valor: 2, asignaciones: [{ factorId: "", valor: 2 }] }
+    ];
+  }
+
+  function sepoHydrateDemoQuestionConfigs() {
+    qa("#boxPreg .item-row").forEach(function (row, index) {
+      const cfg = parseJSON(row.dataset.sepoConfig || "{}", {});
+      const title = q(".desc-text", row) ? q(".desc-text", row).textContent.trim() : ("Pregunta " + (index + 1));
+      const tipo = row.getAttribute("data-tipo") || cfg.tipo || "";
+
+      if (tipo === "cerrada") {
+        cfg.tipo = "cerrada";
+        cfg.cerrada = cfg.cerrada || {};
+        if (!Array.isArray(cfg.cerrada.alternativas) || !cfg.cerrada.alternativas.length) {
+          cfg.cerrada.alternativas = sepoDemoClosedAlternatives(title);
+        }
+      }
+
+      if (tipo === "abierta") {
+        cfg.tipo = "abierta";
+        cfg.abierta = cfg.abierta || {};
+        if (!Array.isArray(cfg.abierta.asignaciones) || !cfg.abierta.asignaciones.length) {
+          cfg.abierta.asignaciones = [{ factorId: "", valor: Number(cfg.abierta.valorEsperado || 0) || 0 }];
+        }
+      }
+
+      row.dataset.sepoConfig = JSON.stringify(cfg);
+    });
+  }
+
+  const _oldPrecargarBolsitoDemoSeed = window.precargarBolsito;
+  if (typeof _oldPrecargarBolsitoDemoSeed === "function") {
+    window.precargarBolsito = function () {
+      const result = _oldPrecargarBolsitoDemoSeed.apply(this, arguments);
+      try { sepoHydrateDemoQuestionConfigs(); } catch (e) {}
+      if (window.SEPOPruebasPsicoFases12 && typeof window.SEPOPruebasPsicoFases12.render === "function") {
+        window.SEPOPruebasPsicoFases12.render();
+      }
+      return result;
+    };
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    try { sepoHydrateDemoQuestionConfigs(); } catch (e) {}
+  });
+
+  window.SEPODemoSeed = { sepoHydrateDemoQuestionConfigs: sepoHydrateDemoQuestionConfigs };
+})(window, document);
+
+
+
+/* ========================================== */
+/* ACTUALIZACION: FACTORES FASE 1 SEGURA      */
+/* SOLO PRUEBAS PSICOLOGICAS                  */
+/* ========================================== */
+(function (window, document) {
+  "use strict";
+
+  function q(sel, root) { return (root || document).querySelector(sel); }
+  function qa(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
+  function parseJSON(value, fallback) { try { return JSON.parse(value); } catch (e) { return fallback; } }
+
+  function getCatalogFactorsSafe() {
+    return qa("#boxFac .item-row").map(function (row, index) {
+      const code = row.getAttribute("data-cod") || ("FACT_" + (index + 1));
+      const desc = row.getAttribute("data-desc") || (q(".fw-medium", row) ? q(".fw-medium", row).textContent.trim() : ("Factor " + (index + 1)));
+      return { id: code, code: code, label: desc };
+    });
+  }
+
+  function factorOptionsSafe(selected) {
+    const opts = ['<option value="">Seleccionar factor...</option>'];
+    getCatalogFactorsSafe().forEach(function (f) {
+      opts.push('<option value="' + f.id + '"' + (selected === f.id ? ' selected' : '') + '>' + f.code + ' · ' + f.label + '</option>');
+    });
+    return opts.join("");
+  }
+
+  function updateQuestionConfigSafe(questionId, updater) {
+    const row = qa("#boxPreg .item-row").find(function (r) { return r.dataset.sepoId === questionId; });
+    if (!row) return;
+    const cfg = parseJSON(row.dataset.sepoConfig || "{}", {});
+    updater(cfg);
+    row.dataset.sepoConfig = JSON.stringify(cfg);
+  }
+
+  function refreshFactorSelectsSafe() {
+    qa('#plantillaCerradasContainer select[data-role="factor-select"], #plantillaAbiertasContainer select[data-role="open-factor-select"]').forEach(function (sel) {
+      const previous = sel.value;
+      sel.innerHTML = factorOptionsSafe(previous);
+      if (previous) sel.value = previous;
+    });
+  }
+
+  function normalizeAssignmentsSafe() {
+    qa("#boxPreg .item-row").forEach(function (row, idx) {
+      const cfg = parseJSON(row.dataset.sepoConfig || "{}", {});
+      const tipo = row.getAttribute("data-tipo") || cfg.tipo || "";
+      if (tipo === "cerrada") {
+        cfg.tipo = "cerrada";
+        cfg.cerrada = cfg.cerrada || {};
+        cfg.cerrada.alternativas = Array.isArray(cfg.cerrada.alternativas) ? cfg.cerrada.alternativas : [];
+        cfg.cerrada.alternativas = cfg.cerrada.alternativas.map(function (alt) {
+          alt.asignaciones = Array.isArray(alt.asignaciones) && alt.asignaciones.length ? alt.asignaciones : [{ factorId: "", valor: Number(alt.valor || 0) || 0 }];
+          return alt;
+        });
+      }
+      if (tipo === "abierta") {
+        cfg.tipo = "abierta";
+        cfg.abierta = cfg.abierta || {};
+        cfg.abierta.asignaciones = Array.isArray(cfg.abierta.asignaciones) && cfg.abierta.asignaciones.length ? cfg.abierta.asignaciones : [{ factorId: "", valor: Number(cfg.abierta.valorEsperado || 0) || 0 }];
+      }
+      row.dataset.sepoConfig = JSON.stringify(cfg);
+    });
+  }
+
+  function renderFactorSummarySafe() {
+    const closedTitle = qa("#plantillaCerradasContainer .border.rounded.bg-white.p-3.shadow-sm.mb-2.border-primary");
+    closedTitle.forEach(function (card) {
+      const qid = card.getAttribute("data-question-id");
+      if (!qid) return;
+      const old = q('[data-role="factor-summary"]', card);
+      if (old) old.remove();
+
+      const row = qa("#boxPreg .item-row").find(function (r) { return r.dataset.sepoId === qid; });
+      if (!row) return;
+      const cfg = parseJSON(row.dataset.sepoConfig || "{}", {});
+      const alts = (((cfg || {}).cerrada || {}).alternativas || []);
+      let totalLinks = 0;
+      alts.forEach(function (a) { totalLinks += ((a.asignaciones || []).filter(function (x) { return x.factorId; }).length); });
+
+      const summary = document.createElement("div");
+      summary.setAttribute("data-role", "factor-summary");
+      summary.className = "small text-muted mb-2";
+      summary.innerHTML = '<i class="fas fa-link me-1"></i>' + totalLinks + ' asignación(es) a factores';
+      const header = q("h6", card);
+      if (header) header.insertAdjacentElement("afterend", summary);
+    });
+
+    qa("#plantillaAbiertasContainer .border.rounded.bg-white.p-3.shadow-sm.mb-2.border-warning").forEach(function (card) {
+      const old = q('[data-role="factor-summary"]', card);
+      if (old) old.remove();
+      const sels = qa('select[data-role="open-factor-select"]', card);
+      const totalLinks = sels.filter(function (s) { return !!s.value; }).length;
+      const summary = document.createElement("div");
+      summary.setAttribute("data-role", "factor-summary");
+      summary.className = "small text-muted mb-2";
+      summary.innerHTML = '<i class="fas fa-link me-1"></i>' + totalLinks + ' asignación(es) a factores';
+      const header = q("h6", card);
+      if (header) header.insertAdjacentElement("afterend", summary);
+    });
+  }
+
+  function bindFactorsPhase1Safe() {
+    const closed = q("#plantillaCerradasContainer");
+    const open = q("#plantillaAbiertasContainer");
+    if (closed && closed.dataset.sepoFactorPhase1Bound !== "1") {
+      closed.dataset.sepoFactorPhase1Bound = "1";
+      closed.addEventListener("change", function (e) {
+        const sel = e.target.closest('select[data-role="factor-select"]');
+        if (!sel) return;
+        const qid = sel.dataset.questionId;
+        const altIndex = Number(sel.dataset.altIndex);
+        const asigIndex = Number(sel.dataset.asigIndex);
+        updateQuestionConfigSafe(qid, function (cfg) {
+          cfg.cerrada = cfg.cerrada || {};
+          cfg.cerrada.alternativas = cfg.cerrada.alternativas || [];
+          if (!cfg.cerrada.alternativas[altIndex]) return;
+          cfg.cerrada.alternativas[altIndex].asignaciones = cfg.cerrada.alternativas[altIndex].asignaciones || [];
+          if (!cfg.cerrada.alternativas[altIndex].asignaciones[asigIndex]) cfg.cerrada.alternativas[altIndex].asignaciones[asigIndex] = { factorId: "", valor: 0 };
+          cfg.cerrada.alternativas[altIndex].asignaciones[asigIndex].factorId = sel.value;
+        });
+        renderFactorSummarySafe();
+      });
+      closed.addEventListener("input", function (e) {
+        const inp = e.target.closest('input[data-role="factor-value"]');
+        if (!inp) return;
+        const qid = inp.dataset.questionId;
+        const altIndex = Number(inp.dataset.altIndex);
+        const asigIndex = Number(inp.dataset.asigIndex);
+        updateQuestionConfigSafe(qid, function (cfg) {
+          cfg.cerrada = cfg.cerrada || {};
+          cfg.cerrada.alternativas = cfg.cerrada.alternativas || [];
+          if (!cfg.cerrada.alternativas[altIndex]) return;
+          cfg.cerrada.alternativas[altIndex].asignaciones = cfg.cerrada.alternativas[altIndex].asignaciones || [];
+          if (!cfg.cerrada.alternativas[altIndex].asignaciones[asigIndex]) cfg.cerrada.alternativas[altIndex].asignaciones[asigIndex] = { factorId: "", valor: 0 };
+          cfg.cerrada.alternativas[altIndex].asignaciones[asigIndex].valor = Number(inp.value || 0);
+        });
+      });
+    }
+
+    if (open && open.dataset.sepoFactorPhase1Bound !== "1") {
+      open.dataset.sepoFactorPhase1Bound = "1";
+      open.addEventListener("change", function (e) {
+        const sel = e.target.closest('select[data-role="open-factor-select"]');
+        if (!sel) return;
+        const qid = sel.dataset.questionId;
+        const idx = Number(sel.dataset.asigIndex);
+        updateQuestionConfigSafe(qid, function (cfg) {
+          cfg.abierta = cfg.abierta || {};
+          cfg.abierta.asignaciones = cfg.abierta.asignaciones || [];
+          if (!cfg.abierta.asignaciones[idx]) cfg.abierta.asignaciones[idx] = { factorId: "", valor: 0 };
+          cfg.abierta.asignaciones[idx].factorId = sel.value;
+        });
+        renderFactorSummarySafe();
+      });
+      open.addEventListener("input", function (e) {
+        const inp = e.target.closest('input[data-role="open-factor-value"]');
+        if (!inp) return;
+        const qid = inp.dataset.questionId;
+        const idx = Number(inp.dataset.asigIndex);
+        updateQuestionConfigSafe(qid, function (cfg) {
+          cfg.abierta = cfg.abierta || {};
+          cfg.abierta.asignaciones = cfg.abierta.asignaciones || [];
+          if (!cfg.abierta.asignaciones[idx]) cfg.abierta.asignaciones[idx] = { factorId: "", valor: 0 };
+          cfg.abierta.asignaciones[idx].valor = Number(inp.value || 0);
+        });
+      });
+    }
+  }
+
+  function refreshFactorsPhase1Safe() {
+    normalizeAssignmentsSafe();
+    refreshFactorSelectsSafe();
+    bindFactorsPhase1Safe();
+    renderFactorSummarySafe();
+  }
+
+  const _addFactorPhase1Safe = window.addFactor;
+  if (typeof _addFactorPhase1Safe === "function" && !_addFactorPhase1Safe._sepoFactorPhase1Wrapped) {
+    const wrapped = function () {
+      const result = _addFactorPhase1Safe.apply(this, arguments);
+      setTimeout(refreshFactorsPhase1Safe, 20);
+      return result;
+    };
+    wrapped._sepoFactorPhase1Wrapped = true;
+    window.addFactor = wrapped;
+  }
+
+  const _guardarPreguntaPhase1Safe = window.guardarNuevaPregunta;
+  if (typeof _guardarPreguntaPhase1Safe === "function" && !_guardarPreguntaPhase1Safe._sepoFactorPhase1Wrapped) {
+    const wrapped = function () {
+      const result = _guardarPreguntaPhase1Safe.apply(this, arguments);
+      setTimeout(refreshFactorsPhase1Safe, 30);
+      return result;
+    };
+    wrapped._sepoFactorPhase1Wrapped = true;
+    window.guardarNuevaPregunta = wrapped;
+  }
+
+  const _precargarBolsitoPhase1Safe = window.precargarBolsito;
+  if (typeof _precargarBolsitoPhase1Safe === "function" && !_precargarBolsitoPhase1Safe._sepoFactorPhase1Wrapped) {
+    const wrapped = function () {
+      const result = _precargarBolsitoPhase1Safe.apply(this, arguments);
+      setTimeout(refreshFactorsPhase1Safe, 30);
+      return result;
+    };
+    wrapped._sepoFactorPhase1Wrapped = true;
+    window.precargarBolsito = wrapped;
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(refreshFactorsPhase1Safe, 60);
+  });
+
+  window.SEPOFactoresFase1Safe = {
+    refresh: refreshFactorsPhase1Safe,
+    getCatalogFactorsSafe: getCatalogFactorsSafe
+  };
+})(window, document);
+
+
+
+/* ========================================== */
+/* ACTUALIZACION: FACTORES FASE 2 SEGURA      */
+/* RESUMEN Y ACUMULADO CONFIGURADO            */
+/* ========================================== */
+(function (window, document) {
+  "use strict";
+
+  function q(sel, root) { return (root || document).querySelector(sel); }
+  function qa(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
+  function parseJSON(value, fallback) { try { return JSON.parse(value); } catch (e) { return fallback; } }
+
+  function getFactorCatalogPhase2() {
+    return qa("#boxFac .item-row").map(function (row, index) {
+      const code = row.getAttribute("data-cod") || ("FACT_" + (index + 1));
+      const desc = row.getAttribute("data-desc") || (q(".fw-medium", row) ? q(".fw-medium", row).textContent.trim() : ("Factor " + (index + 1)));
+      return { id: code, code: code, label: desc };
+    });
+  }
+
+  function ensureFactorSummaryBox() {
+    const host = q("#step-5");
+    if (!host) return null;
+    let box = q("#sepoFactorSummaryBox", host);
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "sepoFactorSummaryBox";
+      box.className = "soft-panel mt-3 p-4";
+      box.innerHTML = `
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <h6 class="fw-bold m-0" style="color: var(--primary-hover)">
+              <i class="fas fa-calculator me-2"></i>Resumen de Factores
+            </h6>
+            <small class="text-muted">Vista previa del acumulado configurado por factor según Plantilla de Respuestas.</small>
+          </div>
+          <button type="button" class="btn btn-outline-primary btn-sm fw-bold" id="btnRecalcularFactores">
+            <i class="fas fa-arrows-rotate me-1"></i>Recalcular
+          </button>
+        </div>
+        <div id="sepoFactorSummaryContent"></div>
+      `;
+      const target = q("#boxFac", host);
+      if (target) {
+        target.insertAdjacentElement("afterend", box);
+      } else {
+        host.appendChild(box);
+      }
+    }
+    return box;
+  }
+
+  function getQuestionRowsPhase2() {
+    return qa("#boxPreg .item-row");
+  }
+
+  function getQuestionModelPhase2() {
+    return getQuestionRowsPhase2().map(function (row, index) {
+      const cfg = parseJSON(row.dataset.sepoConfig || "{}", {});
+      const id = row.dataset.sepoId || ("preg_" + (index + 1));
+      row.dataset.sepoId = id;
+      const title = q(".desc-text", row) ? q(".desc-text", row).textContent.trim() : ("Pregunta " + (index + 1));
+      const tipo = row.getAttribute("data-tipo") || cfg.tipo || "";
+      return { id: id, title: title, tipo: tipo, cfg: cfg };
+    });
+  }
+
+  function buildFactorAccumulator() {
+    const factorMap = {};
+    getFactorCatalogPhase2().forEach(function (f) {
+      factorMap[f.id] = {
+        id: f.id,
+        code: f.code,
+        label: f.label,
+        total: 0,
+        links: 0,
+        sources: []
+      };
+    });
+
+    getQuestionModelPhase2().forEach(function (question) {
+      if (question.tipo === "cerrada") {
+        const alts = (((question.cfg || {}).cerrada || {}).alternativas || []);
+        alts.forEach(function (alt, altIndex) {
+          (alt.asignaciones || []).forEach(function (asig) {
+            if (!asig.factorId) return;
+            if (!factorMap[asig.factorId]) {
+              factorMap[asig.factorId] = {
+                id: asig.factorId,
+                code: asig.factorId,
+                label: asig.factorId,
+                total: 0,
+                links: 0,
+                sources: []
+              };
+            }
+            const value = Number(asig.valor || 0);
+            factorMap[asig.factorId].total += value;
+            factorMap[asig.factorId].links += 1;
+            factorMap[asig.factorId].sources.push({
+              question: question.title,
+              item: alt.texto || ("Alternativa " + (altIndex + 1)),
+              value: value
+            });
+          });
+        });
+      }
+      if (question.tipo === "abierta") {
+        const abierta = ((question.cfg || {}).abierta || {});
+        (abierta.asignaciones || []).forEach(function (asig, openIndex) {
+          if (!asig.factorId) return;
+          if (!factorMap[asig.factorId]) {
+            factorMap[asig.factorId] = {
+              id: asig.factorId,
+              code: asig.factorId,
+              label: asig.factorId,
+              total: 0,
+              links: 0,
+              sources: []
+            };
+          }
+          const value = Number(asig.valor || 0);
+          factorMap[asig.factorId].total += value;
+          factorMap[asig.factorId].links += 1;
+          factorMap[asig.factorId].sources.push({
+            question: question.title,
+            item: "Abierta " + (openIndex + 1),
+            value: value
+          });
+        });
+      }
+    });
+
+    return Object.values(factorMap);
+  }
+
+  function renderFactorAccumulator() {
+    const box = ensureFactorSummaryBox();
+    if (!box) return;
+    const content = q("#sepoFactorSummaryContent", box);
+    if (!content) return;
+
+    const rows = buildFactorAccumulator();
+    const useful = rows.filter(function (r) { return r.links > 0 || r.label; });
+
+    if (!useful.length) {
+      content.innerHTML = '<div class="alert alert-light text-muted small mb-0"><i class="fas fa-info-circle me-2"></i>No hay factores ni asignaciones configuradas todavía.</div>';
+      return;
+    }
+
+    content.innerHTML = `
+      <div class="table-responsive">
+        <table class="table align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Factor</th>
+              <th>Descripción</th>
+              <th class="text-center">Asignaciones</th>
+              <th class="text-center">Acumulado</th>
+              <th>Detalle</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${useful.map(function (row) {
+              const detail = row.sources.length
+                ? row.sources.slice(0, 4).map(function (s) {
+                    return '<span class="badge bg-light text-dark border me-1 mb-1">' + s.question + ' · ' + s.item + ' = ' + s.value + '</span>';
+                  }).join("")
+                : '<span class="text-muted small">Sin asignaciones aún</span>';
+              return `
+                <tr>
+                  <td class="fw-bold">${row.code}</td>
+                  <td>${row.label}</td>
+                  <td class="text-center">${row.links}</td>
+                  <td class="text-center">
+                    <span class="badge bg-primary-subtle text-primary border">${row.total}</span>
+                  </td>
+                  <td>${detail}</td>
+                </tr>
+              `;
+            }).join("")}
+          </tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  function bindFactorPhase2Safe() {
+    const box = ensureFactorSummaryBox();
+    if (!box) return;
+    const btn = q("#btnRecalcularFactores", box);
+    if (btn && !btn.dataset.sepoBoundPhase2) {
+      btn.dataset.sepoBoundPhase2 = "1";
+      btn.addEventListener("click", renderFactorAccumulator);
+    }
+
+    const plantillaClosed = q("#plantillaCerradasContainer");
+    const plantillaOpen = q("#plantillaAbiertasContainer");
+    if (plantillaClosed && !plantillaClosed.dataset.sepoBoundPhase2) {
+      plantillaClosed.dataset.sepoBoundPhase2 = "1";
+      plantillaClosed.addEventListener("input", function () { setTimeout(renderFactorAccumulator, 10); });
+      plantillaClosed.addEventListener("change", function () { setTimeout(renderFactorAccumulator, 10); });
+      plantillaClosed.addEventListener("click", function () { setTimeout(renderFactorAccumulator, 10); });
+    }
+    if (plantillaOpen && !plantillaOpen.dataset.sepoBoundPhase2) {
+      plantillaOpen.dataset.sepoBoundPhase2 = "1";
+      plantillaOpen.addEventListener("input", function () { setTimeout(renderFactorAccumulator, 10); });
+      plantillaOpen.addEventListener("change", function () { setTimeout(renderFactorAccumulator, 10); });
+      plantillaOpen.addEventListener("click", function () { setTimeout(renderFactorAccumulator, 10); });
+    }
+
+    const factorsBox = q("#boxFac");
+    if (factorsBox && !factorsBox.dataset.sepoBoundPhase2) {
+      factorsBox.dataset.sepoBoundPhase2 = "1";
+      factorsBox.addEventListener("click", function () { setTimeout(renderFactorAccumulator, 20); });
+    }
+  }
+
+  function refreshFactorPhase2Safe() {
+    bindFactorPhase2Safe();
+    renderFactorAccumulator();
+  }
+
+  const _addFactorPhase2 = window.addFactor;
+  if (typeof _addFactorPhase2 === "function" && !_addFactorPhase2._sepoPhase2Wrapped) {
+    const wrapped = function () {
+      const result = _addFactorPhase2.apply(this, arguments);
+      setTimeout(refreshFactorPhase2Safe, 30);
+      return result;
+    };
+    wrapped._sepoPhase2Wrapped = true;
+    window.addFactor = wrapped;
+  }
+
+  const _guardarPreguntaPhase2 = window.guardarNuevaPregunta;
+  if (typeof _guardarPreguntaPhase2 === "function" && !_guardarPreguntaPhase2._sepoPhase2Wrapped) {
+    const wrapped = function () {
+      const result = _guardarPreguntaPhase2.apply(this, arguments);
+      setTimeout(refreshFactorPhase2Safe, 40);
+      return result;
+    };
+    wrapped._sepoPhase2Wrapped = true;
+    window.guardarNuevaPregunta = wrapped;
+  }
+
+  const _precargarPhase2 = window.precargarBolsito;
+  if (typeof _precargarPhase2 === "function" && !_precargarPhase2._sepoPhase2Wrapped) {
+    const wrapped = function () {
+      const result = _precargarPhase2.apply(this, arguments);
+      setTimeout(refreshFactorPhase2Safe, 40);
+      return result;
+    };
+    wrapped._sepoPhase2Wrapped = true;
+    window.precargarBolsito = wrapped;
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(refreshFactorPhase2Safe, 80);
+  });
+
+  window.SEPOFactoresFase2Safe = {
+    refresh: refreshFactorPhase2Safe,
+    buildFactorAccumulator: buildFactorAccumulator
+  };
+})(window, document);
