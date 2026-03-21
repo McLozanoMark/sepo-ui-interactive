@@ -6709,3 +6709,179 @@ if (typeof previsualizarPrueba === "function") {
     refresh: refreshExcelStructure
   };
 })(window, document);
+
+
+
+/* ========================================== */
+/* ACTUALIZACION: ESTABILIDAD PSICO DEMO      */
+/* SOLO PRUEBAS PSICOLOGICAS                  */
+/* ========================================== */
+(function (window, document) {
+  "use strict";
+
+  function q(sel, root) { return (root || document).querySelector(sel); }
+  function qa(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
+
+  function sepoSafeToast(msg) {
+    if (typeof window.showToast === "function") {
+      try { window.showToast(msg); return; } catch (e) {}
+    }
+    try { console.warn(msg); } catch (e) {}
+  }
+
+  function sepoCleanupUiLocks() {
+    try {
+      document.body.classList.remove("modal-open");
+      document.body.style.removeProperty("padding-right");
+      if (!document.querySelector(".modal.show")) {
+        document.body.style.overflow = "";
+      }
+      qa(".modal-backdrop").forEach(function (el) {
+        if (!document.querySelector(".modal.show")) el.remove();
+      });
+    } catch (e) {}
+  }
+
+  function sepoSafeWrapAction(name, fn) {
+    if (typeof fn !== "function") return fn;
+    if (fn._sepoStableWrapped) return fn;
+
+    const wrapped = function () {
+      try {
+        return fn.apply(this, arguments);
+      } catch (error) {
+        console.error("[SEPO][" + name + "]", error);
+        sepoCleanupUiLocks();
+        sepoSafeToast("⚠️ Se detectó un problema en " + name + ". La demo sigue activa.");
+        return undefined;
+      }
+    };
+    wrapped._sepoStableWrapped = true;
+    wrapped._sepoBase = fn;
+    return wrapped;
+  }
+
+  function sepoEnsurePreviewNodes() {
+    const ids = ["pvTitle", "pvSubtitle", "pvIcon", "pvCoverIcon", "pvCoverTitle", "pvCoverDesc", "pvTotalQ", "pvEstTime", "pvPreguntas", "pvFinal"];
+    return ids.every(function (id) { return !!document.getElementById(id); });
+  }
+
+  function sepoRebindPsychActions() {
+    if (typeof window.editarPrueba === "function") window.editarPrueba = sepoSafeWrapAction("editarPrueba", window.editarPrueba);
+    if (typeof window.guardarNuevaPregunta === "function") window.guardarNuevaPregunta = sepoSafeWrapAction("guardarNuevaPregunta", window.guardarNuevaPregunta);
+    if (typeof window.addFactor === "function") window.addFactor = sepoSafeWrapAction("addFactor", window.addFactor);
+    if (typeof window.duplicarPregunta === "function") window.duplicarPregunta = sepoSafeWrapAction("duplicarPregunta", window.duplicarPregunta);
+    if (typeof window.goStep === "function") window.goStep = sepoSafeWrapAction("goStep", window.goStep);
+
+    if (typeof window.previsualizarPruebaConfigurada === "function" && !window.previsualizarPruebaConfigurada._sepoStableGuarded) {
+      const base = window.previsualizarPruebaConfigurada;
+      const wrapped = function () {
+        if (!sepoEnsurePreviewNodes()) {
+          sepoSafeToast("⚠️ El preview no está listo todavía.");
+          return;
+        }
+        return sepoSafeWrapAction("previsualizarPruebaConfigurada", base).apply(this, arguments);
+      };
+      wrapped._sepoStableGuarded = true;
+      window.previsualizarPruebaConfigurada = wrapped;
+    }
+
+    if (typeof window.previsualizarPrueba === "function" && !window.previsualizarPrueba._sepoStableGuarded) {
+      const base = window.previsualizarPrueba;
+      const wrapped = function () {
+        if (!sepoEnsurePreviewNodes()) {
+          sepoSafeToast("⚠️ El preview no está listo todavía.");
+          return;
+        }
+        return sepoSafeWrapAction("previsualizarPrueba", base).apply(this, arguments);
+      };
+      wrapped._sepoStableGuarded = true;
+      window.previsualizarPrueba = wrapped;
+    }
+  }
+
+  function sepoSafePersistDemo() {
+    try {
+      if (window.SEPODemoPersistence && typeof window.SEPODemoPersistence.saveCurrentPsychDemo === "function") {
+        window.SEPODemoPersistence.saveCurrentPsychDemo();
+      }
+    } catch (e) {
+      console.warn("[SEPO][persistDemo]", e);
+    }
+  }
+
+  function sepoBindPsychButtonsFallback() {
+    const root = document.getElementById("screen-prueba-form") || document;
+    if (root.dataset.sepoPsychFallbackBound === "1") return;
+    root.dataset.sepoPsychFallbackBound = "1";
+
+    root.addEventListener("click", function (e) {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+
+      const title = (btn.getAttribute("title") || "").toLowerCase();
+
+      if (title.includes("editar pregunta")) {
+        e.preventDefault();
+        const rowBtn = btn;
+        if (typeof window.editarPreguntaRow === "function") {
+          try { window.editarPreguntaRow(rowBtn); } catch (err) { console.error(err); sepoSafeToast("⚠️ No se pudo abrir la pregunta."); }
+        }
+      }
+
+      if (title.includes("clonar pregunta")) {
+        e.preventDefault();
+        if (btn.dataset.sepoBusy === "1") return;
+        btn.dataset.sepoBusy = "1";
+        try {
+          if (typeof window.duplicarPregunta === "function") window.duplicarPregunta(btn);
+          setTimeout(sepoSafePersistDemo, 50);
+        } catch (err) {
+          console.error(err);
+          sepoSafeToast("⚠️ No se pudo duplicar la pregunta.");
+        } finally {
+          setTimeout(function () { btn.dataset.sepoBusy = "0"; }, 250);
+        }
+      }
+    }, true);
+  }
+
+  function sepoBindPsychMutationSafe() {
+    const boxPreg = document.getElementById("boxPreg");
+    const boxFac = document.getElementById("boxFac");
+    if (boxPreg && boxPreg.dataset.sepoPersistBound !== "1") {
+      boxPreg.dataset.sepoPersistBound = "1";
+      boxPreg.addEventListener("input", function () { setTimeout(sepoSafePersistDemo, 80); });
+      boxPreg.addEventListener("change", function () { setTimeout(sepoSafePersistDemo, 80); });
+      boxPreg.addEventListener("click", function () { setTimeout(sepoSafePersistDemo, 120); });
+    }
+    if (boxFac && boxFac.dataset.sepoPersistBound !== "1") {
+      boxFac.dataset.sepoPersistBound = "1";
+      boxFac.addEventListener("input", function () { setTimeout(sepoSafePersistDemo, 80); });
+      boxFac.addEventListener("change", function () { setTimeout(sepoSafePersistDemo, 80); });
+      boxFac.addEventListener("click", function () { setTimeout(sepoSafePersistDemo, 120); });
+    }
+  }
+
+  window.addEventListener("error", function () {
+    sepoCleanupUiLocks();
+  });
+
+  window.addEventListener("unhandledrejection", function () {
+    sepoCleanupUiLocks();
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+      sepoRebindPsychActions();
+      sepoBindPsychButtonsFallback();
+      sepoBindPsychMutationSafe();
+      sepoCleanupUiLocks();
+    }, 120);
+  });
+
+  window.SEPOPsicoEstabilidad = {
+    rebind: sepoRebindPsychActions,
+    cleanup: sepoCleanupUiLocks
+  };
+})(window, document);
