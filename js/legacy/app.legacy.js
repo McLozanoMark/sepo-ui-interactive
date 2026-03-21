@@ -500,6 +500,17 @@
         document.getElementById("cCod").disabled = false;
         document.getElementById("cActivo").checked = true;
         document.getElementById("cVirtual").checked = false;
+
+        const modalCentro = document.getElementById("modalCentro");
+        if (modalCentro) {
+          delete modalCentro.dataset.dep;
+          delete modalCentro.dataset.prov;
+          delete modalCentro.dataset.dist;
+        }
+
+        if (typeof inicializarModalCentro === "function") {
+          inicializarModalCentro();
+        }
       }
       function editarCentro(cod, activo, virtual) {
         document.getElementById("tCentro").innerHTML =
@@ -508,6 +519,55 @@
         document.getElementById("cCod").disabled = true;
         document.getElementById("cActivo").checked = !!activo;
         document.getElementById("cVirtual").checked = !!virtual;
+
+        const cards = document.querySelectorAll("#screen-centros .card-item");
+        const card = Array.from(cards).find((item) => {
+          const codeEl = item.querySelector("strong");
+          return codeEl && codeEl.textContent.trim() === cod;
+        });
+
+        let desc = "";
+        let dir = "";
+        let dep = "";
+        let prov = "";
+        let dist = "";
+
+        if (card) {
+          const descEl = card.querySelector(".fw-semibold");
+          const infoEl = card.querySelector("small.text-muted");
+          desc = descEl ? descEl.textContent.trim() : "";
+
+          const infoText = infoEl
+            ? infoEl.textContent.replace(/\s+/g, " ").trim()
+            : "";
+          const cleanedInfo = infoText.replace(/^📍\s*/, "");
+          const match = cleanedInfo.match(/^(.*?),\s*([^·]+?)\s*·\s*\(([^\/]+)\s*\/\s*([^\)]+)\)$/);
+
+          if (match) {
+            dir = match[1].trim();
+            dist = match[2].trim();
+            dep = match[3].trim();
+            prov = match[4].trim();
+          } else {
+            dir = cleanedInfo;
+          }
+        }
+
+        document.getElementById("cDesc").value = desc;
+        document.getElementById("cDir").value = dir;
+
+        const modalCentro = document.getElementById("modalCentro");
+        if (modalCentro) {
+          if (dep) {
+            modalCentro.dataset.dep = dep;
+            modalCentro.dataset.prov = prov;
+            modalCentro.dataset.dist = dist;
+          } else {
+            delete modalCentro.dataset.dep;
+            delete modalCentro.dataset.prov;
+            delete modalCentro.dataset.dist;
+          }
+        }
       }
 
       /* ── SIMPLE ── */
@@ -603,43 +663,43 @@
       }
       function editarPrestacion(cod) {
         document.getElementById("tPrest").innerHTML =
-          '<i class="fas fa-pen me-2 text-primary"></i>Editar: ' + cod;
+          '<i class="fas fa-pen me-2 text-primary"></i>Editar Prestación: <strong>' + cod + '</strong>';
+
+        // Datos de todas las prestaciones del módulo
+        const DATOS_PRESTACIONES = {
+          "PR-MED-010": { desc: "Examen Médico Pre-ocupacional (EMO)", tipoExamen: "emo", estado: "activo" },
+          "PR-LAB-015": { desc: "Perfil Lipídico y Glucosa", tipoExamen: "complementario", estado: "activo" },
+          "PR-AUD-020": { desc: "Audiometría de Tamizaje", tipoExamen: "complementario", estado: "activo" },
+          "PR-RAD-050": { desc: "Radiografía de Tórax (OIT)", tipoExamen: "complementario", estado: "activo" },
+          "PR-PSI-001": { desc: "Evaluación Psicológica – Entrevista", tipoExamen: "emo", estado: "activo" },
+          "PR-PSI-004": { desc: "Test 16PF – Personalidad", tipoExamen: "complementario", estado: "activo" },
+          "PR-PSI-005": { desc: "Evaluación de Liderazgo", tipoExamen: "complementario", estado: "activo" },
+          "PR-PSI-006": { desc: "Escala de Inteligencia WAIS-IV", tipoExamen: "complementario", estado: "activo" },
+          "PR-PSI-007": { desc: "Inventario de Burnout (MBI)", tipoExamen: "complementario", estado: "activo" },
+          "PR-PSI-008": { desc: "Test de Trabajo en Equipo (TWA)", tipoExamen: "complementario", estado: "activo" },
+          "PR-ALT-002": { desc: "Psicología Ocupacional – Altura", tipoExamen: "complementario", estado: "activo" },
+          "PR-ALT-005": { desc: "Evaluación de Aptitud en Altura", tipoExamen: "emo", estado: "activo" },
+          "PR-MED-001": { desc: "Evaluación Médica General", tipoExamen: "emo", estado: "activo" },
+          "PR-LAB-001": { desc: "Laboratorio Clínico Básico", tipoExamen: "complementario", estado: "activo" },
+          "PR-IMG-001": { desc: "Imagenología Diagnóstica", tipoExamen: "complementario", estado: "activo" },
+        };
+
+        const datos = DATOS_PRESTACIONES[cod] || {
+          desc: "Prestación ocupacional – " + cod,
+          tipoExamen: "complementario",
+          estado: "activo"
+        };
+
         const pCod = document.getElementById("pCod");
         const pDesc = document.getElementById("pDesc");
         const pEstado = document.getElementById("pEstado");
         const pTipoExamen = document.getElementById("pTipoExamen");
-        if (pCod) {
-          pCod.value = cod;
-          pCod.disabled = true;
-        }
-        if (pDesc) pDesc.disabled = true;
-        if (pEstado) pEstado.disabled = true;
-        if (pTipoExamen) pTipoExamen.disabled = true;
 
-        let desc = "Prestación ocupacional configurada";
-        let estado = "activo";
-        let tipoExamen = "complementario";
-
-        if (cod === "PR-PSI-001") {
-          desc = "Evaluación Psicológica – Entrevista";
-          tipoExamen = "emo";
-        } else if (cod === "PR-ALT-002") {
-          desc = "Psicología Ocupacional – Altura";
-          tipoExamen = "complementario";
-        } else if (cod === "PR-MED-001") {
-          desc = "Evaluación Médica General";
-          tipoExamen = "emo";
-        } else if (cod === "PR-LAB-001") {
-          desc = "Laboratorio Clínico Básico";
-          tipoExamen = "complementario";
-        } else if (cod === "PR-IMG-001") {
-          desc = "Imagenología Diagnóstica";
-          tipoExamen = "complementario";
-        }
-
-        if (pDesc) pDesc.value = desc;
-        if (pEstado) pEstado.value = estado;
-        if (pTipoExamen) pTipoExamen.value = tipoExamen;
+        // Código: readonly (identificador), el resto editable
+        if (pCod) { pCod.value = cod; pCod.disabled = true; }
+        if (pDesc) { pDesc.value = datos.desc; pDesc.disabled = false; }
+        if (pEstado) { pEstado.value = datos.estado; pEstado.disabled = false; }
+        if (pTipoExamen) { pTipoExamen.value = datos.tipoExamen; pTipoExamen.disabled = false; }
 
         renderPrestacionFichas(cod);
 
@@ -650,7 +710,7 @@
               bootstrap.Modal.getInstance(
                 document.getElementById("modalPrestacion"),
               ).hide();
-              showToast("Cambios guardados correctamente");
+              showToast("Cambios guardados correctamente.");
             });
           };
         }
@@ -764,6 +824,54 @@
             { nombre: "Prioridad de revisión", meta: "Nivel sugerido de atención médica." },
           ] },
         ],
+        "PR-MED-010": [
+          { codigo: "EMO-G", nombre: "Ficha EMO General", subtitulo: "Ficha principal del Examen Médico Pre-ocupacional.", codigos: [
+            { nombre: "Aptitud para el trabajo", meta: "Clasificación final del evaluado (apto / no apto)." },
+            { nombre: "Presión arterial", meta: "Medición sistólica y diastólica registrada." },
+            { nombre: "IMC", meta: "Índice de masa corporal calculado en consulta." },
+          ] },
+          { codigo: "EMO-ANT", nombre: "Antecedentes Ocupacionales", subtitulo: "Historial laboral y exposiciones previas del evaluado.", codigos: [
+            { nombre: "Tiempo de servicio", meta: "Años trabajados en ocupación previa." },
+            { nombre: "Exposición a riesgo", meta: "Tipo de agente o riesgo identificado." },
+            { nombre: "Restricción médica", meta: "Limitación detectada o reportada." },
+          ] },
+        ],
+        "PR-LAB-015": [
+          { codigo: "LB-02", nombre: "Perfil Lipídico y Glucosa", subtitulo: "Resultados de análisis de sangre metabólico.", codigos: [
+            { nombre: "Triglicéridos", meta: "Valor de referencia metabólica." },
+            { nombre: "Colesterol HDL", meta: "Fracción de colesterol protector." },
+            { nombre: "Glucosa en ayunas", meta: "Nivel de glucosa previo a la toma." },
+          ] },
+          { codigo: "LB-HEM", nombre: "Hemograma Completo", subtitulo: "Ficha complementaria de análisis sanguíneo completo.", codigos: [
+            { nombre: "Recuento leucocitario", meta: "Conteo de glóbulos blancos." },
+            { nombre: "Plaquetas", meta: "Conteo plaquetario del paciente." },
+            { nombre: "VSG", meta: "Velocidad de sedimentación globular." },
+          ] },
+        ],
+        "PR-AUD-020": [
+          { codigo: "AUD-01", nombre: "Audiometría de Tamizaje", subtitulo: "Estudio auditivo básico por frecuencias.", codigos: [
+            { nombre: "Umbral 500 Hz", meta: "Nivel de audición en frecuencia grave." },
+            { nombre: "Umbral 2000 Hz", meta: "Sensibilidad en frecuencia media." },
+            { nombre: "Umbral 4000 Hz", meta: "Frecuencia crítica para daño auditivo." },
+          ] },
+          { codigo: "AUD-OB", nombre: "Observaciones Audiológicas", subtitulo: "Ficha de notas del especialista en audiología.", codigos: [
+            { nombre: "Tipo de curva", meta: "Clasificación de la curva audiométrica." },
+            { nombre: "Exposición a ruido", meta: "Historial de exposición laboral al ruido." },
+            { nombre: "Recomendación EPP", meta: "Sugerencia de equipo de protección auditiva." },
+          ] },
+        ],
+        "PR-RAD-050": [
+          { codigo: "RX-OIT", nombre: "Radiografía de Tórax OIT", subtitulo: "Lectura estándar OIT para neumoconiosis.", codigos: [
+            { nombre: "Clasificación OIT", meta: "Categoría 0/1/2/3 según opacidades." },
+            { nombre: "Zona afectada", meta: "Localización del hallazgo radiológico." },
+            { nombre: "Recomendación posterior", meta: "Acción médica sugerida." },
+          ] },
+          { codigo: "RX-CLD", nombre: "Contexto Laboral-Diagnóstico", subtitulo: "Ficha de correlación clínica para el resultado radiológico.", codigos: [
+            { nombre: "Exposición a polvo", meta: "Tiempo e intensidad de exposición laboral." },
+            { nombre: "Antecedente respiratorio", meta: "Condición previa relevante del evaluado." },
+            { nombre: "Criterio de vigilancia", meta: "Nivel de seguimiento recomendado." },
+          ] },
+        ],
       };
 
       function buildPrestacionFichasDemo(cod, desc) {
@@ -802,16 +910,15 @@
                         <span class="fw-semibold text-dark">${ficha.nombre}</span>
                       </div>
                       <div class="prest-ficha-subtitle">${ficha.subtitulo}</div>
-                      <div class="prest-ficha-summary"><i class="fas fa-list-check"></i>${ficha.codigos.length} códigos de dato disponibles</div>
+                      <div class="prest-ficha-summary"><i class="fas fa-list-check"></i>${ficha.codigos.length} c\u00f3digos de dato disponibles</div>
                     </div>
                   </div>
                   <button type="button" class="prest-ficha-toggle" aria-label="Desglosar ficha" onclick="event.stopPropagation(); togglePrestacionFicha(this.closest('.prest-ficha-header'))"><i class="fas fa-chevron-down"></i></button>
                 </div>
                 <div class="prest-ficha-body">
                   <div class="prest-codigos-head">
-                    <div>Código de dato</div>
+                    <div>C\u00f3digo de dato</div>
                     <div>Estado</div>
-                    <div>Factor asociado</div>
                   </div>
                   <div class="prest-codigos-list">
                     ${ficha.codigos.map((codigo, codIndex) => `
@@ -822,16 +929,10 @@
                             </div>
                             <div class="prest-switch-wrap">
                               <div class="form-check form-switch m-0">
-                                <input class="form-check-input" type="checkbox" checked onchange="toggleFactorPrestacion(this)" id="prest-${index}-${codIndex}" />
+                                <input class="form-check-input" type="checkbox" checked id="prest-${index}-${codIndex}" />
                               </div>
                               <span class="prest-switch-label">Encendido</span>
                             </div>
-                            <select class="form-select prest-factor-select">
-                              <option selected>Seleccionar factor...</option>
-                              <option>Factor principal</option>
-                              <option>Factor secundario</option>
-                              <option>Factor de seguimiento</option>
-                            </select>
                           </div>
                         `).join("")}
                   </div>
@@ -1010,6 +1111,17 @@
 
         document.getElementById("fCdCod").value = "";
         document.getElementById("fCdDesc").value = "";
+      }
+
+      function filtrarCodDatoFicha(val) {
+        val = val.toLowerCase().trim();
+        const tbody = document.getElementById("fCdTableBody");
+        if (!tbody) return;
+        const rows = tbody.querySelectorAll("tr");
+        rows.forEach(tr => {
+          const text = tr.innerText.toLowerCase();
+          tr.style.display = text.includes(val) ? "" : "none";
+        });
       }
 
       function addSF() {
@@ -1504,7 +1616,10 @@
         if (!container) return;
         const manual = selectEl && selectEl.value === "otros";
         container.querySelectorAll(".manual-bullet-input").forEach((input) => {
-          input.style.display = manual ? "" : "none";
+          input.style.setProperty("display", manual ? "block" : "none", "important");
+        });
+        container.querySelectorAll(".badge-bullet").forEach((badge) => {
+          badge.style.display = manual ? "none" : "";
         });
         renumerarContenedor("#" + containerId);
       }
@@ -1525,11 +1640,16 @@
             const badgeVineta = item.querySelector(".badge-bullet");
             const manualInput = item.querySelector(".manual-bullet-input");
             if (manualInput) {
-              manualInput.style.display = tipoVineta === "otros" ? "" : "none";
+              manualInput.style.setProperty("display", tipoVineta === "otros" ? "block" : "none", "important");
+              manualInput.oninput = function() {
+                  if (badgeVineta) badgeVineta.textContent = this.value || "•";
+                  sepoUpdateClosedPrecargaUI();
+              };
             }
             if (badgeVineta) {
-              badgeVineta.textContent = tipoVineta === "otros"
-                ? ((manualInput && manualInput.value.trim()) ? manualInput.value.trim() : "•")
+              badgeVineta.style.display = tipoVineta === "otros" ? "none" : "";
+              badgeVineta.textContent = tipoVineta === "otros" 
+                ? (manualInput && manualInput.value ? manualInput.value : "•")
                 : obtenerVinetaAutomatica(index, items.length, tipoVineta);
             }
           } else {
@@ -1537,7 +1657,12 @@
             if (badge) badge.textContent = `P${index + 1}`;
           }
         });
+
+        if (containerSelector === "#mp_C_alternativas_box") {
+           sepoUpdateClosedPrecargaUI();
+        }
       }
+
 
       let draggedPregItem = null;
       function dragPregRow(e) {
@@ -1787,7 +1912,19 @@
                   
                   <div class="col-md-12" id="mp_C_boxImage" style="display:none;">
                     <label class="form-label fw-bold small text-primary mb-1"><i class="fas fa-image me-1"></i> Subir Imagen</label>
-                    <div class="d-flex gap-2 mt-1"><input type="file" class="form-control" accept="image/*"><select class="form-select px-2 w-auto border-secondary"><option value="small">IMG: Pequeño</option><option value="medium" selected>IMG: Mediano</option><option value="large">IMG: Grande</option></select></div>
+                    <div class="d-flex gap-2 mt-1 align-items-center">
+                      <input type="file" class="form-control" accept="image/*">
+                      <select class="form-select px-2 w-auto border-secondary mpc-img-size-master-sel" onchange="swMpcImgSize(this)">
+                        <option value="small">IMG: Pequeño</option>
+                        <option value="medium" selected>IMG: Mediano</option>
+                        <option value="large">IMG: Grande</option>
+                        <option value="otros">Otros</option>
+                      </select>
+                      <div class="mpc-img-custom-size-master d-none gap-2 align-items-center">
+                        <input type="number" class="form-control form-control-sm mpc-img-w" placeholder="Ancho px" style="width:85px;">
+                        <input type="number" class="form-control form-control-sm mpc-img-h" placeholder="Alto px" style="width:85px;">
+                      </div>
+                    </div>
                   </div>
                   
                   <div class="col-md-4">
@@ -1823,9 +1960,9 @@
                       <input class="form-check-input" type="checkbox" id="mp_C_precarga" onchange="document.getElementById('mp_C_precarga_opciones').style.display = this.checked ? 'block' : 'none'; ">
                       <label class="form-check-label small fw-bold text-muted fw-bold">Activar Precarga</label>
                     </div>
-                    <div id="mp_C_precarga_opciones" style="display:none;" class="mt-2 ps-4 border-start border-3 border-primary bg-light p-2 rounded">
-                      <label class="form-label small fw-bold text-primary mb-1">Alternativa(s) por defecto:</label>
-                      <input type="text" class="form-control form-control-sm" id="mp_C_precarga_defecto" placeholder="Ej: A, B o texto de alternativa">
+                    <div id="mp_C_precarga_opciones" style="display:none;" class="mt-2 ps-1 bg-light p-2 rounded">
+                      <label class="form-label small fw-bold text-primary mb-1"><i class="fas fa-check-square me-1"></i> Alternativa(s) por defecto:</label>
+                      <div id="mp_C_precarga_dynamic_box"></div>
                     </div>
                     <div class="form-check form-switch mt-1">
                       <input class="form-check-input" type="checkbox" id="mp_C_editable">
@@ -1958,9 +2095,24 @@
         if (rdSi && rdSi.checked) {
           boxPrecarga.style.display = "block";
           let inputsHtml =
-            '<label class="form-label small text-primary fw-bold mb-2">Configure los valores por defecto a inyectar:</label>';
+            '<label class="form-label small text-primary fw-bold mb-2"><i class="fas fa-magic me-1"></i> Configure los valores por defecto a inyectar:</label>';
+          
+          // Selector de ejemplos coherentes
+          inputsHtml += `
+            <div class="mb-3">
+              <select class="form-select form-select-sm border-warning bg-warning-subtle fw-bold" onchange="const box=this.closest('#mp_A_boxPrecarga'); const firstInp=box.querySelector('.mp-precarga-val'); if(this.value && firstInp){ firstInp.value=this.value; firstInp.dispatchEvent(new Event('input')); }">
+                <option value="">-- Seleccionar ejemplo coherente --</option>
+                <option value="Presento episodios de estrés">Síntomas de estrés</option>
+                <option value="28">Edad estándar</option>
+                <option value="Sede Central">Localización</option>
+                <option value="Protocolo de evacuación">Procedimiento</option>
+                <option value="Sin observaciones">Observación base</option>
+              </select>
+            </div>
+          `;
+
           for (let i = 1; i <= countFields; i++) {
-            inputsHtml += `<input type="text" class="form-control form-control-sm mb-2" placeholder="Valor por defecto para el cajón ${i}...">`;
+            inputsHtml += `<input type="text" class="form-control form-control-sm mb-2 mp-precarga-val" placeholder="Valor por defecto para el cajón ${i}...">`;
           }
           document.getElementById("mp_A_precargaFields").innerHTML = inputsHtml;
         } else {
@@ -2064,187 +2216,241 @@
         const c = sel.parentElement.nextElementSibling;
         if (sel.value === "texto") {
           c.innerHTML =
-            '<input type="text" class="form-control form-control-sm border-primary" placeholder="Descripción de la alternativa..."><div class="img-preview-circle d-none"></div>';
+            '<input type="text" class="form-control form-control-sm border-primary" placeholder="Descripción de la alternativa..." oninput="sepoUpdateClosedPrecargaUI()"><div class="img-preview-circle d-none"></div>';
         } else {
           c.innerHTML = `
-              <div class="d-flex align-items-center gap-2 w-100">
-                <input type="file" class="form-control form-control-sm border-secondary p-0" accept="image/*" onchange="previewImgAlt(this)">
-                <div class="img-preview-circle">
-                  <i class="fas fa-image text-muted opacity-25"></i>
-                </div>
-                <select class="form-select form-select-sm px-1 border-secondary text-muted" style="width:70px;">
-                  <option value="small">Pqñ</option>
-                  <option value="medium" selected>Med</option>
-                  <option value="large">Grd</option>
-                </select>
+              <div class="d-flex flex-column gap-2 w-100 p-3 border rounded bg-white shadow-sm mt-1 mb-1">
+                 <div class="d-flex align-items-center justify-content-between mb-1">
+                    <div class="d-flex align-items-center gap-2">
+                       <i class="fas fa-image text-primary"></i>
+                       <span class="small fw-bold text-primary">Modo Imagen</span>
+                    </div>
+                    <select class="form-select form-select-sm w-auto border-secondary mpc-img-size-sel" onchange="swMpcImgSize(this)">
+                      <option value="small">Pequeño</option>
+                      <option value="medium" selected>Mediano</option>
+                      <option value="large">Grande</option>
+                      <option value="otros">Otros (Personalizado)</option>
+                    </select>
+                 </div>
+                 <div class="d-flex gap-3 align-items-start">
+                    <div class="img-preview-box border rounded d-flex align-items-center justify-content-center bg-light" style="width: 100px; height: 100px; overflow: hidden; border-style: dashed !important;">
+                       <i class="fas fa-image text-muted opacity-25 fa-2x"></i>
+                    </div>
+                    <div class="flex-grow-1 d-flex flex-column gap-2">
+                       <small class="text-muted fw-semibold">Seleccionar archivo de imagen:</small>
+                       <input type="file" class="form-control form-control-sm" accept="image/*" onchange="previewImgAlt(this)">
+                       <div class="mpc-img-custom-size d-none gap-2 align-items-center shadow-none p-0 mt-1">
+                          <div class="flex-grow-1">
+                            <input type="number" class="form-control form-control-sm mpc-img-w" placeholder="Ancho px" title="Ancho en píxeles">
+                          </div>
+                          <div class="flex-grow-1">
+                            <input type="number" class="form-control form-control-sm mpc-img-h" placeholder="Alto px" title="Alto en píxeles">
+                          </div>
+                       </div>
+                       <input type="text" class="form-control form-control-sm mt-1" placeholder="Texto descriptivo o valor de la alternativa..." oninput="sepoUpdateClosedPrecargaUI()">
+                    </div>
+                 </div>
               </div>`;
         }
       }
 
+      window.swMpcImgSize = function (sel) {
+        // Buscamos el contenedor de la alternativa o del cuerpo del modal
+        const container = sel.closest(".item-alt") || sel.closest(".p-3") || sel.closest(".modal-body") || sel.parentElement;
+        if (!container) return;
+        
+        // Buscamos el bloque de dimensiones personalizadas dentro de ese contenedor
+        const custom = container.querySelector(".mpc-img-custom-size") || container.querySelector(".mpc-img-custom-size-master");
+        if (custom) {
+          const isOtros = sel.value === "otros";
+          custom.classList.toggle("d-none", !isOtros);
+          custom.classList.toggle("d-flex", isOtros);
+        }
+      };
+
+
+      function sepoUpdateClosedPrecargaUI() {
+        const box = document.getElementById("mp_C_alternativas_box");
+        const precargaBox = document.getElementById("mp_C_precarga_dynamic_box");
+        const tipoRespEl = document.getElementById("mp_C_tipoResp");
+        const isMulti = tipoRespEl && tipoRespEl.value === "multiple";
+        if (!box || !precargaBox) return;
+
+        const items = Array.from(box.querySelectorAll(".item-alt"));
+        const options = items.map(function (item, idx) {
+          const input = item.querySelector('.mpc-dynamic-box input[type="text"]');
+          const val = input ? input.value : "";
+          const bulletInput = item.querySelector('.manual-bullet-input');
+          const bullet = (bulletInput && bulletInput.value) || obtenerVinetaAutomatica(idx, items.length, getTipoVinetaContenedor(box));
+          return { id: idx, text: val || "Alternativa " + (idx + 1), bullet: bullet };
+        });
+
+        if (!options.length) {
+          precargaBox.innerHTML = '<div class="alert alert-light border-dashed py-2 mb-0 small text-center text-muted">Añade alternativas para configurar la precarga.</div>';
+          return;
+        }
+
+        if (isMulti) {
+          precargaBox.innerHTML = `<div class="d-flex flex-wrap gap-2 mt-2">
+            ${options.map(function (opt) {
+              return `
+                <div class="form-check p-2 border rounded bg-white shadow-sm d-flex align-items-center" style="min-width:140px;">
+                  <input class="form-check-input ms-1 me-2" type="checkbox" name="mp_C_precarga_check" id="prec_alt_${opt.id}" value="${opt.id}">
+                  <label class="form-check-label small fw-semibold text-truncate" for="prec_alt_${opt.id}" title="${opt.text}">${opt.bullet} ${opt.text}</label>
+                </div>`;
+            }).join("")}
+          </div>`;
+        } else {
+          precargaBox.innerHTML = `<select class="form-select form-select-sm mt-2 border-primary" id="mp_C_precarga_sel">
+            <option value="">-- Sin precarga (vacío) --</option>
+            ${options.map(function (opt) {
+              return `<option value="${opt.id}">${opt.bullet} ${opt.text}</option>`;
+            }).join("")}
+          </select>`;
+        }
+      }
+
+
       function previewImgAlt(input) {
-        const preview = input.parentElement.querySelector(
-          ".img-preview-circle",
-        );
+        const wrap = input.closest(".p-3") || input.parentElement;
+        const preview = wrap ? wrap.querySelector(".img-preview-box") : null;
+        if (!preview) return;
+
         if (input.files && input.files[0]) {
           const reader = new FileReader();
           reader.onload = function (e) {
-            preview.innerHTML = `<img src="${e.target.result}" style="width:100%; height:100%; object-fit:cover;">`;
+            preview.innerHTML = `<img src="${e.target.result}" style="width:100%; height:100%; object-fit:contain;">`;
           };
           reader.readAsDataURL(input.files[0]);
         }
       }
 
       function previsualizarPregunta() {
-        const tipo = document.getElementById("mpTipoPreg_Master").value;
-        if (!tipo) {
-          showToast("Seleccione un tipo primero.");
-          return;
-        }
-
-        let txt = "Pregunta de prueba";
-        let opciones = ["Opción A", "Opción B", "Opción C", "Opción D"];
-
-        if (tipo === "abierta" && document.getElementById("mp_A_text"))
-          txt = document.getElementById("mp_A_text").value || txt;
-        if (tipo === "cerrada" && document.getElementById("mp_C_text"))
-          txt = document.getElementById("mp_C_text").value || txt;
-        if (tipo === "matriz" && document.getElementById("mp_M_text"))
-          txt = document.getElementById("mp_M_text").value || txt;
-        if (tipo === "tarjeta" && document.getElementById("mp_T_text"))
-          txt = document.getElementById("mp_T_text").value || txt;
-        if (tipo === "numerica" && document.getElementById("mp_N_text"))
-          txt = document.getElementById("mp_N_text").value || txt;
-
-        const badgeMap = {
-          cerrada: "Respuesta Cerrada",
-          abierta: "Respuesta Abierta",
-          matriz: "Tipo Matriz",
-          tarjeta: "Tipo Tarjeta",
-          numerica: "Numérica",
-        };
-
-        let qData = {
-          tipo: tipo,
-          texto: txt,
-          badge: badgeMap[tipo] || "General",
-          opciones: opciones,
-        };
-
-        // Extracción de datos específicos según el tipo
-        if (tipo === "matriz") {
-          const rowsVal = document.getElementById("mp_M_rows")?.value || "";
-          const colsVal = document.getElementById("mp_M_cols")?.value || "";
-          qData.filas = rowsVal
-            .split("\n")
-            .map((s) => s.trim())
-            .filter((s) => s);
-          qData.columnas = colsVal
-            .split("\n")
-            .map((s) => s.trim())
-            .filter((s) => s);
-
-          if (qData.filas.length === 0) qData.filas = ["Fila A", "Fila B"];
-          if (qData.columnas.length === 0)
-            qData.columnas = ["Col 1", "Col 2", "Col 3"];
-        } else if (tipo === "tarjeta") {
-          const contentVal = document.getElementById("mp_T_content")?.value || "";
-          const lines = contentVal
-            .split("\n")
-            .map((s) => s.trim())
-            .filter((s) => s);
-          const emojis = ["⭐", "🔵", "🟢", "🔴", "🟡", "🟣", "⚪"];
-          qData.tarjetas = lines.map((line, idx) => ({
-            emoji: emojis[idx % emojis.length],
-            label: line,
-          }));
-          if (qData.tarjetas.length === 0) {
-            qData.tarjetas = [
-              { emoji: "🌟", label: "Opción Premium A" },
-              { emoji: "✨", label: "Opción Premium B" },
-            ];
+        console.log("Iniciando previsualización de pregunta...");
+        try {
+          const tipoSel = document.getElementById("mpTipoPreg_Master");
+          const tipo = tipoSel ? tipoSel.value : null;
+          
+          if (!tipo) {
+            showToast("Seleccione un tipo de pregunta primero.");
+            return;
           }
-        }
 
-        let altBoxId = null;
-        if (tipo === "abierta") altBoxId = "mp_A_alternativas_box";
-        if (tipo === "cerrada") altBoxId = "mp_C_alternativas_box";
-        if (tipo === "tarjeta") altBoxId = "mp_T_alternativas_box";
-
-        if (altBoxId) {
-          const altBox = document.getElementById(altBoxId);
-          if (altBox) {
-            const rowInputs = altBox.querySelectorAll(
-              ".mpc-dynamic-box input[type='text']",
-            );
-            if (rowInputs.length > 0) {
-              opciones = Array.from(rowInputs).map(
-                (i) => i.value.trim() || "Alternativa sin texto",
-              );
-            }
+          if (typeof window.sepoReadCurrentQuestionConfig !== 'function') {
+            showToast("Err: Motor de configuración no cargado.");
+            return;
           }
-        }
 
-        pvData = {
-          titulo: "Previsualización de Pregunta",
-          icono: "👁️",
-          tipo: "Prueba de Diseño",
-          desc: "Vista previa generada al vuelo.",
-          tiempo: "--:--",
-          preguntas: [qData],
-        };
-
-        pvIdx = 0;
-        pvSeconds = 0;
-        pvRespuestas = {};
-
-        document.getElementById("pvTitle").textContent = pvData.titulo;
-        document.getElementById("pvSubtitle").textContent = pvData.tipo;
-        document.getElementById("pvIcon").textContent = pvData.icono;
-        document.getElementById("pvCoverIcon").textContent = pvData.icono;
-        document.getElementById("pvCoverTitle").textContent = pvData.titulo;
-        document.getElementById("pvCoverDesc").textContent = pvData.desc;
-        document.getElementById("pvTotalQ").textContent = 1;
-        document.getElementById("pvEstTime").textContent = pvData.tiempo;
-
-        // Force skip cover directly to questions for quick preview
-        pvShow("pvPortada", false);
-        pvShow("pvPreguntas", true, "block");
-        pvShow("pvFinal", false);
-        document.getElementById("pvTimer").style.display = "flex";
-
-        if (pvTimerInterval) clearInterval(pvTimerInterval);
-        pvTimerInterval = setInterval(() => {
-          pvSeconds++;
-          const m = String(Math.floor(pvSeconds / 60)).padStart(2, "0");
-          const s = String(pvSeconds % 60).padStart(2, "0");
-          document.getElementById("pvTimerText").textContent = m + ":" + s;
-        }, 1000);
-
-        renderPregunta();
-
-        // Ocultar modal de edición momentaneamente
-        const m = bootstrap.Modal.getInstance(
-          document.getElementById("modalNuevaPregunta"),
-        );
-        if (m) m.hide();
-
-        new bootstrap.Modal(document.getElementById("modalPreview")).show();
-
-        // Al cerrar el modalPreview, podemos opcionalmente re-abrir el editor
-        const previewEl = document.getElementById("modalPreview");
-
-        const cleanupPreview = () => {
-          if (
-            preguntaActualEditando ||
-            document.getElementById("mpTipoPreg_Master").value
-          ) {
-            new bootstrap.Modal(
-              document.getElementById("modalNuevaPregunta"),
-            ).show();
+          const cfg = window.sepoReadCurrentQuestionConfig(tipo);
+          const qCfg = tipo === "abierta" ? cfg.abierta : cfg.cerrada;
+          if (!qCfg) {
+            showToast("Error al leer la configuración actual.");
+            return;
           }
-          previewEl.removeEventListener("hidden.bs.modal", cleanupPreview);
-        };
-        previewEl.addEventListener("hidden.bs.modal", cleanupPreview);
+
+          // Construcción de la data para el motor de preview (qData)
+          const qData = {
+            id: "preview_q",
+            tipo: tipo,
+            texto: qCfg.texto || "Pregunta sin título",
+            vineta: (tipo === "cerrada") ? (qCfg.vineta || "may") : "may",
+            multiple: (tipo === "cerrada" && qCfg.tipoResp === "multiple"),
+            alternativas: (qCfg.alternativas || []).map(function (a) {
+              return {
+                texto: a.texto,
+                tipo: a.tipo,
+                size: a.size,
+                w: a.w,
+                h: a.h,
+                vinetaManual: a.vinetaManual
+              };
+            }),
+            opciones: (qCfg.alternativas || []).map(function (a) {
+              return a.texto;
+            }),
+            precarga: qCfg.precarga || "",
+            respuestaEsperada: qCfg.respuestaEsperada || "",
+            valorEsperado: qCfg.valorEsperado || ""
+          };
+
+          // Fallback para matriz que no usa alternativas dinámicas aún
+          if (tipo === "matriz") {
+            const rowsVal = document.getElementById("mp_M_rows")?.value || "";
+            const colsVal = document.getElementById("mp_M_cols")?.value || "";
+            qData.filas = rowsVal.split("\n").map(s => s.trim()).filter(s => s);
+            qData.columnas = colsVal.split("\n").map(s => s.trim()).filter(s => s);
+            if (!qData.filas.length) qData.filas = ["Fila A", "Fila B"];
+            if (!qData.columnas.length) qData.columnas = ["Col 1", "Col 2"];
+          }
+
+          // Asignación a variable global
+          pvData = {
+            titulo: "Previsualización Local",
+            icono: "👁️",
+            tipo: "Diseñador de Pregunta",
+            desc: "Vista preliminar de los ajustes en tiempo real.",
+            tiempo: "--:--",
+            preguntas: [qData],
+          };
+
+          pvIdx = 0;
+          pvSeconds = 0;
+          pvRespuestas = {};
+
+          // Actualización de elementos de cabecera del modal
+          const setText = (id, val) => {
+             const el = document.getElementById(id);
+             if (el) el.textContent = val;
+          };
+
+          setText("pvTitle", pvData.titulo);
+          setText("pvSubtitle", pvData.tipo);
+          setText("pvIcon", pvData.icono);
+          setText("pvCoverIcon", pvData.icono);
+          setText("pvCoverTitle", pvData.titulo);
+          setText("pvCoverDesc", pvData.desc);
+          setText("pvTotalQ", 1);
+          setText("pvEstTime", pvData.tiempo);
+
+          // Force skip cover directly to questions for quick preview
+          pvShow("pvPortada", false);
+          pvShow("pvPreguntas", true, "block");
+          pvShow("pvFinal", false);
+          
+          const pvT = document.getElementById("pvTimer");
+          if (pvT) pvT.style.display = "none"; // Ocultamos el cronómetro en vista previa rápida
+
+          renderPregunta();
+
+          // Ocultar modal de edición momentaneamente (cerrar el que esté abierto)
+          const editModal = document.getElementById("modalNuevaPregunta");
+          if (editModal && typeof bootstrap !== 'undefined') {
+            const m = bootstrap.Modal.getInstance(editModal) || new bootstrap.Modal(editModal);
+            if (m) m.hide();
+          }
+
+          // Mostrar modal de preview
+          const previewEl = document.getElementById("modalPreview");
+          if (previewEl && typeof bootstrap !== 'undefined') {
+             const pm = bootstrap.Modal.getInstance(previewEl) || new bootstrap.Modal(previewEl);
+             pm.show();
+             
+             // Al cerrar, intentamos reabrir el editor
+             const cleanupPreview = () => {
+                const nModal = document.getElementById("modalNuevaPregunta");
+                if (nModal) {
+                   const nm = bootstrap.Modal.getInstance(nModal) || new bootstrap.Modal(nModal);
+                   nm.show();
+                }
+                previewEl.removeEventListener("hidden.bs.modal", cleanupPreview);
+             };
+             previewEl.addEventListener("hidden.bs.modal", cleanupPreview);
+          }
+
+        } catch (e) {
+          console.error("Error en Previsualizar Pregunta:", e);
+          showToast("Error técnico al previsualizar. Revisa la consola.");
+        }
       }
 
       let preguntaActualEditando = null;
@@ -2338,39 +2544,34 @@
 
       function insertarFormula(txt) {
         const t = document.getElementById("facFormula");
-        const start = t.selectionStart;
-        const end = t.selectionEnd;
-        t.value = t.value.substring(0, start) + txt + t.value.substring(end);
-
-        // Sync UI
+        if (!t) return;
+        const current = String(t.value || "");
+        const incoming = String(txt || "");
+        t.value = current ? (current + (current.endsWith(" ") ? "" : " ") + incoming) : incoming;
         syncFormula(t.value);
-
-        t.focus();
-        t.selectionStart = t.selectionEnd = start + txt.length;
       }
 
       function syncFormula(val) {
-        document.getElementById("excelFormulaInput").value = val;
-        document.getElementById("facFormula").value = val;
-
+        const excelInput = document.getElementById("excelFormulaInput");
+        const facFormula = document.getElementById("facFormula");
         const preview = document.getElementById("formulaTextPreview");
         const panel = document.getElementById("formulaPreviewFinal");
 
-        // Validation: Check parentheses
-        const openP = (val.match(/\(/g) || []).length;
-        const closeP = (val.match(/\)/g) || []).length;
+        if (excelInput) excelInput.value = val;
+        if (facFormula) facFormula.value = val;
+        if (!preview || !panel) return;
+
+        const openP = (String(val || "").match(/\(/g) || []).length;
+        const closeP = (String(val || "").match(/\)/g) || []).length;
 
         if (openP !== closeP) {
-          preview.textContent = val + " (⚠️ Paréntesis no cerrados)";
-          preview.className =
-            "monospace fw-bold text-danger fs-5 animate__animated animate__pulse";
-          panel.className =
-            "bg-danger bg-opacity-10 p-3 rounded border border-danger border-opacity-25";
+          preview.textContent = String(val || "") + " (⚠️ Paréntesis no cerrados)";
+          preview.className = "monospace fw-bold text-danger fs-5 animate__animated animate__pulse";
+          panel.className = "bg-danger bg-opacity-10 p-3 rounded border border-danger border-opacity-25";
         } else {
           preview.textContent = val || "...";
           preview.className = "monospace fw-bold text-success fs-5";
-          panel.className =
-            "bg-success bg-opacity-10 p-3 rounded border border-success border-opacity-25";
+          panel.className = "bg-success bg-opacity-10 p-3 rounded border border-success border-opacity-25";
         }
       }
 
@@ -3249,11 +3450,13 @@ const PRUEBAS_DEMO = {
       let pvRespuestas = {};
 
       /* ── Helper: Obtener viñeta ── */
-      function getBulletValue(type, index) {
-        if (type === "num") return index + 1 + ".";
-        if (type === "may") return String.fromCharCode(65 + index) + ")";
-        if (type === "min") return String.fromCharCode(97 + index) + ")";
-        if (type === "rom") {
+      function getBulletValue(type, index, manualValue) {
+        const t = (type || "").toLowerCase();
+        if (t === "otros") return manualValue || "•";
+        if (t === "num" || t === "números") return index + 1 + ".";
+        if (t === "may" || t === "letras") return String.fromCharCode(65 + index) + ")";
+        if (t === "min") return String.fromCharCode(97 + index) + ")";
+        if (t === "rom" || t === "números romanos") {
           const roms = ["I", "II", "III", "IV", "V", "VI"];
           return (roms[index] || index + 1) + ".";
         }
@@ -3294,6 +3497,7 @@ const PRUEBAS_DEMO = {
       /* Helper: show/hide sections avoiding Bootstrap !important conflict */
       function pvShow(id, show, mode) {
         const el = document.getElementById(id);
+        if (!el) return;
         const cls = mode === "block" ? "d-block" : "d-flex";
         if (show) {
           el.classList.remove("d-none");
@@ -3394,20 +3598,51 @@ const PRUEBAS_DEMO = {
 
         if (q.tipo === "cerrada") {
           const isMulti = q.multiple === true;
-          q.opciones.forEach((op, i) => {
+          const alts = q.alternativas || [];
+          const labels = q.opciones || [];
+
+          labels.forEach((op, i) => {
+            const alt = alts[i] || { tipo: "texto" };
             let sel = false;
             if (isMulti) {
               sel = (pvRespuestas[pvIdx] || []).includes(i);
             } else {
               sel = savedResp === i;
             }
-            
-            const bullet = getBulletValue(q.vineta || "may", i);
+
+            const bullet = getBulletValue(q.vineta || "may", i, alt.vinetaManual);
             const d = document.createElement("div");
             d.className = "pv-option d-flex align-items-center gap-3 p-3 rounded-3 mb-2";
             d.style.cssText = `cursor:pointer;border:1px solid ${sel ? "#0ea5e9" : "rgba(255,255,255,0.1)"};background:${sel ? "rgba(14,165,233,0.12)" : "rgba(255,255,255,0.03)"};transition:all 0.2s ease;`;
-            d.innerHTML = `<div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width:32px;height:32px;background:${sel ? "#0ea5e9" : "rgba(255,255,255,0.08)"};color:${sel ? "white" : "#94a3b8"};font-weight:700;font-size:0.8rem;">${bullet}</div><span class="flex-grow-1" style="color:${sel ? "#e2e8f0" : "#cbd5e1"}">${op}</span>${sel ? '<i class="fas fa-check-circle text-info"></i>' : ""}`;
-            
+
+            let contentHtml = `<span class="flex-grow-1" style="color:${sel ? "#e2e8f0" : "#cbd5e1"}">${op}</span>`;
+            if (alt.tipo === "imagen") {
+              // Estilos de tamaño imagen
+              let imgStyle = "max-width:150px;max-height:150px;object-fit:contain;";
+              if (alt.size === "small") imgStyle = "width:50px;height:50px;object-fit:contain;";
+              if (alt.size === "medium") imgStyle = "width:100px;height:100px;object-fit:contain;";
+              if (alt.size === "large") imgStyle = "width:200px;height:200px;object-fit:contain;";
+              if (alt.size === "otros" && alt.w) {
+                 imgStyle = `width:${alt.w}px;height:${alt.h || alt.w}px;object-fit:contain;`;
+              }
+
+              contentHtml = `
+                <div class="flex-grow-1 d-flex flex-column gap-2">
+                   <div class="rounded bg-black bg-opacity-25 d-flex align-items-center justify-content-center overflow-hidden" style="${imgStyle}">
+                      <i class="fas fa-image opacity-25 fa-2x"></i>
+                   </div>
+                   <span class="small" style="color:${sel ? "#e2e8f0" : "#cbd5e1"}">${op}</span>
+                </div>`;
+            }
+
+            d.innerHTML = `
+              <div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width:32px;height:32px;background:${sel ? "#0ea5e9" : "rgba(255,255,255,0.08)"};color:${sel ? "white" : "#94a3b8"};font-weight:700;font-size:0.8rem;">
+                ${bullet}
+              </div>
+              ${contentHtml}
+              ${sel ? '<i class="fas fa-check-circle text-info ms-auto"></i>' : ""}
+            `;
+
             d.onclick = () => {
               if (isMulti) {
                 if (!pvRespuestas[pvIdx]) pvRespuestas[pvIdx] = [];
@@ -3429,7 +3664,7 @@ const PRUEBAS_DEMO = {
             ta.className = "form-control mb-2";
             ta.rows = count > 1 ? 2 : 4;
             ta.placeholder = (q.placeholders && q.placeholders[i]) || q.placeholder || `Respuesta ${i + 1}...`;
-            ta.value = resps[i] || "";
+            ta.value = resps[i] || q.precarga || "";
             ta.style.cssText = "background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);color:#e2e8f0;border-radius:12px;resize:vertical;";
             ta.oninput = () => {
               if (count > 1) {
@@ -3693,6 +3928,8 @@ const PRUEBAS_DEMO = {
   }
 
   function sepoInjectImageOthers(root) {
+    // ACTUALIZACION: Deshabilitado para usar implementación nativa en los templates
+    return;
     qa(".sepo-img-size, .mpc-dynamic-box select.form-select", root || document).forEach(function (sel) {
       if (!sel || sel.dataset.sepoOtherReady === "1") return;
       // only on small size image selectors
@@ -3745,10 +3982,12 @@ const PRUEBAS_DEMO = {
       fields.innerHTML = `
         <label class="form-label small text-primary fw-bold mb-2">Respuesta por defecto:</label>
         <select id="mp_A_precargaSelect" class="form-select form-select-sm">
-          <option value="">Seleccionar alternativa...</option>
-          <option value="resp_1">Respuesta 1</option>
-          <option value="resp_2">Respuesta 2</option>
-          <option value="resp_3">Respuesta 3</option>
+          <option value="">Seleccionar respuesta coherente...</option>
+          <option value="Se observa un predominio de factores de protección ante situaciones de estrés.">Factores de Protección</option>
+          <option value="La evaluación sugiere la necesidad de reforzar estrategias de afrontamiento.">Estrategias de Afrontamiento</option>
+          <option value="Presenta un nivel de resiliencia adecuado para su perfil ocupacional.">Resiliencia Adecuada</option>
+          <option value="Los resultados se encuentran dentro de los parámetros esperados, condición estable.">Resultados Estables</option>
+          <option value="Se recomienda realizar un seguimiento presencial en el próximo trimestre.">Recomendación Seguimiento</option>
         </select>
       `;
       box.style.display = "block";
@@ -3784,7 +4023,7 @@ const PRUEBAS_DEMO = {
     }, 0);
   };
 
-  function sepoReadCurrentQuestionConfig(tipo) {
+  window.sepoReadCurrentQuestionConfig = function(tipo) {
     const cfg = { tipo: tipo || "", abierta: {}, cerrada: {} };
     if (tipo === "abierta") {
       cfg.abierta = {
@@ -3798,24 +4037,35 @@ const PRUEBAS_DEMO = {
         valorEsperado: q("#mp_A_valorEsperado") ? q("#mp_A_valorEsperado").value : ""
       };
     } else if (tipo === "cerrada") {
+      const isMulti = q("#mp_C_tipoResp") && q("#mp_C_tipoResp").value === "multiple";
+      let precargaVal = "";
+      if (isMulti) {
+        precargaVal = qa('input[name="mp_C_precarga_check"]:checked').map(function (c) { return c.value; }).join(",");
+      } else {
+        precargaVal = q("#mp_C_precarga_sel") ? q("#mp_C_precarga_sel").value : "";
+      }
+
       cfg.cerrada = {
         tipoVista: q("#mp_C_tipoVista") ? q("#mp_C_tipoVista").value : "",
         tipoDato: q("#mp_C_tipoDato") ? q("#mp_C_tipoDato").value : "",
         texto: q("#mp_C_text") ? q("#mp_C_text").value : "",
         tipoResp: q("#mp_C_tipoResp") ? q("#mp_C_tipoResp").value : "",
+        vineta: q("#mp_C_vineta") ? q("#mp_C_vineta").value : "letras",
         tienePrecarga: q("#mp_C_precarga") ? q("#mp_C_precarga").checked : false,
-        precarga: q("#mp_C_precarga_defecto_select") ? q("#mp_C_precarga_defecto_select").value : "",
+        precarga: precargaVal,
         alternativas: qa("#mp_C_alternativas_box .item-alt").map(function (row, idx) {
           const tSel = q(".mpc-tipoalt", row);
           const isText = !tSel || tSel.value === "texto";
           const textInput = q(".mpc-dynamic-box input[type='text']", row);
-          const sizeSel = q(".sepo-img-size", row);
+          const sizeSel = q(".mpc-img-size-sel", row);
+          const manualVineta = q(".manual-bullet-input", row);
           return {
-            texto: isText ? ((textInput && textInput.value) || "") : ("Imagen " + (idx + 1)),
+            texto: isText ? ((textInput && textInput.value) || "") : ((textInput && textInput.value) || ("Imagen " + (idx + 1))),
             tipo: isText ? "texto" : "imagen",
+            vinetaManual: (manualVineta && manualVineta.offsetParent !== null) ? manualVineta.value : "",
             size: sizeSel ? sizeSel.value : "",
-            w: q(".sepo-img-w", row) ? q(".sepo-img-w", row).value : "",
-            h: q(".sepo-img-h", row) ? q(".sepo-img-h", row).value : "",
+            w: q(".mpc-img-w", row) ? q(".mpc-img-w", row).value : "",
+            h: q(".mpc-img-h", row) ? q(".mpc-img-h", row).value : "",
             valor: 0
           };
         })
@@ -3847,49 +4097,175 @@ const PRUEBAS_DEMO = {
   function sepoRenderPlantillaReal() {
     const c = q("#plantillaCerradasContainer");
     const a = q("#plantillaAbiertasContainer");
+    const m = q("#plantillaMatrizContainer");
+    const t = q("#plantillaTarjetaContainer");
     if (!c || !a) return;
+
     const preguntas = sepoGetStoredQuestions();
     const cerradas = preguntas.filter(function (p) { return p.tipo === "cerrada"; });
     const abiertas = preguntas.filter(function (p) { return p.tipo === "abierta"; });
+    const matrices = preguntas.filter(function (p) { return p.tipo === "matriz"; });
+    const tarjetas = preguntas.filter(function (p) { return p.tipo === "tarjeta"; });
 
-    c.innerHTML = cerradas.length ? cerradas.map(function (p) {
+    // 1. Cerradas
+    c.innerHTML = cerradas.length ? cerradas.map(function (p, pIdx) {
+      const vType = (p.cfg && p.cfg.cerrada && p.cfg.cerrada.vineta) || "may";
       return `
-        <div class="border rounded bg-white p-3 shadow-sm mb-2 border-primary" data-question-id="${p.id}">
-          <h6 class="fw-bold text-primary mb-2 text-truncate">${p.titulo}</h6>
-          ${(p.alternativas || []).map(function (alt, idx) {
-            const label = alt.tipo === "imagen" ? ("Imagen " + (idx + 1)) : (alt.texto || ("Alternativa " + (idx + 1)));
-            return `
-              <div class="d-flex align-items-center justify-content-between py-1 ${idx < p.alternativas.length - 1 ? "border-bottom border-light" : ""}">
-                <span class="text-dark fw-medium small">${label}</span>
-                <div class="d-flex align-items-center gap-2">
-                  <label class="small text-muted fw-bold mb-0">Pts:</label>
-                  <input type="number" class="form-control form-control-sm border-secondary text-success fw-bold text-center"
-                    style="width:70px;" step="0.1"
-                    data-score-question="${p.id}" data-score-index="${idx}" value="${alt.valor || 0}">
-                </div>
-              </div>`;
-          }).join("")}
+        <div class="border rounded bg-white p-3 shadow-sm mb-3 border-primary" data-question-id="${p.id}">
+          <h6 class="fw-bold text-primary mb-2 text-truncate small">
+            <span class="badge bg-primary me-2">${pIdx + 1}</span>${p.titulo}
+          </h6>
+          <div class="ms-4 ps-2">
+            ${(p.alternativas || []).map(function (alt, idx) {
+              const bullet = typeof window.getBulletValue === 'function' ? window.getBulletValue(vType, idx, alt.vinetaManual) : "";
+              const label = alt.tipo === "imagen" ? ("(Imagen " + (idx + 1) + ")") : (alt.texto || ("Alternativa " + (idx + 1)));
+              return `
+                <div class="d-flex align-items-center justify-content-between py-1 ${idx < p.alternativas.length - 1 ? "border-bottom border-light" : ""}">
+                  <span class="text-dark fw-medium small text-truncate" style="max-width:300px;">
+                    <strong class="me-2 text-primary opacity-75">${bullet}</strong> ${label}
+                  </span>
+                  <div class="d-flex align-items-center gap-2">
+                    <label class="small text-muted fw-bold mb-0">Pts:</label>
+                    <input type="number" class="form-control form-control-sm border-secondary text-success fw-bold text-center"
+                      style="width:70px;" step="0.1"
+                      data-score-question="${p.id}" data-score-index="${idx}" value="${alt.valor || 0}">
+                  </div>
+                </div>`;
+            }).join("")}
+          </div>
         </div>`;
-    }).join("") : `<div class="alert alert-light text-muted small shadow-sm"><i class="fas fa-info-circle me-2"></i>Las preguntas cerradas se cargarán automáticamente al ingresar a esta pestaña.</div>`;
+    }).join("") : `<div class="alert alert-light text-muted small shadow-sm"><i class="fas fa-info-circle me-2"></i>Las preguntas cerradas se cargarán automáticamente.</div>`;
 
-    a.innerHTML = abiertas.length ? abiertas.map(function (p) {
+    // 2. Abiertas
+    a.innerHTML = abiertas.length ? abiertas.map(function (p, pIdx) {
       const abierta = (p.cfg && p.cfg.abierta) || {};
       return `
-        <div class="border rounded bg-white p-3 shadow-sm mb-2 border-warning">
-          <h6 class="fw-bold text-warning mb-2 text-truncate">${p.titulo}</h6>
-          <div class="row g-2">
-            <div class="col-md-8">
-              <label class="small text-muted fw-bold mb-1">Respuesta esperada</label>
-              <input type="text" class="form-control form-control-sm" value="${abierta.respuestaEsperada || ""}">
+        <div class="border rounded bg-white p-3 shadow-sm mb-3 border-warning">
+          <h6 class="fw-bold text-warning mb-2 text-truncate small">
+            <span class="badge bg-warning me-2">${pIdx + 1}</span>${p.titulo}
+          </h6>
+          <div class="row g-2 mt-1 px-2">
+            <div class="col-md-9">
+              <label class="small text-muted fw-bold mb-1 d-block">Respuesta esperada (Numeración: ${abierta.tipoDatoResp || 'Texto'})</label>
+              <input type="text" class="form-control form-control-sm border-warning-subtle" value="${abierta.respuestaEsperada || ""}" placeholder="Ej: Respuesta estándar...">
             </div>
-            <div class="col-md-4">
-              <label class="small text-muted fw-bold mb-1">Puntaje</label>
-              <input type="number" class="form-control form-control-sm" value="${abierta.valorEsperado || ""}" step="0.1">
+            <div class="col-md-3">
+              <label class="small text-muted fw-bold mb-1 d-block">Puntaje</label>
+              <input type="number" class="form-control form-control-sm border-warning-subtle text-center fw-bold text-warning" value="${abierta.valorEsperado || ""}" step="0.1">
             </div>
           </div>
         </div>`;
-    }).join("") : `<div class="alert alert-light text-muted small shadow-sm"><i class="fas fa-info-circle me-2"></i>Las preguntas abiertas se cargarán automáticamente al ingresar a esta pestaña.</div>`;
+    }).join("") : `<div class="alert alert-light text-muted small shadow-sm"><i class="fas fa-info-circle me-2"></i>Las preguntas abiertas se cargarán automáticamente.</div>`;
+
+    // 3. Matrices
+    if (m) {
+      m.innerHTML = matrices.length ? matrices.map(function (p, pIdx) {
+        const matrix = (p.cfg && p.cfg.matriz) || {};
+        const filas = Array.isArray(matrix.filas) ? matrix.filas : [];
+        return `
+          <div class="border rounded bg-white p-3 shadow-sm mb-3 border-info" data-question-id="${p.id}">
+            <h6 class="fw-bold text-info mb-2 text-truncate small">
+              <span class="badge bg-info me-2">${pIdx + 1}</span>${p.titulo}
+            </h6>
+            <div class="ms-4">
+              ${filas.map(function(f, fIdx) {
+                return `
+                  <div class="d-flex align-items-center justify-content-between py-1 border-bottom border-light">
+                    <span class="text-dark small text-truncate" style="max-width:300px;">${f.texto || "Fila " + (fIdx + 1)}</span>
+                    <div class="d-flex align-items-center gap-2">
+                       <input type="number" class="form-control form-control-sm text-center" style="width:60px;" 
+                         data-score-matrix-row="${p.id}" data-score-index="${fIdx}" value="${f.valor || 0}">
+                    </div>
+                  </div>`;
+              }).join("")}
+            </div>
+          </div>`;
+      }).join("") : `<div class="alert alert-light text-muted small shadow-sm"><i class="fas fa-info-circle me-2"></i>Esperando preguntas tipo Matriz...</div>`;
+    }
+
+    // 4. Tarjetas
+    if (t) {
+      t.innerHTML = tarjetas.length ? tarjetas.map(function (p, pIdx) {
+        return `
+          <div class="border rounded bg-white p-3 shadow-sm mb-3 border-dark" data-question-id="${p.id}">
+            <h6 class="fw-bold text-dark mb-2 text-truncate small">
+              <span class="badge bg-dark me-2">${pIdx + 1}</span>${p.titulo}
+            </h6>
+            <div class="p-2 d-flex align-items-center gap-3">
+              <label class="small text-muted mb-0">Valor por item:</label>
+              <input type="number" class="form-control form-control-sm text-center" style="width:80px;" 
+                data-score-card="${p.id}" value="${(p.cfg && p.cfg.tarjeta && p.cfg.tarjeta.valor) || 0}">
+            </div>
+          </div>`;
+      }).join("") : `<div class="alert alert-light text-muted small shadow-sm"><i class="fas fa-info-circle me-2"></i>Esperando preguntas tipo Tarjeta...</div>`;
+    }
   }
+
+  window.sepoGuardarPlantillaConfigSafe = function() {
+    const box = q("#boxPreg");
+    if (!box) return;
+    const items = qa(".item-row", box);
+    
+    // Recolectar datos de los inputs en el Step 4
+    const scores = {};
+    qa("input[data-score-question]").forEach(inp => {
+        const qid = inp.dataset.scoreQuestion;
+        const sidx = inp.dataset.scoreIndex;
+        if (!scores[qid]) scores[qid] = { simple: [] };
+        scores[qid].simple[sidx] = parseFloat(inp.value) || 0;
+    });
+    
+    qa("input[data-score-matrix-row]").forEach(inp => {
+        const qid = inp.dataset.scoreMatrixRow;
+        const sidx = inp.dataset.scoreIndex;
+        if (!scores[qid]) scores[qid] = { matrix: [] };
+        scores[qid].matrix[sidx] = parseFloat(inp.value) || 0;
+    });
+
+    qa("input[data-score-card]").forEach(inp => {
+        const qid = inp.dataset.scoreCard;
+        if (!scores[qid]) scores[qid] = { card: parseFloat(inp.value) || 0 };
+    });
+
+    // Actualizar los data-attributes del Step 2
+    items.forEach(row => {
+        const qid = row.dataset.sepoId;
+        const cfg = parseJSON(row.dataset.sepoConfig || "{}", {});
+        if (scores[qid]) {
+            if (scores[qid].simple && cfg.cerrada) {
+                scores[qid].simple.forEach((val, i) => {
+                    if (cfg.cerrada.alternativas[i]) cfg.cerrada.alternativas[i].valor = val;
+                });
+            }
+            if (scores[qid].matrix && cfg.matriz) {
+                scores[qid].matrix.forEach((val, i) => {
+                    if (cfg.matriz.filas[i]) cfg.matriz.filas[i].valor = val;
+                });
+            }
+            if (scores[qid].card !== undefined && cfg.tarjeta) {
+                cfg.tarjeta.valor = scores[qid].card;
+            }
+        }
+        // Caso Abiertas (inputs directos en el DOM del Tab)
+        const abiertaInp = q(`#plantillaAbiertasContainer div[data-question-id="${qid}"] input[type="number"]`);
+        const abiertaTxt = q(`#plantillaAbiertasContainer div[data-question-id="${qid}"] input[type="text"]`);
+        if (abiertaInp && cfg.abierta) {
+            cfg.abierta.valorEsperado = parseFloat(abiertaInp.value) || 0;
+            cfg.abierta.respuestaEsperada = abiertaTxt ? abiertaTxt.value : "";
+        }
+
+        row.dataset.sepoConfig = JSON.stringify(cfg);
+    });
+
+    saveCurrentPsychDemo();
+    showToast("✅ Plantilla de respuestas guardada con éxito.");
+  };
+
+  window.sepoLimpiarPlantillaSafe = function() {
+    qa("#step-4 input[type='number']").forEach(inp => inp.value = 0);
+    qa("#step-4 input[type='text']").forEach(inp => inp.value = "");
+    showToast("🧹 Campos de la plantilla reiniciados.");
+  };
 
   window.guardarNuevaPregunta = function () {
     const tipo = q("#mpTipoPreg_Master") ? q("#mpTipoPreg_Master").value : "";
@@ -3953,22 +4329,35 @@ const PRUEBAS_DEMO = {
   function sepoRenderReplicaDestinos() {
     const box = q("#replicaPreguntasDestino");
     const origenSel = q("#replicaPreguntaOrigen");
+    const searchInp = q("#replicaSearchDestino");
     if (!box || !origenSel) return;
-    const preguntas = sepoGetStoredQuestions().filter(function (p) { return p.tipo === "cerrada"; });
-    const origen = preguntas.find(function (p) { return p.id === origenSel.value; });
+
+    const query = searchInp ? searchInp.value.toLowerCase().trim() : "";
+    const preguntas = sepoGetStoredQuestions().filter(function (p) {
+      if (p.tipo !== "cerrada") return false;
+      if (query && !p.titulo.toLowerCase().includes(query)) return false;
+      return true;
+    });
+
+    const origen = sepoGetStoredQuestions().find(function (p) { return p.id === origenSel.value; });
     if (!origen) {
-      box.innerHTML = '<div class="text-muted">Selecciona una pregunta origen.</div>';
+      box.innerHTML = '<div class="text-muted small py-3 text-center">Selecciona una pregunta origen.</div>';
       return;
     }
-    box.innerHTML = preguntas.map(function (p) {
+
+    box.innerHTML = preguntas.length ? preguntas.map(function (p) {
       const ok = sepoIsCompatible(origen, p);
       return `<label class="item-row" style="opacity:${ok ? "1" : ".5"};cursor:${ok ? "pointer" : "not-allowed"};">
         <div class="inf">
           <input type="checkbox" class="form-check-input me-2" value="${p.id}" ${ok ? "" : "disabled"}>
-          <div><div class="fw-semibold">${p.titulo}</div><small class="text-muted">Alternativas: ${(p.alternativas || []).length}</small></div>
+          <div><div class="fw-semibold text-truncate" style="max-width: 480px;">${p.titulo}</div><small class="text-muted">Alternativas: ${(p.alternativas || []).length}</small></div>
         </div>
       </label>`;
-    }).join("");
+    }).join("") : '<div class="text-muted small py-3 text-center">No se encontraron preguntas compatibles.</div>';
+
+    // Reset select all button text
+    const btnAll = q("#btnReplicaSelectAll");
+    if (btnAll) btnAll.textContent = "Todos";
   }
 
   function sepoOpenReplicaModal() {
@@ -4012,6 +4401,22 @@ const PRUEBAS_DEMO = {
     if (q("#btnConfirmarReplicaValores") && !q("#btnConfirmarReplicaValores").dataset.sepoBound) {
       q("#btnConfirmarReplicaValores").dataset.sepoBound = "1";
       q("#btnConfirmarReplicaValores").addEventListener("click", sepoApplyReplica);
+    }
+    if (q("#replicaSearchDestino") && !q("#replicaSearchDestino").dataset.sepoBound) {
+      q("#replicaSearchDestino").dataset.sepoBound = "1";
+      q("#replicaSearchDestino").addEventListener("input", sepoRenderReplicaDestinos);
+    }
+    if (q("#btnReplicaSelectAll") && !q("#btnReplicaSelectAll").dataset.sepoBound) {
+      q("#btnReplicaSelectAll").dataset.sepoBound = "1";
+      q("#btnReplicaSelectAll").addEventListener("click", function () {
+        const box = q("#replicaPreguntasDestino");
+        if (!box) return;
+        const checks = qa('input[type="checkbox"]:not(:disabled)', box);
+        if (!checks.length) return;
+        const allChecked = checks.every(function (c) { return c.checked; });
+        checks.forEach(function (c) { c.checked = !allChecked; });
+        this.textContent = !allChecked ? "Ninguno" : "Todos";
+      });
     }
   }
 
@@ -4369,114 +4774,46 @@ const PRUEBAS_DEMO = {
     return base.join("");
   }
 
+
   function renderClosedAssignments(question) {
     if (question.tipo === "abierta") return "";
     const alts = (question.cfg.cerrada && question.cfg.cerrada.alternativas) || [];
     if (!alts.length) {
       return '<div class="alert alert-light border text-muted small mb-0">Esta pregunta aún no tiene alternativas configuradas.</div>';
     }
-    return alts.map(function (alt, altIndex) {
-      const label = alt.tipo === "imagen" ? ("Imagen " + (altIndex + 1)) : (alt.texto || ("Alternativa " + (altIndex + 1)));
-      const rows = (alt.asignaciones || [{ factorId: "", valor: 0 }]).map(function (asig, asigIndex) {
-        return `
-          <div class="row g-2 align-items-center mb-2" data-role="asignacion-row" data-asig-index="${asigIndex}">
-            <div class="col-md-7">
-              <select class="form-select form-select-sm"
-                data-role="factor-select"
-                data-question-id="${question.id}"
-                data-alt-index="${altIndex}"
-                data-asig-index="${asigIndex}">
-                ${factorOptions(asig.factorId || "")}
-              </select>
+    return `
+      <div class="border rounded bg-white p-3 shadow-sm mb-2 border-primary" data-question-id="${question.id}">
+        <div class="fw-bold text-primary mb-2">${question.title}</div>
+        <div class="small text-muted mb-3">Aquí solo se asignan valores base a cada alternativa. Los factores se construyen en el paso Factores.</div>
+        ${alts.map(function (alt, altIndex) {
+          const label = alt.tipo === "imagen" ? ("Imagen " + (altIndex + 1)) : (alt.texto || ("Alternativa " + (altIndex + 1)));
+          return `
+            <div class="d-flex align-items-center justify-content-between py-2 ${altIndex < alts.length - 1 ? "border-bottom border-light" : ""}">
+              <div class="fw-medium text-dark">${label}</div>
+              <div class="d-flex align-items-center gap-2">
+                <label class="small text-muted fw-bold mb-0">Pts. base:</label>
+                <input type="number" class="form-control form-control-sm text-center"
+                  style="width:80px;"
+                  data-role="score-value"
+                  data-question-id="${question.id}"
+                  data-alt-index="${altIndex}"
+                  value="${Number(alt.valor || 0)}"
+                  step="0.1">
+              </div>
             </div>
-            <div class="col-md-3">
-              <input type="number" class="form-control form-control-sm"
-                step="0.1"
-                data-role="factor-value"
-                data-question-id="${question.id}"
-                data-alt-index="${altIndex}"
-                data-asig-index="${asigIndex}"
-                value="${Number(asig.valor || 0)}">
-            </div>
-            <div class="col-md-2">
-              <button type="button"
-                class="btn btn-outline-danger btn-sm w-100"
-                data-role="remove-factor"
-                data-question-id="${question.id}"
-                data-alt-index="${altIndex}"
-                data-asig-index="${asigIndex}">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-          </div>`;
-      }).join("");
-
-      return `
-        <div class="border rounded bg-white p-3 shadow-sm mb-2 border-primary">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <div>
-              <div class="fw-bold text-primary">${label}</div>
-              <small class="text-muted">Asigna uno o varios factores para esta alternativa.</small>
-            </div>
-            <div class="d-flex align-items-center gap-2">
-              <label class="small text-muted fw-bold mb-0">Pts. base:</label>
-              <input type="number" class="form-control form-control-sm text-center"
-                style="width:80px;"
-                data-role="score-value"
-                data-question-id="${question.id}"
-                data-alt-index="${altIndex}"
-                value="${Number(alt.valor || 0)}"
-                step="0.1">
-            </div>
-          </div>
-          ${rows}
-          <button type="button"
-            class="btn btn-outline-primary btn-sm"
-            data-role="add-factor"
-            data-question-id="${question.id}"
-            data-alt-index="${altIndex}">
-            <i class="fas fa-plus me-1"></i>Agregar factor
-          </button>
-        </div>`;
-    }).join("");
+          `;
+        }).join("")}
+      </div>
+    `;
   }
+
 
   function renderOpenAssignments(question) {
     const abierta = question.cfg.abierta || {};
-    const rows = (abierta.asignaciones || [{ factorId: "", valor: 0 }]).map(function (asig, asigIndex) {
-      return `
-        <div class="row g-2 align-items-center mb-2" data-role="asignacion-open-row" data-asig-index="${asigIndex}">
-          <div class="col-md-7">
-            <select class="form-select form-select-sm"
-              data-role="open-factor-select"
-              data-question-id="${question.id}"
-              data-asig-index="${asigIndex}">
-              ${factorOptions(asig.factorId || "")}
-            </select>
-          </div>
-          <div class="col-md-3">
-            <input type="number" class="form-control form-control-sm"
-              step="0.1"
-              data-role="open-factor-value"
-              data-question-id="${question.id}"
-              data-asig-index="${asigIndex}"
-              value="${Number(asig.valor || abierta.valorEsperado || 0)}">
-          </div>
-          <div class="col-md-2">
-            <button type="button"
-              class="btn btn-outline-danger btn-sm w-100"
-              data-role="remove-open-factor"
-              data-question-id="${question.id}"
-              data-asig-index="${asigIndex}">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-        </div>`;
-    }).join("");
-
     return `
       <div class="border rounded bg-white p-3 shadow-sm mb-2 border-warning">
         <div class="fw-bold text-warning mb-2">${question.title}</div>
+        <div class="small text-muted mb-3">Aquí se define la respuesta esperada y su valor base. Los factores se configuran en el paso Factores.</div>
         <div class="row g-3 mb-2">
           <div class="col-md-8">
             <label class="small text-muted fw-bold mb-1">Respuesta esperada</label>
@@ -4493,16 +4830,6 @@ const PRUEBAS_DEMO = {
               data-question-id="${question.id}"
               value="${Number(abierta.valorEsperado || 0)}">
           </div>
-        </div>
-        <div class="border-top pt-2 mt-2">
-          <div class="small text-muted fw-bold mb-2">Factores impactados por esta pregunta abierta</div>
-          ${rows}
-          <button type="button"
-            class="btn btn-outline-warning btn-sm"
-            data-role="add-open-factor"
-            data-question-id="${question.id}">
-            <i class="fas fa-plus me-1"></i>Agregar factor
-          </button>
         </div>
       </div>`;
   }
@@ -4537,68 +4864,23 @@ const PRUEBAS_DEMO = {
     });
   }
 
+
   function bindPlantillaEvents() {
     const closedContainer = q("#plantillaCerradasContainer");
     const openContainer = q("#plantillaAbiertasContainer");
+
     if (closedContainer && closedContainer.dataset.sepoPsicoBound !== "1") {
       closedContainer.dataset.sepoPsicoBound = "1";
-
-      closedContainer.addEventListener("click", function (e) {
-        const addBtn = e.target.closest('[data-role="add-factor"]');
-        const rmBtn = e.target.closest('[data-role="remove-factor"]');
-        if (addBtn) {
-          const qid = addBtn.dataset.questionId;
-          const altIndex = Number(addBtn.dataset.altIndex);
-          writeQuestionCfg(qid, function (cfg) {
-            cfg.cerrada = cfg.cerrada || {};
-            cfg.cerrada.alternativas = cfg.cerrada.alternativas || [];
-            cfg.cerrada.alternativas[altIndex].asignaciones = cfg.cerrada.alternativas[altIndex].asignaciones || [];
-            cfg.cerrada.alternativas[altIndex].asignaciones.push({ factorId: "", valor: 0 });
-          });
-          renderPsicoPlantilla();
-          return;
-        }
-        if (rmBtn) {
-          const qid = rmBtn.dataset.questionId;
-          const altIndex = Number(rmBtn.dataset.altIndex);
-          const asigIndex = Number(rmBtn.dataset.asigIndex);
-          writeQuestionCfg(qid, function (cfg) {
-            const arr = (((cfg.cerrada || {}).alternativas || [])[altIndex] || {}).asignaciones || [];
-            arr.splice(asigIndex, 1);
-            if (!arr.length) arr.push({ factorId: "", valor: 0 });
-            cfg.cerrada.alternativas[altIndex].asignaciones = arr;
-          });
-          renderPsicoPlantilla();
-        }
-      });
-
       closedContainer.addEventListener("input", function (e) {
         const el = e.target;
         if (el.matches('[data-role="score-value"]')) {
           const qid = el.dataset.questionId;
           const altIndex = Number(el.dataset.altIndex);
           writeQuestionCfg(qid, function (cfg) {
+            cfg.cerrada = cfg.cerrada || {};
+            cfg.cerrada.alternativas = cfg.cerrada.alternativas || [];
+            if (!cfg.cerrada.alternativas[altIndex]) return;
             cfg.cerrada.alternativas[altIndex].valor = Number(el.value || 0);
-          });
-        }
-        if (el.matches('[data-role="factor-value"]')) {
-          const qid = el.dataset.questionId;
-          const altIndex = Number(el.dataset.altIndex);
-          const asigIndex = Number(el.dataset.asigIndex);
-          writeQuestionCfg(qid, function (cfg) {
-            cfg.cerrada.alternativas[altIndex].asignaciones[asigIndex].valor = Number(el.value || 0);
-          });
-        }
-      });
-
-      closedContainer.addEventListener("change", function (e) {
-        const el = e.target;
-        if (el.matches('[data-role="factor-select"]')) {
-          const qid = el.dataset.questionId;
-          const altIndex = Number(el.dataset.altIndex);
-          const asigIndex = Number(el.dataset.asigIndex);
-          writeQuestionCfg(qid, function (cfg) {
-            cfg.cerrada.alternativas[altIndex].asignaciones[asigIndex].factorId = el.value;
           });
         }
       });
@@ -4606,33 +4888,6 @@ const PRUEBAS_DEMO = {
 
     if (openContainer && openContainer.dataset.sepoPsicoBound !== "1") {
       openContainer.dataset.sepoPsicoBound = "1";
-
-      openContainer.addEventListener("click", function (e) {
-        const addBtn = e.target.closest('[data-role="add-open-factor"]');
-        const rmBtn = e.target.closest('[data-role="remove-open-factor"]');
-        if (addBtn) {
-          const qid = addBtn.dataset.questionId;
-          writeQuestionCfg(qid, function (cfg) {
-            cfg.abierta = cfg.abierta || {};
-            cfg.abierta.asignaciones = cfg.abierta.asignaciones || [];
-            cfg.abierta.asignaciones.push({ factorId: "", valor: Number(cfg.abierta.valorEsperado || 0) || 0 });
-          });
-          renderPsicoPlantilla();
-          return;
-        }
-        if (rmBtn) {
-          const qid = rmBtn.dataset.questionId;
-          const asigIndex = Number(rmBtn.dataset.asigIndex);
-          writeQuestionCfg(qid, function (cfg) {
-            cfg.abierta = cfg.abierta || {};
-            cfg.abierta.asignaciones = cfg.abierta.asignaciones || [];
-            cfg.abierta.asignaciones.splice(asigIndex, 1);
-            if (!cfg.abierta.asignaciones.length) cfg.abierta.asignaciones.push({ factorId: "", valor: Number(cfg.abierta.valorEsperado || 0) || 0 });
-          });
-          renderPsicoPlantilla();
-        }
-      });
-
       openContainer.addEventListener("input", function (e) {
         const el = e.target;
         if (el.matches('[data-role="open-expected"]')) {
@@ -4643,24 +4898,12 @@ const PRUEBAS_DEMO = {
         }
         if (el.matches('[data-role="open-score"]')) {
           const val = Number(el.value || 0);
-          syncOpenScoreToAssignments(el.dataset.questionId, val);
-        }
-        if (el.matches('[data-role="open-factor-value"]')) {
-          const qid = el.dataset.questionId;
-          const idx = Number(el.dataset.asigIndex);
-          writeQuestionCfg(qid, function (cfg) {
-            cfg.abierta.asignaciones[idx].valor = Number(el.value || 0);
-          });
-        }
-      });
-
-      openContainer.addEventListener("change", function (e) {
-        const el = e.target;
-        if (el.matches('[data-role="open-factor-select"]')) {
-          const qid = el.dataset.questionId;
-          const idx = Number(el.dataset.asigIndex);
-          writeQuestionCfg(qid, function (cfg) {
-            cfg.abierta.asignaciones[idx].factorId = el.value;
+          writeQuestionCfg(el.dataset.questionId, function (cfg) {
+            cfg.abierta = cfg.abierta || {};
+            cfg.abierta.valorEsperado = val;
+            cfg.abierta.asignaciones = Array.isArray(cfg.abierta.asignaciones) && cfg.abierta.asignaciones.length
+              ? cfg.abierta.asignaciones.map(function (item) { item.valor = val; return item; })
+              : [{ factorId: "", valor: val }];
           });
         }
       });
@@ -4845,11 +5088,7 @@ const PRUEBAS_DEMO = {
   }
 
   function refreshFactorSelectsSafe() {
-    qa('#plantillaCerradasContainer select[data-role="factor-select"], #plantillaAbiertasContainer select[data-role="open-factor-select"]').forEach(function (sel) {
-      const previous = sel.value;
-      sel.innerHTML = factorOptionsSafe(previous);
-      if (previous) sel.value = previous;
-    });
+    return;
   }
 
   function normalizeAssignmentsSafe() {
@@ -6143,7 +6382,12 @@ if (typeof previsualizarPrueba === "function") {
         name: currentTestName(),
         portadaTitulo: q("#portadaTitulo") ? q("#portadaTitulo").value : "",
         portadaInstrucciones: q("#portadaInstrucciones") ? q("#portadaInstrucciones").value : "",
-        portadaPlantilla: q("#selectPlantillaPortada") ? q("#selectPlantillaPortada").value : "estandar"
+        portadaPlantilla: q("#selectPlantillaPortada") ? q("#selectPlantillaPortada").value : "estandar",
+        // Reglas Step 3
+        bloqueoRetroceso: q("#cfgBloqueoRetroceso") ? q("#cfgBloqueoRetroceso").checked : false,
+        navegacionLibre: q("#cfgNavegacionLibre") ? q("#cfgNavegacionLibre").checked : true,
+        tiempoPregunta: q("#cfgTiempoPregunta") ? q("#cfgTiempoPregunta").value : 0,
+        mostrarContador: q("#cfgMostrarContadorIndividual") ? q("#cfgMostrarContadorIndividual").checked : false
       },
       questions: collectQuestionRows(),
       factors: collectFactorRows()
@@ -6195,6 +6439,13 @@ if (typeof previsualizarPrueba === "function") {
     if (q("#portadaTitulo")) q("#portadaTitulo").value = saved.meta.portadaTitulo || "";
     if (q("#portadaInstrucciones")) q("#portadaInstrucciones").value = saved.meta.portadaInstrucciones || "";
     if (q("#selectPlantillaPortada")) q("#selectPlantillaPortada").value = saved.meta.portadaPlantilla || "estandar";
+    
+    // Step 3 Restore
+    if (q("#cfgBloqueoRetroceso")) q("#cfgBloqueoRetroceso").checked = !!saved.meta.bloqueoRetroceso;
+    if (q("#cfgNavegacionLibre")) q("#cfgNavegacionLibre").checked = saved.meta.navegacionLibre !== false;
+    if (q("#cfgTiempoPregunta")) q("#cfgTiempoPregunta").value = saved.meta.tiempoPregunta || 0;
+    if (q("#cfgMostrarContadorIndividual")) q("#cfgMostrarContadorIndividual").checked = !!saved.meta.mostrarContador;
+
     if (typeof window.renderPreviewPortada === "function") window.renderPreviewPortada();
   }
 
@@ -6262,6 +6513,30 @@ if (typeof previsualizarPrueba === "function") {
           { cod: "FAC-CMP-SOC", desc: "Competencias Sociales", formula: "RP2", interpret: { bajoMax: 2, medioMax: 4, etiquetas: { bajo: "Inicial", medio: "Adecuado", alto: "Destacado" } } },
           { cod: "FAC-CMP-CRI", desc: "Respuesta Crítica", formula: "RP3", interpret: { bajoMax: 1, medioMax: 3, etiquetas: { bajo: "Inicial", medio: "Adecuado", alto: "Destacado" } } }
         ]
+      },
+      "PSI-EST-003": {
+        questions: [
+          {
+            tipo: "cerrada",
+            texto: "¿Siente que el volumen de trabajo es superior a sus capacidades?",
+            config: { tipo: "cerrada", cerrada: { tipoResp: "simple", alternativas: [
+              { texto: "Nunca", valor: 0, asignaciones: [{ factorId: "FAC-EST-COR", valor: 0 }] },
+              { texto: "A veces", valor: 1, asignaciones: [{ factorId: "FAC-EST-COR", valor: 1 }] },
+              { texto: "Casi siempre", valor: 3, asignaciones: [{ factorId: "FAC-EST-COR", valor: 3 }] }
+            ] } }
+          },
+          {
+            tipo: "matriz",
+            texto: "Califique su nivel de confort en las siguientes áreas de su puesto:",
+            config: { tipo: "matriz", matriz: { 
+              filas: [{ texto: "Ambiente físico", valor: 2 }, { texto: "Relación con superiores", valor: 1 }, { texto: "Equipamiento tecnológico", valor: 1 }],
+              columnas: ["Insatisfactorio", "Regular", "Satisfactorio"]
+            } }
+          }
+        ],
+        factors: [
+          { cod: "FAC-EST-COR", desc: "Estrés Laboral Global", formula: "RP1 + RP2.1 + RP2.2", interpret: { bajoMax: 2, medioMax: 5, etiquetas: { bajo: "Equilibrado", medio: "Estrés Moderado", alto: "Estrés Crítico" } } }
+        ]
       }
     };
 
@@ -6324,48 +6599,7 @@ if (typeof previsualizarPrueba === "function") {
     }
   }
 
-  function ensurePsychExcelGuide() {
-    const step = q("#step-5");
-    if (!step || q("#sepoPsychExcelGuide", step)) return;
-    const formPanel = q("#step-5 .soft-panel");
-    if (!formPanel) return;
 
-    const guide = document.createElement("div");
-    guide.id = "sepoPsychExcelGuide";
-    guide.className = "sepo-excel-guide mb-3";
-    guide.innerHTML = `
-      <div class="sepo-excel-guide__head">
-        <div>
-          <div class="sepo-excel-guide__title">Guía visual del constructor</div>
-          <div class="sepo-excel-guide__sub">Estructura orientada al bosquejo Excel: preguntas + factores + fórmula + validación.</div>
-        </div>
-        <div class="sepo-excel-guide__chip">Demo local</div>
-      </div>
-      <div class="sepo-excel-guide__grid">
-        <div class="sepo-excel-guide__card">
-          <span class="sepo-excel-guide__num">1</span>
-          <div class="sepo-excel-guide__label">Preguntas</div>
-          <div class="sepo-excel-guide__desc">Usa la plantilla de respuestas para asignar valores base.</div>
-        </div>
-        <div class="sepo-excel-guide__card">
-          <span class="sepo-excel-guide__num">2</span>
-          <div class="sepo-excel-guide__label">Factores</div>
-          <div class="sepo-excel-guide__desc">Cada factor puede recibir valores directos o por fórmula.</div>
-        </div>
-        <div class="sepo-excel-guide__card">
-          <span class="sepo-excel-guide__num">3</span>
-          <div class="sepo-excel-guide__label">Fórmula</div>
-          <div class="sepo-excel-guide__desc">Prueba expresiones como RP1 + RP2 o FAC-001 + FAC-002.</div>
-        </div>
-        <div class="sepo-excel-guide__card">
-          <span class="sepo-excel-guide__num">4</span>
-          <div class="sepo-excel-guide__label">Resultado</div>
-          <div class="sepo-excel-guide__desc">Valida con “Probar evaluación” y revisa los rangos por factor.</div>
-        </div>
-      </div>
-    `;
-    formPanel.insertAdjacentElement("beforebegin", guide);
-  }
 
   function loadPsychDemoForCode(code) {
     if (!code) return;
@@ -6392,7 +6626,6 @@ if (typeof previsualizarPrueba === "function") {
       const result = _editarPruebaDemoSafe.apply(this, arguments);
       setTimeout(function () {
         loadPsychDemoForCode(cod);
-        ensurePsychExcelGuide();
       }, 80);
       return result;
     };
@@ -6436,7 +6669,7 @@ if (typeof previsualizarPrueba === "function") {
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    ensurePsychExcelGuide();
+
     if (currentTestCode()) {
       loadPsychDemoForCode(currentTestCode());
     }
@@ -6582,11 +6815,23 @@ if (typeof previsualizarPrueba === "function") {
   function parseJSON(value, fallback) { try { return JSON.parse(value); } catch (e) { return fallback; } }
 
   function getQuestionListForBuilder() {
-    return qa("#boxPreg .item-row").map(function (row, index) {
-      const code = "RP" + (index + 1);
-      const title = q(".desc-text", row) ? q(".desc-text", row).textContent.trim() : ("Pregunta " + (index + 1));
-      return { code: code, label: title };
+    const list = [];
+    qa("#boxPreg .item-row").forEach(function (row, index) {
+      const qNum = index + 1;
+      const type = row.dataset.sepoTipo || "cerrada";
+      const title = q(".desc-text", row) ? q(".desc-text", row).textContent.trim() : ("Pregunta " + qNum);
+      
+      if (type === "matriz") {
+        const cfg = parseJSON(row.dataset.sepoConfig || "{}", {});
+        const filas = (cfg.matriz && cfg.matriz.filas) || [];
+        filas.forEach((f, fIdx) => {
+           list.push({ code: `RP${qNum}.${fIdx + 1}`, label: `${title} - ${f.texto || "Fila "+(fIdx+1)}` });
+        });
+      } else {
+        list.push({ code: "RP" + qNum, label: title });
+      }
     });
+    return list;
   }
 
   function getFactorListForBuilder() {
@@ -6597,31 +6842,7 @@ if (typeof previsualizarPrueba === "function") {
     });
   }
 
-  function ensureExcelStructureGuide() {
-    const step = q("#step-5");
-    const panel = q("#step-5 .soft-panel");
-    if (!step || !panel || q("#sepoExcelStructureGuide")) return;
 
-    const box = document.createElement("div");
-    box.id = "sepoExcelStructureGuide";
-    box.className = "sepo-logic-guide mb-3";
-    box.innerHTML = `
-      <div class="sepo-logic-guide__head">
-        <div class="sepo-logic-guide__title">Estructura de cálculo</div>
-        <div class="sepo-logic-guide__sub">Flujo alineado al bosquejo del Excel: Preguntas → Factores → Fórmula → Resultado</div>
-      </div>
-      <div class="sepo-logic-guide__flow">
-        <div class="sepo-logic-guide__step"><span>1</span><strong>Preguntas</strong><small>Respuestas con puntajes</small></div>
-        <div class="sepo-logic-guide__arrow">→</div>
-        <div class="sepo-logic-guide__step"><span>2</span><strong>Factores</strong><small>Dimensiones evaluadas</small></div>
-        <div class="sepo-logic-guide__arrow">→</div>
-        <div class="sepo-logic-guide__step"><span>3</span><strong>Fórmula</strong><small>RP / FAC / operadores</small></div>
-        <div class="sepo-logic-guide__arrow">→</div>
-        <div class="sepo-logic-guide__step"><span>4</span><strong>Resultado</strong><small>Interpretación demo</small></div>
-      </div>
-    `;
-    panel.insertAdjacentElement("beforebegin", box);
-  }
 
   function refreshFormulaBuilderOptions() {
     const qSel = q("#facSelPreg");
@@ -6652,7 +6873,6 @@ if (typeof previsualizarPrueba === "function") {
   }
 
   function refreshExcelStructure() {
-    ensureExcelStructureGuide();
     refreshFormulaBuilderOptions();
     labelFormulaArea();
   }
@@ -6883,5 +7103,130 @@ if (typeof previsualizarPrueba === "function") {
   window.SEPOPsicoEstabilidad = {
     rebind: sepoRebindPsychActions,
     cleanup: sepoCleanupUiLocks
+  };
+})(window, document);
+
+
+
+/* ========================================== */
+/* ACTUALIZACION: AJUSTES JOHANA FACTORES     */
+/* SOLO PRUEBAS PSICOLOGICAS                  */
+/* ========================================== */
+(function (window, document) {
+  "use strict";
+
+  function q(sel, root) { return (root || document).querySelector(sel); }
+
+  const _insertarFormulaJohana = window.insertarFormula;
+  if (typeof _insertarFormulaJohana === "function" && !_insertarFormulaJohana._sepoJohanaWrapped) {
+    const wrapped = function (txt) {
+      try {
+        const normalized = String(txt || "")
+          .replace(/\{([^}]+)\}/g, '$1')
+          .replace(/\[([^\]]+)\]/g, '$1')
+          .replace(/P(\d+)_PTJ/g, 'RP$1')
+          .replace(/SUM\(([^)]+)\)/gi, function(_, args) { return args.replace(/,/g, ' + '); })
+          .replace(/COUNT\(\{TODO\}\)/gi, '1')
+          .replace(/COUNT\(([^)]+)\)/gi, function(_, args) {
+            return String(args.split(',').length || 1);
+          });
+        return _insertarFormulaJohana.call(this, normalized);
+      } catch (e) {
+        console.error("[SEPO][insertarFormula]", e);
+      }
+    };
+    wrapped._sepoJohanaWrapped = true;
+    window.insertarFormula = wrapped;
+  }
+
+  const _filterFormulaTemplatesJohana = window.filterFormulaTemplates;
+  window.filterFormulaTemplates = function (query) {
+    try {
+      const box = document.getElementById("smartTemplatesBox");
+      if (!box) return;
+      const items = box.querySelectorAll(".p-2");
+      const qv = String(query || "").toLowerCase();
+      items.forEach(function (it) {
+        const text = (it.textContent || "").toLowerCase();
+        it.style.display = text.includes(qv) ? "block" : "none";
+      });
+    } catch (e) {
+      console.error("[SEPO][filterFormulaTemplates]", e);
+    }
+  };
+
+  function enforceFactorFieldsOutsideTemplate() {
+    const note = q("#sepoPlantillaNoFactoresNote");
+    if (note) note.style.display = "";
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(enforceFactorFieldsOutsideTemplate, 120);
+  });
+
+  window.SEPOJohanaAdjustments = {
+    enforceFactorFieldsOutsideTemplate: enforceFactorFieldsOutsideTemplate
+  };
+})();
+
+
+/* ========================================== */
+/* ACTUALIZACION: FIX SELECTORES FACTORES     */
+/* SOLO PRUEBAS PSICOLOGICAS                  */
+/* ========================================== */
+(function (window, document) {
+  "use strict";
+
+  function bindFormulaSelectorsSafe() {
+    const qSel = document.getElementById("facSelPreg");
+    const fSel = document.getElementById("facSelFac");
+
+    if (qSel && qSel.dataset.sepoBound !== "1") {
+      qSel.dataset.sepoBound = "1";
+      qSel.addEventListener("change", function () {
+        try {
+          if (this.value && typeof window.insertarFormula === "function") {
+            window.insertarFormula(this.value);
+          }
+        } catch (e) {
+          console.error("[SEPO][facSelPreg]", e);
+        } finally {
+          this.value = "";
+        }
+      });
+    }
+
+    if (fSel && fSel.dataset.sepoBound !== "1") {
+      fSel.dataset.sepoBound = "1";
+      fSel.addEventListener("change", function () {
+        try {
+          if (this.value && typeof window.insertarFormula === "function") {
+            window.insertarFormula(this.value);
+          }
+        } catch (e) {
+          console.error("[SEPO][facSelFac]", e);
+        } finally {
+          this.value = "";
+        }
+      });
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(bindFormulaSelectorsSafe, 120);
+  });
+
+  if (window.SEPOExcelStructure && typeof window.SEPOExcelStructure.refresh === "function" && !window.SEPOExcelStructure._sepoSelectorFixWrapped) {
+    const base = window.SEPOExcelStructure.refresh;
+    window.SEPOExcelStructure.refresh = function () {
+      const result = base.apply(this, arguments);
+      setTimeout(bindFormulaSelectorsSafe, 40);
+      return result;
+    };
+    window.SEPOExcelStructure._sepoSelectorFixWrapped = true;
+  }
+
+  window.SEPOFormulaSelectorsSafe = {
+    bind: bindFormulaSelectorsSafe
   };
 })(window, document);

@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -23,15 +23,14 @@
       #screen-orden
         .card-item
         > .d-flex.align-items-center.gap-4.flex-shrink-0 {
-        min-width: 420px;
-        justify-content: flex-start;
-        padding-right: 1.5rem;
+        min-width: 260px;
+        justify-content: flex-end;
       }
       #screen-orden
         .card-item
         > .d-flex.align-items-center.gap-4.flex-shrink-0
         > .d-flex.align-items-center.gap-3.text-muted {
-        width: 180px;
+        width: 170px;
         justify-content: flex-end;
       }
     </style>
@@ -760,55 +759,55 @@
           >
             <i class="fas fa-clinic-medical"></i>
           </div>
-              <div class="d-flex flex-column align-items-center gap-1">
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="reordenarPrestacion(this)"
-                    value="2"
-                    min="1"
-                    style="
-                      width: 55px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
-              <div class="d-flex flex-column align-items-center gap-1">
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="reordenarPrestacion(this)"
-                    value="3"
-                    min="1"
-                    style="
-                      width: 55px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
-              <div class="flex-grow-1">
+          <div class="d-flex flex-column align-items-center gap-1">
+            <label
+              class="fw-bold text-muted mb-0"
+              style="
+                font-size: 0.6rem;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+              "
+              >ORDEN</label
+            >
+            <input
+              type="number"
+              class="form-control form-control-sm text-center fw-bold text-primary border"
+              onchange="reordenarPrestacion(this)"
+              value="2"
+              min="1"
+              style="
+                width: 55px;
+                height: 32px;
+                border-radius: 8px;
+                font-size: 0.9rem;
+              "
+            />
+          </div>
+          <div class="d-flex flex-column align-items-center gap-1">
+            <label
+              class="fw-bold text-muted mb-0"
+              style="
+                font-size: 0.6rem;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+              "
+              >ORDEN</label
+            >
+            <input
+              type="number"
+              class="form-control form-control-sm text-center fw-bold text-primary border"
+              onchange="reordenarPrestacion(this)"
+              value="3"
+              min="1"
+              style="
+                width: 55px;
+                height: 32px;
+                border-radius: 8px;
+                font-size: 0.9rem;
+              "
+            />
+          </div>
+          <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
               <strong style="color: var(--primary)">CM-001</strong
               ><span class="muted-dot">•</span>
@@ -5391,6 +5390,33 @@
                   style="font-size: 1.2rem"
                 ></i>
               </div>
+              <div
+                class="d-flex flex-column align-items-center gap-1"
+                style="width: 70px"
+              >
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="reordenarPrestacion(this)"
+                  value="1"
+                  min="1"
+                  style="
+                    width: 70px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
+              </div>
               <div class="flex-grow-1 d-flex flex-column" style="min-width: 0">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
                   <strong style="color: var(--primary); font-size: 0.85rem"
@@ -5434,33 +5460,7 @@
                     ><span class="fw-medium">1 prueba</span></span
                   >
                 </div>
-                <div
-                  class="d-flex flex-column align-items-center gap-1"
-                  style="width: 70px"
-                >
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="reordenarPrestacion(this)"
-                    value="1"
-                    min="1"
-                    style="
-                      width: 70px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+
                 <button
                   class="btn btn-pruebas-cool"
                   data-bs-toggle="modal"
@@ -5667,56 +5667,55 @@
                   style="font-size: 1.2rem"
                 ></i>
               </div>
-              
-              
+
               <div class="d-flex flex-column align-items-center gap-1">
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="reordenarPrestacion(this)"
-                    value="4"
-                    min="1"
-                    style="
-                      width: 55px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="reordenarPrestacion(this)"
+                  value="4"
+                  min="1"
+                  style="
+                    width: 55px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
+              </div>
               <div class="d-flex flex-column align-items-center gap-1">
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="reordenarPrestacion(this)"
-                    value="5"
-                    min="1"
-                    style="
-                      width: 55px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="reordenarPrestacion(this)"
+                  value="5"
+                  min="1"
+                  style="
+                    width: 55px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
+              </div>
               <div class="flex-grow-1 d-flex flex-column" style="min-width: 0">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
                   <strong style="color: var(--primary); font-size: 0.9rem"
@@ -5883,56 +5882,55 @@
                   style="font-size: 1.2rem"
                 ></i>
               </div>
-              
-              
+
               <div class="d-flex flex-column align-items-center gap-1">
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="showToast('Posición actualizada correctamente')"
-                    value="11"
-                    min="1"
-                    style="
-                      width: 55px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="showToast('Posición actualizada correctamente')"
+                  value="11"
+                  min="1"
+                  style="
+                    width: 55px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
+              </div>
               <div class="d-flex flex-column align-items-center gap-1">
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="showToast('Posición actualizada correctamente')"
-                    value="12"
-                    min="1"
-                    style="
-                      width: 55px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="showToast('Posición actualizada correctamente')"
+                  value="12"
+                  min="1"
+                  style="
+                    width: 55px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
+              </div>
               <div class="flex-grow-1 d-flex flex-column" style="min-width: 0">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
                   <strong style="color: var(--primary); font-size: 0.9rem"
@@ -6043,6 +6041,33 @@
                   style="font-size: 1.2rem"
                 ></i>
               </div>
+              <div
+                class="d-flex flex-column align-items-center gap-1"
+                style="width: 70px"
+              >
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="reordenarPrestacion(this)"
+                  value="7"
+                  min="1"
+                  style="
+                    width: 70px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
+              </div>
               <div class="flex-grow-1 d-flex flex-column" style="min-width: 0">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
                   <strong style="color: var(--primary); font-size: 0.9rem"
@@ -6086,33 +6111,7 @@
                     ><span class="fw-medium">1 prueba</span></span
                   >
                 </div>
-                <div
-                  class="d-flex flex-column align-items-center gap-1"
-                  style="width: 70px"
-                >
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="reordenarPrestacion(this)"
-                    value="7"
-                    min="1"
-                    style="
-                      width: 70px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+
                 <button
                   class="btn btn-pruebas-cool"
                   data-bs-toggle="modal"
@@ -6152,6 +6151,33 @@
                   class="fas fa-file-medical-alt text-primary opacity-75"
                   style="font-size: 1.2rem"
                 ></i>
+              </div>
+              <div
+                class="d-flex flex-column align-items-center gap-1"
+                style="width: 70px"
+              >
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="reordenarPrestacion(this)"
+                  value="8"
+                  min="1"
+                  style="
+                    width: 70px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
               </div>
               <div class="flex-grow-1 d-flex flex-column" style="min-width: 0">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
@@ -6196,33 +6222,7 @@
                     ><span class="fw-medium">1 prueba</span></span
                   >
                 </div>
-                <div
-                  class="d-flex flex-column align-items-center gap-1"
-                  style="width: 70px"
-                >
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="reordenarPrestacion(this)"
-                    value="8"
-                    min="1"
-                    style="
-                      width: 70px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+
                 <button
                   class="btn btn-pruebas-cool"
                   data-bs-toggle="modal"
@@ -6262,6 +6262,33 @@
                   class="fas fa-file-medical-alt text-primary opacity-75"
                   style="font-size: 1.2rem"
                 ></i>
+              </div>
+              <div
+                class="d-flex flex-column align-items-center gap-1"
+                style="width: 70px"
+              >
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="reordenarPrestacion(this)"
+                  value="9"
+                  min="1"
+                  style="
+                    width: 70px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
               </div>
               <div class="flex-grow-1 d-flex flex-column" style="min-width: 0">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
@@ -6306,33 +6333,7 @@
                     ><span class="fw-medium">1 prueba</span></span
                   >
                 </div>
-                <div
-                  class="d-flex flex-column align-items-center gap-1"
-                  style="width: 70px"
-                >
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="reordenarPrestacion(this)"
-                    value="9"
-                    min="1"
-                    style="
-                      width: 70px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+
                 <button
                   class="btn btn-pruebas-cool"
                   data-bs-toggle="modal"
@@ -6372,6 +6373,33 @@
                   class="fas fa-file-medical-alt text-primary opacity-75"
                   style="font-size: 1.2rem"
                 ></i>
+              </div>
+              <div
+                class="d-flex flex-column align-items-center gap-1"
+                style="width: 70px"
+              >
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="reordenarPrestacion(this)"
+                  value="10"
+                  min="1"
+                  style="
+                    width: 70px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
               </div>
               <div class="flex-grow-1 d-flex flex-column" style="min-width: 0">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
@@ -6416,33 +6444,7 @@
                     ><span class="fw-medium">1 prueba</span></span
                   >
                 </div>
-                <div
-                  class="d-flex flex-column align-items-center gap-1"
-                  style="width: 70px"
-                >
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="reordenarPrestacion(this)"
-                    value="10"
-                    min="1"
-                    style="
-                      width: 70px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+
                 <button
                   class="btn btn-pruebas-cool"
                   data-bs-toggle="modal"
@@ -6509,6 +6511,33 @@
                   style="font-size: 1.2rem"
                 ></i>
               </div>
+              <div
+                class="d-flex flex-column align-items-center gap-1"
+                style="width: 70px"
+              >
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="reordenarPrestacion(this)"
+                  value="1"
+                  min="1"
+                  style="
+                    width: 70px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
+              </div>
               <div class="flex-grow-1 d-flex flex-column" style="min-width: 0">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
                   <strong style="color: var(--primary); font-size: 0.9rem"
@@ -6552,33 +6581,7 @@
                     ><span class="fw-medium">1 prueba</span></span
                   >
                 </div>
-                <div
-                  class="d-flex flex-column align-items-center gap-1"
-                  style="width: 70px"
-                >
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="reordenarPrestacion(this)"
-                    value="1"
-                    min="1"
-                    style="
-                      width: 70px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+
                 <button
                   class="btn btn-pruebas-cool"
                   data-bs-toggle="modal"
@@ -6618,6 +6621,33 @@
                   class="fas fa-file-medical-alt text-primary opacity-75"
                   style="font-size: 1.2rem"
                 ></i>
+              </div>
+              <div
+                class="d-flex flex-column align-items-center gap-1"
+                style="width: 70px"
+              >
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="reordenarPrestacion(this)"
+                  value="2"
+                  min="1"
+                  style="
+                    width: 70px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
               </div>
               <div class="flex-grow-1 d-flex flex-column" style="min-width: 0">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
@@ -6662,33 +6692,7 @@
                     ><span class="fw-medium">1 prueba</span></span
                   >
                 </div>
-                <div
-                  class="d-flex flex-column align-items-center gap-1"
-                  style="width: 70px"
-                >
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="reordenarPrestacion(this)"
-                    value="2"
-                    min="1"
-                    style="
-                      width: 70px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+
                 <button
                   class="btn btn-pruebas-cool"
                   data-bs-toggle="modal"
@@ -6728,6 +6732,33 @@
                   class="fas fa-file-medical-alt text-primary opacity-75"
                   style="font-size: 1.2rem"
                 ></i>
+              </div>
+              <div
+                class="d-flex flex-column align-items-center gap-1"
+                style="width: 70px"
+              >
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="reordenarPrestacion(this)"
+                  value="3"
+                  min="1"
+                  style="
+                    width: 70px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
               </div>
               <div class="flex-grow-1 d-flex flex-column" style="min-width: 0">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
@@ -6772,33 +6803,7 @@
                     ><span class="fw-medium">1 prueba</span></span
                   >
                 </div>
-                <div
-                  class="d-flex flex-column align-items-center gap-1"
-                  style="width: 70px"
-                >
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="reordenarPrestacion(this)"
-                    value="3"
-                    min="1"
-                    style="
-                      width: 70px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+
                 <button
                   class="btn btn-pruebas-cool"
                   data-bs-toggle="modal"
@@ -6838,6 +6843,33 @@
                   class="fas fa-file-medical-alt text-primary opacity-75"
                   style="font-size: 1.2rem"
                 ></i>
+              </div>
+              <div
+                class="d-flex flex-column align-items-center gap-1"
+                style="width: 70px"
+              >
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="reordenarPrestacion(this)"
+                  value="4"
+                  min="1"
+                  style="
+                    width: 70px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
               </div>
               <div class="flex-grow-1 d-flex flex-column" style="min-width: 0">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
@@ -6882,33 +6914,7 @@
                     ><span class="fw-medium">1 prueba</span></span
                   >
                 </div>
-                <div
-                  class="d-flex flex-column align-items-center gap-1"
-                  style="width: 70px"
-                >
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="reordenarPrestacion(this)"
-                    value="4"
-                    min="1"
-                    style="
-                      width: 70px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+
                 <button
                   class="btn btn-pruebas-cool"
                   data-bs-toggle="modal"
@@ -6948,6 +6954,33 @@
                   class="fas fa-file-medical-alt text-primary opacity-75"
                   style="font-size: 1.2rem"
                 ></i>
+              </div>
+              <div
+                class="d-flex flex-column align-items-center gap-1"
+                style="width: 70px"
+              >
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="reordenarPrestacion(this)"
+                  value="5"
+                  min="1"
+                  style="
+                    width: 70px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
               </div>
               <div class="flex-grow-1 d-flex flex-column" style="min-width: 0">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
@@ -6992,33 +7025,7 @@
                     ><span class="fw-medium">1 prueba</span></span
                   >
                 </div>
-                <div
-                  class="d-flex flex-column align-items-center gap-1"
-                  style="width: 70px"
-                >
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="reordenarPrestacion(this)"
-                    value="5"
-                    min="1"
-                    style="
-                      width: 70px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+
                 <button
                   class="btn btn-pruebas-cool"
                   data-bs-toggle="modal"
@@ -7058,6 +7065,33 @@
                   class="fas fa-file-medical-alt text-primary opacity-75"
                   style="font-size: 1.2rem"
                 ></i>
+              </div>
+              <div
+                class="d-flex flex-column align-items-center gap-1"
+                style="width: 70px"
+              >
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="reordenarPrestacion(this)"
+                  value="6"
+                  min="1"
+                  style="
+                    width: 70px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
               </div>
               <div class="flex-grow-1 d-flex flex-column" style="min-width: 0">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
@@ -7102,33 +7136,7 @@
                     ><span class="fw-medium">1 prueba</span></span
                   >
                 </div>
-                <div
-                  class="d-flex flex-column align-items-center gap-1"
-                  style="width: 70px"
-                >
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="reordenarPrestacion(this)"
-                    value="6"
-                    min="1"
-                    style="
-                      width: 70px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+
                 <button
                   class="btn btn-pruebas-cool"
                   data-bs-toggle="modal"
@@ -7168,6 +7176,33 @@
                   class="fas fa-file-medical-alt text-primary opacity-75"
                   style="font-size: 1.2rem"
                 ></i>
+              </div>
+              <div
+                class="d-flex flex-column align-items-center gap-1"
+                style="width: 70px"
+              >
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="reordenarPrestacion(this)"
+                  value="7"
+                  min="1"
+                  style="
+                    width: 70px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
               </div>
               <div class="flex-grow-1 d-flex flex-column" style="min-width: 0">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
@@ -7212,33 +7247,7 @@
                     ><span class="fw-medium">1 prueba</span></span
                   >
                 </div>
-                <div
-                  class="d-flex flex-column align-items-center gap-1"
-                  style="width: 70px"
-                >
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="reordenarPrestacion(this)"
-                    value="7"
-                    min="1"
-                    style="
-                      width: 70px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+
                 <button
                   class="btn btn-pruebas-cool"
                   data-bs-toggle="modal"
@@ -7278,6 +7287,33 @@
                   class="fas fa-file-medical-alt text-primary opacity-75"
                   style="font-size: 1.2rem"
                 ></i>
+              </div>
+              <div
+                class="d-flex flex-column align-items-center gap-1"
+                style="width: 70px"
+              >
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="reordenarPrestacion(this)"
+                  value="8"
+                  min="1"
+                  style="
+                    width: 70px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
               </div>
               <div class="flex-grow-1 d-flex flex-column" style="min-width: 0">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
@@ -7322,33 +7358,7 @@
                     ><span class="fw-medium">1 prueba</span></span
                   >
                 </div>
-                <div
-                  class="d-flex flex-column align-items-center gap-1"
-                  style="width: 70px"
-                >
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="reordenarPrestacion(this)"
-                    value="8"
-                    min="1"
-                    style="
-                      width: 70px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+
                 <button
                   class="btn btn-pruebas-cool"
                   data-bs-toggle="modal"
@@ -7388,6 +7398,33 @@
                   class="fas fa-file-medical-alt text-primary opacity-75"
                   style="font-size: 1.2rem"
                 ></i>
+              </div>
+              <div
+                class="d-flex flex-column align-items-center gap-1"
+                style="width: 70px"
+              >
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="reordenarPrestacion(this)"
+                  value="9"
+                  min="1"
+                  style="
+                    width: 70px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
               </div>
               <div class="flex-grow-1 d-flex flex-column" style="min-width: 0">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
@@ -7432,33 +7469,7 @@
                     ><span class="fw-medium">1 prueba</span></span
                   >
                 </div>
-                <div
-                  class="d-flex flex-column align-items-center gap-1"
-                  style="width: 70px"
-                >
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="reordenarPrestacion(this)"
-                    value="9"
-                    min="1"
-                    style="
-                      width: 70px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+
                 <button
                   class="btn btn-pruebas-cool"
                   data-bs-toggle="modal"
@@ -7498,6 +7509,33 @@
                   class="fas fa-file-medical-alt text-primary opacity-75"
                   style="font-size: 1.2rem"
                 ></i>
+              </div>
+              <div
+                class="d-flex flex-column align-items-center gap-1"
+                style="width: 70px"
+              >
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="reordenarPrestacion(this)"
+                  value="10"
+                  min="1"
+                  style="
+                    width: 70px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
               </div>
               <div class="flex-grow-1 d-flex flex-column" style="min-width: 0">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
@@ -7542,33 +7580,7 @@
                     ><span class="fw-medium">1 prueba</span></span
                   >
                 </div>
-                <div
-                  class="d-flex flex-column align-items-center gap-1"
-                  style="width: 70px"
-                >
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="reordenarPrestacion(this)"
-                    value="10"
-                    min="1"
-                    style="
-                      width: 70px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+
                 <button
                   class="btn btn-pruebas-cool"
                   data-bs-toggle="modal"
@@ -7775,56 +7787,55 @@
                   style="font-size: 1.2rem"
                 ></i>
               </div>
-              
-              
+
               <div class="d-flex flex-column align-items-center gap-1">
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="showToast('Posición actualizada correctamente')"
-                    value="13"
-                    min="1"
-                    style="
-                      width: 55px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="showToast('Posición actualizada correctamente')"
+                  value="13"
+                  min="1"
+                  style="
+                    width: 55px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
+              </div>
               <div class="d-flex flex-column align-items-center gap-1">
-                  <label
-                    class="fw-bold text-muted mb-0"
-                    style="
-                      font-size: 0.6rem;
-                      letter-spacing: 0.5px;
-                      text-transform: uppercase;
-                    "
-                    >ORDEN</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control form-control-sm text-center fw-bold text-primary border"
-                    onchange="showToast('Posición actualizada correctamente')"
-                    value="14"
-                    min="1"
-                    style="
-                      width: 55px;
-                      height: 32px;
-                      border-radius: 8px;
-                      font-size: 0.9rem;
-                    "
-                  />
-                </div>
+                <label
+                  class="fw-bold text-muted mb-0"
+                  style="
+                    font-size: 0.6rem;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                  >ORDEN</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm text-center fw-bold text-primary border"
+                  onchange="showToast('Posición actualizada correctamente')"
+                  value="14"
+                  min="1"
+                  style="
+                    width: 55px;
+                    height: 32px;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                  "
+                />
+              </div>
               <div class="flex-grow-1 d-flex flex-column" style="min-width: 0">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
                   <strong style="color: var(--primary); font-size: 0.9rem"

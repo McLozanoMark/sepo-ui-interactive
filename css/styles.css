@@ -144,8 +144,8 @@
 
       .page-header {
         background: rgba(255, 255, 255, 0.75);
-        backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
         border-radius: 12px;
         padding: 12px 20px;
         margin-bottom: 1rem;
@@ -775,6 +775,7 @@
         bottom: 0;
         z-index: 100;
         background: rgba(255, 255, 255, 0.97);
+        -webkit-backdrop-filter: blur(8px);
         backdrop-filter: blur(8px);
         padding: 1rem 1.5rem;
         box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
@@ -1272,170 +1273,25 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 /* ========================================== */
-/* ACTUALIZACION: GUIA VISUAL PSICO DEMO      */
+/* ACTUALIZACION: AJUSTES JOHANA VISUAL       */
 /* SOLO PRUEBAS PSICOLOGICAS                  */
 /* ========================================== */
-.sepo-excel-guide {
-  background: #f7faf7;
-  border: 1px solid #cfe6cf;
-  border-radius: 18px;
-  padding: 16px 18px;
+#formulaTabs {
+  max-width: 420px !important;
 }
-.sepo-excel-guide__head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-.sepo-excel-guide__title {
-  font-weight: 800;
-  color: #1f5f3a;
-}
-.sepo-excel-guide__sub {
-  color: #5f6b76;
-  font-size: .92rem;
-  margin-top: 2px;
-}
-.sepo-excel-guide__chip {
-  background: #dff3e3;
-  color: #1f5f3a;
-  border: 1px solid #9fd0aa;
-  border-radius: 999px;
-  padding: 4px 10px;
-  font-size: .82rem;
-  font-weight: 700;
-  white-space: nowrap;
-}
-.sepo-excel-guide__grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0,1fr));
-  gap: 10px;
-}
-.sepo-excel-guide__card {
-  position: relative;
-  background: #ffffff;
-  border: 1px solid #d8e5d8;
-  border-radius: 14px;
-  padding: 12px 12px 12px 48px;
-  min-height: 92px;
-}
-.sepo-excel-guide__num {
-  position: absolute;
-  left: 12px;
-  top: 12px;
-  width: 26px;
-  height: 26px;
-  border-radius: 999px;
-  background: #0b5a78;
-  color: white;
-  font-weight: 800;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: .82rem;
-}
-.sepo-excel-guide__label {
-  font-weight: 800;
-  color: #1f5f3a;
-  margin-bottom: 4px;
-}
-.sepo-excel-guide__desc {
-  color: #64748b;
-  font-size: .85rem;
-  line-height: 1.3;
-}
-@media (max-width: 992px) {
-  .sepo-excel-guide__grid {
-    grid-template-columns: repeat(2, minmax(0,1fr));
-  }
-}
-
-
-
-
-
-
-/* ========================================== */
-/* ACTUALIZACION: ESTRUCTURA EXCEL VISUAL     */
-/* SOLO PRUEBAS PSICOLOGICAS                  */
-/* ========================================== */
-.sepo-logic-guide {
-  background: #fcfcfd;
-  border: 1px solid #dbe4ef;
-  border-radius: 18px;
-  padding: 16px 18px;
-}
-.sepo-logic-guide__head { margin-bottom: 12px; }
-.sepo-logic-guide__title {
-  font-weight: 800;
-  color: #0f172a;
-}
-.sepo-logic-guide__sub {
-  color: #64748b;
-  font-size: .9rem;
-  margin-top: 2px;
-}
-.sepo-logic-guide__flow {
-  display: grid;
-  grid-template-columns: 1fr 24px 1fr 24px 1fr 24px 1fr;
-  align-items: center;
-  gap: 8px;
-}
-.sepo-logic-guide__step {
-  background: #ffffff;
-  border: 1px solid #dbe4ef;
-  border-radius: 14px;
-  padding: 12px 14px;
-  min-height: 84px;
-}
-.sepo-logic-guide__step span {
-  display: inline-flex;
-  width: 24px;
-  height: 24px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  background: #1d4ed8;
-  color: #fff;
-  font-size: .78rem;
-  font-weight: 800;
-  margin-bottom: 8px;
-}
-.sepo-logic-guide__step strong {
-  display: block;
-  color: #0f172a;
-}
-.sepo-logic-guide__step small {
-  display: block;
-  color: #64748b;
-  margin-top: 4px;
-}
-.sepo-logic-guide__arrow {
-  color: #94a3b8;
-  font-weight: 800;
-  text-align: center;
-}
-.sepo-formula-preview {
-  position: relative;
-  background: #eefcf4 !important;
-  border-color: #b7ebca !important;
-}
-.sepo-formula-preview__badge {
-  display: inline-flex;
-  margin-bottom: 10px;
-  background: #dff8e8;
-  color: #166534;
-  border: 1px solid #a7e0bb;
-  border-radius: 999px;
-  padding: 4px 10px;
-  font-size: .78rem;
-  font-weight: 800;
-}
-@media (max-width: 992px) {
-  .sepo-logic-guide__flow {
-    grid-template-columns: 1fr;
-  }
-  .sepo-logic-guide__arrow { display: none; }
+#sepoPlantillaNoFactoresNote {
+  background: #eef6ff;
+  color: #1e3a5f;
 }
