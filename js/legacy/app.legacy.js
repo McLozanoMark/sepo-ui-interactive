@@ -4696,6 +4696,118 @@ const PRUEBAS_DEMO = {
 })(window, document);
 
 
+(function (window, document) {
+  "use strict";
+
+  function q(sel, root) { return (root || document).querySelector(sel); }
+  function qa(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
+
+  function isOrderBlock(el) {
+    if (!el || !el.querySelector) return false;
+    const label = el.querySelector("label");
+    const input = el.querySelector('input[type="number"]');
+    if (!label || !input) return false;
+    return /orden/i.test((label.textContent || "").trim());
+  }
+
+  function collectDirectOrderBlocks(card) {
+    if (!card) return [];
+    return qa("div", card).filter(isOrderBlock);
+  }
+
+  function getOrderValueFromBlock(block) {
+    const input = block ? q('input[type="number"]', block) : null;
+    const value = input ? Number(input.value) : NaN;
+    return Number.isFinite(value) && value > 0 ? value : null;
+  }
+
+  function createOrderBlock(value, wide) {
+    const wrap = document.createElement("div");
+    wrap.className = "d-flex flex-column align-items-center gap-1";
+    if (wide) wrap.style.width = "70px";
+    wrap.innerHTML = `
+      <label
+        class="fw-bold text-muted mb-0"
+        style="font-size: 0.6rem; letter-spacing: 0.5px; text-transform: uppercase;"
+      >ORDEN</label>
+      <input
+        type="number"
+        class="form-control form-control-sm text-center fw-bold text-primary border"
+        onchange="reordenarPrestacion(this)"
+        value="${value}"
+        min="1"
+        style="width: ${wide ? "70px" : "55px"}; height: 32px; border-radius: 8px; font-size: 0.9rem;"
+      />`;
+    return wrap;
+  }
+
+  function normalizeOrderCards(selector, options) {
+    const cards = qa(selector);
+    cards.forEach(function (card, index) {
+      const icon = q('.icon-box', card);
+      const blocks = collectDirectOrderBlocks(card);
+      const orderValues = blocks
+        .map(getOrderValueFromBlock)
+        .filter(function (value) { return value !== null; });
+      const preservedValue = String(orderValues.length ? Math.max.apply(null, orderValues) : (index + 1));
+      let primary = blocks.find(function (block) {
+        const input = q('input[type="number"][onchange*="reordenarPrestacion"]', block);
+        return !!input;
+      }) || blocks[0] || null;
+      const row = icon ? (icon.parentElement || card) : (q('.d-flex.align-items-center.gap-3.w-100', card) || card);
+
+      if (!primary) {
+        primary = createOrderBlock(preservedValue, !!(options && options.wide));
+      }
+
+      blocks.forEach(function (dup) { if (dup !== primary) dup.remove(); });
+
+      const input = q('input[type="number"]', primary);
+      if (input) {
+        input.setAttribute('onchange', 'reordenarPrestacion(this)');
+        input.value = preservedValue;
+      }
+
+      if (icon) {
+        if (primary.parentElement !== row || primary.previousElementSibling !== icon) {
+          icon.insertAdjacentElement('afterend', primary);
+        }
+      } else if (primary.parentElement !== row) {
+        row.insertAdjacentElement('afterbegin', primary);
+      }
+    });
+  }
+
+  function sepoNormalizeVisibleOrderFields() {
+    normalizeOrderCards('#screen-centros .card-item', { wide: false });
+    normalizeOrderCards('#lista-sepo .card-item', { wide: true });
+    normalizeOrderCards('#lista-complementario .card-item', { wide: false });
+    normalizeOrderCards('#listaPrestOrden .card-item', { wide: false });
+  }
+
+  function scheduleNormalizeOrderFields() {
+    window.clearTimeout(window.__sepoNormalizeOrderTimer);
+    window.__sepoNormalizeOrderTimer = window.setTimeout(sepoNormalizeVisibleOrderFields, 30);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    sepoNormalizeVisibleOrderFields();
+    window.setTimeout(sepoNormalizeVisibleOrderFields, 120);
+  });
+
+  document.addEventListener('sepo:screen:change', function () {
+    scheduleNormalizeOrderFields();
+  });
+
+  document.addEventListener('click', function (event) {
+    if (event.target && event.target.closest('#screen-orden, #screen-centros')) {
+      scheduleNormalizeOrderFields();
+    }
+  }, true);
+
+  window.SEPONormalizeOrderFields = sepoNormalizeVisibleOrderFields;
+})(window, document);
+
 
 /* ========================================== */
 /* ACTUALIZACION: PRUEBAS PSICOLOGICAS F1-F2  */
