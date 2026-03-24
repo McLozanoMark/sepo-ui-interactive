@@ -2096,3 +2096,8 @@ body[data-mode="dark"] .page-header,
 body[data-theme][data-mode="dark"] .sticky-header {
   backdrop-filter: blur(14px);
 }
+
+#modalHistorial {
+  z-index: 100000;
+  background: #00000047;
+}

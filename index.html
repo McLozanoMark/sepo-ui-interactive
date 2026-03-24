@@ -740,13 +740,6 @@
               />
             </div>
             <button
-              class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
-              onclick="verHistorial('Centros Médicos')"
-              title="Ver Historial de Cambios"
-            >
-              <i class="fas fa-history me-1"></i>Historial
-            </button>
-            <button
               class="btn-prim"
               data-bs-target="#modalCentro"
               data-bs-toggle="modal"
@@ -1683,13 +1676,6 @@
               />
             </div>
             <button
-              class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
-              onclick="verHistorial('Grado de Instrucción')"
-              title="Ver Historial de Cambios"
-            >
-              <i class="fas fa-history me-1"></i>Historial
-            </button>
-            <button
               class="btn-prim"
               data-bs-target="#modalSimple"
               data-bs-toggle="modal"
@@ -2144,13 +2130,6 @@
                 type="text"
               />
             </div>
-            <button
-              class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
-              onclick="verHistorial('Ocupaciones')"
-              title="Ver Historial de Cambios"
-            >
-              <i class="fas fa-history me-1"></i>Historial
-            </button>
             <button
               class="btn-prim"
               data-bs-target="#modalSimple"
@@ -2896,13 +2875,6 @@
               />
             </div>
             <button
-              class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
-              onclick="verHistorial('Grupos Ocupacionales')"
-              title="Ver Historial de Cambios"
-            >
-              <i class="fas fa-history me-1"></i>Historial
-            </button>
-            <button
               class="btn-prim"
               data-bs-target="#modalSimple"
               data-bs-toggle="modal"
@@ -3640,13 +3612,6 @@
                 type="search"
               />
             </div>
-            <button
-              class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
-              onclick="verHistorial('Prestaciones')"
-              title="Ver Historial de Cambios"
-            >
-              <i class="fas fa-history me-1"></i>Historial
-            </button>
             <button
               class="btn-prim"
               data-bs-target="#modalPrestacion"
@@ -4662,13 +4627,6 @@
               />
             </div>
             <button
-              class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
-              onclick="verHistorial('Fichas')"
-              title="Ver Historial de Cambios"
-            >
-              <i class="fas fa-history me-1"></i>Historial
-            </button>
-            <button
               class="btn-prim"
               data-bs-target="#modalFicha"
               data-bs-toggle="modal"
@@ -5285,13 +5243,6 @@
                 type="text"
               />
             </div>
-            <button
-              class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
-              onclick="verHistorial('Orden de Prestaciones')"
-              title="Ver Historial de Cambios"
-            >
-              <i class="fas fa-history me-1"></i>Historial
-            </button>
           </div>
         </div>
         <!-- BLOQUE SEPO -->
@@ -9775,34 +9726,46 @@
               </div>
             </div>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap">
             <button
-              class="btn btn-light rounded-pill px-4 fw-bold"
-              data-bs-dismiss="modal"
+              class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
+              id="btnHistorialCentro"
+              onclick="verHistorial('Centros Médicos')"
+              style="display: none"
+              title="Ver Historial de Cambios"
+              type="button"
             >
-              Cancelar
+              <i class="fas fa-history me-1"></i>Historial
             </button>
-            <button
-              class="btn-prim"
-              onclick="
-                if (!document.getElementById('cDesc').value.trim()) {
-                  showToast('⚠️ Por favor, complete los campos obligatorios');
-                  return;
-                }
-                confirmarGuardar('Centro Médico', () => {
-                  setTimeout(
-                    () =>
-                      bootstrap.Modal.getInstance(
-                        document.getElementById('modalCentro'),
-                      ).hide(),
-                    300,
-                  );
-                  showToast('Centro Médico guardado correctamente.');
-                });
-              "
-            >
-              <i class="fas fa-save me-2"></i>Guardar Cambios
-            </button>
+            <div class="d-flex gap-2 ms-auto flex-wrap justify-content-end">
+              <button
+                class="btn btn-light rounded-pill px-4 fw-bold"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+              <button
+                class="btn-prim"
+                onclick="
+                  if (!document.getElementById('cDesc').value.trim()) {
+                    showToast('⚠️ Por favor, complete los campos obligatorios');
+                    return;
+                  }
+                  confirmarGuardar('Centro Médico', () => {
+                    setTimeout(
+                      () =>
+                        bootstrap.Modal.getInstance(
+                          document.getElementById('modalCentro'),
+                        ).hide(),
+                      300,
+                    );
+                    showToast('Centro Médico guardado correctamente.');
+                  });
+                "
+              >
+                <i class="fas fa-save me-2"></i>Guardar Cambios
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -9855,16 +9818,27 @@
               </div>
             </div>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap">
             <button
-              class="btn btn-light rounded-pill px-4 fw-bold"
-              data-bs-dismiss="modal"
+              class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
+              id="btnHistorialSimple"
+              style="display: none"
+              title="Ver Historial de Cambios"
+              type="button"
             >
-              Cancelar
+              <i class="fas fa-history me-1"></i>Historial
             </button>
-            <button class="btn-prim" id="btnSaveSimple">
-              <i class="fas fa-save me-2"></i>Guardar
-            </button>
+            <div class="d-flex gap-2 ms-auto flex-wrap justify-content-end">
+              <button
+                class="btn btn-light rounded-pill px-4 fw-bold"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+              <button class="btn-prim" id="btnSaveSimple">
+                <i class="fas fa-save me-2"></i>Guardar
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -9933,16 +9907,28 @@
               <div class="items-box p-2" id="listaFichasPrestacion"></div>
             </div>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap">
             <button
-              class="btn btn-light rounded-pill px-4 fw-bold"
-              data-bs-dismiss="modal"
+              class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
+              id="btnHistorialPrestacion"
+              onclick="verHistorial('Prestaciones')"
+              style="display: none"
+              title="Ver Historial de Cambios"
+              type="button"
             >
-              Cancelar
+              <i class="fas fa-history me-1"></i>Historial
             </button>
-            <button class="btn-prim" id="btnSavePrest">
-              <i class="fas fa-save me-2"></i>Guardar Prestación
-            </button>
+            <div class="d-flex gap-2 ms-auto flex-wrap justify-content-end">
+              <button
+                class="btn btn-light rounded-pill px-4 fw-bold"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+              <button class="btn-prim" id="btnSavePrest">
+                <i class="fas fa-save me-2"></i>Guardar Prestación
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -10195,34 +10181,46 @@
               </div>
             </div>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap">
             <button
-              class="btn btn-light rounded-pill px-4 fw-bold"
-              data-bs-dismiss="modal"
+              class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
+              id="btnHistorialFicha"
+              onclick="verHistorial('Fichas')"
+              style="display: none"
+              title="Ver Historial de Cambios"
+              type="button"
             >
-              Cancelar
+              <i class="fas fa-history me-1"></i>Historial
             </button>
-            <button
-              class="btn-prim"
-              onclick="
-                if (!document.getElementById('fDesc').value.trim()) {
-                  showToast('⚠️ Por favor, complete los campos obligatorios');
-                  return;
-                }
-                confirmarGuardar('Ficha', () => {
-                  setTimeout(
-                    () =>
-                      bootstrap.Modal.getInstance(
-                        document.getElementById('modalFicha'),
-                      ).hide(),
-                    300,
-                  );
-                  showToast('Ficha guardada correctamente.');
-                });
-              "
-            >
-              <i class="fas fa-save me-2"></i>Guardar Ficha
-            </button>
+            <div class="d-flex gap-2 ms-auto flex-wrap justify-content-end">
+              <button
+                class="btn btn-light rounded-pill px-4 fw-bold"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+              <button
+                class="btn-prim"
+                onclick="
+                  if (!document.getElementById('fDesc').value.trim()) {
+                    showToast('⚠️ Por favor, complete los campos obligatorios');
+                    return;
+                  }
+                  confirmarGuardar('Ficha', () => {
+                    setTimeout(
+                      () =>
+                        bootstrap.Modal.getInstance(
+                          document.getElementById('modalFicha'),
+                        ).hide(),
+                      300,
+                    );
+                    showToast('Ficha guardada correctamente.');
+                  });
+                "
+              >
+                <i class="fas fa-save me-2"></i>Guardar Ficha
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -10313,26 +10311,37 @@
               </div>
             </div>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap">
             <button
-              class="btn btn-light rounded-pill px-4 fw-bold"
-              data-bs-dismiss="modal"
+              class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
+              id="btnHistorialOrden"
+              onclick="verHistorial('Orden de Prestaciones')"
+              title="Ver Historial de Cambios"
+              type="button"
             >
-              Cerrar
+              <i class="fas fa-history me-1"></i>Historial
             </button>
-            <button
-              class="btn-prim"
-              onclick="
-                confirmarGuardar('Orden de Pruebas', () => {
-                  bootstrap.Modal.getInstance(
-                    document.getElementById('modalOrdenPruebas'),
-                  ).hide();
-                  showToast('Orden guardado correctamente.');
-                })
-              "
-            >
-              <i class="fas fa-save me-2"></i>Guardar Orden
-            </button>
+            <div class="d-flex gap-2 ms-auto flex-wrap justify-content-end">
+              <button
+                class="btn btn-light rounded-pill px-4 fw-bold"
+                data-bs-dismiss="modal"
+              >
+                Cerrar
+              </button>
+              <button
+                class="btn-prim"
+                onclick="
+                  confirmarGuardar('Orden de Pruebas', () => {
+                    bootstrap.Modal.getInstance(
+                      document.getElementById('modalOrdenPruebas'),
+                    ).hide();
+                    showToast('Orden guardado correctamente.');
+                  });
+                "
+              >
+                <i class="fas fa-save me-2"></i>Guardar Orden
+              </button>
+            </div>
           </div>
         </div>
       </div>

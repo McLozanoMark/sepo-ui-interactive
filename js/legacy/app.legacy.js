@@ -260,6 +260,7 @@ const _pruebasPorGrupo = {
 };
 
 function abrirOrdenPruebas(codPrest, depGrupo) {
+  sepoToggleHistorialModalButton("btnHistorialOrden", "Orden de Prestaciones", true);
   // Actualizar título del modal
   const titulo = document.getElementById("tOrdenPruebas");
   if (titulo) {
@@ -484,6 +485,7 @@ function resetBox(boxId, emptyId, icon, msg) {
 
 /* ── CENTROS ── */
 function nuevoCentro() {
+  sepoToggleHistorialModalButton("btnHistorialCentro", "Centros Médicos", false);
   document.getElementById("tCentro").innerHTML =
     '<i class="fas fa-hospital me-2 text-primary"></i>Nuevo Centro Médico';
   ["cCod", "cDesc", "cDir"].forEach(
@@ -505,6 +507,7 @@ function nuevoCentro() {
   }
 }
 function editarCentro(cod, activo, virtual) {
+  sepoToggleHistorialModalButton("btnHistorialCentro", "Centros Médicos", true);
   document.getElementById("tCentro").innerHTML =
     '<i class="fas fa-pen me-2 text-primary"></i>Editar: ' + cod;
   document.getElementById("cCod").value = cod;
@@ -565,7 +568,32 @@ function editarCentro(cod, activo, virtual) {
 }
 
 /* ── SIMPLE ── */
+
+function sepoToggleHistorialModalButton(buttonId, modulo, visible) {
+  const btn = document.getElementById(buttonId);
+  if (!btn) return;
+  btn.style.display = visible ? "inline-flex" : "none";
+  if (visible && modulo) {
+    btn.onclick = function () {
+      verHistorial(modulo);
+    };
+  }
+}
+
+function sepoInferModuloSimple(cod, tipo) {
+  if (tipo === "Ocupación") return "Ocupaciones";
+  if (tipo === "Grupo Ocupacional") return "Grupos Ocupacionales";
+  if (tipo === "Grado de Instrucción") return "Grado de Instrucción";
+  if (typeof cod === "string") {
+    if (cod.indexOf("GI-") === 0) return "Grado de Instrucción";
+    if (cod.indexOf("OC-") === 0) return "Ocupaciones";
+    if (cod.indexOf("GO-") === 0) return "Grupos Ocupacionales";
+  }
+  return null;
+}
+
 function nuevoSimple(tipo) {
+  sepoToggleHistorialModalButton("btnHistorialSimple", null, false);
   const moduloName =
     tipo === "Ocupación"
       ? "Ocupaciones"
@@ -592,6 +620,11 @@ function nuevoSimple(tipo) {
   }
 }
 function editarSimple(cod, desc, tipo = "Registro") {
+  sepoToggleHistorialModalButton(
+    "btnHistorialSimple",
+    sepoInferModuloSimple(cod, tipo),
+    true,
+  );
   const moduloName =
     tipo === "Ocupación"
       ? "Ocupaciones"
@@ -620,6 +653,7 @@ function editarSimple(cod, desc, tipo = "Registro") {
 
 /* ── PRESTACIONES ── */
 function nuevaPrestacion() {
+  sepoToggleHistorialModalButton("btnHistorialPrestacion", "Prestaciones", false);
   document.getElementById("tPrest").innerHTML =
     '<i class="fas fa-stethoscope me-2 text-primary"></i>Nueva Prestación';
   ["pCod", "pDesc"].forEach((id) => {
@@ -658,6 +692,7 @@ function nuevaPrestacion() {
   }
 }
 function editarPrestacion(cod) {
+  sepoToggleHistorialModalButton("btnHistorialPrestacion", "Prestaciones", true);
   document.getElementById("tPrest").innerHTML =
     '<i class="fas fa-pen me-2 text-primary"></i>Editar Prestación: <strong>' +
     cod +
@@ -1359,6 +1394,7 @@ function setEstadoFichaMode(mode) {
   }
 }
 function nuevaFicha() {
+  sepoToggleHistorialModalButton("btnHistorialFicha", "Fichas", false);
   document.getElementById("tFicha").innerHTML =
     '<i class="fas fa-clipboard-list me-2 text-primary"></i>Nueva Ficha';
   document.getElementById("fCod").value = "";
@@ -1397,6 +1433,7 @@ function nuevaFicha() {
 }
 
 function editarFicha(cod, esGrupo) {
+  sepoToggleHistorialModalButton("btnHistorialFicha", "Fichas", true);
   document.getElementById("tFicha").innerHTML =
     '<i class="fas fa-pen me-2 text-primary"></i>Editar Ficha: ' + cod;
   document.getElementById("fCod").value = cod;
