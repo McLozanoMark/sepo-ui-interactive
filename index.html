@@ -9964,13 +9964,7 @@
                     <input
                       class="form-check-input"
                       id="fTieneGrupo"
-                      onchange="
-                        document.getElementById('fGrupoBox').style.display =
-                          this.checked ? 'block' : 'none';
-                        document.getElementById(
-                          'fCodigoDatoBox',
-                        ).style.display = this.checked ? 'none' : 'block';
-                      "
+                      onchange="toggleFichaGrupoMode(this.checked)"
                       type="checkbox"
                     />
                     <label class="form-check-label ms-2" for="fTieneGrupo"
@@ -9980,43 +9974,12 @@
                 </div>
               </div>
             </div>
-            <div id="fGrupoBox" style="display: none">
-              <h6 class="fw-bold mb-3" style="color: var(--primary-hover)">
-                <i class="fas fa-layer-group me-2"></i>Grupo de Fichas
-                (Sub-fichas)
-              </h6>
-              <div class="soft-panel p-3">
-                <div class="d-flex gap-2 mb-3">
-                  <div class="search-wrap flex-grow-1">
-                    <i class="fas fa-search"></i>
-                    <input
-                      class="form-control"
-                      id="inputBuscarSubFicha"
-                      placeholder="Buscar sub-ficha para añadir por código... (Presione Enter)"
-                      style="border-radius: 12px; padding-left: 42px"
-                      type="text"
-                    />
-                  </div>
-                  <button
-                    class="btn btn-outline-primary fw-bold"
-                    onclick="showToast('Sub-ficha agregada')"
-                  >
-                    <i class="fas fa-plus me-1"></i> Añadir
-                  </button>
-                </div>
-                <div class="items-box p-2" id="listaSubFichas">
-                  <div class="text-center text-muted fst-italic py-3 small">
-                    <i class="fas fa-info-circle me-1"></i> Digite el código de
-                    ficha a añadir en la parte superior.
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div id="fGrupoBox" style="display: none"></div>
             <div id="fCodigoDatoBox">
               <div
                 class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2"
               >
-                <h6 class="fw-bold mb-0" style="color: var(--primary-hover)">
+                <h6 class="fw-bold mb-0" id="fSectionTitle" style="color: var(--primary-hover)">
                   <i class="fas fa-tag me-2"></i>Códigos Dato de la Ficha
                 </h6>
               </div>
@@ -10026,7 +9989,7 @@
               >
                 <div class="row g-2 align-items-end">
                   <div class="col-md-2">
-                    <label class="form-label small fw-bold text-muted"
+                    <label class="form-label small fw-bold text-muted" id="fLabelCodigo"
                       >Código</label
                     >
                     <input
@@ -10037,7 +10000,7 @@
                     />
                   </div>
                   <div class="col-md-3">
-                    <label class="form-label small fw-bold text-muted"
+                    <label class="form-label small fw-bold text-muted" id="fLabelDesc"
                       >Descripción</label
                     >
                     <input
@@ -10047,8 +10010,8 @@
                       type="text"
                     />
                   </div>
-                  <div class="col-md-3">
-                    <label class="form-label small fw-bold text-muted"
+                  <div class="col-md-3" id="fTipoWrap">
+                    <label class="form-label small fw-bold text-muted" id="fLabelTipo"
                       >Tipo</label
                     >
                     <select class="form-select form-select-sm" id="fCdTipo">
@@ -10057,6 +10020,23 @@
                       <option value="Interpretación texto">
                         Interpretación texto
                       </option>
+                    </select>
+                  </div>
+                  <div class="col-md-2 d-none" id="fFichaWrap">
+                    <label class="form-label small fw-bold text-muted">Ficha</label>
+                    <select class="form-select form-select-sm" id="fSubFicha">
+                      <option value="CPS-001">CPS-001 - Escala de Ansiedad</option>
+                      <option value="CPS-007">CPS-007 - Inventario de Burnout</option>
+                      <option value="CME-010">CME-010 - Evaluación Médica Base</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2 d-none" id="fGrupoOcupWrap">
+                    <label class="form-label small fw-bold text-muted">Grupo Ocupacional</label>
+                    <select class="form-select form-select-sm" id="fGrupoOcup">
+                      <option value="Administrativo">Administrativo</option>
+                      <option value="Operativo">Operativo</option>
+                      <option value="Conductor">Conductor</option>
+                      <option value="Asistencial">Asistencial</option>
                     </select>
                   </div>
                   <div class="col-md-2">
@@ -10071,7 +10051,7 @@
                   <div class="col-md-2">
                     <button
                       class="btn btn-primary btn-sm w-100 fw-bold shadow-sm"
-                      onclick="addCodigoDato()"
+                      onclick="addFichaItem()"
                       style="height: 31px"
                     >
                       <i class="fas fa-plus me-1"></i> Añadir
@@ -10107,51 +10087,70 @@
                   >
                     <thead
                       class="bg-light text-muted small"
+                      id="fItemTableHead"
                       style="border-bottom: 2px solid #e2e8f0"
-                    >
-                      <tr>
-                        <th class="ps-3 py-2">Código</th>
-                        <th class="py-2">Descripción</th>
-                        <th class="py-2">Tipo</th>
-                        <th class="py-2">Estado</th>
-                        <th class="text-center py-2">Acciones</th>
-                      </tr>
-                    </thead>
-                    <tbody id="fCdTableBody">
-                      <!-- Datos ficticios para la demo -->
-                      <tr>
-                        <td class="ps-3">
-                          <span
-                            class="badge bg-light text-dark border shadow-sm"
-                            ><i class="fas fa-tag me-1 text-primary"></i>
-                            PTJ-001</span
-                          >
-                        </td>
-                        <td>Puntaje Total</td>
-                        <td>
-                          <span class="text-muted small"
-                            ><i class="fas fa-calculator me-1"></i> Puntaje
-                            numérico</span
-                          >
-                        </td>
-                        <td>
-                          <span
-                            class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25"
-                            style="font-size: 0.72rem"
-                            >Activo</span
-                          >
-                        </td>
-                        <td class="text-center">
-                          <button
-                            class="btn btn-link btn-sm text-danger p-0"
-                            onclick="this.closest('tr').remove()"
-                          >
-                            <i class="fas fa-trash"></i>
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
+                    ></thead>
+                    <tbody id="fCdTableBody"></tbody>
                   </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade" id="modalEditFichaItem" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-pen me-2 text-primary"></i>Editar detalle</h5>
+                    <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label class="form-label">Código</label>
+                        <input class="form-control" id="editItemCod" type="text" />
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Descripción</label>
+                        <input class="form-control" id="editItemDesc" type="text" />
+                      </div>
+                      <div class="col-md-6" id="editItemTipoWrap">
+                        <label class="form-label">Tipo</label>
+                        <select class="form-select" id="editItemTipo">
+                          <option value="Puntaje numérico">Puntaje numérico</option>
+                          <option value="Nivel texto">Nivel texto</option>
+                          <option value="Interpretación texto">Interpretación texto</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6 d-none" id="editItemFichaWrap">
+                        <label class="form-label">Ficha</label>
+                        <select class="form-select" id="editItemFicha">
+                          <option value="CPS-001">CPS-001 - Escala de Ansiedad</option>
+                          <option value="CPS-007">CPS-007 - Inventario de Burnout</option>
+                          <option value="CME-010">CME-010 - Evaluación Médica Base</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6 d-none" id="editItemGrupoWrap">
+                        <label class="form-label">Grupo Ocupacional</label>
+                        <select class="form-select" id="editItemGrupo">
+                          <option value="Administrativo">Administrativo</option>
+                          <option value="Operativo">Operativo</option>
+                          <option value="Conductor">Conductor</option>
+                          <option value="Asistencial">Asistencial</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Estado</label>
+                        <select class="form-select" id="editItemEstado">
+                          <option value="Activo">Activo</option>
+                          <option value="Inactivo">Inactivo</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button>
+                    <button class="btn-prim" onclick="guardarEdicionFichaItem()"><i class="fas fa-save me-2"></i>Guardar cambios</button>
+                  </div>
                 </div>
               </div>
             </div>

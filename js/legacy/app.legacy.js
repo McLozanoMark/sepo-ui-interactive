@@ -1365,10 +1365,87 @@ function setEstadoFichaMode(mode) {
     }
   }
 }
+let fichaItemsMode = "codigo";
+let fichaItemsData = [];
+let fichaEditIndex = -1;
+
+function getDefaultFichaItems() {
+  return [
+    { codigo: "PTJ-001", descripcion: "Puntaje Total", tipo: "Puntaje numérico", estado: "Activo" },
+    { codigo: "NVL-001", descripcion: "Nivel de Riesgo", tipo: "Nivel texto", estado: "Activo" },
+    { codigo: "INT-001", descripcion: "Interpretación Clínica", tipo: "Interpretación texto", estado: "Activo" },
+  ];
+}
+
+function getDefaultGrupoFichaItems() {
+  return [
+    { codigo: "SUB-001", descripcion: "Perfil Psicosocial Base", ficha: "CPS-001", grupo: "Administrativo", estado: "Activo" },
+    { codigo: "SUB-002", descripcion: "Control de Fatiga", ficha: "CPS-007", grupo: "Operativo", estado: "Activo" },
+    { codigo: "SUB-003", descripcion: "Evaluación de Ingreso", ficha: "CME-010", grupo: "Conductor", estado: "Inactivo" },
+  ];
+}
+
+function renderEstadoFichaBadge(est) {
+  const active = est === "Activo";
+  return `<span class="badge ${active ? "bg-success" : "bg-secondary"} bg-opacity-10 ${active ? "text-success" : "text-secondary"} border ${active ? "border-success" : "border-secondary"} border-opacity-25" style="font-size: 0.72rem;">${est}</span>`;
+}
+
+function toggleFichaGrupoMode(isGrupo) {
+  fichaItemsMode = isGrupo ? "grupo" : "codigo";
+  const title = document.getElementById("fSectionTitle");
+  if (title) {
+    title.innerHTML = `<i class="fas ${isGrupo ? "fa-layer-group" : "fa-tag"} me-2"></i>${isGrupo ? "Grupo de Fichas (Sub-fichas)" : "Códigos Dato de la Ficha"}`;
+  }
+  document.getElementById("fTipoWrap").classList.toggle("d-none", isGrupo);
+  document.getElementById("fFichaWrap").classList.toggle("d-none", !isGrupo);
+  document.getElementById("fGrupoOcupWrap").classList.toggle("d-none", !isGrupo);
+  document.getElementById("fCdCod").placeholder = isGrupo ? "Ej: SUB-001" : "Ej: PTJ-001";
+  document.getElementById("fCdDesc").placeholder = isGrupo ? "Ej: Perfil Psicosocial Base" : "Ej: Puntaje Total";
+  if (!Array.isArray(fichaItemsData) || !fichaItemsData.length || (isGrupo && fichaItemsData[0].tipo) || (!isGrupo && fichaItemsData[0].ficha)) {
+    fichaItemsData = isGrupo ? getDefaultGrupoFichaItems() : getDefaultFichaItems();
+  }
+  renderFichaItemsTable();
+}
+
+function renderFichaItemsTable() {
+  const thead = document.getElementById("fItemTableHead");
+  const tbody = document.getElementById("fCdTableBody");
+  if (!thead || !tbody) return;
+
+  thead.innerHTML = fichaItemsMode === "grupo"
+    ? `<tr><th class="ps-3 py-2">Código</th><th class="py-2">Descripción</th><th class="py-2">Ficha</th><th class="py-2">Grupo Ocupacional</th><th class="py-2">Estado</th><th class="text-center py-2">Acciones</th></tr>`
+    : `<tr><th class="ps-3 py-2">Código</th><th class="py-2">Descripción</th><th class="py-2">Tipo</th><th class="py-2">Estado</th><th class="text-center py-2">Acciones</th></tr>`;
+
+  const tipIcons = {
+    "Puntaje numérico": "fa-calculator",
+    "Nivel texto": "fa-font",
+    "Interpretación texto": "fa-comment-alt",
+  };
+
+  tbody.innerHTML = fichaItemsData.map((item, idx) => {
+    if (fichaItemsMode === "grupo") {
+      return `<tr>
+        <td class="ps-3"><span class="badge bg-light text-dark border shadow-sm"><i class="fas fa-layer-group me-1 text-primary"></i> ${item.codigo}</span></td>
+        <td>${item.descripcion}</td>
+        <td><span class="text-muted small"><i class="fas fa-file-alt me-1"></i> ${item.ficha}</span></td>
+        <td><span class="text-muted small"><i class="fas fa-users me-1"></i> ${item.grupo}</span></td>
+        <td>${renderEstadoFichaBadge(item.estado)}</td>
+        <td class="text-center"><button class="btn btn-link btn-sm text-primary p-0 me-2" onclick="editarFichaItem(${idx})"><i class="fas fa-pen"></i></button><button class="btn btn-link btn-sm text-danger p-0" onclick="eliminarFichaItem(${idx})"><i class="fas fa-trash"></i></button></td>
+      </tr>`;
+    }
+    return `<tr>
+      <td class="ps-3"><span class="badge bg-light text-dark border shadow-sm"><i class="fas fa-tag me-1 text-primary"></i> ${item.codigo}</span></td>
+      <td>${item.descripcion}</td>
+      <td><span class="text-muted small"><i class="fas ${tipIcons[item.tipo] || "fa-tag"} me-1"></i> ${item.tipo}</span></td>
+      <td>${renderEstadoFichaBadge(item.estado)}</td>
+      <td class="text-center"><button class="btn btn-link btn-sm text-primary p-0 me-2" onclick="editarFichaItem(${idx})"><i class="fas fa-pen"></i></button><button class="btn btn-link btn-sm text-danger p-0" onclick="eliminarFichaItem(${idx})"><i class="fas fa-trash"></i></button></td>
+    </tr>`;
+  }).join("");
+}
+
 function nuevaFicha() {
   sepoToggleHistorialModalButton("btnHistorialFicha", "Fichas", false);
-  document.getElementById("tFicha").innerHTML =
-    '<i class="fas fa-clipboard-list me-2 text-primary"></i>Nueva Ficha';
+  document.getElementById("tFicha").innerHTML = '<i class="fas fa-clipboard-list me-2 text-primary"></i>Nueva Ficha';
   document.getElementById("fCod").value = "";
   document.getElementById("fCod").disabled = false;
   document.getElementById("fDesc").disabled = false;
@@ -1376,38 +1453,14 @@ function nuevaFicha() {
   document.getElementById("fDesc").value = "";
   document.getElementById("fTieneGrupo").checked = false;
   document.getElementById("fFinalizada").checked = false;
-  document.getElementById("fGrupoBox").style.display = "none";
-  document.getElementById("fCodigoDatoBox").style.display = "block";
-  document.getElementById("fCdTableBody").innerHTML = `
-          <tr>
-            <td class="ps-3"><span class="badge bg-light text-dark border shadow-sm"><i class="fas fa-tag me-1 text-primary"></i> PTJ-001</span></td>
-            <td>Puntaje Total</td>
-            <td><span class="text-muted small"><i class="fas fa-calculator me-1"></i> Puntaje numérico</span></td>
-            <td><span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25" style="font-size: 0.72rem;">Activo</span></td>
-            <td class="text-center"><button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('tr').remove()"><i class="fas fa-trash"></i></button></td>
-          </tr>
-          <tr>
-            <td class="ps-3"><span class="badge bg-light text-dark border shadow-sm"><i class="fas fa-tag me-1 text-primary"></i> NVL-001</span></td>
-            <td>Nivel de Riesgo</td>
-            <td><span class="text-muted small"><i class="fas fa-font me-1"></i> Nivel texto</span></td>
-            <td><span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25" style="font-size: 0.72rem;">Activo</span></td>
-            <td class="text-center"><button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('tr').remove()"><i class="fas fa-trash"></i></button></td>
-          </tr>
-          <tr>
-            <td class="ps-3"><span class="badge bg-light text-dark border shadow-sm"><i class="fas fa-tag me-1 text-primary"></i> INT-001</span></td>
-            <td>Interpretación Clínica</td>
-            <td><span class="text-muted small"><i class="fas fa-comment-alt me-1"></i> Interpretación texto</span></td>
-            <td><span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25" style="font-size: 0.72rem;">Activo</span></td>
-            <td class="text-center"><button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('tr').remove()"><i class="fas fa-trash"></i></button></td>
-          </tr>
-        `;
+  fichaItemsData = getDefaultFichaItems();
+  toggleFichaGrupoMode(false);
   setEstadoFichaMode("create");
 }
 
 function editarFicha(cod, esGrupo) {
   sepoToggleHistorialModalButton("btnHistorialFicha", "Fichas", true);
-  document.getElementById("tFicha").innerHTML =
-    '<i class="fas fa-pen me-2 text-primary"></i>Editar Ficha: ' + cod;
+  document.getElementById("tFicha").innerHTML = '<i class="fas fa-pen me-2 text-primary"></i>Editar Ficha: ' + cod;
   document.getElementById("fCod").value = cod;
   document.getElementById("fCod").disabled = true;
   document.getElementById("fDesc").disabled = true;
@@ -1419,89 +1472,89 @@ function editarFicha(cod, esGrupo) {
     "FLB-005": "Examen de Metales Pesados",
     "FMO-004": "Ficha Médica Ocupacional",
   };
-  document.getElementById("fDesc").value =
-    demoDescs[cod] || "Ficha de Evaluación";
+  document.getElementById("fDesc").value = demoDescs[cod] || "Ficha de Evaluación";
   document.getElementById("fEstado").value = "activo";
   document.getElementById("fTieneGrupo").checked = !!esGrupo;
-
-  document.getElementById("fGrupoBox").style.display = esGrupo
-    ? "block"
-    : "none";
-  document.getElementById("fCodigoDatoBox").style.display = esGrupo
-    ? "none"
-    : "block";
-
+  fichaItemsData = esGrupo ? getDefaultGrupoFichaItems() : getDefaultFichaItems();
+  toggleFichaGrupoMode(!!esGrupo);
   setEstadoFichaMode("edit");
-
-  if (!esGrupo) {
-    document.getElementById("fCdTableBody").innerHTML = `
-            <tr>
-              <td class="ps-3"><span class="badge bg-light text-dark border shadow-sm"><i class="fas fa-tag me-1 text-primary"></i> PTJ-001</span></td>
-              <td>Puntaje Total</td>
-              <td><span class="text-muted small"><i class="fas fa-calculator me-1"></i> Puntaje numérico</span></td>
-              <td><span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25" style="font-size: 0.72rem;">Activo</span></td>
-              <td class="text-center"><button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('tr').remove()"><i class="fas fa-trash"></i></button></td>
-            </tr>
-            <tr>
-              <td class="ps-3"><span class="badge bg-light text-dark border shadow-sm"><i class="fas fa-tag me-1 text-primary"></i> NVL-001</span></td>
-              <td>Nivel de Riesgo</td>
-              <td><span class="text-muted small"><i class="fas fa-font me-1"></i> Nivel texto</span></td>
-              <td><span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25" style="font-size: 0.72rem;">Activo</span></td>
-              <td class="text-center"><button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('tr').remove()"><i class="fas fa-trash"></i></button></td>
-            </tr>
-            <tr>
-              <td class="ps-3"><span class="badge bg-light text-dark border shadow-sm"><i class="fas fa-tag me-1 text-primary"></i> INT-001</span></td>
-              <td>Interpretación Sugerida</td>
-              <td><span class="text-muted small"><i class="fas fa-comment-alt me-1"></i> Interpretación texto</span></td>
-              <td><span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25" style="font-size: 0.72rem;">Activo</span></td>
-              <td class="text-center"><button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('tr').remove()"><i class="fas fa-trash"></i></button></td>
-            </tr>
-          `;
-  } else {
-    document.getElementById("listaSubFichas").innerHTML = `
-            <div class="card-item p-2 mb-2 d-flex align-items-center justify-content-between border rounded" style="background:#f8fafc;">
-              <span class="small fw-bold text-primary"><i class="fas fa-file-alt me-2"></i>CPS-001</span>
-              <span class="small flex-grow-1 ms-3">Escala de Ansiedad</span>
-              <button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('.card-item').remove()"><i class="fas fa-trash"></i></button>
-            </div>
-          `;
-  }
 }
 
-function addCodigoDato() {
+function addFichaItem() {
   const cod = document.getElementById("fCdCod").value.trim().toUpperCase();
   const des = document.getElementById("fCdDesc").value.trim();
-  const tip = document.getElementById("fCdTipo").value;
   const est = document.getElementById("fCdEstado").value;
-
   if (!cod || !des) {
     showToast("⚠️ Ingrese código y descripción");
     return;
   }
 
-  const tbody = document.getElementById("fCdTableBody");
-  const tr = document.createElement("tr");
-
-  const tipIcons = {
-    "Puntaje numérico": "fa-calculator",
-    "Nivel texto": "fa-font",
-    "Interpretación texto": "fa-comment-alt",
-  };
-  const icon = tipIcons[tip] || "fa-tag";
-
-  tr.innerHTML = `
-          <td class="ps-3"><span class="badge bg-light text-dark border shadow-sm"><i class="fas fa-tag me-1 text-primary"></i> ${cod}</span></td>
-          <td>${des}</td>
-          <td><span class="text-muted small"><i class="fas ${icon} me-1"></i> ${tip}</span></td>
-          <td><span class="badge ${est === "Activo" ? "bg-success" : "bg-secondary"} bg-opacity-10 ${est === "Activo" ? "text-success" : "text-secondary"} border ${est === "Activo" ? "border-success" : "border-secondary"} border-opacity-25" style="font-size: 0.72rem;">${est}</span></td>
-          <td class="text-center"><button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('tr').remove()"><i class="fas fa-trash"></i></button></td>
-        `;
-
-  // If it was the "Sin Códigos" message, clear it (though here we clear it in nuevaFicha anyway)
-  tbody.appendChild(tr);
+  if (fichaItemsMode === "grupo") {
+    fichaItemsData.push({
+      codigo: cod,
+      descripcion: des,
+      ficha: document.getElementById("fSubFicha").value,
+      grupo: document.getElementById("fGrupoOcup").value,
+      estado: est,
+    });
+  } else {
+    fichaItemsData.push({
+      codigo: cod,
+      descripcion: des,
+      tipo: document.getElementById("fCdTipo").value,
+      estado: est,
+    });
+  }
 
   document.getElementById("fCdCod").value = "";
   document.getElementById("fCdDesc").value = "";
+  renderFichaItemsTable();
+  showToast("Elemento añadido para la demo");
+}
+
+function addCodigoDato() {
+  addFichaItem();
+}
+
+function editarFichaItem(index) {
+  fichaEditIndex = index;
+  const item = fichaItemsData[index];
+  document.getElementById("editItemCod").value = item.codigo || "";
+  document.getElementById("editItemDesc").value = item.descripcion || "";
+  document.getElementById("editItemEstado").value = item.estado || "Activo";
+  const isGrupo = fichaItemsMode === "grupo";
+  document.getElementById("editItemTipoWrap").classList.toggle("d-none", isGrupo);
+  document.getElementById("editItemFichaWrap").classList.toggle("d-none", !isGrupo);
+  document.getElementById("editItemGrupoWrap").classList.toggle("d-none", !isGrupo);
+  if (isGrupo) {
+    document.getElementById("editItemFicha").value = item.ficha || "CPS-001";
+    document.getElementById("editItemGrupo").value = item.grupo || "Administrativo";
+  } else {
+    document.getElementById("editItemTipo").value = item.tipo || "Puntaje numérico";
+  }
+  new bootstrap.Modal(document.getElementById("modalEditFichaItem")).show();
+}
+
+function guardarEdicionFichaItem() {
+  if (fichaEditIndex < 0) return;
+  const item = fichaItemsData[fichaEditIndex];
+  item.codigo = document.getElementById("editItemCod").value.trim().toUpperCase();
+  item.descripcion = document.getElementById("editItemDesc").value.trim();
+  item.estado = document.getElementById("editItemEstado").value;
+  if (fichaItemsMode === "grupo") {
+    item.ficha = document.getElementById("editItemFicha").value;
+    item.grupo = document.getElementById("editItemGrupo").value;
+  } else {
+    item.tipo = document.getElementById("editItemTipo").value;
+  }
+  renderFichaItemsTable();
+  bootstrap.Modal.getInstance(document.getElementById("modalEditFichaItem")).hide();
+  showToast("Elemento actualizado para la demo");
+}
+
+function eliminarFichaItem(index) {
+  fichaItemsData.splice(index, 1);
+  renderFichaItemsTable();
 }
 
 function filtrarCodDatoFicha(val) {
@@ -1516,24 +1569,9 @@ function filtrarCodDatoFicha(val) {
 }
 
 function addSF() {
-  const input = document.getElementById("inputBuscarSubFicha");
-  const cod = input.value.trim().toUpperCase();
-  const des = "Sub-ficha de Evaluación";
-  if (!cod) return;
-
-  const div = document.createElement("div");
-  div.className =
-    "card-item p-2 mb-2 d-flex align-items-center justify-content-between border rounded";
-  div.style.background = "#f8fafc";
-  div.innerHTML = `
-          <span class="small fw-bold text-primary"><i class="fas fa-file-alt me-2"></i>${cod}</span>
-          <span class="small flex-grow-1 ms-3">${des}</span>
-          <button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('.card-item').remove()"><i class="fas fa-trash"></i></button>
-        `;
-  document.getElementById("listaSubFichas").appendChild(div);
-  input.value = "";
-  showToast("Sub-ficha agregada");
+  addFichaItem();
 }
+
 
 /* ══════════════════════════════
        PRUEBAS PSICOLÓGICAS
