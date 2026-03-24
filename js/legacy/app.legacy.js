@@ -5728,8 +5728,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function removeOrderBlocks(selector) {
+    qa(selector).forEach(function (card) {
+      collectDirectOrderBlocks(card).forEach(function (block) {
+        block.remove();
+      });
+    });
+  }
+
   function sepoNormalizeVisibleOrderFields() {
-    normalizeOrderCards("#screen-centros .card-item", { wide: false });
+    removeOrderBlocks("#screen-centros .card-item");
     normalizeOrderCards("#lista-sepo .card-item", { wide: true });
     normalizeOrderCards("#lista-complementario .card-item", { wide: false });
     normalizeOrderCards("#listaPrestOrden .card-item", { wide: false });
