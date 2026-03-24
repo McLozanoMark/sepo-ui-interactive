@@ -1303,9 +1303,9 @@ function renderPrestacionFichas(cod) {
   const fichas = getPrestacionFichas(cod);
   cont.innerHTML = fichas
     .map(
-      (ficha, index) => `
-              <div class="prest-ficha-card is-collapsed">
-                <div class="prest-ficha-header" onclick="togglePrestacionFicha(this)">
+      (ficha) => `
+              <div class="prest-ficha-card">
+                <div class="prest-ficha-header">
                   <div class="prest-ficha-title">
                     <span class="prest-ficha-badge"><i class="fas fa-file-medical-alt"></i></span>
                     <div>
@@ -1313,36 +1313,8 @@ function renderPrestacionFichas(cod) {
                         <span class="tag tag-fich">${ficha.codigo}</span>
                         <span class="fw-semibold text-dark">${ficha.nombre}</span>
                       </div>
-                      <div class="prest-ficha-subtitle">${ficha.subtitulo}</div>
-                      <div class="prest-ficha-summary"><i class="fas fa-list-check"></i>${ficha.codigos.length} c\u00f3digos de dato disponibles</div>
+                      
                     </div>
-                  </div>
-                  <button type="button" class="prest-ficha-toggle" aria-label="Desglosar ficha" onclick="event.stopPropagation(); togglePrestacionFicha(this.closest('.prest-ficha-header'))"><i class="fas fa-chevron-down"></i></button>
-                </div>
-                <div class="prest-ficha-body">
-                  <div class="prest-codigos-head">
-                    <div>C\u00f3digo de dato</div>
-                    <div>Estado</div>
-                  </div>
-                  <div class="prest-codigos-list">
-                    ${ficha.codigos
-                      .map(
-                        (codigo, codIndex) => `
-                          <div class="prest-codigo-row">
-                            <div>
-                              <div class="prest-codigo-name">${codigo.nombre}</div>
-                              <div class="prest-codigo-meta">${codigo.meta}</div>
-                            </div>
-                            <div class="prest-switch-wrap">
-                              <div class="form-check form-switch m-0">
-                                <input class="form-check-input" type="checkbox" checked id="prest-${index}-${codIndex}" />
-                              </div>
-                              <span class="prest-switch-label">Encendido</span>
-                            </div>
-                          </div>
-                        `,
-                      )
-                      .join("")}
                   </div>
                 </div>
               </div>
