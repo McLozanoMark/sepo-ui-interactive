@@ -29,7 +29,7 @@
         .card-item
         > .d-flex.align-items-center.gap-4.flex-shrink-0
         > .d-flex.align-items-center.gap-3.text-muted {
-        width: 200px;
+        width: 170px;
         justify-content: flex-end;
       }
     </style>
@@ -9703,9 +9703,7 @@
               </div>
             </div>
           </div>
-          <div
-            class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap"
-          >
+          <div class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap">
             <button
               class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
               id="btnHistorialCentro"
@@ -9797,9 +9795,7 @@
               </div>
             </div>
           </div>
-          <div
-            class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap"
-          >
+          <div class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap">
             <button
               class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
               id="btnHistorialSimple"
@@ -9888,9 +9884,7 @@
               <div class="items-box p-2" id="listaFichasPrestacion"></div>
             </div>
           </div>
-          <div
-            class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap"
-          >
+          <div class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap">
             <button
               class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
               id="btnHistorialPrestacion"
@@ -10025,28 +10019,6 @@
                 <h6 class="fw-bold mb-0" style="color: var(--primary-hover)">
                   <i class="fas fa-tag me-2"></i>Códigos Dato de la Ficha
                 </h6>
-                <div class="d-flex gap-2 align-items-center">
-                  <div class="search-wrap flex-grow-1" style="width: 280px">
-                    <i
-                      class="fas fa-search text-muted"
-                      style="
-                        position: absolute;
-                        left: 12px;
-                        top: 50%;
-                        transform: translateY(-50%);
-                        width: auto;
-                        height: auto;
-                      "
-                    ></i>
-                    <input
-                      class="form-control form-control-sm"
-                      oninput="filtrarCodDatoFicha(this.value)"
-                      placeholder="Buscar código o descripción..."
-                      style="border-radius: 8px; padding-left: 35px"
-                      type="text"
-                    />
-                  </div>
-                </div>
               </div>
               <div
                 class="soft-panel p-3 mb-3"
@@ -10107,6 +10079,26 @@
                   </div>
                 </div>
               </div>
+              <div class="search-wrap mb-3" style="max-width: 280px">
+                <i
+                  class="fas fa-search text-muted"
+                  style="
+                    position: absolute;
+                    left: 12px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: auto;
+                    height: auto;
+                  "
+                ></i>
+                <input
+                  class="form-control form-control-sm"
+                  oninput="filtrarCodDatoFicha(this.value)"
+                  placeholder="Buscar código o descripción..."
+                  style="border-radius: 8px; padding-left: 35px"
+                  type="text"
+                />
+              </div>
               <div class="soft-panel p-0 overflow-hidden">
                 <div class="table-responsive">
                   <table
@@ -10164,9 +10156,7 @@
               </div>
             </div>
           </div>
-          <div
-            class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap"
-          >
+          <div class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap">
             <button
               class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
               id="btnHistorialFicha"
@@ -10296,9 +10286,7 @@
               </div>
             </div>
           </div>
-          <div
-            class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap"
-          >
+          <div class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap">
             <button
               class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
               id="btnHistorialOrden"
@@ -10323,7 +10311,7 @@
                       document.getElementById('modalOrdenPruebas'),
                     ).hide();
                     showToast('Orden guardado correctamente.');
-                  })
+                  });
                 "
               >
                 <i class="fas fa-save me-2"></i>Guardar Orden
