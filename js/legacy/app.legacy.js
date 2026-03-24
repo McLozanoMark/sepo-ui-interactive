@@ -51,17 +51,17 @@ function appendNuevaPrestacion() {
       <div class="icon-box" style="background: #e3f2fd; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">
         <i class="fas fa-file-medical text-primary" style="font-size: 1.2rem;"></i>
       </div>
+      <div class="d-flex flex-column align-items-start gap-1 flex-shrink-0" style="width: 120px;">
+        <label class="fw-bold text-muted mb-0" style="font-size: 0.65rem; letter-spacing: 0.8px;">ORDEN</label>
+        <div style="width: 120px; height: 60px; background: #fff; border: 2px solid var(--primary); border-radius: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(21, 101, 192, 0.1);">
+            <input type="number" class="form-control form-control-sm fw-bold text-primary border-0 bg-transparent p-0 text-center" onchange="reordenarPrestacion(this)" value="${totalItems + 1}" min="1" style="width: 100px; font-size: 1.25rem;">
+        </div>
+      </div>
       <div class="flex-grow-1 d-flex flex-column" style="min-width: 0;">
         <span class="fw-semibold text-dark" style="font-size: 1.1rem; line-height: 1.2;">${desc}</span>
         <div class="d-flex align-items-center gap-2 mt-1">
             <span class="text-muted fw-medium" style="font-size: 0.85rem;">${cod}</span>
             ${statusHTML}
-        </div>
-      </div>
-      <div class="d-flex flex-column align-items-center gap-1 flex-shrink-0">
-        <label class="fw-bold text-muted mb-0" style="font-size: 0.65rem; letter-spacing: 0.8px;">ORDEN</label>
-        <div style="width: 60px; height: 60px; background: #fff; border: 2px solid var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(21, 101, 192, 0.1);">
-            <input type="number" class="form-control form-control-sm fw-bold text-primary border-0 bg-transparent p-0" onchange="reordenarPrestacion(this)" value="${totalItems + 1}" min="1" style="width: 60px; font-size: 1.25rem;">
         </div>
       </div>
     </div>`;
@@ -129,10 +129,10 @@ function confirmarAddPrestOrden(cod, nombre) {
              </button>
         </div>
       </div>
-      <div class="d-flex flex-column align-items-center gap-1 flex-shrink-0">
+      <div class="d-flex flex-column align-items-start gap-1 flex-shrink-0" style="width: 120px;">
         <label class="fw-bold text-muted mb-0" style="font-size: 0.65rem; letter-spacing: 0.8px;">ORDEN</label>
-        <div style="width: 60px; height: 60px; background: #fff; border: 2px solid var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(21, 101, 192, 0.1);">
-            <input type="number" class="form-control form-control-sm fw-bold text-primary border-0 bg-transparent p-0" onchange="reordenarPrestacion(this)" value="${lista.querySelectorAll(".card-item").length + 1}" min="1" style="width: 60px; font-size: 1.25rem;">
+        <div style="width: 120px; height: 60px; background: #fff; border: 2px solid var(--primary); border-radius: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(21, 101, 192, 0.1);">
+            <input type="number" class="form-control form-control-sm fw-bold text-primary border-0 bg-transparent p-0 text-center" onchange="reordenarPrestacion(this)" value="${lista.querySelectorAll(".card-item").length + 1}" min="1" style="width: 100px; font-size: 1.25rem;">
         </div>
       </div>
     </div>`;
@@ -311,13 +311,13 @@ function cargarPruebasOrden() {
                         <div class="icon-box" style="background: #f8fafc; border: 1px solid var(--border-light); width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 12px; flex-shrink: 0;">
                             <i class="fas fa-file-medical-alt text-primary opacity-75" style="font-size: 1.25rem;"></i>
                         </div>
+                        <div class="d-flex flex-column align-items-start gap-1 flex-shrink-0" style="width: 120px;">
+                            <span style="font-size: 0.65rem; font-weight: 700; color: var(--text-main); letter-spacing: 0.5px;">ORDEN</span>
+                            <input type="number" class="form-control text-center fw-bold text-primary border-primary shadow-sm" onchange="reordenarPrestacion(this)" value="${index + 1}" min="1" style="width: 120px; height: 44px; border-radius: 10px; font-size: 1.1rem; background-color: #fff;">
+                        </div>
                         <div class="flex-grow-1 d-flex flex-column" style="min-width: 0;">
                             <span style="font-size: 1.1rem; font-weight: 700; color: var(--primary, #2563eb); line-height: 1.35; display: block;">${p.nom || p.descripcion || "Prestación sin nombre"}</span>
                             <small class="text-muted fw-medium mt-1" style="font-size: 0.78rem;">${p.cod}</small>
-                        </div>
-                        <div class="d-flex flex-column align-items-center gap-1 flex-shrink-0">
-                            <span style="font-size: 0.65rem; font-weight: 700; color: var(--text-main); letter-spacing: 0.5px;">ORDEN</span>
-                            <input type="number" class="form-control text-center fw-bold text-primary border-primary shadow-sm" onchange="reordenarPrestacion(this)" value="${index + 1}" min="1" style="width: 58px; height: 44px; border-radius: 10px; font-size: 1.1rem; background-color: #fff;">
                         </div>
                     </div>
                 </div>`;
