@@ -4566,29 +4566,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const _duplicarAlternativa = window.duplicarAlternativa;
 
   function sepoInjectOpenExtras() {
-    const root = q("#mpContenedorPregunta");
-    if (!root || q("#sepoOpenExpectedBox", root)) return;
-    const target = q("#mp_A_boxPrecarga", root);
-    if (!target) return;
-
-    const extra = document.createElement("div");
-    extra.id = "sepoOpenExpectedBox";
-    extra.className = "col-md-12 mt-3";
-    extra.innerHTML = `
-      <div class="soft-panel">
-        <div class="row g-3">
-          <div class="col-md-8">
-            <label class="form-label text-muted small fw-bold mb-1">Respuesta esperada</label>
-            <input type="text" class="form-control" id="mp_A_respuestaEsperada" placeholder="Escribe la respuesta esperada...">
-          </div>
-          <div class="col-md-4">
-            <label class="form-label text-muted small fw-bold mb-1">Valor / Puntaje</label>
-            <input type="number" class="form-control" id="mp_A_valorEsperado" min="0" step="0.1" placeholder="Ej: 5">
-          </div>
-        </div>
-      </div>
-    `;
-    target.insertAdjacentElement("afterend", extra);
+    return;
   }
 
   function sepoInjectClosedPrecargaSelect() {

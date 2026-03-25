@@ -14,29 +14,7 @@
   }
 
   function ensureOpenQuestionVineta() {
-    const numCol = q("#mp_A_boxNumCol");
-    const row = numCol && numCol.parentElement;
-    if (!numCol || !row || q("#mp_A_vineta")) return;
-
-    const col = document.createElement("div");
-    col.className = "col-md-4";
-    col.innerHTML = `
-      <!-- ACTUALIZACION: RESTAURAR TIPO DE VIÑETA EN PREGUNTA ABIERTA -->
-      <label class="form-label text-muted small fw-bold mb-1">Tipo de Viñeta</label>
-      <select class="form-select" id="mp_A_vineta" onchange="if(window.actualizarModoVineta){ actualizarModoVineta(this, 'mp_A_alternativas_box'); }">
-        <option value="letras" selected>Letras</option>
-        <option value="num">Números</option>
-        <option value="rom">Números romanos</option>
-        <option value="otros">Otros</option>
-      </select>
-    `;
-    row.insertBefore(col, numCol.nextElementSibling);
-
-    const altCreator = q("#mp_A_alternativas_box");
-    const wrapper = altCreator && altCreator.closest(".col-12.mt-4");
-    if (wrapper && wrapper.style.display === "none") {
-      wrapper.style.display = "";
-    }
+    return;
   }
 
   function syncPreguntaVisualState() {
