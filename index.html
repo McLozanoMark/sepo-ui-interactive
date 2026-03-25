@@ -29,7 +29,7 @@
         .card-item
         > .d-flex.align-items-center.gap-4.flex-shrink-0
         > .d-flex.align-items-center.gap-3.text-muted {
-        width: 170px;
+        width: 200px;
         justify-content: flex-end;
       }
     </style>
@@ -194,7 +194,7 @@
               >Pruebas Psicológicas
             </h1>
             <p class="page-subtitle mb-0">
-              Búsqueda por nombre, tipo o código · 6 pruebas registradas
+              Configuración de pruebas psicológicas
             </p>
           </div>
           <div class="d-flex gap-3 align-items-center">
@@ -1616,7 +1616,7 @@
               ></i
               >Grado de Instrucción
             </h1>
-            <p class="page-subtitle">Mantenimiento simple (14 registros)</p>
+            <p class="page-subtitle">Registro del grado de instrucción</p>
           </div>
           <div class="d-flex gap-3">
             <div class="search-wrap">
@@ -2071,7 +2071,9 @@
               <i class="fas fa-briefcase me-2" style="color: var(--primary)"></i
               >Ocupaciones
             </h1>
-            <p class="page-subtitle">Mantenimiento simple</p>
+            <p class="page-subtitle">
+              Registro de la actividad laboral o profesión del paciente
+            </p>
           </div>
           <div class="d-flex gap-3">
             <div class="search-wrap">
@@ -2815,7 +2817,9 @@
               <i class="fas fa-users me-2" style="color: var(--primary)"></i
               >Grupos Ocupacionales
             </h1>
-            <p class="page-subtitle">Categorización simplificada</p>
+            <p class="page-subtitle">
+              Seccionamiento de evaluaciones por grupos ocupacionales
+            </p>
           </div>
           <div class="d-flex gap-3">
             <div class="search-wrap">
@@ -3549,7 +3553,7 @@
               >Prestaciones
             </h1>
             <p class="page-subtitle">
-              Tipos de examen y vinculación modular de fichas
+              Detalle y configuración de las prestaciones
             </p>
           </div>
           <div
@@ -4564,7 +4568,7 @@
               >Fichas
             </h1>
             <p class="page-subtitle">
-              Construcción modular mediante Códigos Dato o Sub-fichas
+              Detalle y configuración de fichas Chamán
             </p>
           </div>
           <div
@@ -9703,7 +9707,9 @@
               </div>
             </div>
           </div>
-          <div class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap">
+          <div
+            class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap"
+          >
             <button
               class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
               id="btnHistorialCentro"
@@ -9795,7 +9801,9 @@
               </div>
             </div>
           </div>
-          <div class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap">
+          <div
+            class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap"
+          >
             <button
               class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
               id="btnHistorialSimple"
@@ -9884,7 +9892,9 @@
               <div class="items-box p-2" id="listaFichasPrestacion"></div>
             </div>
           </div>
-          <div class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap">
+          <div
+            class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap"
+          >
             <button
               class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
               id="btnHistorialPrestacion"
@@ -9979,7 +9989,11 @@
               <div
                 class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2"
               >
-                <h6 class="fw-bold mb-0" id="fSectionTitle" style="color: var(--primary-hover)">
+                <h6
+                  class="fw-bold mb-0"
+                  id="fSectionTitle"
+                  style="color: var(--primary-hover)"
+                >
                   <i class="fas fa-tag me-2"></i>Códigos Dato de la Ficha
                 </h6>
               </div>
@@ -9989,7 +10003,9 @@
               >
                 <div class="row g-2 align-items-end">
                   <div class="col-md-2">
-                    <label class="form-label small fw-bold text-muted" id="fLabelCodigo"
+                    <label
+                      class="form-label small fw-bold text-muted"
+                      id="fLabelCodigo"
                       >Código</label
                     >
                     <input
@@ -10000,7 +10016,9 @@
                     />
                   </div>
                   <div class="col-md-3">
-                    <label class="form-label small fw-bold text-muted" id="fLabelDesc"
+                    <label
+                      class="form-label small fw-bold text-muted"
+                      id="fLabelDesc"
                       >Descripción</label
                     >
                     <input
@@ -10011,7 +10029,9 @@
                     />
                   </div>
                   <div class="col-md-3" id="fTipoWrap">
-                    <label class="form-label small fw-bold text-muted" id="fLabelTipo"
+                    <label
+                      class="form-label small fw-bold text-muted"
+                      id="fLabelTipo"
                       >Tipo</label
                     >
                     <select class="form-select form-select-sm" id="fCdTipo">
@@ -10023,15 +10043,25 @@
                     </select>
                   </div>
                   <div class="col-md-2 d-none" id="fFichaWrap">
-                    <label class="form-label small fw-bold text-muted">Ficha</label>
+                    <label class="form-label small fw-bold text-muted"
+                      >Ficha</label
+                    >
                     <select class="form-select form-select-sm" id="fSubFicha">
-                      <option value="CPS-001">CPS-001 - Escala de Ansiedad</option>
-                      <option value="CPS-007">CPS-007 - Inventario de Burnout</option>
-                      <option value="CME-010">CME-010 - Evaluación Médica Base</option>
+                      <option value="CPS-001">
+                        CPS-001 - Escala de Ansiedad
+                      </option>
+                      <option value="CPS-007">
+                        CPS-007 - Inventario de Burnout
+                      </option>
+                      <option value="CME-010">
+                        CME-010 - Evaluación Médica Base
+                      </option>
                     </select>
                   </div>
                   <div class="col-md-2 d-none" id="fGrupoOcupWrap">
-                    <label class="form-label small fw-bold text-muted">Grupo Ocupacional</label>
+                    <label class="form-label small fw-bold text-muted"
+                      >Grupo Ocupacional</label
+                    >
                     <select class="form-select form-select-sm" id="fGrupoOcup">
                       <option value="Administrativo">Administrativo</option>
                       <option value="Operativo">Operativo</option>
@@ -10100,33 +10130,57 @@
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title"><i class="fas fa-pen me-2 text-primary"></i>Editar detalle</h5>
-                    <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                    <h5 class="modal-title">
+                      <i class="fas fa-pen me-2 text-primary"></i>Editar detalle
+                    </h5>
+                    <button
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      type="button"
+                    ></button>
                   </div>
                   <div class="modal-body">
                     <div class="row g-3">
                       <div class="col-md-6">
                         <label class="form-label">Código</label>
-                        <input class="form-control" id="editItemCod" type="text" />
+                        <input
+                          class="form-control"
+                          id="editItemCod"
+                          type="text"
+                        />
                       </div>
                       <div class="col-md-6">
                         <label class="form-label">Descripción</label>
-                        <input class="form-control" id="editItemDesc" type="text" />
+                        <input
+                          class="form-control"
+                          id="editItemDesc"
+                          type="text"
+                        />
                       </div>
                       <div class="col-md-6" id="editItemTipoWrap">
                         <label class="form-label">Tipo</label>
                         <select class="form-select" id="editItemTipo">
-                          <option value="Puntaje numérico">Puntaje numérico</option>
+                          <option value="Puntaje numérico">
+                            Puntaje numérico
+                          </option>
                           <option value="Nivel texto">Nivel texto</option>
-                          <option value="Interpretación texto">Interpretación texto</option>
+                          <option value="Interpretación texto">
+                            Interpretación texto
+                          </option>
                         </select>
                       </div>
                       <div class="col-md-6 d-none" id="editItemFichaWrap">
                         <label class="form-label">Ficha</label>
                         <select class="form-select" id="editItemFicha">
-                          <option value="CPS-001">CPS-001 - Escala de Ansiedad</option>
-                          <option value="CPS-007">CPS-007 - Inventario de Burnout</option>
-                          <option value="CME-010">CME-010 - Evaluación Médica Base</option>
+                          <option value="CPS-001">
+                            CPS-001 - Escala de Ansiedad
+                          </option>
+                          <option value="CPS-007">
+                            CPS-007 - Inventario de Burnout
+                          </option>
+                          <option value="CME-010">
+                            CME-010 - Evaluación Médica Base
+                          </option>
                         </select>
                       </div>
                       <div class="col-md-6 d-none" id="editItemGrupoWrap">
@@ -10148,14 +10202,26 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancelar</button>
-                    <button class="btn-prim" onclick="guardarEdicionFichaItem()"><i class="fas fa-save me-2"></i>Guardar cambios</button>
+                    <button
+                      class="btn btn-light rounded-pill px-4 fw-bold"
+                      data-bs-dismiss="modal"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      class="btn-prim"
+                      onclick="guardarEdicionFichaItem()"
+                    >
+                      <i class="fas fa-save me-2"></i>Guardar cambios
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap">
+          <div
+            class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap"
+          >
             <button
               class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
               id="btnHistorialFicha"
@@ -10285,7 +10351,9 @@
               </div>
             </div>
           </div>
-          <div class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap">
+          <div
+            class="modal-footer d-flex justify-content-between align-items-center gap-3 flex-wrap"
+          >
             <button
               class="btn btn-outline-secondary rounded-pill px-3 fw-bold shadow-sm"
               id="btnHistorialOrden"
@@ -10310,7 +10378,7 @@
                       document.getElementById('modalOrdenPruebas'),
                     ).hide();
                     showToast('Orden guardado correctamente.');
-                  });
+                  })
                 "
               >
                 <i class="fas fa-save me-2"></i>Guardar Orden
