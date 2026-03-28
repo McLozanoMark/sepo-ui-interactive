@@ -8763,7 +8763,7 @@
                         value="1"
                       />
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 d-none">
                       <label class="form-label text-primary fw-bold small"
                         >Código Factor</label
                       >
@@ -8771,6 +8771,7 @@
                         class="form-control"
                         id="facCod"
                         placeholder="FAC-001"
+                        type="hidden"
                       />
                     </div>
                     <div class="col-md-4">
@@ -8831,147 +8832,63 @@
                         <label
                           class="form-check-label fw-bold text-muted small"
                           for="facDepNivel"
-                          >Dependencia Nivel (Requiere tabla base)</label
+                          >Dependencia Nivel</label
                         >
                       </div>
                     </div>
                     <div class="col-12 mt-2 pt-3 border-top pb-1">
-                      <!-- NUEVO CONSTRUCTOR DE FORMULAS MULTI-MODO -->
-                      <label class="form-label fw-bold small text-primary mb-2"
-                        ><i class="fas fa-magic me-2"></i>Constructor de Fórmula
-                        Multimodo</label
+                      <label class="form-label fw-bold small text-primary mb-3"
+                        ><i class="fas fa-magic me-2"></i>Constructor de Fórmula</label
                       >
-                      <ul
-                        class="nav nav-tabs mb-3 border-0 bg-light p-1 rounded-pill"
-                        id="formulaTabs"
-                        role="tablist"
-                        style="max-width: 600px"
-                      >
-                        <li class="nav-item flex-grow-1" role="presentation">
-                          <button
-                            class="nav-link active rounded-pill fw-bold"
-                            data-bs-target="#f-smart"
-                            data-bs-toggle="pill"
-                            id="f-smart-tab"
-                            role="tab"
-                            style="font-size: 0.85rem"
-                            type="button"
+                      <div class="d-flex flex-wrap justify-content-between gap-3 mb-3">
+                        <div class="form-check form-switch m-0">
+                          <input
+                            class="form-check-input"
+                            id="facMostrarDescPregunta"
+                            type="checkbox"
+                          />
+                          <label
+                            class="form-check-label fw-bold text-dark small"
+                            for="facMostrarDescPregunta"
+                            >Mostrar descripción de la pregunta</label
                           >
-                            <i class="fas fa-search me-1"></i> Smart Search
-                          </button>
-                        </li>
-                        <li class="nav-item flex-grow-1" role="presentation">
-                          <button
-                            class="nav-link rounded-pill fw-bold"
-                            data-bs-target="#f-lego"
-                            data-bs-toggle="pill"
-                            id="f-lego-tab"
-                            role="tab"
-                            style="font-size: 0.85rem"
-                            type="button"
-                          >
-                            <i class="fas fa-shapes me-1"></i> Constructor
-                            Visual
-                          </button>
-                        </li>
-                      </ul>
-                      <div
-                        class="tab-content bg-white p-3 border rounded shadow-sm mb-3"
-                        id="formulaTabsContent"
-                      >
-                        <!-- MODO SMART SEARCH -->
-                        <div
-                          class="tab-pane fade show active"
-                          id="f-smart"
-                          role="tabpanel"
-                        >
-                          <div class="row g-2 mb-3">
-                            <div class="col-md-12">
-                              <div class="input-group input-group-sm">
-                                <span
-                                  class="input-group-text bg-primary text-white border-primary"
-                                  ><i class="fas fa-plus-circle"></i
-                                ></span>
-                                <input
-                                  class="form-control border-primary"
-                                  id="rangeSumInput"
-                                  placeholder="Sumar rango rápido. Ej: 1-20"
-                                  type="text"
-                                />
-                                <button
-                                  class="btn btn-primary fw-bold"
-                                  onclick="generarRangoSuma()"
-                                  type="button"
-                                >
-                                  Generar Suma
-                                </button>
-                              </div>
-                              <div
-                                class="form-text mt-1"
-                                style="font-size: 10px"
-                              >
-                                Escriba los números de pregunta (ej: 1-10) para
-                                generar {P1}+{P2}...
-                              </div>
-                            </div>
-                          </div>
-                          <div class="mb-2 border-top pt-2">
-                            <input
-                              class="form-control form-control-sm"
-                              id="smartFormulaSearch"
-                              onkeyup="filterFormulaTemplates(this.value)"
-                              placeholder="Buscar plantillas de sistemas modernos..."
-                              type="text"
-                            />
-                          </div>
-                          <div
-                            class="d-flex flex-column gap-1 overflow-auto"
-                            id="smartTemplatesBox"
-                            style="max-height: 140px"
-                          >
-                            <div
-                              class="p-2 border rounded cursor-pointer hover-bg-light"
-                              onclick="insertarFormula('RP1 + RP2')"
-                            >
-                              <div class="fw-bold small">
-                                Suma básica de preguntas
-                              </div>
-                              <div class="text-muted" style="font-size: 11px">
-                                Suma dos preguntas del cuestionario usando la
-                                lógica actual del sistema.
-                              </div>
-                            </div>
-                            <div
-                              class="p-2 border rounded cursor-pointer hover-bg-light"
-                              onclick="insertarFormula('(RP1 + RP2 + RP3) / 3')"
-                            >
-                              <div class="fw-bold small">Promedio simple</div>
-                              <div class="text-muted" style="font-size: 11px">
-                                Calcula un promedio rápido usando tres
-                                preguntas.
-                              </div>
-                            </div>
-                            <div
-                              class="p-2 border rounded cursor-pointer hover-bg-light"
-                              onclick="
-                                insertarFormula('SI(RP1 &gt; 2, RP2, RP3)')
-                              "
-                            >
-                              <div class="fw-bold small">
-                                Condicional simple
-                              </div>
-                              <div class="text-muted" style="font-size: 11px">
-                                Usa una condición básica para elegir un
-                                resultado.
-                              </div>
-                            </div>
-                          </div>
                         </div>
-                        <!-- MODO CONSTRUCTOR LEGO (ORIGINAL) -->
-                        <div class="tab-pane fade" id="f-lego" role="tabpanel">
-                          <div
-                            class="d-flex flex-wrap gap-2 align-items-center"
+                        <div class="form-check form-switch m-0">
+                          <input
+                            class="form-check-input"
+                            id="facMostrarDescFactor"
+                            type="checkbox"
+                          />
+                          <label
+                            class="form-check-label fw-bold text-dark small"
+                            for="facMostrarDescFactor"
+                            >Mostrar descripción de factor</label
                           >
+                        </div>
+                      </div>
+                      <div class="d-flex flex-wrap gap-2 mb-3 align-items-center">
+                        <select
+                          class="form-select form-select-sm w-auto d-inline-block border-secondary text-secondary fw-bold shadow-sm"
+                          id="facSelPreg"
+                          style="min-width: 160px"
+                        >
+                          <option value="">Insertar Ítem</option>
+                          <option value="P1_PTJ">P1 - Puntaje</option>
+                          <option value="P2_PTJ">P2 - Puntaje</option>
+                        </select>
+                        <select
+                          class="form-select form-select-sm w-auto d-inline-block border-secondary text-secondary fw-bold shadow-sm"
+                          id="facSelFac"
+                          style="min-width: 160px"
+                        >
+                          <option value="">Insertar Factor</option>
+                          <option value="FAC-001">FAC-001</option>
+                        </select>
+                      </div>
+                      <div class="bg-white p-3 border rounded shadow-sm mb-3">
+                        <div class="d-flex flex-wrap gap-3 align-items-start">
+                          <div class="d-flex flex-wrap gap-2 align-items-center">
+                            <span class="small fw-bold text-muted text-uppercase">Condicionales</span>
                             <button
                               class="btn btn-sm btn-white border fw-bold"
                               onclick="insertarFormula(' SI ')"
@@ -8986,7 +8903,9 @@
                             >
                               ENTONCES
                             </button>
-                            <span class="border-end mx-1"></span>
+                          </div>
+                          <div class="d-flex flex-wrap gap-2 align-items-center border-start ps-3">
+                            <span class="small fw-bold text-muted text-uppercase">Operadores</span>
                             <button
                               class="btn btn-sm btn-white border fw-bold"
                               onclick="insertarFormula(' + ')"
@@ -9019,23 +8938,9 @@
                             >
                               <i class="fas fa-divide"></i>
                             </button>
-                            <button
-                              class="btn btn-sm btn-white border fw-bold"
-                              onclick="insertarFormula('(')"
-                              title="Paréntesis"
-                              type="button"
-                            >
-                              (
-                            </button>
-                            <button
-                              class="btn btn-sm btn-white border fw-bold"
-                              onclick="insertarFormula(')')"
-                              title="Paréntesis"
-                              type="button"
-                            >
-                              )
-                            </button>
-                            <span class="border-end mx-1"></span>
+                          </div>
+                          <div class="d-flex flex-wrap gap-2 align-items-center border-start ps-3">
+                            <span class="small fw-bold text-muted text-uppercase">Comparación</span>
                             <button
                               class="btn btn-sm btn-white border fw-bold"
                               onclick="insertarFormula(' == ')"
@@ -9072,6 +8977,7 @@
                           class="bg-success bg-opacity-10 p-3 rounded border border-success border-opacity-25"
                           id="formulaPreviewFinal"
                         >
+                          <div class="text-dark fs-5 mb-1">Constructor visual</div>
                           <div class="text-muted small fw-bold mb-1">
                             VISTA FINAL DE LA FÓRMULA:
                           </div>
@@ -9083,37 +8989,86 @@
                           </div>
                         </div>
                       </div>
-                      <div
-                        class="d-flex flex-wrap gap-2 mb-2 align-items-center"
-                      >
-                        <select
-                          class="form-select form-select-sm w-auto d-inline-block border-secondary text-secondary fw-bold shadow-sm"
-                          id="facSelPreg"
-                          style="min-width: 140px"
+                      <div class="bg-white p-3 border rounded shadow-sm">
+                        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+                          <div class="fw-bold text-dark small">
+                            <i class="fas fa-search me-1 text-primary"></i> Smart Search
+                          </div>
+                          <button
+                            class="btn btn-sm btn-outline-danger shadow-sm"
+                            onclick="clearSmartFormulaPreview()"
+                            title="Limpiar vista referencial"
+                            type="button"
+                          >
+                            <i class="fas fa-trash-alt me-1"></i> Limpiar Todo
+                          </button>
+                        </div>
+                        <div class="small text-muted border rounded bg-light px-3 py-2 mb-2">
+                          Biblioteca referencial de fórmulas frecuentes para orientar al psicólogo.
+                        </div>
+                        <div class="mb-2 border-top pt-2">
+                          <input
+                            class="form-control form-control-sm"
+                            id="smartFormulaSearch"
+                            onkeyup="filterFormulaTemplates(this.value)"
+                            placeholder="Buscar fórmulas de referencia..."
+                            type="text"
+                          />
+                        </div>
+                        <div
+                          class="d-flex flex-column gap-1 overflow-auto"
+                          id="smartTemplatesBox"
+                          style="max-height: 140px"
                         >
-                          <option value="">Insertar Ítem</option>
-                          <option value="P1_PTJ">P1 - Puntaje</option>
-                          <option value="P2_PTJ">P2 - Puntaje</option>
-                        </select>
-                        <select
-                          class="form-select form-select-sm w-auto d-inline-block border-secondary text-secondary fw-bold shadow-sm"
-                          id="facSelFac"
-                          style="min-width: 140px"
-                        >
-                          <option value="">Insertar Factor</option>
-                          <option value="FAC-001">FAC-001</option>
-                        </select>
-                        <button
-                          class="btn btn-sm btn-outline-danger ms-auto shadow-sm"
-                          onclick="
-                            document.getElementById('facFormula').value = '';
-                            syncFormula('');
-                          "
-                          title="Borrar Todo"
-                          type="button"
-                        >
-                          <i class="fas fa-trash-alt me-1"></i> Limpiar Todo
-                        </button>
+                          <div
+                            class="p-2 border rounded cursor-pointer hover-bg-light smart-template-item"
+                            onclick="previewFormulaExample('RP1 + RP2')"
+                          >
+                            <div class="fw-bold small">
+                              SUMAR 2 PREGUNTAS
+                            </div>
+                            <div class="text-muted" style="font-size: 11px">
+                              Ejemplo referencial para sumar dos preguntas del instrumento.
+                            </div>
+                          </div>
+                          <div
+                            class="p-2 border rounded cursor-pointer hover-bg-light smart-template-item"
+                            onclick="previewFormulaExample('(RP1 + RP2 + RP3) / 3')"
+                          >
+                            <div class="fw-bold small">PROMEDIO DE 3 PREGUNTAS</div>
+                            <div class="text-muted" style="font-size: 11px">
+                              Ejemplo referencial para calcular el promedio de tres preguntas.
+                            </div>
+                          </div>
+                          <div
+                            class="p-2 border rounded cursor-pointer hover-bg-light smart-template-item"
+                            onclick="previewFormulaExample('SI RP1 &gt; 2 ENTONCES RP2')"
+                          >
+                            <div class="fw-bold small">
+                              CONDICIONAL SIMPLE
+                            </div>
+                            <div class="text-muted" style="font-size: 11px">
+                              Ejemplo referencial de una condición básica para determinar un resultado.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mt-3">
+                          <div
+                            class="bg-primary bg-opacity-10 p-3 rounded border border-primary border-opacity-25"
+                            id="smartFormulaPreviewFinal"
+                          >
+                            <div class="text-dark fs-6 mb-1">Visualización referencial</div>
+                            <div class="text-muted small fw-bold mb-1">
+                              VISTA REFERENCIAL DE LA FÓRMULA:
+                            </div>
+                            <div
+                              class="monospace fw-bold text-primary fs-5"
+                              id="smartFormulaTextPreview"
+                            >
+                              ...
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="col-12 text-end mt-4">
@@ -10828,6 +10783,7 @@
     <script src="js/modules/bootstrap.js"></script>
     <script src="js/modules/regression-fixes.js"></script>
     <script src="js/legacy/app.legacy.js"></script>
+    <script src="js/modules/precarga-demo-fix.js"></script>
     <script src="js/modules/ubigeo-peru.js"></script>
     <!-- ========================================== -->
     <!-- ACTUALIZACION: MODAL REPLICA DE VALORES    -->
